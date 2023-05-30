@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/apis/album-api.dart';
-import 'package:let_api_flutter/src/widgets/button.dart';
-import 'package:let_api_flutter/src/widgets/text.dart';
-import '../models/album.dart';
-import '../widgets/title.dart';
+import 'package:let_api_flutter/src/apis/kkbox-api.dart';
 
+import '../models/search-kkbox-api.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -15,17 +12,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Future<Album> futureAlbum;
+  late Future<SearchKKBOX> searchKKBOXData;
+  final kkboxAPI = KkboxAPIClass();
 
   @override
   //初始化載入
   void initState() {
-    print('init');
     super.initState();
-    futureAlbum = fetchAlbum();
+    searchKKBOXData = kkboxAPI.search();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -34,18 +29,26 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(widget.title),
         ),
-        body: ListView(
-          children: [
-            Image.asset(
-              'images/lake.jpg',
-              width: 600,
-              height: 240,
-              fit: BoxFit.cover,
-            ),
-            titleSection,
-            buttonSection(context),
-            textSection
-          ],
-        ));
+        body: FutureBuilder<SearchKKBOX>(
+            future: searchKKBOXData,
+            builder: (BuildContext context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.tracks!.data!.length,
+                  itemBuilder: (context, index) {
+                    var tracks = snapshot.data?.tracks?.data ?? [];
+                    return tracks.isEmpty
+                        ? Text('123')
+                        : Text(tracks[index].url ?? '');
+                  },
+                );
+                // return PhotosList(photos: snapshot.data!.tracks!.data);
+              } else if (snapshot.hasError) {
+                print('Error: ${snapshot.error}');
+                return Container(); // 失敗回傳空資料
+              }
+              // 載入時轉圈圈
+              return const CircularProgressIndicator();
+            }));
   }
 }
