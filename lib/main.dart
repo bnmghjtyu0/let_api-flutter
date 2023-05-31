@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/pages/home.dart';
 
-//
 class App extends StatelessWidget {
-  //建構子
-  const App();
-
   //渲染到畫面
   @override
   Widget build(BuildContext context) {
@@ -24,5 +20,5 @@ class App extends StatelessWidget {
 
 //入口
 void main() {
-  runApp(const App());
+  runApp(App());
 }
