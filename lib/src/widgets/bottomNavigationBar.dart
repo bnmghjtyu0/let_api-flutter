@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/src/pages/food-delivery/main.dart';
 import 'package:let_api_flutter/src/pages/home.dart';
+import 'package:let_api_flutter/src/utils/colors.dart';
 
 class BottomNavigationBarCustom extends StatefulWidget {
   const BottomNavigationBarCustom({super.key});
@@ -42,11 +44,8 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
     return {
       '/': (context) {
         return [
+          const MainFoodPage(),
           const MyHomePage(title: '123'),
-          Text(
-            'Index 1: Business',
-            style: optionStyle,
-          ),
           Text(
             'Index 2: School',
             style: optionStyle,
@@ -103,7 +102,7 @@ Container createNavigationBar(
       ),
     ],
     currentIndex: _selectedIndex,
-    selectedItemColor: Theme.of(context).primaryColor,
+    selectedItemColor: AppColors.mainColor,
     unselectedItemColor: Colors.black45,
     iconSize: 25,
     unselectedFontSize: 12,

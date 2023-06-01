@@ -8,10 +8,7 @@ class App extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          //global colors
-          primaryColor: Colors.lightBlue[400],
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         ),
         home: const BottomNavigationBarCustom());
   }

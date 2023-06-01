@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/apis/kkbox-api.dart';
 import 'package:let_api_flutter/src/models/kkbox/charts.dart';
 import 'package:let_api_flutter/src/pages/detail.dart';
+import 'package:let_api_flutter/src/utils/colors.dart';
 
 class MyHomePage extends StatefulWidget {
   //定義 props
@@ -28,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: AppColors.mainColor,
           title: Text(widget.title),
         ),
         body: FutureBuilder<ChartsKKBOXResponse>(
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   padding: const EdgeInsets.all(4), // 墊充
                                   child: Image.network(
-                                      results[index]?.images?[0].url ?? '')),
+                                      results[index].images?[0].url ?? '')),
                               Flexible(
                                   child: Column(
                                       crossAxisAlignment:
@@ -65,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: Text(
                                             style:
                                                 TextStyle(color: Colors.black),
-                                            results[index]?.title ?? '')),
+                                            results[index].title ?? '')),
                                   ]))
                             ]),
                             onTap: () {

@@ -1,0 +1,9 @@
+slidy: "1"
+variables:
+  customMessage: "Complete" # Gets  ${Local.var.customMessage}
+
+scripts:
+  # Simple command (slidy run doctor)
+  doctor: flutter doctor
+  run:chrome: flutter run -d chrome --web-browser-flag "--disable-web-security"
+  run:ios: flutter run
