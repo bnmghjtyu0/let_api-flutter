@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/pages/food-delivery/page-view-item.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/utils/dimensions.dart';
 
 class FoodDeliveryContent extends StatefulWidget {
   const FoodDeliveryContent({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class _FoodDeliveryContentState extends State<FoodDeliveryContent> {
     return Column(children: [
       //輪播區塊
       SizedBox(
-          height: 320,
+          height: Dimensions.pageView,
           child: PageView.builder(
               controller: pageController,
               itemCount: 5,

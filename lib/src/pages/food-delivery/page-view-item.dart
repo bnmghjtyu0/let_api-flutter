@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
 import 'package:let_api_flutter/src/widgets/icon-and-text.dart';
 import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
 
 Widget pageViewItem(int index, double currPageValue) {
   double scaleFactor = 0.8;
-  double height = 220;
+  double height = Dimensions.pageViewContainer;
 
   Matrix4 matrix = Matrix4.identity();
   //目前選擇的圖片
@@ -43,10 +44,10 @@ Widget pageViewItem(int index, double currPageValue) {
       child: Stack(children: [
         //圖片
         Container(
-            height: 220,
+            height: Dimensions.pageViewContainer,
             margin: EdgeInsets.only(left: 10, right: 10),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(Dimensions.radius30),
                 color: index.isEven ? AppColors.mainColor : Colors.blue,
                 image: DecorationImage(
                     fit: BoxFit.cover, image: AssetImage("images/lake.jpg")))),
@@ -55,10 +56,13 @@ Widget pageViewItem(int index, double currPageValue) {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-              height: 140,
-              margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
+              height: Dimensions.pageViewTextContainer,
+              margin: EdgeInsets.only(
+                  left: Dimensions.width30,
+                  right: Dimensions.width30,
+                  bottom: Dimensions.height30),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -69,10 +73,13 @@ Widget pageViewItem(int index, double currPageValue) {
                     BoxShadow(color: Colors.white, offset: Offset(5, 0))
                   ]),
               child: Container(
-                  padding: EdgeInsets.only(top: 10, left: 15, right: 15),
+                  padding: EdgeInsets.only(
+                      top: Dimensions.height10,
+                      left: Dimensions.width15,
+                      right: Dimensions.width15),
                   child: Column(children: [
                     BigText(text: 'Taiwan'),
-                    SizedBox(height: 10),
+                    SizedBox(height: Dimensions.height10),
                     Row(
                       children: [
                         Wrap(
@@ -80,14 +87,15 @@ Widget pageViewItem(int index, double currPageValue) {
                                 5,
                                 (index) => Icon(Icons.star,
                                     color: AppColors.mainColor))),
-                        SizedBox(width: 10),
+                        SizedBox(width: Dimensions.width10),
                         SmallText(text: '4.5'),
-                        SizedBox(width: 10),
+                        SizedBox(width: Dimensions.width10),
                         SmallText(text: '1287'),
-                        SizedBox(width: 10),
+                        SizedBox(width: Dimensions.width10),
                         SmallText(text: 'comments')
                       ],
                     ),
+                    SizedBox(height: Dimensions.height10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

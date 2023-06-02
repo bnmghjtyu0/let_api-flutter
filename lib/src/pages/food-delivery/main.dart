@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/pages/food-delivery/content.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
 import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
 
@@ -9,13 +10,17 @@ class MainFoodPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("螢幕高度: ${MediaQuery.of(context).size.height}");
+    print("螢幕高度: ${MediaQuery.of(context).size.width}");
     return Column(
       children: [
         // header
         Container(
             child: Container(
-                margin: EdgeInsets.only(top: 45, bottom: 15),
-                padding: EdgeInsets.only(left: 20, right: 20),
+                margin: EdgeInsets.only(
+                    top: Dimensions.height45, bottom: Dimensions.height15),
+                padding: EdgeInsets.only(
+                    left: Dimensions.width20, right: Dimensions.width20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -31,10 +36,11 @@ class MainFoodPage extends StatelessWidget {
                     ]),
                     Center(
                         child: Container(
-                      width: 45,
-                      height: 45,
+                      width: Dimensions.width45,
+                      height: Dimensions.height45,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius20),
                           color: AppColors.mainColor),
                       child: Icon(Icons.search, color: Colors.white),
                     ))
