@@ -7,3 +7,4 @@ scripts:
   doctor: flutter doctor
   run:chrome: flutter run -d chrome --web-browser-flag "--disable-web-security"
   run:ios: flutter run
+  run:realios: flutter devices

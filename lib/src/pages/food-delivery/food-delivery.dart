@@ -36,19 +36,21 @@ class MainFoodPage extends StatelessWidget {
                     ]),
                     Center(
                         child: Container(
-                      width: Dimensions.width45,
+                      width: Dimensions.height45,
                       height: Dimensions.height45,
                       decoration: BoxDecoration(
                           borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
+                              BorderRadius.circular(Dimensions.radius15),
                           color: AppColors.mainColor),
-                      child: Icon(Icons.search, color: Colors.white),
+                      child: Icon(Icons.search,
+                          color: Colors.white, size: Dimensions.iconSize24),
                     ))
                   ],
                 ))),
 
         //body
-        FoodDeliveryContent()
+        //SingleChildScrollView 可滾動
+        Expanded(child: SingleChildScrollView(child: FoodDeliveryContent()))
       ],
     );
   }

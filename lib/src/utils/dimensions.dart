@@ -28,9 +28,15 @@ class Dimensions {
   //fontSize 20 高度應該是 20 ，所以 844/20 = 42.2
   static double font20 = screenHeight / 42.2;
 
+// radius
+  static double radius15 = screenHeight / 56.26;
   //radius 20 高度應該是 20 ，所以 844/20 = 42.2
   static double radius20 = screenHeight / 42.2;
-
-  //radius 30 高度應該是 30 ，所以 844/20 = 42.2
   static double radius30 = screenHeight / 28.13;
+
+  // icons
+  static double iconSize24 = screenHeight / 35.16;
+
+  static double listViewImageSize = screenWidth / 3.25;
+  static double listViewTextContentSize = screenWidth / 3.9;
 }

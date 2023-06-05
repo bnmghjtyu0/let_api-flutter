@@ -50,7 +50,8 @@ Widget pageViewItem(int index, double currPageValue) {
                 borderRadius: BorderRadius.circular(Dimensions.radius30),
                 color: index.isEven ? AppColors.mainColor : Colors.blue,
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage("images/lake.jpg")))),
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/image/lake.jpg")))),
 
         //資訊區塊
         Align(

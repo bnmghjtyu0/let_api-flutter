@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/pages/food-delivery/main.dart';
-import 'package:let_api_flutter/src/pages/home.dart';
+import 'package:let_api_flutter/src/pages/food-delivery/food-delivery.dart';
+import 'package:let_api_flutter/src/pages/home/home.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
 
 class BottomNavigationBarCustom extends StatefulWidget {
@@ -78,7 +78,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
 
 //建立 NavigationBar
 Container createNavigationBar(
-    BuildContext context, _selectedIndex, _onItemTapped) {
+    BuildContext context, selectedIndex, onItemTapped) {
   return Container(
       child: ClipRRect(
           child: BottomNavigationBar(
@@ -101,13 +101,13 @@ Container createNavigationBar(
         label: 'Settings',
       ),
     ],
-    currentIndex: _selectedIndex,
+    currentIndex: selectedIndex,
     selectedItemColor: AppColors.mainColor,
     unselectedItemColor: Colors.black45,
     iconSize: 25,
     unselectedFontSize: 12,
     showUnselectedLabels: true,
     backgroundColor: Colors.white,
-    onTap: _onItemTapped,
+    onTap: onItemTapped,
   )));
 }
