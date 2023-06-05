@@ -27,6 +27,7 @@ class Dimensions {
 
   //fontSize 20 高度應該是 20 ，所以 844/20 = 42.2
   static double font20 = screenHeight / 42.2;
+  static double font26 = screenHeight / 32.46;
 
 // radius
   static double radius15 = screenHeight / 56.26;
@@ -36,7 +37,11 @@ class Dimensions {
 
   // icons
   static double iconSize24 = screenHeight / 35.16;
+  static double iconSize16 = screenHeight / 52.75;
 
   static double listViewImageSize = screenWidth / 3.25;
   static double listViewTextContentSize = screenWidth / 3.9;
+
+// popular food
+  static double popularFoodImgSize = screenHeight / 2.41;
 }

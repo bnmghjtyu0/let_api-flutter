@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/widgets/bottomNavigationBar.dart';
+import 'package:let_api_flutter/src/pages/food-delivery/food-delivery-detail.dart';
 
 class App extends StatelessWidget {
   //渲染到畫面
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: const BottomNavigationBarCustom());
+        home: FoodDeliveryDetail());
   }
 }
 
