@@ -54,8 +54,9 @@ Widget pageViewItem(
                 color: index.isEven ? AppColors.mainColor : Colors.blue,
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                        '${AppConstants.BASE_URL}/uploads/${popularProduct.img!}')))),
+                    image: NetworkImage(AppConstants.BASE_URL +
+                        AppConstants.UPLOAD_URL +
+                        popularProduct.img!)))),
 
         //資訊區塊
         Align(

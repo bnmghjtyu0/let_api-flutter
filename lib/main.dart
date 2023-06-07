@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
+import 'package:let_api_flutter/src/controllers/recommend_product_controller.dart';
 import 'package:let_api_flutter/src/helper/dependencies.dart';
 import 'package:let_api_flutter/src/pages/food_delivery/food_delivery.dart';
 
@@ -11,6 +12,7 @@ class App extends StatelessWidget {
     init();
     print('app build');
     Get.find<PopularProductController>().getPopularProductList();
+    Get.find<RecommendProductController>().getRecommendProductList();
     return GetMaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
