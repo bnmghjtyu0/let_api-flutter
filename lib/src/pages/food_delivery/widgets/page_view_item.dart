@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/utils/constants.dart';
 import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
 import 'package:let_api_flutter/src/widgets/icon-and-text.dart';
 import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
 
-Widget pageViewItem(int index, double currPageValue) {
+Widget pageViewItem(
+    int index, double currPageValue, ProductModel popularProduct) {
   double scaleFactor = 0.8;
   double height = Dimensions.pageViewContainer;
 
@@ -51,7 +54,8 @@ Widget pageViewItem(int index, double currPageValue) {
                 color: index.isEven ? AppColors.mainColor : Colors.blue,
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/image/lake.jpg")))),
+                    image: NetworkImage(
+                        '${AppConstants.BASE_URL}/uploads/${popularProduct.img!}')))),
 
         //資訊區塊
         Align(

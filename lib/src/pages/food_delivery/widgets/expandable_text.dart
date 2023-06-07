@@ -21,9 +21,6 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   @override
   void initState() {
     super.initState();
-
-    print('initState');
-    print(widget.text);
     //使用 widget 取得外層資料
     if (widget.text.length > textHeight) {
       firstHalf = widget.text.substring(0, textHeight.toInt());

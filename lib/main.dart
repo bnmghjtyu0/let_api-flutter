@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/pages/food_delivery/recommend_detail.dart';
+import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
+import 'package:let_api_flutter/src/helper/dependencies.dart';
+import 'package:let_api_flutter/src/pages/food_delivery/food_delivery.dart';
 
 class App extends StatelessWidget {
   //渲染到畫面
   @override
   Widget build(BuildContext context) {
+    init();
+    print('app build');
+    Get.find<PopularProductController>().getPopularProductList();
     return GetMaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: RecommendDetailWidget());
+        home: MainFoodPage());
   }
 }
 

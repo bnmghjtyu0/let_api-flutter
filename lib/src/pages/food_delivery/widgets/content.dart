@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/pages/food_delivery/widgets/page_view_item.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
@@ -6,6 +7,7 @@ import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
 import 'package:let_api_flutter/src/widgets/icon-and-text.dart';
 import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
+import 'package:get/get.dart';
 
 class FoodDeliveryContent extends StatefulWidget {
   const FoodDeliveryContent({Key? key}) : super(key: key);
@@ -43,34 +45,43 @@ class _FoodDeliveryContentState extends State<FoodDeliveryContent> {
   Widget build(BuildContext context) {
     return Column(children: [
       //輪播區塊
-      SizedBox(
-          height: Dimensions.pageView,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: 5,
-              itemBuilder: (BuildContext context, position) {
-                return pageViewItem(position, _currPageValue);
-              })),
+      GetBuilder<PopularProductController>(builder: (popularProducts) {
+        return SizedBox(
+            height: Dimensions.pageView,
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: popularProducts.popularProductList.isEmpty
+                    ? 1
+                    : popularProducts.popularProductList.length,
+                itemBuilder: (BuildContext context, position) {
+                  return pageViewItem(position, _currPageValue,
+                      popularProducts.popularProductList[position]);
+                }));
+      }),
 
       // 點點區塊
-      DotsIndicator(
-        dotsCount: 5,
-        position: _currPageValue,
-        decorator: DotsDecorator(
-          size: const Size.square(9.0),
-          activeSize: const Size(18.0, 9.0),
-          activeColor: AppColors.mainColor,
-          activeShape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        ),
-      ),
+      GetBuilder<PopularProductController>(builder: (popularProducts) {
+        return DotsIndicator(
+          dotsCount: popularProducts.popularProductList.isEmpty
+              ? 1
+              : popularProducts.popularProductList.length,
+          position: _currPageValue,
+          decorator: DotsDecorator(
+            size: const Size.square(9.0),
+            activeSize: const Size(18.0, 9.0),
+            activeColor: AppColors.mainColor,
+            activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)),
+          ),
+        );
+      }),
       SizedBox(height: Dimensions.height30),
       // Popular title
       Container(
         margin: EdgeInsets.only(
             left: Dimensions.width30, right: Dimensions.width30),
         child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          BigText(text: 'Popular'),
+          BigText(text: 'Recommended'),
           SizedBox(
             width: Dimensions.width10,
           ),
