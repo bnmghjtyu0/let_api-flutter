@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/apis/kkbox-api.dart';
+import 'package:let_api_flutter/src/data/apis/kkbox-api.dart';
 import 'package:let_api_flutter/src/models/kkbox/charts.dart';
 import 'package:let_api_flutter/src/pages/home/detail.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';

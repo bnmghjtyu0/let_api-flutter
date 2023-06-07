@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/apis/kkbox-api.dart';
+import 'package:let_api_flutter/src/data/apis/kkbox-api.dart';
 import 'package:let_api_flutter/src/models/kkbox/chartDetail.dart';
 
 class HomeDetailPage extends StatefulWidget {
@@ -20,10 +20,11 @@ class _MyHomeDetailPageState extends State<HomeDetailPage> {
   @override
   void initState() {
     super.initState();
-    chartDetailData = kkboxAPI.chartDetail(widget?.videoId ?? '');
+    chartDetailData = kkboxAPI.chartDetail(widget.videoId ?? '');
     print(chartDetailData);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +41,7 @@ class _MyHomeDetailPageState extends State<HomeDetailPage> {
                     itemCount: snapshot.data?.tracks?.data?.length,
                     itemBuilder: (context, index) {
                       return Text(
-                          snapshot.data?.tracks?.data?[index]?.name ?? '');
+                          snapshot.data?.tracks?.data?[index].name ?? '');
                     }),
               )
             ]);
