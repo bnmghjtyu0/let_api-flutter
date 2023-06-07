@@ -26,6 +26,7 @@ class Dimensions {
   static double width45 = screenWidth / 18.76;
 
   //fontSize 20 高度應該是 20 ，所以 844/20 = 42.2
+  static double font16 = screenHeight / 52.7;
   static double font20 = screenHeight / 42.2;
   static double font26 = screenHeight / 32.46;
 
@@ -44,4 +45,7 @@ class Dimensions {
 
 // popular food
   static double popularFoodImgSize = screenHeight / 2.41;
+
+  // bottom height
+  static double bottomHeightBar = screenHeight / 7.03;
 }
