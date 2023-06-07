@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
+import 'package:let_api_flutter/src/pages/food_delivery/food_delivery.dart';
 import 'package:let_api_flutter/src/pages/food_delivery/widgets/expandable_text.dart';
 import 'package:let_api_flutter/src/pages/food_delivery/widgets/info_column.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/utils/constants.dart';
 import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/app-icon.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
+import 'package:get/get.dart';
 
 class PopularDetail extends StatelessWidget {
-  const PopularDetail({Key? key}) : super(key: key);
+  final int pageId;
+  const PopularDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    print('page is id $pageId');
+    print('product name ' + product.name);
     return Scaffold(
       body: Stack(
         children: [
@@ -25,7 +34,9 @@ class PopularDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(('assets/image/lake.jpg')))),
+                        image: NetworkImage((AppConstants.BASE_URL +
+                            AppConstants.UPLOAD_URL +
+                            product.img!)))),
               )),
 
           //icons
@@ -36,7 +47,12 @@ class PopularDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios),
+                  GestureDetector(
+                    onTap: (() {
+                      Get.to(() => MainFoodPage());
+                    }),
+                    child: AppIcon(icon: Icons.arrow_back_ios),
+                  ),
                   AppIcon(icon: Icons.shopping_cart_outlined)
                 ],
               )),
@@ -58,17 +74,14 @@ class PopularDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InfoColumn(title: 'Taiwan'),
+                      InfoColumn(title: product.name!),
                       SizedBox(height: Dimensions.height20),
                       // Introduce
                       BigText(text: 'Introduce'),
                       // expandable text
                       Expanded(
                           child: SingleChildScrollView(
-                        child: ExpandableTextWidget(
-                          text:
-                              'Taiwanese cuisine is a delightful and diverse culinary tradition that showcases the island\'s rich cultural heritage and influences from various regions, including China, Japan, and Southeast Asia. Taiwanese food is known for its bold flavors, vibrant colors, and the use of fresh, locally sourced ingredients. Here are some popular Taiwanese dishes that are loved both locally and internationally: Beef Noodle Soup (牛肉麵): Considered Taiwan\'s national dish, this hearty soup features tender braised beef, rich broth infused with aromatic spices, and chewy wheat noodles. It\'s often garnished with green onions, pickled vegetables, and chili oil for an extra kick. Bubble Tea (珍珠奶茶): Also known as boba tea, this globally beloved drink originated in Taiwan. It consists of a sweet milk tea base mixed with chewy tapioca pearls. It comes in a variety of flavors and can be served hot or cold. Gua Bao (割包): A popular Taiwanese street food, Gua Bao is a steamed bun filled with tender, braised pork belly, pickled mustard greens, crushed peanuts, and cilantro. It offers a perfect balance of savory, sweet, and tangy flavors.',
-                        ),
+                        child: ExpandableTextWidget(text: product.description!),
                       ))
                     ],
                   ))),
@@ -108,6 +121,8 @@ class PopularDetail extends StatelessWidget {
                       Icon(Icons.add, color: AppColors.signColor)
                     ],
                   )),
+
+              // price + Add to cart
               Container(
                 padding: EdgeInsets.only(
                     top: Dimensions.height20,
@@ -117,7 +132,9 @@ class PopularDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: AppColors.mainColor,
                     borderRadius: BorderRadius.circular(Dimensions.radius20)),
-                child: BigText(text: '\$10 + Add to cart', color: Colors.white),
+                child: BigText(
+                    text: '\$ ${product.price!} + Add to cart',
+                    color: Colors.white),
               )
             ],
           )),

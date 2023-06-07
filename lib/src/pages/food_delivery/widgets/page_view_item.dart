@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
+import 'package:let_api_flutter/src/routes/route_helper.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
 import 'package:let_api_flutter/src/utils/constants.dart';
 import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
 import 'package:let_api_flutter/src/widgets/icon-and-text.dart';
 import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
+import 'package:get/get.dart';
 
 Widget pageViewItem(
     int index, double currPageValue, ProductModel popularProduct) {
@@ -46,17 +48,22 @@ Widget pageViewItem(
       transform: matrix,
       child: Stack(children: [
         //圖片
-        Container(
-            height: Dimensions.pageViewContainer,
-            margin: EdgeInsets.only(left: 10, right: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius30),
-                color: index.isEven ? AppColors.mainColor : Colors.blue,
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(AppConstants.BASE_URL +
-                        AppConstants.UPLOAD_URL +
-                        popularProduct.img!)))),
+        GestureDetector(
+          onTap: (() {
+            Get.toNamed(RouteHelper.getPopularFood(index));
+          }),
+          child: Container(
+              height: Dimensions.pageViewContainer,
+              margin: EdgeInsets.only(left: 10, right: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  color: index.isEven ? AppColors.mainColor : Colors.blue,
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(AppConstants.BASE_URL +
+                          AppConstants.UPLOAD_URL +
+                          popularProduct.img!)))),
+        ),
 
         //資訊區塊
         Align(

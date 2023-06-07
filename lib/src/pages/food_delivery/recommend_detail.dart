@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/src/controllers/recommend_product_controller.dart';
 import 'package:let_api_flutter/src/pages/food_delivery/widgets/expandable_text.dart';
+import 'package:let_api_flutter/src/routes/route_helper.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/utils/constants.dart';
 import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/app-icon.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
+import 'package:get/get.dart';
 
-class RecommendDetailWidget extends StatefulWidget {
-  const RecommendDetailWidget({Key? key}) : super(key: key);
+class RecommendDetailWidget extends StatelessWidget {
+  final int pageId;
 
-  @override
-  _RecommendDetailWidgetState createState() => _RecommendDetailWidgetState();
-}
+  const RecommendDetailWidget({Key? key, required this.pageId})
+      : super(key: key);
 
-class _RecommendDetailWidgetState extends State<RecommendDetailWidget> {
   @override
   Widget build(BuildContext context) {
+    var recommend =
+        Get.find<RecommendProductController>().recommendProductList[pageId];
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.clear),
+                  GestureDetector(
+                    onTap: (() {
+                      Get.toNamed(RouteHelper.getInitial());
+                    }),
+                    child: Icon(Icons.clear),
+                  ),
                   Icon(Icons.shopping_cart_outlined)
                 ]),
             bottom: PreferredSize(
@@ -38,26 +48,27 @@ class _RecommendDetailWidgetState extends State<RecommendDetailWidget> {
                           topRight: Radius.circular(Dimensions.radius20))),
                   child: Center(
                       child: BigText(
-                          size: Dimensions.font26, text: 'Sliver app bar'))),
+                          size: Dimensions.font26, text: recommend.name))),
             ),
             pinned: true,
             backgroundColor: AppColors.mainColor,
             //上方區塊高度
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset("assets/image/lake.jpg",
-                    width: double.maxFinite, fit: BoxFit.cover)),
+                background: Image.network(
+                    AppConstants.BASE_URL +
+                        AppConstants.UPLOAD_URL +
+                        recommend.img!,
+                    width: double.maxFinite,
+                    fit: BoxFit.cover)),
           ),
           SliverToBoxAdapter(
               child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.width20, right: Dimensions.width20),
-                child: ExpandableTextWidget(
-                    text:
-                        'Taiwanese cuisine is a delightful and diverse culinary tradition that showcases the island\'s rich cultural heritage and influences from various regions, including China, Japan, and Southeast Asia. Taiwanese food is known for its bold flavors, vibrant colors, and the use of fresh, locally sourced ingredients. Here are some popular Taiwanese dishes that are loved both locally and internationally: Beef Noodle Soup (牛肉麵): Considered Taiwan\'s national dish, this hearty soup features tender braised beef, rich broth infused with aromatic spices, and chewy wheat noodles. It\'s often garnished with green onions, pickled vegetables, and chili oil for an extra kick. Bubble Tea (珍珠奶茶): Also known as boba tea, this globally beloved drink originated in Taiwan. It consists of a sweet milk tea base mixed with chewy tapioca pearls. It comes in a variety of flavors and can be served hot or cold. Gua Bao (割包): A popular Taiwanese street food, Gua Bao is a steamed bun filled with tender, braised pork belly, pickled mustard greens, crushed peanuts, and cilantro. It offers a perfect balance of savory, sweet, and tangy flavors.Taiwanese cuisine is a delightful and diverse culinary tradition that showcases the island\'s rich cultural heritage and influences from various regions, including China, Japan, and Southeast Asia. Taiwanese food is known for its bold flavors, vibrant colors, and the use of fresh, locally sourced ingredients. Here are some popular Taiwanese dishes that are loved both locally and internationally: Beef Noodle Soup (牛肉麵): Considered Taiwan\'s national dish, this hearty soup features tender braised beef, rich broth infused with aromatic spices, and chewy wheat noodles. It\'s often garnished with green onions, pickled vegetables, and chili oil for an extra kick. Bubble Tea (珍珠奶茶): Also known as boba tea, this globally beloved drink originated in Taiwan. It consists of a sweet milk tea base mixed with chewy tapioca pearls. It comes in a variety of flavors and can be served hot or cold. Gua Bao (割包): A popular Taiwanese street food, Gua Bao is a steamed bun filled with tender, braised pork belly, pickled mustard greens, crushed peanuts, and cilantro. It offers a perfect balance of savory, sweet, and tangy flavors.'),
-              )
+                  margin: EdgeInsets.only(
+                      left: Dimensions.width20, right: Dimensions.width20),
+                  child: ExpandableTextWidget(text: recommend.description))
             ],
           ))
         ],
@@ -131,8 +142,9 @@ class _RecommendDetailWidgetState extends State<RecommendDetailWidget> {
                   decoration: BoxDecoration(
                       color: AppColors.mainColor,
                       borderRadius: BorderRadius.circular(Dimensions.radius20)),
-                  child:
-                      BigText(text: '\$10 + Add to cart', color: Colors.white),
+                  child: BigText(
+                      text: '\$ ${recommend.price} + Add to cart',
+                      color: Colors.white),
                 )
               ],
             ))
