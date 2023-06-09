@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/src/controllers/cart_controller.dart';
 import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/pages/food_delivery/food_delivery.dart';
 import 'package:let_api_flutter/src/pages/food_delivery/widgets/expandable_text.dart';
@@ -9,6 +10,7 @@ import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/app-icon.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
 import 'package:get/get.dart';
+import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
 
 class PopularDetail extends StatelessWidget {
   final int pageId;
@@ -20,7 +22,8 @@ class PopularDetail extends StatelessWidget {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
 
-    Get.find<PopularProductController>().initProduct();
+    Get.find<PopularProductController>()
+        .initProduct(product, Get.find<CartController>());
 
     return Scaffold(
       body: Stack(
@@ -55,7 +58,32 @@ class PopularDetail extends StatelessWidget {
                     }),
                     child: AppIcon(icon: Icons.arrow_back_ios),
                   ),
-                  AppIcon(icon: Icons.shopping_cart_outlined)
+                  Stack(children: [
+                    AppIcon(icon: Icons.shopping_cart_outlined),
+                    Get.find<PopularProductController>().totalItems >= 1
+                        ? Positioned(
+                            top: 0,
+                            right: 0,
+                            child: AppIcon(
+                              icon: Icons.circle,
+                              size: 20,
+                              iconColor: Colors.transparent,
+                              backgroundColor: AppColors.mainColor,
+                            ))
+                        : Container(),
+                    Get.find<PopularProductController>().totalItems >= 1
+                        ? Positioned(
+                            top: 3,
+                            right: 3,
+                            child: SmallText(
+                              text: Get.find<PopularProductController>()
+                                  .totalItems
+                                  .toString(),
+                              size: 12,
+                              color: Colors.white,
+                            ))
+                        : Container()
+                  ])
                 ],
               )),
           Positioned(
@@ -125,7 +153,7 @@ class PopularDetail extends StatelessWidget {
                           child: Icon(Icons.remove, color: AppColors.signColor),
                         ),
                         SizedBox(width: Dimensions.width10 / 2),
-                        BigText(text: popularProduct.quantity.toString()),
+                        BigText(text: popularProduct.inCartItems.toString()),
                         SizedBox(width: Dimensions.width10 / 2),
                         GestureDetector(
                           onTap: (() {
@@ -146,9 +174,14 @@ class PopularDetail extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: AppColors.mainColor,
                       borderRadius: BorderRadius.circular(Dimensions.radius20)),
-                  child: BigText(
-                      text: '\$ ${product.price!} + Add to cart',
-                      color: Colors.white),
+                  child: GestureDetector(
+                    onTap: (() {
+                      popularProduct.addItem(product);
+                    }),
+                    child: BigText(
+                        text: '\$ ${product.price!} + Add to cart',
+                        color: Colors.white),
+                  ),
                 )
               ],
             ));

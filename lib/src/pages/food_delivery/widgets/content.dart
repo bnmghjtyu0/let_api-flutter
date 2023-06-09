@@ -57,8 +57,10 @@ class _FoodDeliveryContentState extends State<FoodDeliveryContent> {
                     ? 1
                     : popularProducts.popularProductList.length,
                 itemBuilder: (BuildContext context, position) {
-                  return pageViewItem(position, _currPageValue,
-                      popularProducts.popularProductList[position]);
+                  return popularProducts.popularProductList.isEmpty
+                      ? Container()
+                      : pageViewItem(position, _currPageValue,
+                          popularProducts.popularProductList[position]);
                 }));
       }),
 
