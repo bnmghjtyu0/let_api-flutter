@@ -1,12 +1,14 @@
-import 'package:let_api_flutter/src/pages/food_delivery/food_delivery.dart';
+import 'package:let_api_flutter/src/screens/cart/cart_page.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/food_delivery.dart';
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/pages/food_delivery/popular_detail.dart';
-import 'package:let_api_flutter/src/pages/food_delivery/recommend_detail.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/popular_detail.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/recommend_detail.dart';
 
 abstract class Routes {
   static const String initial = '/';
   static const String popularFood = '/popular-food';
   static const String recommendFood = '/recommend-food';
+  static const String cartPage = '/cart';
 }
 
 /// 路由
@@ -18,6 +20,7 @@ class RouteHelper {
       '${Routes.popularFood}?pageId=$pageId';
   static String getRecommendFood(int pageId) =>
       '${Routes.recommendFood}?pageId=$pageId';
+  static String getCartPage() => Routes.cartPage;
 
   static List<GetPage> routes = [
     GetPage(name: Routes.initial, page: () => MainFoodPage()),
@@ -38,5 +41,10 @@ class RouteHelper {
         ],
         //換頁特效
         transition: Transition.fadeIn),
+    GetPage(
+        name: Routes.cartPage,
+        page: () {
+          return CartPage();
+        })
   ];
 }

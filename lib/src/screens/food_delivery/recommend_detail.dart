@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/controllers/recommend_product_controller.dart';
-import 'package:let_api_flutter/src/pages/food_delivery/widgets/expandable_text.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/widgets/expandable_text.dart';
 import 'package:let_api_flutter/src/routes/route_helper.dart';
 import 'package:let_api_flutter/src/utils/colors.dart';
 import 'package:let_api_flutter/src/utils/constants.dart';
@@ -8,6 +9,7 @@ import 'package:let_api_flutter/src/utils/dimensions.dart';
 import 'package:let_api_flutter/src/widgets/app-icon.dart';
 import 'package:let_api_flutter/src/widgets/big-text.dart';
 import 'package:get/get.dart';
+import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
 
 class RecommendDetailWidget extends StatelessWidget {
   final int pageId;
@@ -34,7 +36,45 @@ class RecommendDetailWidget extends StatelessWidget {
                     }),
                     child: Icon(Icons.clear),
                   ),
-                  Icon(Icons.shopping_cart_outlined)
+
+                  //cart icon
+                  GetBuilder<PopularProductController>(builder: (controller) {
+                    return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(RouteHelper.getCartPage());
+                        },
+                        child: Stack(children: [
+                          AppIcon(icon: Icons.shopping_cart_outlined),
+                          // cart number circle
+                          controller.totalItems >= 1
+                              ? Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    size: 20,
+                                    iconColor: Colors.transparent,
+                                    backgroundColor: AppColors.mainColor,
+                                  ))
+                              : Container(
+                                  width: 10,
+                                ),
+
+                          // cart number
+                          controller.totalItems >= 1
+                              ? Positioned(
+                                  top: 3,
+                                  right: 3,
+                                  child: SmallText(
+                                    text: controller.totalItems.toString(),
+                                    size: 10,
+                                    color: Colors.white,
+                                  ))
+                              : Container(
+                                  width: 10,
+                                ),
+                        ]));
+                  })
                 ]),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(20),
@@ -74,36 +114,51 @@ class RecommendDetailWidget extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Column(mainAxisSize: MainAxisSize.min, children: [
+        //計數區
         Container(
-          padding: EdgeInsets.only(
-            left: Dimensions.width20 * 2.5,
-            right: Dimensions.width20 * 2.5,
-            top: Dimensions.height10,
-            bottom: Dimensions.height10,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AppIcon(
-                iconColor: Colors.white,
-                icon: Icons.remove,
-                backgroundColor: AppColors.mainColor,
-                iconSize: Dimensions.iconSize24,
-              ),
-              BigText(
-                text: "12.88 X 0",
-                color: Colors.black,
-                size: Dimensions.font26,
-              ),
-              AppIcon(
-                iconColor: Colors.white,
-                icon: Icons.add,
-                backgroundColor: AppColors.mainColor,
-                iconSize: Dimensions.iconSize24,
-              )
-            ],
-          ),
-        ),
+            padding: EdgeInsets.only(
+              left: Dimensions.width20 * 2.5,
+              right: Dimensions.width20 * 2.5,
+              top: Dimensions.height10,
+              bottom: Dimensions.height10,
+            ),
+            child: GetBuilder<PopularProductController>(
+              builder: (controller) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        controller.setQuantity(false);
+                      },
+                      child: AppIcon(
+                        iconColor: Colors.white,
+                        icon: Icons.remove,
+                        backgroundColor: AppColors.mainColor,
+                        iconSize: Dimensions.iconSize24,
+                      ),
+                    ),
+                    BigText(
+                      text: "12.88 X ${controller.quantity}",
+                      color: Colors.black,
+                      size: Dimensions.font26,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        controller.setQuantity(true);
+                      },
+                      child: AppIcon(
+                        iconColor: Colors.white,
+                        icon: Icons.add,
+                        backgroundColor: AppColors.mainColor,
+                        iconSize: Dimensions.iconSize24,
+                      ),
+                    )
+                  ],
+                );
+              },
+            )),
+        //灰底區塊
         Container(
             height: Dimensions.bottomHeightBar,
             padding: EdgeInsets.only(
