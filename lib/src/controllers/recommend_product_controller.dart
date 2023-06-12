@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/data/repository/recommend_product_repo.dart';
+import 'package:let_api_flutter/src/services/repository/recommend_product_repo.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 
 class RecommendProductController extends GetxController {

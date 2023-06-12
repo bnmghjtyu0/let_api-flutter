@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/data/api/api_client.dart';
+import 'package:let_api_flutter/src/services/api/api_client.dart';
 import 'package:let_api_flutter/src/utils/constants.dart';
 
 class PopularProductRepo extends GetxService {

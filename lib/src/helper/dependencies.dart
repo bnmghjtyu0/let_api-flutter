@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:let_api_flutter/src/controllers/cart_controller.dart';
 import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/controllers/recommend_product_controller.dart';
-import 'package:let_api_flutter/src/data/api/api_client.dart';
-import 'package:let_api_flutter/src/data/repository/cart_repo.dart';
-import 'package:let_api_flutter/src/data/repository/popular_product_repo.dart';
-import 'package:let_api_flutter/src/data/repository/recommend_product_repo.dart';
+import 'package:let_api_flutter/src/services/api/api_client.dart';
+import 'package:let_api_flutter/src/services/repository/cart_repo.dart';
+import 'package:let_api_flutter/src/services/repository/popular_product_repo.dart';
+import 'package:let_api_flutter/src/services/repository/recommend_product_repo.dart';
 import 'package:let_api_flutter/src/utils/constants.dart';
 
 Future<void> init() async {

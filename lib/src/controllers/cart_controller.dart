@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/data/repository/cart_repo.dart';
+import 'package:let_api_flutter/src/services/repository/cart_repo.dart';
 import 'package:let_api_flutter/src/models/cart_model.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 
