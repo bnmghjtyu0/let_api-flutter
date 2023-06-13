@@ -21,7 +21,6 @@ class _MyHomeDetailPageState extends State<HomeDetailPage> {
   void initState() {
     super.initState();
     chartDetailData = kkboxAPI.chartDetail(widget.videoId ?? '');
-    // print(chartDetailData);
   }
 
   @override

@@ -34,7 +34,6 @@ class _FoodDeliveryContentState extends State<FoodDeliveryContent> {
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!;
-        print("current value is $_currPageValue");
       });
     });
   }

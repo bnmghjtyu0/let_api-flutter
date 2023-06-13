@@ -29,7 +29,6 @@ class RouteHelper {
         name: RouteNames.popularFood,
         page: () {
           var pageId = Get.parameters['pageId'];
-          print('pageId: $pageId');
           return PopularDetail(pageId: int.parse(pageId!));
         },
         middlewares: [
