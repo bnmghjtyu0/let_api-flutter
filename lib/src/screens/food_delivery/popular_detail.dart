@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/controllers/cart_controller.dart';
-import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
+import 'package:let_api_flutter/src/core/controllers/cart_controller.dart';
+import 'package:let_api_flutter/src/core/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/routes/route_helper.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/widgets/expandable_text.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/widgets/info_column.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
-import 'package:let_api_flutter/src/utils/constants.dart';
-import 'package:let_api_flutter/src/utils/dimensions.dart';
-import 'package:let_api_flutter/src/widgets/app-icon.dart';
-import 'package:let_api_flutter/src/widgets/big-text.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
+import 'package:let_api_flutter/src/core/utils/constants.dart';
+import 'package:let_api_flutter/src/core/utils/dimensions.dart';
+import 'package:let_api_flutter/src/core/widgets/app-icon.dart';
+import 'package:let_api_flutter/src/core/widgets/big-text.dart';
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 
 class PopularDetail extends StatelessWidget {
   final int pageId;
@@ -42,54 +42,7 @@ class PopularDetail extends StatelessWidget {
                           AppConstants.UPLOAD_URL +
                           product.img!)))),
             )),
-
-        //cart icon
-        Positioned(
-            top: Dimensions.height45,
-            left: Dimensions.width20,
-            right: Dimensions.width20,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppIcon(icon: Icons.arrow_back_ios),
-                  GetBuilder<PopularProductController>(builder: (controller) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (controller.totalItems >= 1) {
-                          Get.toNamed(RouteHelper.getCartPage());
-                        }
-                      },
-                      child: Stack(children: [
-                        AppIcon(icon: Icons.shopping_cart_outlined),
-                        // cart number circle
-                        controller.totalItems >= 1
-                            ? Positioned(
-                                top: 0,
-                                right: 0,
-                                child: AppIcon(
-                                  icon: Icons.circle,
-                                  size: 20,
-                                  iconColor: Colors.transparent,
-                                  backgroundColor: AppColors.mainColor,
-                                ))
-                            : Container(),
-                        // cart number
-                        controller.totalItems >= 1
-                            ? Positioned(
-                                top: 3,
-                                right: 3,
-                                child: SmallText(
-                                  text: Get.find<PopularProductController>()
-                                      .totalItems
-                                      .toString(),
-                                  size: 12,
-                                  color: Colors.white,
-                                ))
-                            : Container()
-                      ]),
-                    );
-                  })
-                ])),
+        CustomAppBar(),
         Positioned(
             left: 0,
             right: 0,
@@ -190,5 +143,65 @@ class PopularDetail extends StatelessWidget {
             ));
       }),
     );
+  }
+}
+
+///客製化導覽列
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return //cart icon
+        Positioned(
+            top: Dimensions.height45,
+            left: Dimensions.width20,
+            right: Dimensions.width20,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: AppIcon(icon: Icons.arrow_back_ios)),
+                  GetBuilder<PopularProductController>(builder: (controller) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (controller.totalItems >= 1) {
+                          Get.toNamed(RouteHelper.getCartPage());
+                        }
+                      },
+                      child: Stack(children: [
+                        AppIcon(icon: Icons.shopping_cart_outlined),
+                        // cart number circle
+                        controller.totalItems >= 1
+                            ? Positioned(
+                                top: 0,
+                                right: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ))
+                            : Container(),
+                        // cart number
+                        controller.totalItems >= 1
+                            ? Positioned(
+                                top: 3,
+                                right: 3,
+                                child: SmallText(
+                                  text: Get.find<PopularProductController>()
+                                      .totalItems
+                                      .toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ))
+                            : Container()
+                      ]),
+                    );
+                  })
+                ]));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/services/repository/recommend_product_repo.dart';
-import 'package:let_api_flutter/src/models/products_model.dart';
+import 'package:let_api_flutter/src/core/services/repository/recommend_product_repo.dart';
+import 'package:let_api_flutter/src/core/models/products_model.dart';
 
 class RecommendProductController extends GetxController {
   final RecommendProductRepo recommendProductRepo;

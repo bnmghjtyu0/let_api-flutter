@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/controllers/popular_product_controller.dart';
-import 'package:let_api_flutter/src/controllers/recommend_product_controller.dart';
+import 'package:let_api_flutter/src/core/controllers/popular_product_controller.dart';
+import 'package:let_api_flutter/src/core/controllers/recommend_product_controller.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/widgets/page_view_item.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:let_api_flutter/src/routes/route_helper.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
-import 'package:let_api_flutter/src/utils/constants.dart';
-import 'package:let_api_flutter/src/utils/dimensions.dart';
-import 'package:let_api_flutter/src/widgets/big-text.dart';
-import 'package:let_api_flutter/src/widgets/icon-and-text.dart';
-import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
+import 'package:let_api_flutter/src/core/utils/constants.dart';
+import 'package:let_api_flutter/src/core/utils/dimensions.dart';
+import 'package:let_api_flutter/src/core/widgets/big-text.dart';
+import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
+import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 import 'package:get/get.dart';
 
 class FoodDeliveryContent extends StatefulWidget {

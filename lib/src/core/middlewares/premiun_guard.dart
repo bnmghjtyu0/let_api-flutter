@@ -7,6 +7,6 @@ class PremiumGuard extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    return false ? null : const RouteSettings(name: Routes.initial);
+    return false ? null : const RouteSettings(name: RouteNames.initial);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/services/api/kkbox-api.dart';
-import 'package:let_api_flutter/src/models/kkbox/chartDetail.dart';
+import 'package:let_api_flutter/src/core/services/api/kkbox-api.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/chartDetail.dart';
 
 class HomeDetailPage extends StatefulWidget {
   //影片 ID

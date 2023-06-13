@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/services/api/api_client.dart';
-import 'package:let_api_flutter/src/utils/constants.dart';
+import 'package:let_api_flutter/src/core/services/api/api_client.dart';
+import 'package:let_api_flutter/src/core/utils/constants.dart';
 
 class RecommendProductRepo extends GetxService {
   final ApiClient apiClient;

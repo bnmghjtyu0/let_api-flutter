@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/services/api/kkbox-api.dart';
-import 'package:let_api_flutter/src/models/kkbox/charts.dart';
+import 'package:let_api_flutter/src/core/services/api/kkbox-api.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/charts.dart';
 import 'package:let_api_flutter/src/screens/home/detail.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
 
 class MyHomePage extends StatefulWidget {
   //定義 props

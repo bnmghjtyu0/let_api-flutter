@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/utils/constants.dart';
+import 'package:let_api_flutter/src/core/utils/constants.dart';
 
 class ApiClient extends GetConnect implements GetxService {
   late String token;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
-import 'package:let_api_flutter/src/utils/dimensions.dart';
-import 'package:let_api_flutter/src/widgets/big-text.dart';
-import 'package:let_api_flutter/src/widgets/icon-and-text.dart';
-import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
+import 'package:let_api_flutter/src/core/utils/dimensions.dart';
+import 'package:let_api_flutter/src/core/widgets/big-text.dart';
+import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
+import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 
 /// 資訊面板元件
 class InfoColumn extends StatelessWidget {

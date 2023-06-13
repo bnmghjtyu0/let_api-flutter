@@ -23,5 +23,7 @@
     "*.dart": "${capture}.g.dart, ${capture}.freezed.dart"
   },
   "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.expand": false
+  "explorer.fileNesting.expand": false,
+  // cSpell 白名單
+  "cSpell.words": ["fenix"]
 }

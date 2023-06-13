@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:let_api_flutter/src/models/kkbox/chartDetail.dart';
-import 'package:let_api_flutter/src/models/kkbox/charts.dart';
-import 'package:let_api_flutter/src/models/search-kkbox-api.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/chartDetail.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/charts.dart';
+import 'package:let_api_flutter/src/core/models/search-kkbox-api.dart';
 
 class KkboxAPIClass {
   //取得 api 回傳物件

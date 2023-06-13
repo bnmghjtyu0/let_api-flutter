@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/controllers/cart_controller.dart';
-import 'package:let_api_flutter/src/models/cart_model.dart';
-import 'package:let_api_flutter/src/services/repository/popular_product_repo.dart';
-import 'package:let_api_flutter/src/models/products_model.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/core/controllers/cart_controller.dart';
+import 'package:let_api_flutter/src/core/models/cart_model.dart';
+import 'package:let_api_flutter/src/core/services/repository/popular_product_repo.dart';
+import 'package:let_api_flutter/src/core/models/products_model.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
 
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
@@ -26,7 +26,7 @@ class PopularProductController extends GetxController {
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
 
-    print(response.body.toString());
+    // print('${response.body}');
     if (response.statusCode == 200) {
       print("got products");
       _popularProductList = [];

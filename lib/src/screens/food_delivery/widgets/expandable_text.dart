@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
-import 'package:let_api_flutter/src/utils/dimensions.dart';
-import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
+import 'package:let_api_flutter/src/core/utils/dimensions.dart';
+import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 
 class ExpandableTextWidget extends StatefulWidget {
   final String text;

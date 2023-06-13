@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/models/products_model.dart';
+import 'package:let_api_flutter/src/core/models/products_model.dart';
 import 'package:let_api_flutter/src/routes/route_helper.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
-import 'package:let_api_flutter/src/utils/constants.dart';
-import 'package:let_api_flutter/src/utils/dimensions.dart';
-import 'package:let_api_flutter/src/widgets/big-text.dart';
-import 'package:let_api_flutter/src/widgets/icon-and-text.dart';
-import 'package:let_api_flutter/src/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
+import 'package:let_api_flutter/src/core/utils/constants.dart';
+import 'package:let_api_flutter/src/core/utils/dimensions.dart';
+import 'package:let_api_flutter/src/core/widgets/big-text.dart';
+import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
+import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 import 'package:get/get.dart';
 
 Widget pageViewItem(

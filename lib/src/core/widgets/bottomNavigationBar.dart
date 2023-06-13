@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/food_delivery.dart';
 import 'package:let_api_flutter/src/screens/home/home.dart';
-import 'package:let_api_flutter/src/utils/colors.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
 
 class BottomNavigationBarCustom extends StatefulWidget {
   const BottomNavigationBarCustom({super.key});
