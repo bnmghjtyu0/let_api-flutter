@@ -3,9 +3,11 @@ import 'package:let_api_flutter/src/screens/cart/cart_page.dart';
 import 'package:get/get.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/popular_detail.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/recommend_detail.dart';
+import 'package:let_api_flutter/src/screens/splash/splash_screen.dart';
 
 /// 路由名稱
 abstract class RouteNames {
+  static const String splash = '/splash';
   static const String initial = '/';
   static const String popularFood = '/popular-food';
   static const String recommendFood = '/recommend-food';
@@ -15,6 +17,7 @@ abstract class RouteNames {
 /// 路由
 /// 使用方式：Get.toNamed(RouteHelper.getPopularFood());
 class RouteHelper {
+  static String getSplash() => RouteNames.splash;
   //首頁
   static String getInitial() => RouteNames.initial;
   static String getPopularFood(int pageId, String page) =>
@@ -24,6 +27,7 @@ class RouteHelper {
   static String getCartPage() => RouteNames.cartPage;
 
   static List<GetPage> routes = [
+    GetPage(name: RouteNames.splash, page: () => SplashScreen()),
     GetPage(name: RouteNames.initial, page: () => BottomNavigationBarCustom()),
     GetPage(
         name: RouteNames.popularFood,
