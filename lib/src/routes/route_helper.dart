@@ -34,6 +34,7 @@ class RouteHelper {
         page: () {
           var pageId = Get.parameters['pageId'];
           var page = Get.parameters['page'];
+
           return PopularDetail(pageId: int.parse(pageId!), page: page!);
         },
         middlewares: [

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/core/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/core/controllers/recommend_product_controller.dart';
+import 'package:let_api_flutter/src/core/utils/dimensions.dart';
 import 'package:let_api_flutter/src/routes/route_helper.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Center(
                   child: Image.asset(
                     "assets/image/lake.jpg",
-                    width: 250,
+                    width: Dimensions.splashImg,
                   ),
                 ))
           ],

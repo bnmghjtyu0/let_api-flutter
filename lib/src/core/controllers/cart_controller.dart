@@ -10,17 +10,18 @@ class CartController extends GetxController {
   CartController({required this.cartRepo});
 
   Map<int, CartModel> _items = {};
-  get items => _items;
+  Map<int, CartModel> get items => _items;
+
+  /// only for storage and shared_preference
+  List<CartModel> storageItems = [];
 
   //新增與更新
   void addItem(ProductModel product, int quantity) {
-    print('cart_controller: addItem');
     var totalQuantity = 0;
 
     if (_items.containsKey(product.id)) {
       _items.update(product.id!, (value) {
         totalQuantity = value.quantity! + quantity;
-        print(value.quantity! + quantity);
         return CartModel(
             id: product.id,
             name: product.name,
@@ -28,7 +29,8 @@ class CartController extends GetxController {
             img: product.img,
             quantity: value.quantity! + quantity,
             isExist: true,
-            time: DateTime.now().toString());
+            time: DateTime.now().toString(),
+            product: product);
       });
 
       if (totalQuantity <= 0) {
@@ -37,10 +39,6 @@ class CartController extends GetxController {
     } else {
       if (quantity > 0) {
         _items.putIfAbsent(product.id!, () {
-          print('adding item to the cart${product.id!} quantity$quantity}');
-          _items.forEach((key, value) {
-            print("quantity is ${value.quantity}");
-          });
           return CartModel(
               id: product.id,
               name: product.name,
@@ -53,6 +51,9 @@ class CartController extends GetxController {
         });
       }
     }
+
+    cartRepo.addToCartList(getItems);
+    update();
   }
 
   bool existInCart(ProductModel product) {
@@ -64,6 +65,7 @@ class CartController extends GetxController {
   }
 
   int getQuantity(ProductModel product) {
+    print(product.id);
     var quantity = 0;
     if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
@@ -89,12 +91,28 @@ class CartController extends GetxController {
     }).toList();
   }
 
-//購物車總金額
+  //購物車總金額
   int get totalAmount {
     int total = 0;
     _items.forEach((key, value) {
       total += value.quantity! * value.price!;
     });
     return total;
+  }
+
+  //取得購物車全部資料 - 初始化載入一次
+  List<CartModel> getCartData() {
+    setCart = cartRepo.getCartList();
+    return storageItems;
+  }
+
+  //setter, getter 設定購物車全部資料
+  set setCart(List<CartModel> items) {
+    storageItems = items;
+
+    print(666);
+    for (int i = 0; i < storageItems.length; i++) {
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
   }
 }
