@@ -40,6 +40,7 @@ class _FoodDeliveryContentState extends State<FoodDeliveryContent> {
 
   @override
   void dispose() {
+    super.dispose();
     pageController.dispose();
   }
 

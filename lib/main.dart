@@ -17,7 +17,6 @@ class App extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      // home: const MainFoodPage(),
       initialRoute: RouteNames.initial,
       getPages: RouteHelper.routes,
     );

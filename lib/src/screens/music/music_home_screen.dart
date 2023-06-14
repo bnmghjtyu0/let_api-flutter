@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/core/services/api/kkbox-api.dart';
 import 'package:let_api_flutter/src/core/models/kkbox/charts.dart';
-import 'package:let_api_flutter/src/screens/home/detail.dart';
+import 'package:let_api_flutter/src/screens/music/detail.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 
-class MyHomePage extends StatefulWidget {
+class MusicHomeScreen extends StatefulWidget {
   //定義 props
   final String title;
 
-  const MyHomePage({super.key, required this.title});
+  const MusicHomeScreen({super.key, required this.title});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MusicHomeScreen> createState() => _MusicHomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MusicHomeScreenState extends State<MusicHomeScreen> {
   late Future<ChartsKKBOXResponse> searchKKBOXData;
   final kkboxAPI = KkboxAPIClass();
 
