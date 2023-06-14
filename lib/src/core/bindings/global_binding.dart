@@ -22,7 +22,8 @@ class GlobalBinding extends Bindings {
     // controllers
     Get.lazyPut(() => PopularProductController(popularProductRepo: Get.find()));
     Get.lazyPut(
-        () => RecommendProductController(recommendProductRepo: Get.find()));
+        () => RecommendProductController(recommendProductRepo: Get.find()),
+        fenix: true);
     Get.lazyPut(() => CartController(cartRepo: Get.find()), fenix: true);
   }
 }

@@ -10,16 +10,24 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('app build');
-    Get.find<PopularProductController>().getPopularProductList();
-    Get.find<RecommendProductController>().getRecommendProductList();
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      // home: SplashScreen(),
-      initialRoute: RouteNames.splash,
-      getPages: RouteHelper.routes,
+
+    ///先在 splash 儲存資料後，接著在這裡 keep in the memory
+    return GetBuilder<PopularProductController>(
+      builder: (popular) {
+        return GetBuilder<RecommendProductController>(
+          builder: (recommend) {
+            return GetMaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                useMaterial3: true,
+              ),
+              // home: SplashScreen(),
+              initialRoute: RouteNames.splash,
+              getPages: RouteHelper.routes,
+            );
+          },
+        );
+      },
     );
   }
 }

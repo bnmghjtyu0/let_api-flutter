@@ -42,12 +42,13 @@ class RouteHelper {
         //換頁特效
         transition: Transition.fadeIn),
     GetPage(
-        name: RouteNames.recommendFood,
-        page: () {
-          var pageId = Get.parameters['pageId'];
-          var page = Get.parameters['page'];
-          return RecommendDetailWidget(pageId: int.parse(pageId!), page: page!);
-        }),
+      name: RouteNames.recommendFood,
+      page: () {
+        var pageId = Get.parameters['pageId'];
+        var page = Get.parameters['page'];
+        return RecommendDetailWidget(pageId: int.parse(pageId!), page: page!);
+      },
+    ),
     GetPage(name: RouteNames.cartPage, page: () => CartPage())
   ];
 }
