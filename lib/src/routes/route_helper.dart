@@ -17,10 +17,10 @@ abstract class RouteNames {
 class RouteHelper {
   //首頁
   static String getInitial() => RouteNames.initial;
-  static String getPopularFood(int pageId) =>
-      '${RouteNames.popularFood}?pageId=$pageId';
-  static String getRecommendFood(int pageId) =>
-      '${RouteNames.recommendFood}?pageId=$pageId';
+  static String getPopularFood(int pageId, String page) =>
+      '${RouteNames.popularFood}?pageId=$pageId&page=$page';
+  static String getRecommendFood(int pageId, String page) =>
+      '${RouteNames.recommendFood}?pageId=$pageId&page=$page';
   static String getCartPage() => RouteNames.cartPage;
 
   static List<GetPage> routes = [
@@ -29,7 +29,8 @@ class RouteHelper {
         name: RouteNames.popularFood,
         page: () {
           var pageId = Get.parameters['pageId'];
-          return PopularDetail(pageId: int.parse(pageId!));
+          var page = Get.parameters['page'];
+          return PopularDetail(pageId: int.parse(pageId!), page: page!);
         },
         middlewares: [
           // PremiumGuard(), // Add the middleware here
@@ -40,7 +41,8 @@ class RouteHelper {
         name: RouteNames.recommendFood,
         page: () {
           var pageId = Get.parameters['pageId'];
-          return RecommendDetailWidget(pageId: int.parse(pageId!));
+          var page = Get.parameters['page'];
+          return RecommendDetailWidget(pageId: int.parse(pageId!), page: page!);
         }),
     GetPage(name: RouteNames.cartPage, page: () => CartPage())
   ];

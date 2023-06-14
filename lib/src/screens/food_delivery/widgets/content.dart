@@ -110,7 +110,8 @@ class _FoodDeliveryContentState extends State<FoodDeliveryContent> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                       onTap: (() {
-                        Get.toNamed(RouteHelper.getRecommendFood(index));
+                        Get.toNamed(
+                            RouteHelper.getRecommendFood(index, 'home'));
                       }),
                       child: Container(
                         margin: EdgeInsets.only(

@@ -12,8 +12,10 @@ import 'package:get/get.dart';
 
 class RecommendDetailWidget extends StatelessWidget {
   final int pageId;
+  final String page;
 
-  const RecommendDetailWidget({Key? key, required this.pageId})
+  const RecommendDetailWidget(
+      {Key? key, required this.pageId, required this.page})
       : super(key: key);
 
   @override
@@ -38,7 +40,9 @@ class RecommendDetailWidget extends StatelessWidget {
                           recommend.img!,
                       width: double.maxFinite,
                       fit: BoxFit.cover)),
-              title: CustomAppbar(),
+              title: CustomAppBar(
+                page: page,
+              ),
               //可浮動的標題
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(20),
@@ -170,8 +174,9 @@ class RecommendDetailWidget extends StatelessWidget {
   }
 }
 
-class CustomAppbar extends StatelessWidget {
-  const CustomAppbar({Key? key}) : super(key: key);
+class CustomAppBar extends StatelessWidget {
+  final String page;
+  const CustomAppBar({Key? key, required this.page}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +193,11 @@ class CustomAppbar extends StatelessWidget {
       GetBuilder<PopularProductController>(builder: (controller) {
         return GestureDetector(
             onTap: () {
-              Get.toNamed(RouteHelper.getCartPage());
+              if (page == 'cartPage') {
+                Get.toNamed(RouteHelper.getCartPage());
+              } else {
+                Get.toNamed(RouteHelper.getInitial());
+              }
             },
             child: Stack(children: [
               AppIcon(icon: Icons.shopping_cart_outlined),

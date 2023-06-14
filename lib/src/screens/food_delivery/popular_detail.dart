@@ -14,8 +14,10 @@ import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 
 class PopularDetail extends StatelessWidget {
   final int pageId;
+  final String page;
 
-  const PopularDetail({Key? key, required this.pageId}) : super(key: key);
+  const PopularDetail({Key? key, required this.pageId, required this.page})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,9 @@ class PopularDetail extends StatelessWidget {
                           AppConstants.UPLOAD_URL +
                           product.img!)))),
             )),
-        CustomAppBar(),
+        CustomAppBar(
+          page: page,
+        ),
         Positioned(
             left: 0,
             right: 0,
@@ -148,7 +152,8 @@ class PopularDetail extends StatelessWidget {
 
 ///客製化導覽列
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  final String page;
+  const CustomAppBar({Key? key, required this.page}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +167,11 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Get.back();
+                        if (page == 'cartPage') {
+                          Get.toNamed(RouteHelper.getCartPage());
+                        } else {
+                          Get.toNamed(RouteHelper.getInitial());
+                        }
                       },
                       child: AppIcon(icon: Icons.arrow_back_ios)),
                   GetBuilder<PopularProductController>(builder: (controller) {

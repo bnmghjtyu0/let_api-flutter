@@ -50,7 +50,7 @@ Widget pageViewItem(
         //圖片
         GestureDetector(
           onTap: (() {
-            Get.toNamed(RouteHelper.getPopularFood(index));
+            Get.toNamed(RouteHelper.getPopularFood(index, "home"));
           }),
           child: Container(
               height: Dimensions.pageViewContainer,
