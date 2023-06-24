@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/content.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 import 'package:let_api_flutter/src/core/utils/dimensions.dart';
 import 'package:let_api_flutter/src/core/widgets/big-text.dart';
 import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 
-class MainFoodPage extends StatelessWidget {
+class MainFoodPage extends StatefulWidget {
   const MainFoodPage({Key? key}) : super(key: key);
 
   @override
+  _MainFoodPageState createState() => _MainFoodPageState();
+}
+
+class _MainFoodPageState extends State<MainFoodPage> {
+  @override
   Widget build(BuildContext context) {
-    print("螢幕高度: ${MediaQuery.of(context).size.height}");
-    print("螢幕高度: ${MediaQuery.of(context).size.width}");
     return Column(
       children: [
         // header
@@ -50,7 +52,7 @@ class MainFoodPage extends StatelessWidget {
 
         //body
         //SingleChildScrollView 可滾動
-        Expanded(child: SingleChildScrollView(child: FoodDeliveryContent()))
+        // Expanded(child: SingleChildScrollView(child: FoodDeliveryContent()))
       ],
     );
   }

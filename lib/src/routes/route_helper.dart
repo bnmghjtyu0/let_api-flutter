@@ -1,4 +1,3 @@
-import 'package:let_api_flutter/src/core/widgets/bottomNavigation_bar.dart';
 import 'package:let_api_flutter/src/screens/cart/cart_page.dart';
 import 'package:get/get.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/popular_detail.dart';
@@ -28,7 +27,7 @@ class RouteHelper {
 
   static List<GetPage> routes = [
     GetPage(name: RouteNames.splash, page: () => SplashScreen()),
-    GetPage(name: RouteNames.initial, page: () => BottomNavigationBarCustom()),
+    // GetPage(name: RouteNames.initial, page: () => BottomNavigationBarCustom()),
     GetPage(
         name: RouteNames.popularFood,
         page: () {
