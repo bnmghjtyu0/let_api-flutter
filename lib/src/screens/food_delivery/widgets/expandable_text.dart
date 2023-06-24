@@ -16,7 +16,8 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   late String secondHalf;
 
   bool hiddenText = true;
-  double textHeight = Dimensions.screenHeight / 5.63;
+  double textHeight = 15;
+  // double textHeight = Dimensions(context).height(15);
 
   @override
   void initState() {
@@ -42,7 +43,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                 SmallText(
                   text:
                       hiddenText ? ("$firstHalf...") : (firstHalf + secondHalf),
-                  size: Dimensions.font16,
+                  size: Dimensions(context).fontSize(16),
                   height: 1.8,
                 ),
                 InkWell(

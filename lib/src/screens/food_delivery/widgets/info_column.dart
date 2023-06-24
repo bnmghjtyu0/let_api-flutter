@@ -13,22 +13,22 @@ class InfoColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      BigText(text: title, size: Dimensions.font26),
-      SizedBox(height: Dimensions.height10),
+      BigText(text: title, size: Dimensions(context).fontSize(26)),
+      SizedBox(height: Dimensions(context).width(10)),
       Row(
         children: [
           Wrap(
               children: List.generate(
                   5, (index) => Icon(Icons.star, color: AppColors.mainColor))),
-          SizedBox(width: Dimensions.width10),
+          SizedBox(width: Dimensions(context).width(10)),
           SmallText(text: '4.5'),
-          SizedBox(width: Dimensions.width10),
+          SizedBox(width: Dimensions(context).width(10)),
           SmallText(text: '1287'),
-          SizedBox(width: Dimensions.width10),
+          SizedBox(width: Dimensions(context).width(10)),
           SmallText(text: 'comments')
         ],
       ),
-      SizedBox(height: Dimensions.height10),
+      SizedBox(height: Dimensions(context).width(10)),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

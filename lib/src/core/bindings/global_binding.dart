@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:let_api_flutter/src/core/controllers/cart_controller.dart';
-import 'package:let_api_flutter/src/core/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/core/controllers/recommend_product_controller.dart';
 import 'package:let_api_flutter/src/core/services/api/api_client.dart';
 import 'package:let_api_flutter/src/core/services/repository/cart_repo.dart';
@@ -26,7 +25,7 @@ class GlobalBinding extends Bindings {
     Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()), fenix: true);
 
     // controllers
-    Get.lazyPut(() => PopularProductController(popularProductRepo: Get.find()));
+    // Get.lazyPut(() => PopularProductController(popularProductRepo: Get.find()));
     Get.lazyPut(
         () => RecommendProductController(recommendProductRepo: Get.find()),
         fenix: true);

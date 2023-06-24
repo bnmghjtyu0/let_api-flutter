@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_api_flutter/src/core/controllers/cart_controller.dart';
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
-import 'package:let_api_flutter/src/core/services/repository/popular_product_repo.dart';
+import 'package:let_api_flutter/src/core/services/api/popular-http.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 
-class PopularProductController extends GetxController {
-  final PopularProductRepo popularProductRepo;
+class PopularProductController {
   int _quantity = 0;
   int get quantity => _quantity;
   int _inCartItems = 0;
@@ -19,19 +18,18 @@ class PopularProductController extends GetxController {
   late CartController _cart;
 
   //建構子
-  PopularProductController({required this.popularProductRepo});
+  PopularProductController();
   List<dynamic> _popularProductList = [];
   List<dynamic> get popularProductList => _popularProductList;
 
-  Future<void> getPopularProductList() async {
-    Response response = await popularProductRepo.getPopularProductList();
+  Future<void> getPopularProductList(ref) async {
+    final popularResult = ref.watch(popularHttpProvider);
+    // Response response = await popularProductRepo.getPopularProductList();
 
     // print('${response.body}');
-    if (response.statusCode == 200) {
+    if (popularResult.statusCode == 200) {
       _popularProductList = [];
-      _popularProductList.addAll(Product.fromJson(response.body).products);
-
-      update();
+      _popularProductList.addAll(Product.fromJson(popularResult.body).products);
     } else {}
   }
 
@@ -41,8 +39,6 @@ class PopularProductController extends GetxController {
     } else {
       _quantity = checkQuantify(_quantity - 1);
     }
-
-    update();
   }
 
   //檢查計數器數字 > 0 或小於 20
@@ -89,7 +85,6 @@ class PopularProductController extends GetxController {
           "the quantity is " +
           value.quantity.toString());
     });
-    update();
   }
 
   List<CartModel> get getItems {

@@ -5,7 +5,7 @@ import 'package:let_api_flutter/src/screens/food_delivery/recommend_detail.dart'
 import 'package:let_api_flutter/src/screens/splash/splash_screen.dart';
 
 /// 路由名稱
-abstract class RouteNames {
+abstract class RouteNamess {
   static const String splash = '/splash';
   static const String initial = '/';
   static const String popularFood = '/popular-food';
@@ -16,20 +16,20 @@ abstract class RouteNames {
 /// 路由
 /// 使用方式：Get.toNamed(RouteHelper.getPopularFood());
 class RouteHelper {
-  static String getSplash() => RouteNames.splash;
+  static String getSplash() => RouteNamess.splash;
   //首頁
-  static String getInitial() => RouteNames.initial;
+  static String getInitial() => RouteNamess.initial;
   static String getPopularFood(int pageId, String page) =>
-      '${RouteNames.popularFood}?pageId=$pageId&page=$page';
+      '${RouteNamess.popularFood}?pageId=$pageId&page=$page';
   static String getRecommendFood(int pageId, String page) =>
-      '${RouteNames.recommendFood}?pageId=$pageId&page=$page';
-  static String getCartPage() => RouteNames.cartPage;
+      '${RouteNamess.recommendFood}?pageId=$pageId&page=$page';
+  static String getCartPage() => RouteNamess.cartPage;
 
   static List<GetPage> routes = [
-    GetPage(name: RouteNames.splash, page: () => SplashScreen()),
-    // GetPage(name: RouteNames.initial, page: () => BottomNavigationBarCustom()),
+    GetPage(name: RouteNamess.splash, page: () => SplashScreen()),
+    // GetPage(name: RouteNamess.initial, page: () => BottomNavigationBarCustom()),
     GetPage(
-        name: RouteNames.popularFood,
+        name: RouteNamess.popularFood,
         page: () {
           var pageId = Get.parameters['pageId'];
           var page = Get.parameters['page'];
@@ -42,13 +42,13 @@ class RouteHelper {
         //換頁特效
         transition: Transition.fadeIn),
     GetPage(
-      name: RouteNames.recommendFood,
+      name: RouteNamess.recommendFood,
       page: () {
         var pageId = Get.parameters['pageId'];
         var page = Get.parameters['page'];
         return RecommendDetailWidget(pageId: int.parse(pageId!), page: page!);
       },
     ),
-    GetPage(name: RouteNames.cartPage, page: () => CartPage())
+    GetPage(name: RouteNamess.cartPage, page: () => CartPage())
   ];
 }

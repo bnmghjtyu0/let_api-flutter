@@ -9,10 +9,10 @@ import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
 import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 import 'package:get/get.dart';
 
-Widget pageViewItem(
-    int index, double currPageValue, ProductModel popularProduct) {
+Widget pageViewItem(BuildContext context, int index, double currPageValue,
+    ProductModel popularProduct) {
   double scaleFactor = 0.8;
-  double height = Dimensions.pageViewContainer;
+  double height = Dimensions(context).pageViewContainer();
 
   Matrix4 matrix = Matrix4.identity();
   //目前選擇的圖片
@@ -53,10 +53,11 @@ Widget pageViewItem(
             Get.toNamed(RouteHelper.getPopularFood(index, "home"));
           }),
           child: Container(
-              height: Dimensions.pageViewContainer,
+              height: Dimensions(context).pageViewContainer(),
               margin: EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  borderRadius:
+                      BorderRadius.circular(Dimensions(context).radius(30)),
                   color: index.isEven ? AppColors.mainColor : Colors.blue,
                   image: DecorationImage(
                       fit: BoxFit.cover,
@@ -69,13 +70,14 @@ Widget pageViewItem(
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-              height: Dimensions.pageViewTextContainer,
+              height: Dimensions(context).pageViewTextContainer(),
               margin: EdgeInsets.only(
-                  left: Dimensions.width30,
-                  right: Dimensions.width30,
-                  bottom: Dimensions.height30),
+                  left: Dimensions(context).width(30),
+                  right: Dimensions(context).width(30),
+                  bottom: Dimensions(context).height(30)),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  borderRadius:
+                      BorderRadius.circular(Dimensions(context).radius(30)),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -87,12 +89,12 @@ Widget pageViewItem(
                   ]),
               child: Container(
                   padding: EdgeInsets.only(
-                      top: Dimensions.height10,
-                      left: Dimensions.width15,
-                      right: Dimensions.width15),
+                      top: Dimensions(context).height(10),
+                      left: Dimensions(context).width(15),
+                      right: Dimensions(context).width(15)),
                   child: Column(children: [
                     BigText(text: 'Taiwan'),
-                    SizedBox(height: Dimensions.height10),
+                    SizedBox(height: Dimensions(context).height(10)),
                     Row(
                       children: [
                         Wrap(
@@ -100,15 +102,15 @@ Widget pageViewItem(
                                 5,
                                 (index) => Icon(Icons.star,
                                     color: AppColors.mainColor))),
-                        SizedBox(width: Dimensions.width10),
+                        SizedBox(width: Dimensions(context).width(10)),
                         SmallText(text: '4.5'),
-                        SizedBox(width: Dimensions.width10),
+                        SizedBox(width: Dimensions(context).width(10)),
                         SmallText(text: '1287'),
-                        SizedBox(width: Dimensions.width10),
+                        SizedBox(width: Dimensions(context).width(10)),
                         SmallText(text: 'comments')
                       ],
                     ),
-                    SizedBox(height: Dimensions.height10),
+                    SizedBox(height: Dimensions(context).height(10)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

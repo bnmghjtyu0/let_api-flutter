@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 import 'package:let_api_flutter/src/core/utils/dimensions.dart';
 import 'package:let_api_flutter/src/core/widgets/big-text.dart';
 import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/widgets/content.dart';
 
-class MainFoodPage extends StatefulWidget {
+class MainFoodPage extends ConsumerStatefulWidget {
   const MainFoodPage({Key? key}) : super(key: key);
 
   @override
   _MainFoodPageState createState() => _MainFoodPageState();
 }
 
-class _MainFoodPageState extends State<MainFoodPage> {
+class _MainFoodPageState extends ConsumerState<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,9 +22,11 @@ class _MainFoodPageState extends State<MainFoodPage> {
         Container(
             child: Container(
                 margin: EdgeInsets.only(
-                    top: Dimensions.height45, bottom: Dimensions.height15),
+                    top: Dimensions(context).height(45),
+                    bottom: Dimensions(context).height(15)),
                 padding: EdgeInsets.only(
-                    left: Dimensions.width20, right: Dimensions.width20),
+                    left: Dimensions(context).width(20),
+                    right: Dimensions(context).width(20)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -31,28 +35,31 @@ class _MainFoodPageState extends State<MainFoodPage> {
                           text: 'Food Delivery', color: AppColors.mainColor),
                       Row(
                         children: [
-                          SmallText(text: '一個美食外送平台'),
+                          SmallText(
+                            text: '一個美食外送平台',
+                          ),
                           Icon(Icons.arrow_drop_down_rounded)
                         ],
                       ),
                     ]),
                     Center(
                         child: Container(
-                      width: Dimensions.height45,
-                      height: Dimensions.height45,
+                      width: Dimensions(context).height(45),
+                      height: Dimensions(context).height(45),
                       decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius15),
+                          borderRadius: BorderRadius.circular(
+                              Dimensions(context).radius(15)),
                           color: AppColors.mainColor),
                       child: Icon(Icons.search,
-                          color: Colors.white, size: Dimensions.iconSize24),
+                          color: Colors.white,
+                          size: Dimensions(context).iconSize(24)),
                     ))
                   ],
                 ))),
 
         //body
         //SingleChildScrollView 可滾動
-        // Expanded(child: SingleChildScrollView(child: FoodDeliveryContent()))
+        Expanded(child: SingleChildScrollView(child: FoodDeliveryContent()))
       ],
     );
   }
