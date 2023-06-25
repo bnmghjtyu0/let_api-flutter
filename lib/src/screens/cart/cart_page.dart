@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/core/controllers/cart_controller.dart';
-import 'package:let_api_flutter/src/core/controllers/popular_product_controller.dart';
-import 'package:let_api_flutter/src/core/controllers/recommend_product_controller.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 import 'package:let_api_flutter/src/core/utils/constants.dart';
 import 'package:let_api_flutter/src/core/utils/dimensions.dart';
@@ -9,7 +7,6 @@ import 'package:let_api_flutter/src/core/widgets/app-icon.dart';
 import 'package:let_api_flutter/src/core/widgets/big-text.dart';
 import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 import 'package:get/get.dart';
-import 'package:let_api_flutter/src/routes/route_helper.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/main_food_page.dart';
 
 class CartPage extends StatelessWidget {
@@ -44,28 +41,28 @@ class CartPage extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () {
                                     print('tap');
-                                    var popularIndex =
-                                        Get.find<PopularProductController>()
-                                            .popularProductList
-                                            .indexOf(cartController
-                                                .getItems[index].product!);
+                                    // var popularIndex =
+                                    //     Get.find<PopularProductController>()
+                                    //         .popularProductList
+                                    //         .indexOf(cartController
+                                    //             .getItems[index].product!);
 
-                                    //popular
-                                    if (popularIndex >= 0) {
-                                      Get.toNamed(RouteHelper.getPopularFood(
-                                          popularIndex, 'cartPage'));
-                                    }
+                                    // //popular
+                                    // if (popularIndex >= 0) {
+                                    //   Get.toNamed(RouteHelper.getPopularFood(
+                                    //       popularIndex, 'cartPage'));
+                                    // }
                                     //recommend
-                                    else {
-                                      var recommendIndex =
-                                          Get.find<RecommendProductController>()
-                                              .recommendProductList
-                                              .indexOf(cartController
-                                                  .getItems[index].product!);
+                                    // else {
+                                    // var recommendIndex =
+                                    //     Get.find<RecommendProductController>()
+                                    //         .recommendProductList
+                                    //         .indexOf(cartController
+                                    //             .getItems[index].product!);
 
-                                      Get.toNamed(RouteHelper.getRecommendFood(
-                                          recommendIndex, 'cartPage'));
-                                    }
+                                    // Get.toNamed(RouteHelper.getRecommendFood(
+                                    //     recommendIndex, 'cartPage'));
+                                    // }
                                   },
                                   child: Container(
                                       margin: EdgeInsets.only(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:let_api_flutter/src/core/controllers/cart_controller.dart';
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
-import 'package:let_api_flutter/src/core/services/api/popular-http.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 
@@ -19,26 +18,13 @@ class PopularProductController {
 
   //建構子
   PopularProductController();
-  List<dynamic> _popularProductList = [];
-  List<dynamic> get popularProductList => _popularProductList;
-
-  Future<void> getPopularProductList(ref) async {
-    final popularResult = ref.watch(popularHttpProvider);
-    // Response response = await popularProductRepo.getPopularProductList();
-
-    // print('${response.body}');
-    if (popularResult.statusCode == 200) {
-      _popularProductList = [];
-      _popularProductList.addAll(Product.fromJson(popularResult.body).products);
-    } else {}
-  }
-
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
       _quantity = checkQuantify(_quantity + 1);
     } else {
       _quantity = checkQuantify(_quantity - 1);
     }
+    print(_quantity);
   }
 
   //檢查計數器數字 > 0 或小於 20

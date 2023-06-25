@@ -65,7 +65,6 @@ class CartController extends GetxController {
   }
 
   int getQuantity(ProductModel product) {
-    print(product.id);
     var quantity = 0;
     if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
@@ -110,7 +109,6 @@ class CartController extends GetxController {
   set setCart(List<CartModel> items) {
     storageItems = items;
 
-    print(666);
     for (int i = 0; i < storageItems.length; i++) {
       _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
     }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
-import 'package:let_api_flutter/src/routes/route_helper.dart';
+import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 import 'package:let_api_flutter/src/core/utils/constants.dart';
 import 'package:let_api_flutter/src/core/utils/dimensions.dart';
 import 'package:let_api_flutter/src/core/widgets/big-text.dart';
 import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
 import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
-import 'package:get/get.dart';
 
 Widget pageViewItem(BuildContext context, int index, double currPageValue,
     ProductModel popularProduct) {
@@ -50,7 +50,7 @@ Widget pageViewItem(BuildContext context, int index, double currPageValue,
         //圖片
         GestureDetector(
           onTap: (() {
-            Get.toNamed(RouteHelper.getPopularFood(index, "home"));
+            GoRouter.of(context).go('/${RouteNames.foodDetail}/$index');
           }),
           child: Container(
               height: Dimensions(context).pageViewContainer(),

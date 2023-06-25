@@ -16,12 +16,24 @@ class BottomNavigationBarCustom extends StatefulWidget {
 class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
   int _selectedIndex = 0;
 
+  @override
+  void initState() {
+    super.initState;
+    setState(() {
+      _selectedIndex = widget.navigationShell.currentIndex;
+    });
+  }
+
   /// Bottom Navigation Bar 切換頁面
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
       index,
       initialLocation: index == widget.navigationShell.currentIndex,
     );
+
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override

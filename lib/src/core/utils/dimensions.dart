@@ -39,7 +39,7 @@ class Dimensions {
   }
 
   double fontSize(int size) {
-    debugPrint('Height = ${displaySize(context).height}');
+    // debugPrint('Height = ${displaySize(context).height}');
     double screenHeight = displaySize(context).height;
     double realSize = 844 / size;
     return screenHeight / realSize;

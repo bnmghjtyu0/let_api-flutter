@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/controllers/popular_product_controller.dart';
 import 'package:let_api_flutter/src/core/utils/dimensions.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 
@@ -21,7 +20,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
 //初始化時，載入 controllers
   Future<void> _loadResource() async {
-    await PopularProductController().getPopularProductList(ref);
+    // 讀取 api
+    // await PopularProductController().getPopularProductList(ref);
     // await Get.find<RecommendProductController>().getRecommendProductList();
   }
 
