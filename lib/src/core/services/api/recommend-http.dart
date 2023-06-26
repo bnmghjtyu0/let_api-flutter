@@ -1,21 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
-
 import 'package:let_api_flutter/src/core/models/recommend_model.dart';
+import 'package:let_api_flutter/src/core/services/api/dio_client.dart';
 import 'package:let_api_flutter/src/core/utils/constants.dart';
 
-class RecommendHttp {
-  String endpoint =
-      '${AppConstants.BASE_URL}${AppConstants.RECOMMENDED_PRODUCT_URI}';
+///推薦 api 服務
+class RecommendHttpService {
   Future<Recommend> getRecommendProduct() async {
-    Response response = await get(Uri.parse(endpoint));
-    return Recommend.fromJson(jsonDecode(response.body));
+    final response = await DioClient().dio.get(
+          AppConstants.RECOMMENDED_PRODUCT_URI,
+          options: Options(method: 'GET'),
+        );
+    return Recommend.fromJson(response.data);
   }
 }
 
 final apiProvider =
-    Provider<RecommendHttp>((ref) => RecommendHttp()); // Provider
+    Provider<RecommendHttpService>((ref) => RecommendHttpService()); // Provider
 final recommendHttpProvider = FutureProvider<Recommend>((ref) {
   return ref.read(apiProvider).getRecommendProduct();
 });

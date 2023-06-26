@@ -16,7 +16,7 @@ class MusicHomeScreen extends StatefulWidget {
 
 class _MusicHomeScreenState extends State<MusicHomeScreen> {
   late Future<ChartsKKBOXResponse> searchKKBOXData;
-  final kkboxAPI = KkboxAPIClass();
+  final kkboxAPI = kkboxHttpService();
 
   @override
   //初始化載入

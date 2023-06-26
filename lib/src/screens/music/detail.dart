@@ -14,7 +14,7 @@ class HomeDetailPage extends StatefulWidget {
 
 class _MyHomeDetailPageState extends State<HomeDetailPage> {
   late Future<ChartDetailResponse> chartDetailData;
-  final kkboxAPI = KkboxAPIClass();
+  final kkboxAPI = kkboxHttpService();
 
   //初始化載入
   @override

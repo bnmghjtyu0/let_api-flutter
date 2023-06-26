@@ -1,21 +1,24 @@
+import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
 
 import 'package:let_api_flutter/src/core/models/products_model.dart';
+import 'package:let_api_flutter/src/core/services/api/dio_client.dart';
 import 'package:let_api_flutter/src/core/utils/constants.dart';
 
-class PopularHttp {
-  String endpoint =
-      '${AppConstants.BASE_URL}${AppConstants.POPULAR_PRODUCT_URI}';
-
+class PopularHttpService {
   Future<Product> getPopularProductList() async {
-    Response response = await get(Uri.parse(endpoint));
-    return Product.fromJson(jsonDecode(response.body));
+    final response = await DioClient().dio.get(
+          AppConstants.POPULAR_PRODUCT_URI,
+          options: Options(method: 'GET'),
+        );
+    return Product.fromJson(response.data);
   }
 }
 
-final apiProvider = Provider<PopularHttp>((ref) => PopularHttp()); // Provider
+final apiProvider =
+    Provider<PopularHttpService>((ref) => PopularHttpService()); // Provider
+
+/// FutureProvider 處理 API
 final popularHttpProvider = FutureProvider<Product>((ref) {
   return ref.read(apiProvider).getPopularProductList();
 });
