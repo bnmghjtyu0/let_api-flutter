@@ -16,7 +16,7 @@ class MainLayout extends StatelessWidget {
       body: Center(
         child: navigationShell,
       ),
-      drawer: CommonDrawer(),
+      drawer: CommonDrawer(navigationShell: navigationShell),
       bottomNavigationBar:
           BottomNavigationBarCustom(navigationShell: navigationShell),
     );
