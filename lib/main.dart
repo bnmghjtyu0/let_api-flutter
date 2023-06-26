@@ -11,13 +11,15 @@ class App extends HookConsumerWidget {
     print('app build');
     KkboxInterceptor.context = context;
 
+    final goRouter = ref.read(goRouterProvider);
+
     ///先在 splash 儲存資料後，接著在這裡 keep in the memory
     return MaterialApp.router(
         title: 'Flutter Demo',
         theme: ThemeData(
           useMaterial3: true,
         ),
-        routerConfig: router);
+        routerConfig: goRouter);
   }
 }
 
