@@ -12,6 +12,7 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     KkboxInterceptor.context = context;
     return Scaffold(
+      appBar: AppBar(title: Text('App Shell')),
       body: Center(
         child: navigationShell,
       ),
