@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:let_api_flutter/src/core/widgets/bottom_navigation_bar.dart';
+import 'package:let_api_flutter/src/layout/main_layout.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/main_food_page.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/popular_detail.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/recommend_detail.dart';
@@ -18,6 +18,7 @@ class RouteNames {
 // 提供 debug 用的 label
 final _foodHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'Food');
 final _musicHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'Music');
+final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
 
 ///根路由
 final GoRouter router = GoRouter(
@@ -33,8 +34,9 @@ final GoRouter router = GoRouter(
 
       //bottomNavigationBar 的路由
       StatefulShellRoute.indexedStack(
-          builder: (context, state, navigationShell) {
-            return BottomNavigationBarCustom(navigationShell: navigationShell);
+          builder: (BuildContext context, GoRouterState state,
+              StatefulNavigationShell navigationShell) {
+            return MainLayout(navigationShell: navigationShell);
           },
           branches: [
             //bottomNavigationBar 的路由 index=0 美食平台

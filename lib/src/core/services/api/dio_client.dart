@@ -12,7 +12,7 @@ class DioClient {
   ));
 
   DioClient() {
-    // _dio.interceptors.add(LogInterceptor());
+    // _dio.interceptors.add(ErrorInterceptor());
   }
 
   Dio get dio => _dio;

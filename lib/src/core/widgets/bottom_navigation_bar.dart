@@ -38,25 +38,22 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.navigationShell,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.red,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-            backgroundColor: Colors.green,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _goBranch,
-      ),
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+          backgroundColor: Colors.red,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.business),
+          label: 'Business',
+          backgroundColor: Colors.green,
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.amber[800],
+      onTap: _goBranch,
     );
   }
 }
