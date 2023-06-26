@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/appbar_provider.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 import 'package:let_api_flutter/src/core/utils/dimensions.dart';
 import 'package:let_api_flutter/src/core/widgets/big-text.dart';
@@ -35,8 +36,15 @@ class _MainFoodPageState extends ConsumerState<MainFoodPage> {
                           text: 'Food Delivery', color: AppColors.mainColor),
                       Row(
                         children: [
-                          SmallText(
-                            text: '一個美食外送平台',
+                          GestureDetector(
+                            onTap: () {
+                              ref
+                                  .read(appBarProvider.notifier)
+                                  .update(title: '7777');
+                            },
+                            child: SmallText(
+                              text: '一個美食外送平台',
+                            ),
                           ),
                           Icon(Icons.arrow_drop_down_rounded)
                         ],
