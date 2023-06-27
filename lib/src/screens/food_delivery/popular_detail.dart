@@ -20,6 +20,7 @@ class PopularDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final popularResult = ref.watch(popularHttpProvider);
+
       return Scaffold(
           body: popularResult.when(
               data: (popularData) {
@@ -187,6 +188,7 @@ class CustomAppBar extends StatelessWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // 回上一頁
                   GestureDetector(
                       onTap: () {
                         GoRouter.of(context).goNamed(RouteNames.foodHome);
@@ -197,8 +199,11 @@ class CustomAppBar extends StatelessWidget {
                         // }
                       },
                       child: AppIcon(icon: Icons.arrow_back_ios)),
+
+                  // 前往購物車 cart
                   GestureDetector(
                     onTap: () {
+                      GoRouter.of(context).goNamed(RouteNames.cartInfo);
                       // if (controller.totalItems >= 1) {
                       //   Get.toNamed(RouteHelper.getCartPage());
                       // }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:let_api_flutter/src/core/utils/colors.dart';
 
 class BottomNavigationBarCustom extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
@@ -41,18 +42,27 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
           label: 'Home',
-          backgroundColor: Colors.red,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          label: 'Business',
-          backgroundColor: Colors.green,
+          icon: Icon(Icons.archive),
+          label: 'History',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart),
+          label: 'Cart',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Me',
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.amber[800],
+      unselectedItemColor: Colors.black45,
+      selectedItemColor: AppColors.mainColor,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       onTap: _goBranch,
     );
   }

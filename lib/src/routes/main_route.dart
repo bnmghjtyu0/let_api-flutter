@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/layout/main_layout.dart';
 import 'package:let_api_flutter/src/routes/notifier_route.dart';
+import 'package:let_api_flutter/src/screens/cart/cart_screen.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/main_food_page.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/popular_detail.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/recommend_detail.dart';
-import 'package:let_api_flutter/src/screens/music/music_home_screen.dart';
 import 'package:let_api_flutter/src/screens/splash/splash_screen.dart';
 
 class RouteNames {
@@ -15,6 +15,10 @@ class RouteNames {
   static const String foodDetail = 'foodDetail';
   static const String recommendDetail = 'recommendDetail';
   static const String musicHome = 'musicHome';
+  static const String history = 'history';
+  static const String cart = 'cart';
+  static const String cartInfo = 'cartInfo';
+  static const String me = 'me';
 }
 
 // 提供 debug 用的 label
@@ -37,6 +41,35 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               MaterialPage(key: state.pageKey, child: SplashScreen()),
         ),
 
+        // 受歡迎的美食
+        GoRoute(
+          name: RouteNames.foodDetail,
+          path: '/foodDetail/:pageId',
+          pageBuilder: (context, state) => MaterialPage(
+              key: state.pageKey,
+              child: PopularDetail(
+                  pageId: int.parse(state.pathParameters['pageId']!))),
+        ),
+
+        // 推薦的美食
+        GoRoute(
+          name: RouteNames.recommendDetail,
+          path: '/recommendDetail/:pageId',
+          pageBuilder: (context, state) => MaterialPage(
+              key: state.pageKey,
+              child: RecommendDetailWidget(
+                pageId: int.parse(state.pathParameters['pageId']!),
+              )),
+        ),
+
+        // 購物車
+        GoRoute(
+          name: RouteNames.cartInfo,
+          path: '/cartInfo',
+          pageBuilder: (context, state) =>
+              MaterialPage(key: state.pageKey, child: CartScreen()),
+        ),
+
         //bottomNavigationBar 的路由
         StatefulShellRoute.indexedStack(
             builder: (BuildContext context, GoRouterState state,
@@ -49,51 +82,73 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 navigatorKey: _foodHomeNavigatorAKey,
                 routes: [
                   GoRoute(
-                      name: RouteNames.foodHome,
-                      path: '/',
-                      pageBuilder: (context, state) => MaterialPage(
-                          key: state.pageKey, child: MainFoodPage()),
-                      routes: [
-                        // 受歡迎的美食
-                        GoRoute(
-                          name: RouteNames.foodDetail,
-                          path: 'foodDetail/:pageId',
-                          pageBuilder: (context, state) => MaterialPage(
-                              key: state.pageKey,
-                              child: PopularDetail(
-                                  pageId: int.parse(
-                                      state.pathParameters['pageId']!))),
-                        ),
-
-                        // 推薦的美食
-                        GoRoute(
-                          name: RouteNames.recommendDetail,
-                          path: 'recommendDetail/:pageId',
-                          pageBuilder: (context, state) => MaterialPage(
-                              key: state.pageKey,
-                              child: RecommendDetailWidget(
-                                pageId:
-                                    int.parse(state.pathParameters['pageId']!),
-                              )),
-                        ),
-                      ]),
+                    name: RouteNames.foodHome,
+                    path: '/',
+                    pageBuilder: (context, state) =>
+                        MaterialPage(key: state.pageKey, child: MainFoodPage()),
+                  ),
                 ],
               ),
-              //bottomNavigationBar 的路由 index=1 音樂
+              //bottomNavigationBar 的路由 index=1 History
               StatefulShellBranch(
-                navigatorKey: _musicHomeNavigatorAKey,
+                // navigatorKey: _musicHomeNavigatorAKey,
                 routes: [
                   GoRoute(
-                    name: RouteNames.musicHome,
-                    path: '/musicHome',
+                    name: RouteNames.history,
+                    path: '/history',
                     pageBuilder: (context, state) => MaterialPage(
                         key: state.pageKey,
-                        child: MusicHomeScreen(
-                          title: '音樂時光',
+                        child: Center(
+                          child: Text('歷史紀錄'),
                         )),
                   ),
                 ],
               ),
+              //bottomNavigationBar 的路由 index=2 Cart
+              StatefulShellBranch(
+                // navigatorKey: _musicHomeNavigatorAKey,
+                routes: [
+                  GoRoute(
+                    name: RouteNames.cart,
+                    path: '/cart',
+                    pageBuilder: (context, state) => MaterialPage(
+                        key: state.pageKey,
+                        child: Center(
+                          child: Text('購物車'),
+                        )),
+                  ),
+                ],
+              ),
+              //bottomNavigationBar 的路由 index=3 Me
+              StatefulShellBranch(
+                // navigatorKey: _musicHomeNavigatorAKey,
+                routes: [
+                  GoRoute(
+                    name: RouteNames.me,
+                    path: '/me',
+                    pageBuilder: (context, state) => MaterialPage(
+                        key: state.pageKey,
+                        child: Center(
+                          child: Text('關於作者'),
+                        )),
+                  ),
+                ],
+              ),
+
+              // StatefulShellBranch(
+              //   navigatorKey: _musicHomeNavigatorAKey,
+              //   routes: [
+              //     GoRoute(
+              //       name: RouteNames.musicHome,
+              //       path: '/musicHome',
+              //       pageBuilder: (context, state) => MaterialPage(
+              //           key: state.pageKey,
+              //           child: MusicHomeScreen(
+              //             title: '音樂時光',
+              //           )),
+              //     ),
+              //   ],
+              // ),
             ]),
       ]);
 })

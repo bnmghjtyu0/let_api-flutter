@@ -1,15 +1,12 @@
-class AppBarState {
-  @override
-  final String title;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  AppBarState({
-    this.title = '123',
-  });
+part 'appbar_state.freezed.dart';
+part 'appbar_state.g.dart';
 
-  AppBarState copy({
-    String? title,
-  }) =>
-      AppBarState(
-        title: title ?? this.title,
-      );
+@freezed
+class AppBarState with _$AppBarState {
+  const factory AppBarState({required String title}) = _AppBarState;
+
+  factory AppBarState.fromJson(Map<String, dynamic> json) =>
+      _$AppBarStateFromJson(json);
 }

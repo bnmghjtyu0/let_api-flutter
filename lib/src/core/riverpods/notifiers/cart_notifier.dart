@@ -1,12 +1,15 @@
-import 'package:let_api_flutter/src/core/services/repository/cart_repo.dart';
+// This file is "main.dart"
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
 
-//購物車
-class CartController {
-  final CartRepo cartRepo;
+class CartState {
+  CartState();
+}
 
-  CartController({required this.cartRepo});
+///購物車 reducer
+class CartNotifier extends StateNotifier<CartState> {
+  CartNotifier() : super(CartState());
 
   Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
@@ -51,7 +54,7 @@ class CartController {
       }
     }
 
-    cartRepo.addToCartList(getItems);
+    // cartRepo.addToCartList(getItems);
   }
 
   bool existInCart(ProductModel product) {
@@ -99,7 +102,7 @@ class CartController {
 
   //取得購物車全部資料 - 初始化載入一次
   List<CartModel> getCartData() {
-    setCart = cartRepo.getCartList();
+    // setCart = cartRepo.getCartList();
     return storageItems;
   }
 
