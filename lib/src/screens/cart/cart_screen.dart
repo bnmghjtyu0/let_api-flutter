@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/cart_provider.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/core/services/api/popular-http.dart';
 import 'package:let_api_flutter/src/core/utils/colors.dart';
 import 'package:let_api_flutter/src/core/utils/constants.dart';
@@ -19,7 +20,8 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       body: Consumer(
         builder: (context, ref, child) {
-          final popularRef = ref.watch(popularHttpProvider).asData!.value;
+          final popularHttpRef = ref.watch(popularHttpProvider).asData!.value;
+          final popularRef = ref.watch(popularProvider.notifier);
           final cartRef = ref.read(cartProvider.notifier);
           return Stack(
             children: [
@@ -37,7 +39,7 @@ class CartScreen extends StatelessWidget {
                           margin: EdgeInsets.only(
                               top: Dimensions(context).height(15)),
                           child: ListView.builder(
-                            itemCount: cartRef.getItems.length,
+                            itemCount: popularRef.getList.length,
                             itemBuilder: (_, index) {
                               return SizedBox(
                                   width: double.maxFinite,
@@ -46,29 +48,31 @@ class CartScreen extends StatelessWidget {
                                     //圖片
                                     GestureDetector(
                                       onTap: () {
-                                        print('tap');
-                                        print(popularRef.products);
-                                        // var popularIndex = popularRef
-                                        //     .data.products
-                                        //     .indexOf(cartController
-                                        //         .getItems[index].product!);
+                                        var popularIndex = popularHttpRef
+                                            .products
+                                            .indexOf(popularRef
+                                                .getList[index].product!);
 
-                                        //popular
-                                        // if (popularIndex >= 0) {
-                                        //   Get.toNamed(RouteHelper.getPopularFood(
-                                        //       popularIndex, 'cartPage'));
-                                        // }
-                                        // recommend;
-                                        // else {
-                                        // var recommendIndex =
-                                        //     Get.find<RecommendProductController>()
-                                        //         .recommendProductList
-                                        //         .indexOf(cartController
-                                        //             .getItems[index].product!);
+                                        // 受歡迎商品
+                                        if (popularIndex >= 0) {
+                                          GoRouter.of(context).goNamed(
+                                              RouteNames.foodDetail,
+                                              pathParameters: {
+                                                "pageId":
+                                                    popularIndex.toString()
+                                              });
+                                        }
+                                        // 推薦商品
+                                        else {
+                                          // var recommendIndex =
+                                          //     Get.find<RecommendProductController>()
+                                          //         .recommendProductList
+                                          //         .indexOf(cartController
+                                          //             .getItems[index].product!);
 
-                                        // Get.toNamed(RouteHelper.getRecommendFood(
-                                        //     recommendIndex, 'cartPage'));
-                                        // }
+                                          // Get.toNamed(RouteHelper.getRecommendFood(
+                                          //     recommendIndex, 'cartPage'));
+                                        }
                                       },
                                       child: Container(
                                           margin: EdgeInsets.only(
@@ -84,7 +88,7 @@ class CartScreen extends StatelessWidget {
                                                   fit: BoxFit.cover,
                                                   image: NetworkImage(AppConstants.BASE_URL +
                                                       AppConstants.UPLOAD_URL +
-                                                      cartRef.getItems[index]
+                                                      popularRef.getList[index]
                                                           .img!)),
                                               borderRadius: BorderRadius.circular(
                                                   Dimensions(context).radius(20)),
@@ -105,8 +109,8 @@ class CartScreen extends StatelessWidget {
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 BigText(
-                                                    text: cartRef
-                                                        .getItems[index].name!,
+                                                    text: popularRef
+                                                        .getList[index].name!,
                                                     color: Colors.black54),
                                                 SmallText(text: 'spicy'),
                                                 Row(
@@ -115,8 +119,8 @@ class CartScreen extends StatelessWidget {
                                                           .spaceBetween,
                                                   children: [
                                                     BigText(
-                                                        text: cartRef
-                                                            .getItems[index]
+                                                        text: popularRef
+                                                            .getList[index]
                                                             .price
                                                             .toString(),
                                                         color:
@@ -219,7 +223,7 @@ class CartScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // 計數器 + 0 -
+                // 計數器
                 Container(
                     padding: EdgeInsets.only(
                         top: Dimensions(context).height(20),

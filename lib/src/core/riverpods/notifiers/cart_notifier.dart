@@ -53,8 +53,6 @@ class CartNotifier extends StateNotifier<CartState> {
         });
       }
     }
-
-    // cartRepo.addToCartList(getItems);
   }
 
   bool existInCart(ProductModel product) {
