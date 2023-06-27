@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/core/bindings/global_binding.dart';
 import 'package:let_api_flutter/src/core/interceptors/kkbox_interceptor.dart';
+import 'package:let_api_flutter/src/core/services/firebase_service.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -24,8 +24,12 @@ class App extends HookConsumerWidget {
 }
 
 //入口
-void main() {
-  GlobalBinding().dependencies();
+Future<void> main() async {
+  // GlobalBinding().dependencies();
+
+  ///載入 firebase 服務
+  await CommonFirebaseService().init();
+
   runApp(
     ProviderScope(
       child: App(),
