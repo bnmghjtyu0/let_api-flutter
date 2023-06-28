@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:let_api_flutter/src/core/interceptors/kkbox_interceptor.dart';
 import 'package:let_api_flutter/src/core/models/kkbox/chartDetail.dart';
 import 'package:let_api_flutter/src/core/models/kkbox/charts.dart';
-import 'package:let_api_flutter/src/core/models/search-kkbox-api.dart';
+import 'package:let_api_flutter/src/core/models/search_kkbox_api.dart';
 
 class DioClient {
   final Dio _dio = Dio(BaseOptions(

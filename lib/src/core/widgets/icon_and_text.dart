@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/core/widgets/index.dart';
+import 'package:let_api_flutter/src/core/widgets/widgets.dart';
 
 class IconAndTextWidget extends StatelessWidget {
   final IconData icon;

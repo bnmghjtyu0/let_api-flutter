@@ -76,8 +76,8 @@ class PageViewItem extends StatelessWidget {
                       color: index.isEven ? AppColors.mainColor : Colors.blue,
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(AppConstants.BASE_URL +
-                              AppConstants.UPLOAD_URL +
+                          image: NetworkImage(ApiConstants.BASE_URL +
+                              ApiConstants.UPLOAD_URL +
                               popularProduct.img!)))),
             ),
 

@@ -5,9 +5,9 @@ import 'package:let_api_flutter/src/core/riverpods/notifiers/popular_notifier.da
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
-import 'package:let_api_flutter/src/core/widgets/index.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/index.dart';
-import 'package:let_api_flutter/src/core/constants/index.dart';
+import 'package:let_api_flutter/src/core/widgets/widgets.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/widgets/widgets.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
 
 class RecommendDetailWidget extends ConsumerStatefulWidget {
   final int pageId;
@@ -60,8 +60,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
                   background: Image.network(
-                      AppConstants.BASE_URL +
-                          AppConstants.UPLOAD_URL +
+                      ApiConstants.BASE_URL +
+                          ApiConstants.UPLOAD_URL +
                           recommendData!.products![widget.pageId].img!,
                       width: double.maxFinite,
                       fit: BoxFit.cover)),

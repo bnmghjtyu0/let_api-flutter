@@ -20,7 +20,7 @@ class CartRepo {
       cart.add(jsonEncode(element));
     }
 
-    sharedPreferences.setStringList(AppConstants.CART_LIST, cart);
+    sharedPreferences.setStringList(ApiConstants.CART_LIST, cart);
   }
 
   //sharedPreferences 取得資料
@@ -28,8 +28,8 @@ class CartRepo {
     List<String> carts = [];
 
     //如果 localStorage 有資料
-    if (sharedPreferences.containsKey(AppConstants.CART_LIST)) {
-      carts = sharedPreferences.getStringList(AppConstants.CART_LIST)!;
+    if (sharedPreferences.containsKey(ApiConstants.CART_LIST)) {
+      carts = sharedPreferences.getStringList(ApiConstants.CART_LIST)!;
     }
 
     List<CartModel> cartList = [];

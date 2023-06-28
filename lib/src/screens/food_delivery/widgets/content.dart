@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/constants/index.dart';
-import 'package:let_api_flutter/src/core/models/index.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/core/models/models.dart';
 import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
-import 'package:let_api_flutter/src/core/widgets/index.dart';
+import 'package:let_api_flutter/src/core/widgets/widgets.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/index.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/widgets/widgets.dart';
 
 class FoodDeliveryContent extends ConsumerStatefulWidget {
   const FoodDeliveryContent({Key? key}) : super(key: key);
@@ -127,8 +127,8 @@ class _FoodDeliveryContentState extends ConsumerState<FoodDeliveryContent> {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(AppConstants.BASE_URL +
-                                      AppConstants.UPLOAD_URL +
+                                  image: NetworkImage(ApiConstants.BASE_URL +
+                                      ApiConstants.UPLOAD_URL +
                                       recommendData.products![index].img!))),
                         ),
                         // text container

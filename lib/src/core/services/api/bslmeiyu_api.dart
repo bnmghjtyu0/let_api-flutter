@@ -10,7 +10,7 @@ import 'package:let_api_flutter/src/core/models/recommend_model.dart';
 class BslmeiyuService {
   late final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: AppConstants.BASE_URL,
+      baseUrl: ApiConstants.BASE_URL,
       connectTimeout: Duration(seconds: 5),
       receiveTimeout: Duration(seconds: 3),
       responseType: ResponseType.json,
@@ -20,7 +20,7 @@ class BslmeiyuService {
   ///受歡迎的產品
   Future<Product> productPopular() async {
     final response = await _dio.get(
-      AppConstants.POPULAR_PRODUCT_URI,
+      ApiConstants.POPULAR_PRODUCT_URI,
       options: Options(method: 'GET'),
     );
     return Product.fromJson(response.data);
@@ -29,7 +29,7 @@ class BslmeiyuService {
   ///推薦的的產品
   Future<Recommend> productRecommend() async {
     final response = await _dio.get(
-      AppConstants.RECOMMENDED_PRODUCT_URI,
+      ApiConstants.RECOMMENDED_PRODUCT_URI,
       options: Options(method: 'GET'),
     );
     return Recommend.fromJson(response.data);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/constants/index.dart';
-import 'package:let_api_flutter/src/core/widgets/index.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/core/widgets/widgets.dart';
 
 class ExpandableTextWidget extends ConsumerStatefulWidget {
   final String text;

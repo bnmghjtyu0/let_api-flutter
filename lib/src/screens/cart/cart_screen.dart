@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/models/index.dart';
+import 'package:let_api_flutter/src/core/models/models.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
-import 'package:let_api_flutter/src/core/constants/index.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/core/widgets/index.dart';
+import 'package:let_api_flutter/src/core/widgets/widgets.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 
 class CartScreen extends StatelessWidget {
@@ -81,8 +81,8 @@ class CartScreen extends StatelessWidget {
                                                 image: DecorationImage(
                                                     fit: BoxFit.cover,
                                                     image: NetworkImage(
-                                                        AppConstants.BASE_URL +
-                                                            AppConstants
+                                                        ApiConstants.BASE_URL +
+                                                            ApiConstants
                                                                 .UPLOAD_URL +
                                                             popularRef
                                                                 .getList[index]
