@@ -61,7 +61,6 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   dots_indicator: ^2.0.0
-  get: ^4.6.5
   build_runner: ^2.4.5
   json_serializable: ^6.7.0
 
