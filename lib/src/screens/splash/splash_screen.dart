@@ -8,6 +8,7 @@ import 'package:let_api_flutter/src/core/services/product_popular_provider.dart'
 import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 
+///進入 app 的動畫
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -19,13 +20,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     with TickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
-
-//初始化時，載入 controllers
-  Future<void> _loadResource() async {
-    // 讀取 api
-    ref.read(productPopularProvider.notifier);
-    ref.read(productRecommendProvider.notifier);
-  }
 
   @override
   void initState() {
@@ -40,6 +34,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       print('進入首頁');
       GoRouter.of(context).goNamed(RouteNames.foodHome);
     });
+  }
+
+//初始化時，載入 controllers
+  void _loadResource() async {
+    // 讀取 api
+    ref.read(productPopularProvider.notifier);
+    ref.read(productRecommendProvider.notifier);
   }
 
   @override

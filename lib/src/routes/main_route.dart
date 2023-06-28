@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/layout/main_layout.dart';
 import 'package:let_api_flutter/src/routes/notifier_route.dart';
 import 'package:let_api_flutter/src/screens/cart/cart_screen.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/main_food_page.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/popular_detail.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/recommend_detail.dart';
+import 'package:let_api_flutter/src/screens/home/home.dart';
+import 'package:let_api_flutter/src/screens/home/popular_detail.dart';
+import 'package:let_api_flutter/src/screens/home/recommend_detail.dart';
 import 'package:let_api_flutter/src/screens/splash/splash_screen.dart';
 
 class RouteNames {
@@ -85,7 +85,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     name: RouteNames.foodHome,
                     path: '/',
                     pageBuilder: (context, state) =>
-                        MaterialPage(key: state.pageKey, child: MainFoodPage()),
+                        MaterialPage(key: state.pageKey, child: HomeScreen()),
                   ),
                 ],
               ),

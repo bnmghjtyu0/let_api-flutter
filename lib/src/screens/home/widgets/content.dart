@@ -8,7 +8,7 @@ import 'package:let_api_flutter/src/core/services/product_recommend_provider.dar
 import 'package:let_api_flutter/src/core/widgets/widgets.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/widgets.dart';
+import 'package:let_api_flutter/src/screens/home/widgets/widgets.dart';
 
 class FoodDeliveryContent extends ConsumerStatefulWidget {
   const FoodDeliveryContent({Key? key}) : super(key: key);

@@ -7,7 +7,7 @@ import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:let_api_flutter/src/core/widgets/widgets.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/widgets.dart';
+import 'package:let_api_flutter/src/screens/home/widgets/widgets.dart';
 
 class PopularDetail extends ConsumerStatefulWidget {
   final int pageId;
