@@ -1,0 +1,1 @@
+export "chartDetail.dart";

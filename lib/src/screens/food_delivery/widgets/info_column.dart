@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/constants/colors.dart';
 import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
-import 'package:let_api_flutter/src/core/widgets/big-text.dart';
-import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/widgets/big_text.dart';
+import 'package:let_api_flutter/src/core/widgets/icon_and_text.dart';
+import 'package:let_api_flutter/src/core/widgets/small_text.dart';
 
 /// 資訊面板元件
 class InfoColumn extends StatelessWidget {
@@ -15,7 +14,7 @@ class InfoColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+      Dimensions dimensions = Dimensions(context);
       return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         BigText(text: title, size: dimensions.fontSize(26)),
         SizedBox(height: dimensions.width(10)),

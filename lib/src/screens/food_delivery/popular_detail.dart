@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
+import 'package:let_api_flutter/src/core/models/products_model.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
-import 'package:let_api_flutter/src/core/services/api/popular-http.dart';
-import 'package:let_api_flutter/src/core/constants/colors.dart';
-import 'package:let_api_flutter/src/core/constants/constants.dart';
-import 'package:let_api_flutter/src/core/widgets/big-text.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/constants/index.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
-import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/widgets/app-icon.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/expandable_text.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/info_column.dart';
+import 'package:let_api_flutter/src/core/widgets/index.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/widgets/index.dart';
 
 class PopularDetail extends ConsumerStatefulWidget {
   final int pageId;
@@ -30,9 +25,10 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final popularHttpRef = ref.watch(popularHttpProvider);
+    /** 取得產品 api */
+    final Product? popularData = ref.watch(productPopularProvider).product;
     final popularRef = ref.watch(popularProvider.notifier);
-    Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+    Dimensions dimensions = Dimensions(context);
 
     void setQuantity(bool isIncrement) {
       // 增加
@@ -53,147 +49,127 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
     }
 
     return Scaffold(
-        body: popularHttpRef.when(
-            data: (popularData) {
-              return Stack(children: [
-                //大圖
-                Positioned(
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      //double.maxFinite: 最大值
-                      width: double.maxFinite,
-                      height: dimensions.popularFoodImgSize(),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage((AppConstants.BASE_URL +
-                                  AppConstants.UPLOAD_URL +
-                                  popularData.products[widget.pageId].img!)))),
-                    )),
-                CustomAppBar(
-                  page: 'cartPage',
-                ),
-                Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    top: dimensions.popularFoodImgSize() - 20,
-                    child: Container(
-                        padding: EdgeInsets.only(
-                            left: dimensions.width(20),
-                            right: dimensions.width(20),
-                            top: dimensions.height(20)),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(dimensions.radius(20)),
-                                topRight:
-                                    Radius.circular(dimensions.radius(20))),
-                            color: Colors.white),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InfoColumn(
-                                title:
-                                    popularData.products[widget.pageId].name!),
-                            SizedBox(height: dimensions.height(20)),
-                            // Introduce
-                            BigText(text: 'Introduce'),
-                            // expandable text
-                            Expanded(
-                                child: SingleChildScrollView(
-                              child: ExpandableTextWidget(
-                                  text: popularData
-                                      .products[widget.pageId].description!),
-                            )),
-                          ],
-                        ))),
-              ]);
-            },
-            error: ((error, stackTrace) => Text(error.toString())),
-            loading: () {
-              return Text('產品目錄讀取中...');
-            }),
-        bottomNavigationBar: popularHttpRef.when(
-            data: (productData) {
-              return Container(
-                  height: dimensions.bottomHeightBar(),
+        body: Stack(children: [
+          //大圖
+          Positioned(
+              left: 0,
+              right: 0,
+              child: Container(
+                //double.maxFinite: 最大值
+                width: double.maxFinite,
+                height: dimensions.popularFoodImgSize(),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage((AppConstants.BASE_URL +
+                            AppConstants.UPLOAD_URL +
+                            popularData!.products[widget.pageId].img!)))),
+              )),
+          CustomAppBar(
+            page: 'cartPage',
+          ),
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: dimensions.popularFoodImgSize() - 20,
+              child: Container(
                   padding: EdgeInsets.only(
-                      top: dimensions.height(30),
-                      bottom: dimensions.height(30),
-                      left: dimensions.height(20),
-                      right: dimensions.height(20)),
+                      left: dimensions.width(20),
+                      right: dimensions.width(20),
+                      top: dimensions.height(20)),
                   decoration: BoxDecoration(
-                      color: AppColors.bottomBackgroundColor,
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(dimensions.radius(20) * 2),
-                          topRight:
-                              Radius.circular(dimensions.radius(20) * 2))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          topLeft: Radius.circular(dimensions.radius(20)),
+                          topRight: Radius.circular(dimensions.radius(20))),
+                      color: Colors.white),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // 計數器
-                      Container(
-                          padding: EdgeInsets.only(
-                              top: dimensions.height(20),
-                              bottom: dimensions.height(20),
-                              left: dimensions.width(20),
-                              right: dimensions.width(20)),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: (() {
-                                  setQuantity(false);
-                                }),
-                                child: Icon(Icons.remove,
-                                    color: AppColors.signColor),
-                              ),
-                              SizedBox(width: dimensions.width(10) / 2),
-                              BigText(text: quantity.toString()),
-                              SizedBox(width: dimensions.width(10) / 2),
-                              GestureDetector(
-                                onTap: (() {
-                                  setQuantity(true);
-                                }),
-                                child:
-                                    Icon(Icons.add, color: AppColors.signColor),
-                              )
-                            ],
-                          )),
-
-                      // 加入購物車
-                      Container(
-                        padding: EdgeInsets.only(
-                            top: dimensions.height(20),
-                            bottom: dimensions.height(20),
-                            left: dimensions.width(20),
-                            right: dimensions.width(20)),
-                        decoration: BoxDecoration(
-                            color: AppColors.mainColor,
-                            borderRadius:
-                                BorderRadius.circular(dimensions.radius(20))),
-                        child: GestureDetector(
-                          onTap: (() {
-                            ref.read(popularProvider.notifier).add(
-                                productData.products[widget.pageId],
-                                inCartItems);
-                          }),
-                          child: BigText(
-                              text:
-                                  '\$ ${productData.products[widget.pageId].price!} + Add to cart',
-                              color: Colors.white),
-                        ),
-                      )
+                      InfoColumn(
+                          title: popularData.products[widget.pageId].name!),
+                      SizedBox(height: dimensions.height(20)),
+                      // Introduce
+                      BigText(text: 'Introduce'),
+                      // expandable text
+                      Expanded(
+                          child: SingleChildScrollView(
+                        child: ExpandableTextWidget(
+                            text: popularData
+                                .products[widget.pageId].description!),
+                      )),
                     ],
-                  ));
-            },
-            error: ((error, stackTrace) => Text(error.toString())),
-            loading: () {
-              return Text('產品目錄讀取中...');
-            }));
+                  ))),
+        ]),
+        bottomNavigationBar: Container(
+            height: dimensions.bottomHeightBar(),
+            padding: EdgeInsets.only(
+                top: dimensions.height(30),
+                bottom: dimensions.height(30),
+                left: dimensions.height(20),
+                right: dimensions.height(20)),
+            decoration: BoxDecoration(
+                color: AppColors.bottomBackgroundColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(dimensions.radius(20) * 2),
+                    topRight: Radius.circular(dimensions.radius(20) * 2))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // 計數器
+                Container(
+                    padding: EdgeInsets.only(
+                        top: dimensions.height(20),
+                        bottom: dimensions.height(20),
+                        left: dimensions.width(20),
+                        right: dimensions.width(20)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: (() {
+                            setQuantity(false);
+                          }),
+                          child: Icon(Icons.remove, color: AppColors.signColor),
+                        ),
+                        SizedBox(width: dimensions.width(10) / 2),
+                        BigText(text: quantity.toString()),
+                        SizedBox(width: dimensions.width(10) / 2),
+                        GestureDetector(
+                          onTap: (() {
+                            setQuantity(true);
+                          }),
+                          child: Icon(Icons.add, color: AppColors.signColor),
+                        )
+                      ],
+                    )),
+
+                // 加入購物車
+                Container(
+                  padding: EdgeInsets.only(
+                      top: dimensions.height(20),
+                      bottom: dimensions.height(20),
+                      left: dimensions.width(20),
+                      right: dimensions.width(20)),
+                  decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      borderRadius:
+                          BorderRadius.circular(dimensions.radius(20))),
+                  child: GestureDetector(
+                    onTap: (() {
+                      ref.read(popularProvider.notifier).add(
+                          popularData.products[widget.pageId], inCartItems);
+                    }),
+                    child: BigText(
+                        text:
+                            '\$ ${popularData.products[widget.pageId].price!} + Add to cart',
+                        color: Colors.white),
+                  ),
+                )
+              ],
+            )));
   }
 }
 
@@ -208,8 +184,7 @@ class CustomAppBar extends StatelessWidget {
         Consumer(
       builder: (context, ref, child) {
         final popularRef = ref.watch(popularProvider.notifier);
-        Dimensions dimensions =
-            ref.watch(appProvider(context)).state.dimensions;
+        Dimensions dimensions = Dimensions(context);
 
         return Positioned(
             top: dimensions.height(45),
@@ -242,8 +217,10 @@ class CustomAppBar extends StatelessWidget {
                     child: Stack(children: [
                       AppIcon(icon: Icons.shopping_cart_outlined),
                       // cart number circle
-                      popularRef.totalItems >= 1
-                          ? Positioned(
+
+                      Visibility(
+                          visible: popularRef.totalItems >= 1,
+                          child: Positioned(
                               top: 0,
                               right: 0,
                               child: AppIcon(
@@ -251,19 +228,18 @@ class CustomAppBar extends StatelessWidget {
                                 size: 20,
                                 iconColor: Colors.transparent,
                                 backgroundColor: AppColors.mainColor,
-                              ))
-                          : Container(),
+                              ))),
                       // cart number
-                      popularRef.totalItems >= 1
-                          ? Positioned(
+                      Visibility(
+                          visible: popularRef.totalItems >= 1,
+                          child: Positioned(
                               top: 3,
                               right: 3,
                               child: SmallText(
                                 text: popularRef.totalItems.toString(),
                                 size: 12,
                                 color: Colors.white,
-                              ))
-                          : Container()
+                              )))
                     ]),
                   )
                 ]));

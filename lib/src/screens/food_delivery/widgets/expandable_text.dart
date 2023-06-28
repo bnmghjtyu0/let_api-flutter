@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/constants/colors.dart';
-import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/constants/index.dart';
+import 'package:let_api_flutter/src/core/widgets/index.dart';
 
 class ExpandableTextWidget extends ConsumerStatefulWidget {
   final String text;
@@ -37,7 +35,7 @@ class _ExpandableTextWidgetState extends ConsumerState<ExpandableTextWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+    Dimensions dimensions = Dimensions(context);
     return Container(
       child: secondHalf.isEmpty
           ? SmallText(text: firstHalf)

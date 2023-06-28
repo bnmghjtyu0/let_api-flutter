@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
 
 class BigText extends StatelessWidget {
   final Color? color;
@@ -22,7 +21,7 @@ class BigText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+      Dimensions dimensions = Dimensions(context);
       return Text(text,
           style: TextStyle(
               fontFamily: 'Roboto',

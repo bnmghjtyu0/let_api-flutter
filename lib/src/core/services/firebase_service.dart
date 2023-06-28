@@ -18,12 +18,18 @@ class CommonFirebaseService {
 
     /// ----start ---- FirebaseCrashlytics 當有錯誤時，告訴 firebase   --------
     FlutterError.onError = (errorDetails) {
-      // If you wish to record a "non-fatal" exception, please use `FirebaseCrashlytics.instance.recordFlutterError` instead
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      ///網頁版不能使用 FirebaseCrashlytics
+      if (!kIsWeb) {
+        // If you wish to record a "non-fatal" exception, please use `FirebaseCrashlytics.instance.recordFlutterError` instead
+        FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      }
     };
     PlatformDispatcher.instance.onError = (error, stack) {
-      // If you wish to record a "non-fatal" exception, please remove the "fatal" parameter
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      ///網頁版不能使用 FirebaseCrashlytics
+      if (!kIsWeb) {
+        // If you wish to record a "non-fatal" exception, please remove the "fatal" parameter
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      }
       return true;
     };
 

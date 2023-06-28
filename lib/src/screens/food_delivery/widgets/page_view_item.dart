@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:let_api_flutter/src/core/constants/colors.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/widgets/big-text.dart';
-import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/widgets/big_text.dart';
+import 'package:let_api_flutter/src/core/widgets/icon_and_text.dart';
+import 'package:let_api_flutter/src/core/widgets/small_text.dart';
 
 ///輪播圖
 class PageViewItem extends StatelessWidget {
@@ -28,7 +27,7 @@ class PageViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+      Dimensions dimensions = Dimensions(context);
       double height = dimensions.pageViewContainer();
 
       //目前選擇的圖片
@@ -69,11 +68,11 @@ class PageViewItem extends StatelessWidget {
                 GoRouter.of(context).go('/${RouteNames.foodDetail}/$index');
               }),
               child: Container(
-                  height: Dimensions(context).pageViewContainer(),
+                  height: dimensions.pageViewContainer(),
                   margin: EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.circular(Dimensions(context).radius(30)),
+                          BorderRadius.circular(dimensions.radius(30)),
                       color: index.isEven ? AppColors.mainColor : Colors.blue,
                       image: DecorationImage(
                           fit: BoxFit.cover,
@@ -86,14 +85,14 @@ class PageViewItem extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  height: Dimensions(context).pageViewTextContainer(),
+                  height: dimensions.pageViewTextContainer(),
                   margin: EdgeInsets.only(
-                      left: Dimensions(context).width(30),
-                      right: Dimensions(context).width(30),
-                      bottom: Dimensions(context).height(30)),
+                      left: dimensions.width(30),
+                      right: dimensions.width(30),
+                      bottom: dimensions.height(30)),
                   decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.circular(Dimensions(context).radius(30)),
+                          BorderRadius.circular(dimensions.radius(30)),
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
@@ -105,12 +104,12 @@ class PageViewItem extends StatelessWidget {
                       ]),
                   child: Container(
                       padding: EdgeInsets.only(
-                          top: Dimensions(context).height(10),
-                          left: Dimensions(context).width(15),
-                          right: Dimensions(context).width(15)),
+                          top: dimensions.height(10),
+                          left: dimensions.width(15),
+                          right: dimensions.width(15)),
                       child: Column(children: [
                         BigText(text: 'Taiwan'),
-                        SizedBox(height: Dimensions(context).height(10)),
+                        SizedBox(height: dimensions.height(10)),
                         Row(
                           children: [
                             Wrap(
@@ -118,15 +117,15 @@ class PageViewItem extends StatelessWidget {
                                     5,
                                     (index) => Icon(Icons.star,
                                         color: AppColors.mainColor))),
-                            SizedBox(width: Dimensions(context).width(10)),
+                            SizedBox(width: dimensions.width(10)),
                             SmallText(text: '4.5'),
-                            SizedBox(width: Dimensions(context).width(10)),
+                            SizedBox(width: dimensions.width(10)),
                             SmallText(text: '1287'),
-                            SizedBox(width: Dimensions(context).width(10)),
+                            SizedBox(width: dimensions.width(10)),
                             SmallText(text: 'comments')
                           ],
                         ),
-                        SizedBox(height: Dimensions(context).height(10)),
+                        SizedBox(height: dimensions.height(10)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

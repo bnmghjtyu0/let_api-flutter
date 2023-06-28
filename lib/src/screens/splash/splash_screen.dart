@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -22,14 +23,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 //初始化時，載入 controllers
   Future<void> _loadResource() async {
     // 讀取 api
-    // await PopularProductController().getPopularProductList(ref);
-    // await Get.find<RecommendProductController>().getRecommendProductList();
+    ref.read(productPopularProvider.notifier);
+    ref.read(productRecommendProvider.notifier);
   }
 
   @override
   void initState() {
     super.initState();
-    // _loadResource();
+    _loadResource();
     controller =
         AnimationController(vsync: this, duration: Duration(seconds: 2))
           ..forward();
@@ -43,7 +44,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+    Dimensions dimensions = Dimensions(context);
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(

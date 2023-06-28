@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
+import 'package:let_api_flutter/src/core/models/index.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
-import 'package:let_api_flutter/src/core/services/api/popular-http.dart';
-import 'package:let_api_flutter/src/core/constants/colors.dart';
-import 'package:let_api_flutter/src/core/constants/constants.dart';
-import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/widgets/app-icon.dart';
-import 'package:let_api_flutter/src/core/widgets/big-text.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/constants/index.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/core/widgets/index.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 
 class CartScreen extends StatelessWidget {
@@ -19,13 +15,13 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+      Dimensions dimensions = Dimensions(context);
       return Scaffold(
         body: Consumer(
           builder: (context, ref, child) {
-            final popularHttpRef = ref.watch(popularHttpProvider).asData!.value;
+            Product? popularData = ref.read(productPopularProvider).product;
             final popularRef = ref.watch(popularProvider.notifier);
-            final cartRef = ref.read(cartProvider.notifier);
+
             return Stack(
               children: [
                 CustomAppBar(),
@@ -50,7 +46,7 @@ class CartScreen extends StatelessWidget {
                                       //圖片
                                       GestureDetector(
                                         onTap: () {
-                                          var popularIndex = popularHttpRef
+                                          var popularIndex = popularData!
                                               .products
                                               .indexOf(popularRef
                                                   .getList[index].product!);
@@ -272,7 +268,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+      Dimensions dimensions = Dimensions(context);
       return Positioned(
           top: dimensions.height(20) * 3,
           left: dimensions.width(20),

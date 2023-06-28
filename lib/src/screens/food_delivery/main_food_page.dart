@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/constants/colors.dart';
-import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
-import 'package:let_api_flutter/src/core/widgets/big-text.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/content.dart';
+import 'package:let_api_flutter/src/core/constants/index.dart';
+import 'package:let_api_flutter/src/core/widgets/index.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/widgets/index.dart';
 
 class MainFoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+      Dimensions dimensions = Dimensions(context);
       return Column(
         children: [
           // header

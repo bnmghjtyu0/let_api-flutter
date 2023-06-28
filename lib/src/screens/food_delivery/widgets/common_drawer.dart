@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/core/constants/colors.dart';
-import 'package:let_api_flutter/src/core/constants/dimensions.dart';
+import 'package:let_api_flutter/src/core/constants/index.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 
 class CommonDrawer extends StatelessWidget {
@@ -13,7 +12,7 @@ class CommonDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+      Dimensions dimensions = Dimensions(context);
       return Drawer(
           child: ListView(
         padding: EdgeInsets.zero,
@@ -31,14 +30,12 @@ class CommonDrawer extends StatelessWidget {
                     child: Container(
                       //double.maxFinite: 最大值
                       width: double.maxFinite,
-                      height: Dimensions(context).popularFoodImgSize(),
-                      // height: PlaceholderDimensions(context).popularFoodImgSize(),
+                      height: dimensions.popularFoodImgSize(),
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: AssetImage('assets/image/lake.jpg'))),
                     )),
-                // Positioned(child: Text('Drawer Header'))
               ])),
           ListTile(
             title: Text('Home',

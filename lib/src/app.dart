@@ -6,11 +6,8 @@ class App extends StatelessWidget {
   //渲染到畫面
   @override
   Widget build(BuildContext context) {
-    // KkboxInterceptor.context = context;
-
     return Consumer(builder: (context, ref, child) {
       final goRouter = ref.read(goRouterProvider);
-
       return MaterialApp.router(
           title: 'Flutter Demo',
           theme: ThemeData(

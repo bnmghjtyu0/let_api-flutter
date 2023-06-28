@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/widgets/index.dart';
 
 class IconAndTextWidget extends StatelessWidget {
   final IconData icon;

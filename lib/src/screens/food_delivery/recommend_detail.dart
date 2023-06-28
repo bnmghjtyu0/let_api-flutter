@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/riverpods/notifiers/popular_notifier.dart';
-import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
-import 'package:let_api_flutter/src/core/services/api/recommend-http.dart';
-import 'package:let_api_flutter/src/core/widgets/app-icon.dart';
-import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
+import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
-import 'package:let_api_flutter/src/screens/food_delivery/widgets/expandable_text.dart';
-import 'package:let_api_flutter/src/core/constants/colors.dart';
-import 'package:let_api_flutter/src/core/constants/constants.dart';
-import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/widgets/big-text.dart';
+import 'package:let_api_flutter/src/core/widgets/index.dart';
+import 'package:let_api_flutter/src/screens/food_delivery/widgets/index.dart';
+import 'package:let_api_flutter/src/core/constants/index.dart';
 
 class RecommendDetailWidget extends ConsumerStatefulWidget {
   final int pageId;
@@ -32,8 +27,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
   @override
   Widget build(BuildContext context) {
     final popularRef = ref.watch(popularProvider.notifier);
-    final recommendHttpRef = ref.watch(recommendHttpProvider);
-    Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
+    final recommendData = ref.read(productRecommendProvider).recommend;
+    Dimensions dimensions = Dimensions(context);
 
     void setQuantity(bool isIncrement) {
       // 增加
@@ -54,170 +49,152 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
     }
 
     return Scaffold(
-        body: recommendHttpRef.when(
-          error: ((error, stackTrace) => Text(error.toString())),
-          loading: () {
-            return Text('推薦目錄讀取中...');
-          },
-          data: (recommendData) {
-            return CustomScrollView(
-              slivers: <Widget>[
-                SliverAppBar(
-                  pinned: true,
-                  automaticallyImplyLeading: false,
-                  toolbarHeight: 70,
-                  backgroundColor: AppColors.mainColor,
-                  //上方區塊高度
-                  expandedHeight: 300,
-                  flexibleSpace: FlexibleSpaceBar(
-                      background: Image.network(
-                          AppConstants.BASE_URL +
-                              AppConstants.UPLOAD_URL +
-                              recommendData.products![widget.pageId].img!,
-                          width: double.maxFinite,
-                          fit: BoxFit.cover)),
-                  title: CustomAppBar(page: 'cartPage', popularRef: popularRef),
-                  //可浮動的標題
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(20),
-                    child: Container(
-                        width: double.maxFinite,
-                        padding: EdgeInsets.only(top: 5, bottom: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(dimensions.radius(20)),
-                                topRight:
-                                    Radius.circular(dimensions.radius(20)))),
-                        child: Center(
-                            child: BigText(
-                                size: dimensions.fontSize(26),
-                                text: recommendData
-                                    .products![widget.pageId].name!))),
-                  ),
-                ),
-                //內容
-                SliverToBoxAdapter(
-                    child: Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(
-                            left: dimensions.width(20),
-                            right: dimensions.width(20)),
-                        child: ExpandableTextWidget(
-                            text: recommendData
-                                .products![widget.pageId].description
-                                .toString()))
-                  ],
-                ))
-              ],
-            );
-          },
-        ),
-        bottomNavigationBar: recommendHttpRef.when(
-            error: ((error, stackTrace) => Text(error.toString())),
-            loading: () {
-              return Text('推薦目錄讀取中...');
-            },
-            data: (recommendData) {
-              return Column(mainAxisSize: MainAxisSize.min, children: [
-                //計數區
-                Container(
-                    padding: EdgeInsets.only(
-                      left: dimensions.width(20) * 2.5,
-                      right: dimensions.width(20) * 2.5,
-                      top: dimensions.height(10),
-                      bottom: dimensions.height(10),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setQuantity(false);
-                          },
-                          child: AppIcon(
-                            iconColor: Colors.white,
-                            icon: Icons.remove,
-                            backgroundColor: AppColors.mainColor,
-                            iconSize: dimensions.iconSize(24),
-                          ),
-                        ),
-                        BigText(
-                          text: "12.88 X $quantity",
-                          color: Colors.black,
-                          size: dimensions.fontSize(26),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setQuantity(true);
-                          },
-                          child: AppIcon(
-                            iconColor: Colors.white,
-                            icon: Icons.add,
-                            backgroundColor: AppColors.mainColor,
-                            iconSize: dimensions.iconSize(24),
-                          ),
-                        )
-                      ],
-                    )),
-                //灰底區塊
-                Container(
-                    height: dimensions.bottomHeightBar(),
-                    padding: EdgeInsets.only(
-                        top: dimensions.height(30),
-                        bottom: dimensions.height(30),
-                        left: dimensions.height(20),
-                        right: dimensions.height(20)),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              automaticallyImplyLeading: false,
+              toolbarHeight: 70,
+              backgroundColor: AppColors.mainColor,
+              //上方區塊高度
+              expandedHeight: 300,
+              flexibleSpace: FlexibleSpaceBar(
+                  background: Image.network(
+                      AppConstants.BASE_URL +
+                          AppConstants.UPLOAD_URL +
+                          recommendData!.products![widget.pageId].img!,
+                      width: double.maxFinite,
+                      fit: BoxFit.cover)),
+              title: CustomAppBar(page: 'cartPage', popularRef: popularRef),
+              //可浮動的標題
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(20),
+                child: Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.only(top: 5, bottom: 10),
                     decoration: BoxDecoration(
-                        color: AppColors.bottomBackgroundColor,
+                        color: Colors.white,
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(dimensions.radius(20) * 2),
-                            topRight:
-                                Radius.circular(dimensions.radius(20) * 2))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // 計數器
-                        Container(
-                            padding: EdgeInsets.only(
-                                top: dimensions.height(20),
-                                bottom: dimensions.height(20),
-                                left: dimensions.width(20),
-                                right: dimensions.width(20)),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Icon(
-                              Icons.favorite,
-                              color: AppColors.signColor,
-                            )),
-                        Container(
-                          padding: EdgeInsets.only(
-                              top: dimensions.height(20),
-                              bottom: dimensions.height(20),
-                              left: dimensions.width(20),
-                              right: dimensions.width(20)),
-                          decoration: BoxDecoration(
-                              color: AppColors.mainColor,
-                              borderRadius:
-                                  BorderRadius.circular(dimensions.radius(20))),
-                          child: GestureDetector(
-                            onTap: () {
-                              // popularRef.add(
-                              //     recommendData.products![widget.pageId],
-                              //     quantity);
-                            },
-                            child: BigText(
-                                text:
-                                    '\$ ${recommendData.products![widget.pageId].price} + Add to cart',
-                                color: Colors.white),
-                          ),
-                        )
-                      ],
-                    ))
-              ]);
-            }));
+                            topLeft: Radius.circular(dimensions.radius(20)),
+                            topRight: Radius.circular(dimensions.radius(20)))),
+                    child: Center(
+                        child: BigText(
+                            size: dimensions.fontSize(26),
+                            text:
+                                recommendData.products![widget.pageId].name!))),
+              ),
+            ),
+            //內容
+            SliverToBoxAdapter(
+                child: Column(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(
+                        left: dimensions.width(20),
+                        right: dimensions.width(20)),
+                    child: ExpandableTextWidget(
+                        text: recommendData.products![widget.pageId].description
+                            .toString()))
+              ],
+            ))
+          ],
+        ),
+        bottomNavigationBar: Column(mainAxisSize: MainAxisSize.min, children: [
+          //計數區
+          Container(
+              padding: EdgeInsets.only(
+                left: dimensions.width(20) * 2.5,
+                right: dimensions.width(20) * 2.5,
+                top: dimensions.height(10),
+                bottom: dimensions.height(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setQuantity(false);
+                    },
+                    child: AppIcon(
+                      iconColor: Colors.white,
+                      icon: Icons.remove,
+                      backgroundColor: AppColors.mainColor,
+                      iconSize: dimensions.iconSize(24),
+                    ),
+                  ),
+                  BigText(
+                    text: "12.88 X $quantity",
+                    color: Colors.black,
+                    size: dimensions.fontSize(26),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setQuantity(true);
+                    },
+                    child: AppIcon(
+                      iconColor: Colors.white,
+                      icon: Icons.add,
+                      backgroundColor: AppColors.mainColor,
+                      iconSize: dimensions.iconSize(24),
+                    ),
+                  )
+                ],
+              )),
+          //灰底區塊
+          Container(
+              height: dimensions.bottomHeightBar(),
+              padding: EdgeInsets.only(
+                  top: dimensions.height(30),
+                  bottom: dimensions.height(30),
+                  left: dimensions.height(20),
+                  right: dimensions.height(20)),
+              decoration: BoxDecoration(
+                  color: AppColors.bottomBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(dimensions.radius(20) * 2),
+                      topRight: Radius.circular(dimensions.radius(20) * 2))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // 計數器
+                  Container(
+                      padding: EdgeInsets.only(
+                          top: dimensions.height(20),
+                          bottom: dimensions.height(20),
+                          left: dimensions.width(20),
+                          right: dimensions.width(20)),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Icon(
+                        Icons.favorite,
+                        color: AppColors.signColor,
+                      )),
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: dimensions.height(20),
+                        bottom: dimensions.height(20),
+                        left: dimensions.width(20),
+                        right: dimensions.width(20)),
+                    decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius:
+                            BorderRadius.circular(dimensions.radius(20))),
+                    child: GestureDetector(
+                      onTap: () {
+                        // popularRef.add(
+                        //     recommendData.products![widget.pageId],
+                        //     quantity);
+                      },
+                      child: BigText(
+                          text:
+                              '\$ ${recommendData.products![widget.pageId].price} + Add to cart',
+                          color: Colors.white),
+                    ),
+                  )
+                ],
+              ))
+        ]));
   }
 }
 

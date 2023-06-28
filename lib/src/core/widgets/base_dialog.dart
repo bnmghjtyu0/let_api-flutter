@@ -31,14 +31,14 @@ class BaseAlertDialog extends StatelessWidget {
           },
           child: Text(yes),
         ),
-        no != null && noOnPressed != null
-            ? FloatingActionButton(
-                onPressed: () {
-                  noOnPressed!();
-                },
-                child: Text(no ?? ''),
-              )
-            : Container(),
+        Visibility(
+            visible: no != null && noOnPressed != null,
+            child: FloatingActionButton(
+              onPressed: () {
+                noOnPressed!();
+              },
+              child: Text(no ?? ''),
+            ))
       ],
     );
   }
