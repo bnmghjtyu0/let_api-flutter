@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
 import 'package:let_api_flutter/src/core/services/api/popular-http.dart';
 import 'package:let_api_flutter/src/core/services/api/recommend-http.dart';
-import 'package:let_api_flutter/src/core/utils/colors.dart';
-import 'package:let_api_flutter/src/core/utils/constants.dart';
+import 'package:let_api_flutter/src/core/constants/colors.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:let_api_flutter/src/core/widgets/big-text.dart';
 import 'package:let_api_flutter/src/core/widgets/icon-and-text.dart';
 import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/widgets/page_view_item.dart';
-import 'package:let_api_flutter/src/core/utils/dimensions.dart';
+import 'package:let_api_flutter/src/core/constants/dimensions.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class FoodDeliveryContent extends ConsumerStatefulWidget {
@@ -51,13 +52,14 @@ class _FoodDeliveryContentState extends ConsumerState<FoodDeliveryContent> {
     final popularResult = ref.watch(popularHttpProvider);
     /** 取得推薦項目 api */
     final recommendResult = ref.watch(recommendHttpProvider);
+    Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
 
     return Column(children: [
       //輪播區塊
       popularResult.when(
           data: (popularProducts) {
             return SizedBox(
-                height: Dimensions(context).pageView(),
+                height: dimensions.pageView(),
                 child: PageView.builder(
                     controller: pageController,
                     itemCount: popularProducts.products.isEmpty
@@ -66,8 +68,11 @@ class _FoodDeliveryContentState extends ConsumerState<FoodDeliveryContent> {
                     itemBuilder: (BuildContext context, position) {
                       return popularProducts.products.isEmpty
                           ? Container()
-                          : pageViewItem(context, position, _currPageValue,
-                              popularProducts.products[position]);
+                          : PageViewItem(
+                              index: position,
+                              currPageValue: _currPageValue,
+                              popularProduct:
+                                  popularProducts.products[position]);
                     }));
           },
           error: ((error, stackTrace) => Text(error.toString())),
@@ -95,20 +100,19 @@ class _FoodDeliveryContentState extends ConsumerState<FoodDeliveryContent> {
           loading: () {
             return Text('點點區塊讀取中...');
           }),
-      SizedBox(height: Dimensions(context).height(30)),
+      SizedBox(height: dimensions.height(30)),
       // Popular title
       Container(
         margin: EdgeInsets.only(
-            left: Dimensions(context).width(30),
-            right: Dimensions(context).width(30)),
+            left: dimensions.width(30), right: dimensions.width(30)),
         child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
           BigText(text: 'Recommended'),
           SizedBox(
-            width: Dimensions(context).width(10),
+            width: dimensions.width(10),
           ),
           Container(margin: EdgeInsets.only(bottom: 3), child: Text('.')),
           SizedBox(
-            width: Dimensions(context).width(10),
+            width: dimensions.width(10),
           ),
           Container(
               margin: EdgeInsets.only(bottom: 2),
@@ -132,14 +136,14 @@ class _FoodDeliveryContentState extends ConsumerState<FoodDeliveryContent> {
                       }),
                       child: Container(
                         margin: EdgeInsets.only(
-                            left: Dimensions(context).width(20),
-                            right: Dimensions(context).width(20),
-                            bottom: Dimensions(context).height(10)),
+                            left: dimensions.width(20),
+                            right: dimensions.width(20),
+                            bottom: dimensions.height(10)),
                         child: Row(children: [
                           //image section
                           Container(
-                            width: Dimensions(context).listViewImageSize(),
-                            height: Dimensions(context).listViewImageSize(),
+                            width: dimensions.listViewImageSize(),
+                            height: dimensions.listViewImageSize(),
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
@@ -150,19 +154,18 @@ class _FoodDeliveryContentState extends ConsumerState<FoodDeliveryContent> {
                           // text container
                           Expanded(
                             child: Container(
-                                height: Dimensions(context)
-                                    .listViewTextContentSize(),
+                                height: dimensions.listViewTextContentSize(),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(
-                                            Dimensions(context).radius(20)),
+                                            dimensions.radius(20)),
                                         bottomRight: Radius.circular(
-                                            Dimensions(context).radius(20)))),
+                                            dimensions.radius(20)))),
                                 child: Padding(
                                     padding: EdgeInsets.only(
-                                        left: Dimensions(context).width(10),
-                                        right: Dimensions(context).width(10)),
+                                        left: dimensions.width(10),
+                                        right: dimensions.width(10)),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -172,14 +175,10 @@ class _FoodDeliveryContentState extends ConsumerState<FoodDeliveryContent> {
                                         BigText(
                                             text: recommendData
                                                 .products![index].name!),
-                                        SizedBox(
-                                            height:
-                                                Dimensions(context).height(10)),
+                                        SizedBox(height: dimensions.height(10)),
                                         SmallText(
                                             text: 'With Taiwan characteristic'),
-                                        SizedBox(
-                                            height:
-                                                Dimensions(context).height(10)),
+                                        SizedBox(height: dimensions.height(10)),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,

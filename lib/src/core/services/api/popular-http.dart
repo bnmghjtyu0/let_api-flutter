@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:let_api_flutter/src/core/models/products_model.dart';
 import 'package:let_api_flutter/src/core/services/api/dio_client.dart';
-import 'package:let_api_flutter/src/core/utils/constants.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
 
 class PopularHttpService {
   Future<Product> getPopularProductList() async {

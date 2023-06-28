@@ -4,10 +4,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:let_api_flutter/firebase_options.dart';
 
+/// firebase 服務
 class CommonFirebaseService {
   ///初始化
   Future<void> init() async {
-    print('init');
+    print('firebase init');
 
     /// ----start ---- 加入 firebase 設定 --------
     WidgetsFlutterBinding.ensureInitialized();

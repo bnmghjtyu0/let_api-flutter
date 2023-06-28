@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/riverpods/notifiers/popular_notifier.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/app_provider.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/core/services/api/recommend-http.dart';
 import 'package:let_api_flutter/src/core/widgets/app-icon.dart';
 import 'package:let_api_flutter/src/core/widgets/small-text%20copy.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 import 'package:let_api_flutter/src/screens/food_delivery/widgets/expandable_text.dart';
-import 'package:let_api_flutter/src/core/utils/colors.dart';
-import 'package:let_api_flutter/src/core/utils/constants.dart';
-import 'package:let_api_flutter/src/core/utils/dimensions.dart';
+import 'package:let_api_flutter/src/core/constants/colors.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/core/constants/dimensions.dart';
 import 'package:let_api_flutter/src/core/widgets/big-text.dart';
 
 class RecommendDetailWidget extends ConsumerStatefulWidget {
@@ -32,6 +33,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
   Widget build(BuildContext context) {
     final popularRef = ref.watch(popularProvider.notifier);
     final recommendHttpRef = ref.watch(recommendHttpProvider);
+    Dimensions dimensions = ref.watch(appProvider(context)).state.dimensions;
 
     void setQuantity(bool isIncrement) {
       // 增加
@@ -84,13 +86,12 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(
-                                    Dimensions(context).radius(20)),
-                                topRight: Radius.circular(
-                                    Dimensions(context).radius(20)))),
+                                topLeft: Radius.circular(dimensions.radius(20)),
+                                topRight:
+                                    Radius.circular(dimensions.radius(20)))),
                         child: Center(
                             child: BigText(
-                                size: Dimensions(context).fontSize(26),
+                                size: dimensions.fontSize(26),
                                 text: recommendData
                                     .products![widget.pageId].name!))),
                   ),
@@ -101,8 +102,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                   children: [
                     Container(
                         margin: EdgeInsets.only(
-                            left: Dimensions(context).width(20),
-                            right: Dimensions(context).width(20)),
+                            left: dimensions.width(20),
+                            right: dimensions.width(20)),
                         child: ExpandableTextWidget(
                             text: recommendData
                                 .products![widget.pageId].description
@@ -123,10 +124,10 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                 //計數區
                 Container(
                     padding: EdgeInsets.only(
-                      left: Dimensions(context).width(20) * 2.5,
-                      right: Dimensions(context).width(20) * 2.5,
-                      top: Dimensions(context).height(10),
-                      bottom: Dimensions(context).height(10),
+                      left: dimensions.width(20) * 2.5,
+                      right: dimensions.width(20) * 2.5,
+                      top: dimensions.height(10),
+                      bottom: dimensions.height(10),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,13 +140,13 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                             iconColor: Colors.white,
                             icon: Icons.remove,
                             backgroundColor: AppColors.mainColor,
-                            iconSize: Dimensions(context).iconSize(24),
+                            iconSize: dimensions.iconSize(24),
                           ),
                         ),
                         BigText(
                           text: "12.88 X $quantity",
                           color: Colors.black,
-                          size: Dimensions(context).fontSize(26),
+                          size: dimensions.fontSize(26),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -155,36 +156,35 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                             iconColor: Colors.white,
                             icon: Icons.add,
                             backgroundColor: AppColors.mainColor,
-                            iconSize: Dimensions(context).iconSize(24),
+                            iconSize: dimensions.iconSize(24),
                           ),
                         )
                       ],
                     )),
                 //灰底區塊
                 Container(
-                    height: Dimensions(context).bottomHeightBar(),
+                    height: dimensions.bottomHeightBar(),
                     padding: EdgeInsets.only(
-                        top: Dimensions(context).height(30),
-                        bottom: Dimensions(context).height(30),
-                        left: Dimensions(context).height(20),
-                        right: Dimensions(context).height(20)),
+                        top: dimensions.height(30),
+                        bottom: dimensions.height(30),
+                        left: dimensions.height(20),
+                        right: dimensions.height(20)),
                     decoration: BoxDecoration(
                         color: AppColors.bottomBackgroundColor,
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(
-                                Dimensions(context).radius(20) * 2),
-                            topRight: Radius.circular(
-                                Dimensions(context).radius(20) * 2))),
+                            topLeft: Radius.circular(dimensions.radius(20) * 2),
+                            topRight:
+                                Radius.circular(dimensions.radius(20) * 2))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // 計數器
                         Container(
                             padding: EdgeInsets.only(
-                                top: Dimensions(context).height(20),
-                                bottom: Dimensions(context).height(20),
-                                left: Dimensions(context).width(20),
-                                right: Dimensions(context).width(20)),
+                                top: dimensions.height(20),
+                                bottom: dimensions.height(20),
+                                left: dimensions.width(20),
+                                right: dimensions.width(20)),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20)),
@@ -194,14 +194,14 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                             )),
                         Container(
                           padding: EdgeInsets.only(
-                              top: Dimensions(context).height(20),
-                              bottom: Dimensions(context).height(20),
-                              left: Dimensions(context).width(20),
-                              right: Dimensions(context).width(20)),
+                              top: dimensions.height(20),
+                              bottom: dimensions.height(20),
+                              left: dimensions.width(20),
+                              right: dimensions.width(20)),
                           decoration: BoxDecoration(
                               color: AppColors.mainColor,
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions(context).radius(20))),
+                              borderRadius:
+                                  BorderRadius.circular(dimensions.radius(20))),
                           child: GestureDetector(
                             onTap: () {
                               // popularRef.add(

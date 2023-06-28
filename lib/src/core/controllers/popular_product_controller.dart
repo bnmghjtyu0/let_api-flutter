@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:let_api_flutter/src/core/controllers/cart_controller.dart';
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
-import 'package:let_api_flutter/src/core/utils/colors.dart';
+import 'package:let_api_flutter/src/core/constants/colors.dart';
 
 class PopularProductController {
   int _quantity = 0;

@@ -1,4 +1,3 @@
-// This file is "main.dart"
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-///Dimensions(context).height(66)
+/// 定義響應式佈局
+/// 如何使用？
+/// Dimensions(context).height(66)
 class Dimensions {
-  final BuildContext context;
+  final dynamic context;
   Dimensions(this.context);
 
   Size displaySize(context) {

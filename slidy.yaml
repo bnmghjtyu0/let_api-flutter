@@ -9,3 +9,4 @@ scripts:
   run:ios: flutter run
   run:realios: flutter devices
   run:freezed: dart run build_runner build --delete-conflicting-outputs
+  run:build:android: flutter build appbundle

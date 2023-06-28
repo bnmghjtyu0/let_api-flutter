@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
-import 'package:let_api_flutter/src/core/utils/constants.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartRepo {

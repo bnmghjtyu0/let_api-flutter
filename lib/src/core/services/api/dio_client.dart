@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:let_api_flutter/src/core/utils/constants.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
 
 /// dio 設定
 class DioClient {
