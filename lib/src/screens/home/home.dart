@@ -16,22 +16,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return RecommendSlivers();
-  }
-}
-
-class RecommendSlivers extends ConsumerStatefulWidget {
-  const RecommendSlivers({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _RecommendSliversState createState() => _RecommendSliversState();
-}
-
-class _RecommendSliversState extends ConsumerState<RecommendSlivers> {
+  //推薦商品清單
   List<SliverList> innerLists = [];
   final numLists = 1;
   //目前輪播位置
@@ -79,21 +64,28 @@ class _RecommendSliversState extends ConsumerState<RecommendSlivers> {
 
   @override
   Widget build(BuildContext context) {
-    /** 取得產品 api */
-    final Product? popularData = ref.watch(productPopularProvider).product;
     Dimensions dimensions = Dimensions(context);
+
+    /// 取得產品 api
+    final Product? popularData = ref.watch(productPopularProvider).product;
+
     return CustomScrollView(slivers: [
       SliverAppBar(
         shadowColor: Colors.black,
-        pinned: true,
-        snap: false,
-        floating: false,
+        //pinned 要固定在上面
+        pinned: false,
+        //snap: 搭配 floating 一起使用，往下滑動時顯示 AppBar
+        snap: true,
+        //floating: 搭配 snap 一起使用，往下滑動時顯示 AppBar
+        floating: true,
+        //展開的高度
         expandedHeight: 80.0,
+        //收合的高度
+        collapsedHeight: 80.0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.white,
         flexibleSpace: FlexibleSpaceBar(
             expandedTitleScale: 1,
-            titlePadding: EdgeInsets.only(top: 10, bottom: 10),
             title: Container(
                 padding: EdgeInsets.only(
                     left: dimensions.width(20), right: dimensions.width(20)),

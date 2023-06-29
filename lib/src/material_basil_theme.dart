@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
 //自定義 Material 主題
@@ -76,16 +75,13 @@ class BasilTheme extends ThemeExtension<BasilTheme> {
   ///基本設定
   ThemeData _base(ColorScheme colorScheme) {
     ///字型 Google Fonts
-    final primaryTextTheme = GoogleFonts.lektonTextTheme();
     final isLight = colorScheme.brightness == Brightness.light;
-    final textTheme =
-        primaryTextTheme.copyWith(displaySmall: primaryTextTheme.displaySmall);
 
     return ThemeData(
+      fontFamily: 'YsabeauOffice',
       useMaterial3: true,
       extensions: [this],
       //textTheme: 文字字型
-      textTheme: textTheme,
       colorScheme: colorScheme,
       //scaffoldBackgroundColor: 鷹架背景顏色
       scaffoldBackgroundColor: isLight ? neutralColor : colorScheme.background,
@@ -104,11 +100,13 @@ class BasilTheme extends ThemeExtension<BasilTheme> {
   }
 }
 
+///
+/// @param brightness - 可傳入主體顏色
 extension on Scheme {
   ColorScheme toColorSheme(Brightness brightness) {
     return ColorScheme(
-        //brightness: 切換主題色
-        brightness: Brightness.light,
+        //brightness: 切換主題色 light/dark
+        brightness: brightness,
         primary: Color(primary),
         onPrimary: Color(onPrimary),
         secondary: Color(secondary),
