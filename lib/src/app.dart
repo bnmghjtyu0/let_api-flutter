@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/src/material_basil_theme.dart';
 import 'package:let_api_flutter/src/routes/main_route.dart';
 
 class App extends StatelessWidget {
@@ -8,11 +9,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final goRouter = ref.read(goRouterProvider);
+      const basilTheme = BasilTheme();
       return MaterialApp.router(
           title: 'Flutter Demo',
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
+          theme: basilTheme.toThemeData(),
           routerConfig: goRouter);
     });
   }

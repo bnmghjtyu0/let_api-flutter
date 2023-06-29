@@ -39,31 +39,40 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.archive),
-          label: 'History',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: 'Cart',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Me',
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      unselectedItemColor: Colors.black45,
-      selectedItemColor: AppColors.mainColor,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      onTap: _goBranch,
-    );
+    return Theme(
+        data: Theme.of(context).copyWith(
+            // 設定背景顏色
+            canvasColor: Colors.white,
+            // 設定背景顏色 if `Brightness` is light
+            primaryColor: Colors.red,
+            textTheme: Theme.of(context)
+                .textTheme
+                .copyWith(bodySmall: TextStyle(color: Colors.yellow))),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          unselectedItemColor: Colors.black45,
+          selectedItemColor: AppColors.mainColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          onTap: _goBranch,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.archive),
+              label: 'History',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Me',
+            ),
+          ],
+        ));
   }
 }

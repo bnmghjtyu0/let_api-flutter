@@ -229,7 +229,7 @@ class CustomAppBar extends StatelessWidget {
             AppIcon(icon: Icons.shopping_cart_outlined),
 
             // cart number circle
-            popularRef.totalItems >= 1
+            popularRef.state.totalItems >= 1
                 ? Positioned(
                     top: 0,
                     right: 0,
@@ -242,12 +242,12 @@ class CustomAppBar extends StatelessWidget {
                 : SizedBox(),
 
             // // cart number
-            popularRef.totalItems >= 1
+            popularRef.state.totalItems >= 1
                 ? Positioned(
                     top: 3,
                     right: 3,
                     child: SmallText(
-                      text: popularRef.totalItems.toString(),
+                      text: popularRef.state.totalItems.toString(),
                       size: 10,
                       color: Colors.white,
                     ))

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
+import 'package:let_api_flutter/src/core/riverpods/notifiers/popular_notifier.dart';
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
@@ -27,7 +28,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
   Widget build(BuildContext context) {
     /** 取得產品 api */
     final Product? popularData = ref.watch(productPopularProvider).product;
-    final popularRef = ref.watch(popularProvider.notifier);
+    final PopularNotifier popularRef = ref.watch(popularProvider.notifier);
     Dimensions dimensions = Dimensions(context);
 
     void setQuantity(bool isIncrement) {
@@ -219,7 +220,7 @@ class CustomAppBar extends StatelessWidget {
                       // cart number circle
 
                       Visibility(
-                          visible: popularRef.totalItems >= 1,
+                          visible: popularRef.state.totalItems >= 1,
                           child: Positioned(
                               top: 0,
                               right: 0,
@@ -231,12 +232,12 @@ class CustomAppBar extends StatelessWidget {
                               ))),
                       // cart number
                       Visibility(
-                          visible: popularRef.totalItems >= 1,
+                          visible: popularRef.state.totalItems >= 1,
                           child: Positioned(
                               top: 3,
                               right: 3,
                               child: SmallText(
-                                text: popularRef.totalItems.toString(),
+                                text: popularRef.state.totalItems.toString(),
                                 size: 12,
                                 color: Colors.white,
                               )))

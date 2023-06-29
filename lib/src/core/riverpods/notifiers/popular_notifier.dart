@@ -10,7 +10,7 @@ import 'package:let_api_flutter/src/core/riverpods/states/popular_state.dart';
 
 class PopularNotifier extends StateNotifier<PopularState> {
   // state 初始值
-  PopularNotifier() : super(PopularState(data: {}, quantity: 0));
+  PopularNotifier() : super(PopularState(data: {}, quantity: 0, totalItems: 0));
 
   //新增與更新
   void add(ProductModel product, int quantity) {
@@ -60,6 +60,9 @@ class PopularNotifier extends StateNotifier<PopularState> {
         });
       }
     }
+
+    state = state.copyWith(quantity: quantity, totalItems: totalQuantity);
+    print(state.totalItems);
   }
 
   //檢查計數器數字 > 0 或小於 20
@@ -84,13 +87,5 @@ class PopularNotifier extends StateNotifier<PopularState> {
     return state.data.entries.map((e) {
       return e.value;
     }).toList();
-  }
-
-  int get totalItems {
-    var totalQuantity = 0;
-    state.data.forEach((key, value) {
-      totalQuantity += value.quantity!;
-    });
-    return totalQuantity;
   }
 }
