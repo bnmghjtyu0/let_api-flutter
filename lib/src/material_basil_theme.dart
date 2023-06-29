@@ -78,7 +78,7 @@ class BasilTheme extends ThemeExtension<BasilTheme> {
     final isLight = colorScheme.brightness == Brightness.light;
 
     return ThemeData(
-      fontFamily: 'YsabeauOffice',
+      fontFamily: 'NotoSansTC',
       useMaterial3: true,
       extensions: [this],
       //textTheme: 文字字型
