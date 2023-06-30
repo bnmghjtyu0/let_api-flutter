@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
@@ -166,7 +166,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        BigText(text: 'Recommended'),
+                        Text('Recommend', style: $styles.text.h3),
                         SizedBox(
                           width: Dimensions(context).width(10),
                         ),
@@ -178,7 +178,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                         Container(
                             margin: EdgeInsets.only(bottom: 2),
-                            child: SmallText(text: 'Food paring'))
+                            child:
+                                Text('Food paring', style: $styles.text.span))
                       ]),
                 ),
               ],

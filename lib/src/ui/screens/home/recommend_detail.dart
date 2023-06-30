@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/riverpods/notifiers/popular_notifier.dart';
 import 'package:let_api_flutter/src/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
@@ -79,10 +78,9 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                             topRight: Radius.circular(
                                 Dimensions(context).radius(20)))),
                     child: Center(
-                        child: BigText(
-                            size: Dimensions(context).fontSize(26),
-                            text:
-                                recommendData.products![widget.pageId].name!))),
+                        child: Text(
+                            recommendData.products![widget.pageId].name!,
+                            style: $styles.text.fz26))),
               ),
             ),
             //內容
@@ -123,11 +121,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                       iconSize: Dimensions(context).iconSize(24),
                     ),
                   ),
-                  BigText(
-                    text: "12.88 X $quantity",
-                    color: Colors.black,
-                    size: Dimensions(context).fontSize(26),
-                  ),
+                  Text("12.88 X $quantity",
+                      style: $styles.text.fz26.copyWith(color: Colors.black)),
                   GestureDetector(
                     onTap: () {
                       setQuantity(true);

@@ -211,7 +211,7 @@ class CustomAppBar extends StatelessWidget {
                   // 前往購物車 cart
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).go(ScreenPaths.cartInfo());
+                      GoRouter.of(context).push(ScreenPaths.cartInfo());
                       // if (controller.totalItems >= 1) {
                       //   Get.toNamed(RouteHelper.getCartPage());
                       // }

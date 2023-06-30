@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/constants/colors.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/dimensions.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/big_text.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/icon_and_text.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/small_text.dart';
 
@@ -15,7 +12,7 @@ class InfoColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        BigText(text: title, size: Dimensions(context).fontSize(26)),
+        Text(title, style: $styles.text.fz26),
         SizedBox(height: Dimensions(context).width(10)),
         Row(
           children: [

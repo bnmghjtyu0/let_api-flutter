@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:let_api_flutter/src/app.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/src/app_scaffold.dart';
+import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/firebase_service.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/styles/material_basil_theme.dart';
 
-/// Initialize the app and all main actors.
+/// 啟動專案時載入的服務
 Future<void> bootstrap(ProviderContainer ref) async {
   debugPrint('bootstrap start...');
   //載入 firebase 服務
@@ -34,8 +35,22 @@ void main() async {
     ),
   );
 
-  // Remove splash screen when bootstrap is complete
+  // 卸載 splash screen
   FlutterNativeSplash.remove();
+}
+
+class App extends StatelessWidget {
+  //渲染到畫面
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, ref, child) {
+      final goRouter = ref.read(goRouterProvider);
+      return MaterialApp.router(
+          title: 'Flutter Demo',
+          theme: const BasilTheme().toThemeData(),
+          routerConfig: goRouter);
+    });
+  }
 }
 
 /// Create singletons (logic and services) that can be shared across the app.
@@ -43,4 +58,5 @@ void registerSingletons() {
   // GetIt.I.registerSingleton<Dimensions>(() => Dimensions());
 }
 
-// Dimensions get dimensions => GetIt.I.get<Dimensions>();
+// global
+AppStyle get $styles => AppScaffold.style;

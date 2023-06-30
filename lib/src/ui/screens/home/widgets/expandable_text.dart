@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 
 class ExpandableTextWidget extends ConsumerStatefulWidget {
@@ -40,12 +38,8 @@ class _ExpandableTextWidgetState extends ConsumerState<ExpandableTextWidget> {
           ? SmallText(text: firstHalf)
           : Column(
               children: [
-                SmallText(
-                  text:
-                      hiddenText ? ("$firstHalf...") : (firstHalf + secondHalf),
-                  size: Dimensions(context).fontSize(16),
-                  height: 1.8,
-                ),
+                Text(hiddenText ? ("$firstHalf...") : (firstHalf + secondHalf),
+                    style: $styles.text.span),
                 InkWell(
                     onTap: () {
                       setState(() {

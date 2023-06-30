@@ -35,12 +35,6 @@ class Dimensions {
     return screenHeight / realSize;
   }
 
-  double fontSize(int size) {
-    double screenHeight = displaySize(context).height;
-    double realSize = 844 / size;
-    return screenHeight / realSize;
-  }
-
   double bottomHeightBar() {
     double screenHeight = displaySize(context).height;
     return screenHeight / 7.03;

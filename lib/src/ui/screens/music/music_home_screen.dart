@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/core/services/api/kkbox-api.dart';
 import 'package:let_api_flutter/src/models/kkbox/charts.dart';
 import 'package:let_api_flutter/src/ui/screens/music/detail.dart';
-import 'package:let_api_flutter/src/constants/colors.dart';
+import 'package:let_api_flutter/src/styles/colors.dart';
 
 class MusicHomeScreen extends StatefulWidget {
   //定義 props
