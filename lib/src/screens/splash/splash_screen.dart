@@ -45,7 +45,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    Dimensions dimensions = Dimensions(context);
     return Scaffold(
         backgroundColor: Colors.white,
         body: Column(
@@ -56,7 +55,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 child: Center(
                   child: Image.asset(
                     "assets/image/lake.jpg",
-                    width: dimensions.splashImg(),
+                    width: Dimensions(context).splashImg(),
                   ),
                 ))
           ],

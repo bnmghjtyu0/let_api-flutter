@@ -28,7 +28,6 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
   Widget build(BuildContext context) {
     final popularRef = ref.watch(popularProvider.notifier);
     final recommendData = ref.read(productRecommendProvider).recommend;
-    Dimensions dimensions = Dimensions(context);
 
     void setQuantity(bool isIncrement) {
       // 增加
@@ -75,11 +74,13 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(dimensions.radius(20)),
-                            topRight: Radius.circular(dimensions.radius(20)))),
+                            topLeft:
+                                Radius.circular(Dimensions(context).radius(20)),
+                            topRight: Radius.circular(
+                                Dimensions(context).radius(20)))),
                     child: Center(
                         child: BigText(
-                            size: dimensions.fontSize(26),
+                            size: Dimensions(context).fontSize(26),
                             text:
                                 recommendData.products![widget.pageId].name!))),
               ),
@@ -90,8 +91,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
               children: [
                 Container(
                     margin: EdgeInsets.only(
-                        left: dimensions.width(20),
-                        right: dimensions.width(20)),
+                        left: Dimensions(context).width(20),
+                        right: Dimensions(context).width(20)),
                     child: ExpandableTextWidget(
                         text: recommendData.products![widget.pageId].description
                             .toString()))
@@ -103,10 +104,10 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
           //計數區
           Container(
               padding: EdgeInsets.only(
-                left: dimensions.width(20) * 2.5,
-                right: dimensions.width(20) * 2.5,
-                top: dimensions.height(10),
-                bottom: dimensions.height(10),
+                left: Dimensions(context).width(20) * 2.5,
+                right: Dimensions(context).width(20) * 2.5,
+                top: Dimensions(context).height(10),
+                bottom: Dimensions(context).height(10),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,13 +120,13 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                       iconColor: Colors.white,
                       icon: Icons.remove,
                       backgroundColor: AppColors.mainColor,
-                      iconSize: dimensions.iconSize(24),
+                      iconSize: Dimensions(context).iconSize(24),
                     ),
                   ),
                   BigText(
                     text: "12.88 X $quantity",
                     color: Colors.black,
-                    size: dimensions.fontSize(26),
+                    size: Dimensions(context).fontSize(26),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -135,34 +136,36 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                       iconColor: Colors.white,
                       icon: Icons.add,
                       backgroundColor: AppColors.mainColor,
-                      iconSize: dimensions.iconSize(24),
+                      iconSize: Dimensions(context).iconSize(24),
                     ),
                   )
                 ],
               )),
           //灰底區塊
           Container(
-              height: dimensions.bottomHeightBar(),
+              height: Dimensions(context).bottomHeightBar(),
               padding: EdgeInsets.only(
-                  top: dimensions.height(30),
-                  bottom: dimensions.height(30),
-                  left: dimensions.height(20),
-                  right: dimensions.height(20)),
+                  top: Dimensions(context).height(30),
+                  bottom: Dimensions(context).height(30),
+                  left: Dimensions(context).height(20),
+                  right: Dimensions(context).height(20)),
               decoration: BoxDecoration(
                   color: AppColors.bottomBackgroundColor,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(dimensions.radius(20) * 2),
-                      topRight: Radius.circular(dimensions.radius(20) * 2))),
+                      topLeft:
+                          Radius.circular(Dimensions(context).radius(20) * 2),
+                      topRight:
+                          Radius.circular(Dimensions(context).radius(20) * 2))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // 計數器
                   Container(
                       padding: EdgeInsets.only(
-                          top: dimensions.height(20),
-                          bottom: dimensions.height(20),
-                          left: dimensions.width(20),
-                          right: dimensions.width(20)),
+                          top: Dimensions(context).height(20),
+                          bottom: Dimensions(context).height(20),
+                          left: Dimensions(context).width(20),
+                          right: Dimensions(context).width(20)),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
@@ -172,14 +175,14 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                       )),
                   Container(
                     padding: EdgeInsets.only(
-                        top: dimensions.height(20),
-                        bottom: dimensions.height(20),
-                        left: dimensions.width(20),
-                        right: dimensions.width(20)),
+                        top: Dimensions(context).height(20),
+                        bottom: Dimensions(context).height(20),
+                        left: Dimensions(context).width(20),
+                        right: Dimensions(context).width(20)),
                     decoration: BoxDecoration(
                         color: AppColors.mainColor,
-                        borderRadius:
-                            BorderRadius.circular(dimensions.radius(20))),
+                        borderRadius: BorderRadius.circular(
+                            Dimensions(context).radius(20))),
                     child: GestureDetector(
                       onTap: () {
                         // popularRef.add(

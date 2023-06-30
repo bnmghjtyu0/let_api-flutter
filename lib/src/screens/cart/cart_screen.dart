@@ -15,7 +15,6 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = Dimensions(context);
       return Scaffold(
         body: Consumer(
           builder: (context, ref, child) {
@@ -28,20 +27,21 @@ class CartScreen extends StatelessWidget {
 
                 // 商品列表
                 Positioned(
-                    top: dimensions.height(20) * 5,
-                    left: dimensions.width(20),
-                    right: dimensions.width(20),
+                    top: Dimensions(context).height(20) * 5,
+                    left: Dimensions(context).width(20),
+                    right: Dimensions(context).width(20),
                     bottom: 0,
                     child: MediaQuery.removePadding(
                         context: context,
                         child: Container(
-                            margin: EdgeInsets.only(top: dimensions.height(15)),
+                            margin: EdgeInsets.only(
+                                top: Dimensions(context).height(15)),
                             child: ListView.builder(
                               itemCount: popularRef.getList.length,
                               itemBuilder: (_, index) {
                                 return SizedBox(
                                     width: double.maxFinite,
-                                    height: dimensions.height(20) * 5,
+                                    height: Dimensions(context).height(20) * 5,
                                     child: Row(children: [
                                       //圖片
                                       GestureDetector(
@@ -74,9 +74,13 @@ class CartScreen extends StatelessWidget {
                                         },
                                         child: Container(
                                             margin: EdgeInsets.only(
-                                                bottom: dimensions.height(10)),
-                                            width: dimensions.height(20) * 5,
-                                            height: dimensions.height(20) * 5,
+                                                bottom: Dimensions(context)
+                                                    .height(10)),
+                                            width: Dimensions(context).height(20) *
+                                                5,
+                                            height: Dimensions(context)
+                                                    .height(20) *
+                                                5,
                                             decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     fit: BoxFit.cover,
@@ -88,16 +92,17 @@ class CartScreen extends StatelessWidget {
                                                                 .getList[index]
                                                                 .img!)),
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        dimensions.radius(20)),
+                                                    BorderRadius.circular(Dimensions(context).radius(20)),
                                                 color: Colors.white)),
                                       ),
                                       SizedBox(
-                                        width: dimensions.width(10),
+                                        width: Dimensions(context).width(10),
                                       ),
                                       Expanded(
                                           child: SizedBox(
-                                              height: dimensions.height(20) * 5,
+                                              height: Dimensions(context)
+                                                      .height(20) *
+                                                  5,
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -160,7 +165,7 @@ class CartScreen extends StatelessWidget {
                                                         //                 .signColor),
                                                         //       ),
                                                         //       SizedBox(
-                                                        //           width: Dimensions(
+                                                        //           width: Dimensions(context)(
                                                         //                       context)
                                                         //                   .width(
                                                         //                       10) /
@@ -170,7 +175,7 @@ class CartScreen extends StatelessWidget {
                                                         //               .inCartItems
                                                         //               .toString()),
                                                         //       SizedBox(
-                                                        //           width: Dimensions(
+                                                        //           width: Dimensions(context)(
                                                         //                       context)
                                                         //                   .width(
                                                         //                       10) /
@@ -204,49 +209,51 @@ class CartScreen extends StatelessWidget {
         bottomNavigationBar: Consumer(builder: (context, ref, child) {
           final cartRef = ref.read(cartProvider.notifier);
           return Container(
-              height: dimensions.bottomHeightBar(),
+              height: Dimensions(context).bottomHeightBar(),
               padding: EdgeInsets.only(
-                  top: dimensions.height(30),
-                  bottom: dimensions.height(30),
-                  left: dimensions.height(20),
-                  right: dimensions.height(20)),
+                  top: Dimensions(context).height(30),
+                  bottom: Dimensions(context).height(30),
+                  left: Dimensions(context).height(20),
+                  right: Dimensions(context).height(20)),
               decoration: BoxDecoration(
                   color: AppColors.bottomBackgroundColor,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(dimensions.radius(20) * 2),
-                      topRight: Radius.circular(dimensions.radius(20) * 2))),
+                      topLeft:
+                          Radius.circular(Dimensions(context).radius(20) * 2),
+                      topRight:
+                          Radius.circular(Dimensions(context).radius(20) * 2))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // 計數器
                   Container(
                       padding: EdgeInsets.only(
-                          top: dimensions.height(20),
-                          bottom: dimensions.height(20),
-                          left: dimensions.width(20),
-                          right: dimensions.width(20)),
+                          top: Dimensions(context).height(20),
+                          bottom: Dimensions(context).height(20),
+                          left: Dimensions(context).width(20),
+                          right: Dimensions(context).width(20)),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       child: Row(
                         children: [
-                          SizedBox(width: dimensions.width(10) / 2),
+                          SizedBox(width: Dimensions(context).width(10) / 2),
                           BigText(text: '\$ ${cartRef.totalAmount.toString()}'),
-                          SizedBox(width: dimensions.width(10) / 2),
+                          SizedBox(width: Dimensions(context).width(10) / 2),
                         ],
                       )),
 
                   // price + Add to cart
                   Container(
                     padding: EdgeInsets.only(
-                        top: dimensions.height(20),
-                        bottom: dimensions.height(20),
-                        left: dimensions.width(20),
-                        right: dimensions.width(20)),
+                        top: Dimensions(context).height(20),
+                        bottom: Dimensions(context).height(20),
+                        left: Dimensions(context).width(20),
+                        right: Dimensions(context).width(20)),
                     decoration: BoxDecoration(
                         color: AppColors.mainColor,
-                        borderRadius:
-                            BorderRadius.circular(dimensions.radius(20))),
+                        borderRadius: BorderRadius.circular(
+                            Dimensions(context).radius(20))),
                     child: GestureDetector(
                       onTap: (() {
                         // popularProduct.addItem(product);
@@ -268,11 +275,10 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = Dimensions(context);
       return Positioned(
-          top: dimensions.height(20) * 3,
-          left: dimensions.width(20),
-          right: dimensions.width(20),
+          top: Dimensions(context).height(20) * 3,
+          left: Dimensions(context).width(20),
+          right: Dimensions(context).width(20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -284,7 +290,7 @@ class CustomAppBar extends StatelessWidget {
                 child: AppIcon(
                   icon: Icons.arrow_back_ios,
                   iconColor: AppColors.mainColor,
-                  iconSize: dimensions.iconSize(24),
+                  iconSize: Dimensions(context).iconSize(24),
                 ),
               ),
               // 回首頁
@@ -295,14 +301,14 @@ class CustomAppBar extends StatelessWidget {
                 child: AppIcon(
                   icon: Icons.home_outlined,
                   iconColor: AppColors.mainColor,
-                  iconSize: dimensions.iconSize(24),
+                  iconSize: Dimensions(context).iconSize(24),
                 ),
               ),
               // 購物車
               AppIcon(
                 icon: Icons.shopping_cart,
                 iconColor: AppColors.mainColor,
-                iconSize: dimensions.iconSize(24),
+                iconSize: Dimensions(context).iconSize(24),
               )
             ],
           ));

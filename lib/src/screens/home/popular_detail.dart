@@ -29,7 +29,6 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
     /** 取得產品 api */
     final Product? popularData = ref.watch(productPopularProvider).product;
     final PopularNotifier popularRef = ref.watch(popularProvider.notifier);
-    Dimensions dimensions = Dimensions(context);
 
     void setQuantity(bool isIncrement) {
       // 增加
@@ -58,7 +57,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
               child: Container(
                 //double.maxFinite: 最大值
                 width: double.maxFinite,
-                height: dimensions.popularFoodImgSize(),
+                height: Dimensions(context).popularFoodImgSize(),
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
@@ -73,23 +72,25 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
               left: 0,
               right: 0,
               bottom: 0,
-              top: dimensions.popularFoodImgSize() - 20,
+              top: Dimensions(context).popularFoodImgSize() - 20,
               child: Container(
                   padding: EdgeInsets.only(
-                      left: dimensions.width(20),
-                      right: dimensions.width(20),
-                      top: dimensions.height(20)),
+                      left: Dimensions(context).width(20),
+                      right: Dimensions(context).width(20),
+                      top: Dimensions(context).height(20)),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(dimensions.radius(20)),
-                          topRight: Radius.circular(dimensions.radius(20))),
+                          topLeft:
+                              Radius.circular(Dimensions(context).radius(20)),
+                          topRight:
+                              Radius.circular(Dimensions(context).radius(20))),
                       color: Colors.white),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InfoColumn(
                           title: popularData.products[widget.pageId].name!),
-                      SizedBox(height: dimensions.height(20)),
+                      SizedBox(height: Dimensions(context).height(20)),
                       // Introduce
                       BigText(text: 'Introduce'),
                       // expandable text
@@ -103,27 +104,29 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                   ))),
         ]),
         bottomNavigationBar: Container(
-            height: dimensions.bottomHeightBar(),
+            height: Dimensions(context).bottomHeightBar(),
             padding: EdgeInsets.only(
-                top: dimensions.height(30),
-                bottom: dimensions.height(30),
-                left: dimensions.height(20),
-                right: dimensions.height(20)),
+                top: Dimensions(context).height(30),
+                bottom: Dimensions(context).height(30),
+                left: Dimensions(context).height(20),
+                right: Dimensions(context).height(20)),
             decoration: BoxDecoration(
                 color: AppColors.bottomBackgroundColor,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(dimensions.radius(20) * 2),
-                    topRight: Radius.circular(dimensions.radius(20) * 2))),
+                    topLeft:
+                        Radius.circular(Dimensions(context).radius(20) * 2),
+                    topRight:
+                        Radius.circular(Dimensions(context).radius(20) * 2))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // 計數器
                 Container(
                     padding: EdgeInsets.only(
-                        top: dimensions.height(20),
-                        bottom: dimensions.height(20),
-                        left: dimensions.width(20),
-                        right: dimensions.width(20)),
+                        top: Dimensions(context).height(20),
+                        bottom: Dimensions(context).height(20),
+                        left: Dimensions(context).width(20),
+                        right: Dimensions(context).width(20)),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
@@ -135,9 +138,9 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           }),
                           child: Icon(Icons.remove, color: AppColors.signColor),
                         ),
-                        SizedBox(width: dimensions.width(10) / 2),
+                        SizedBox(width: Dimensions(context).width(10) / 2),
                         BigText(text: quantity.toString()),
-                        SizedBox(width: dimensions.width(10) / 2),
+                        SizedBox(width: Dimensions(context).width(10) / 2),
                         GestureDetector(
                           onTap: (() {
                             setQuantity(true);
@@ -150,14 +153,14 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 // 加入購物車
                 Container(
                   padding: EdgeInsets.only(
-                      top: dimensions.height(20),
-                      bottom: dimensions.height(20),
-                      left: dimensions.width(20),
-                      right: dimensions.width(20)),
+                      top: Dimensions(context).height(20),
+                      bottom: Dimensions(context).height(20),
+                      left: Dimensions(context).width(20),
+                      right: Dimensions(context).width(20)),
                   decoration: BoxDecoration(
                       color: AppColors.mainColor,
-                      borderRadius:
-                          BorderRadius.circular(dimensions.radius(20))),
+                      borderRadius: BorderRadius.circular(
+                          Dimensions(context).radius(20))),
                   child: GestureDetector(
                     onTap: (() {
                       ref.read(popularProvider.notifier).add(
@@ -185,12 +188,11 @@ class CustomAppBar extends StatelessWidget {
         Consumer(
       builder: (context, ref, child) {
         final popularRef = ref.watch(popularProvider.notifier);
-        Dimensions dimensions = Dimensions(context);
 
         return Positioned(
-            top: dimensions.height(45),
-            left: dimensions.width(20),
-            right: dimensions.width(20),
+            top: Dimensions(context).height(45),
+            left: Dimensions(context).width(20),
+            right: Dimensions(context).width(20),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

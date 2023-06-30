@@ -12,7 +12,6 @@ class CommonDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = Dimensions(context);
       return Drawer(
           child: ListView(
         padding: EdgeInsets.zero,
@@ -30,7 +29,7 @@ class CommonDrawer extends StatelessWidget {
                     child: Container(
                       //double.maxFinite: 最大值
                       width: double.maxFinite,
-                      height: dimensions.popularFoodImgSize(),
+                      height: Dimensions(context).popularFoodImgSize(),
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               fit: BoxFit.cover,

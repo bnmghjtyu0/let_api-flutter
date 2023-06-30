@@ -25,8 +25,7 @@ class PageViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = Dimensions(context);
-      double height = dimensions.pageViewContainer();
+      double height = Dimensions(context).pageViewContainer();
 
       //目前選擇的圖片
       if (index == currPageValue.floor()) {
@@ -66,11 +65,11 @@ class PageViewItem extends StatelessWidget {
                 GoRouter.of(context).go('/${RouteNames.foodDetail}/$index');
               }),
               child: Container(
-                  height: dimensions.pageViewContainer(),
+                  height: Dimensions(context).pageViewContainer(),
                   margin: EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.circular(dimensions.radius(30)),
+                          BorderRadius.circular(Dimensions(context).radius(30)),
                       color: index.isEven ? AppColors.mainColor : Colors.blue,
                       image: DecorationImage(
                           fit: BoxFit.cover,
@@ -83,14 +82,14 @@ class PageViewItem extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  height: dimensions.pageViewTextContainer(),
+                  height: Dimensions(context).pageViewTextContainer(),
                   margin: EdgeInsets.only(
-                      left: dimensions.width(30),
-                      right: dimensions.width(30),
-                      bottom: dimensions.height(30)),
+                      left: Dimensions(context).width(30),
+                      right: Dimensions(context).width(30),
+                      bottom: Dimensions(context).height(30)),
                   decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.circular(dimensions.radius(30)),
+                          BorderRadius.circular(Dimensions(context).radius(30)),
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
@@ -102,12 +101,12 @@ class PageViewItem extends StatelessWidget {
                       ]),
                   child: Container(
                       padding: EdgeInsets.only(
-                          top: dimensions.height(10),
-                          left: dimensions.width(15),
-                          right: dimensions.width(15)),
+                          top: Dimensions(context).height(10),
+                          left: Dimensions(context).width(15),
+                          right: Dimensions(context).width(15)),
                       child: Column(children: [
                         BigText(text: 'Taiwan'),
-                        SizedBox(height: dimensions.height(10)),
+                        SizedBox(height: Dimensions(context).height(10)),
                         Row(
                           children: [
                             Wrap(
@@ -115,15 +114,15 @@ class PageViewItem extends StatelessWidget {
                                     5,
                                     (index) => Icon(Icons.star,
                                         color: AppColors.mainColor))),
-                            SizedBox(width: dimensions.width(10)),
+                            SizedBox(width: Dimensions(context).width(10)),
                             SmallText(text: '4.5'),
-                            SizedBox(width: dimensions.width(10)),
+                            SizedBox(width: Dimensions(context).width(10)),
                             SmallText(text: '1287'),
-                            SizedBox(width: dimensions.width(10)),
+                            SizedBox(width: Dimensions(context).width(10)),
                             SmallText(text: 'comments')
                           ],
                         ),
-                        SizedBox(height: dimensions.height(10)),
+                        SizedBox(height: Dimensions(context).height(10)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

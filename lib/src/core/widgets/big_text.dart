@@ -21,12 +21,11 @@ class BigText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      Dimensions dimensions = Dimensions(context);
       return Text(text,
           style: TextStyle(
               fontFamily: 'Roboto',
               color: color,
-              fontSize: size == 0 ? dimensions.fontSize(20) : size,
+              fontSize: size == 0 ? Dimensions(context).fontSize(20) : size,
               height: height,
               overflow: overflow));
     });

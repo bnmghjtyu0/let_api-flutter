@@ -20,7 +20,6 @@ class RecommendRow extends StatefulWidget {
 class _RecommendRowState extends State<RecommendRow> {
   @override
   Widget build(BuildContext context) {
-    Dimensions dimensions = Dimensions(context);
     return GestureDetector(
         onTap: (() {
           GoRouter.of(context)
@@ -28,14 +27,14 @@ class _RecommendRowState extends State<RecommendRow> {
         }),
         child: Container(
           margin: EdgeInsets.only(
-              left: dimensions.width(20),
-              right: dimensions.width(20),
-              bottom: dimensions.height(10)),
+              left: Dimensions(context).width(20),
+              right: Dimensions(context).width(20),
+              bottom: Dimensions(context).height(10)),
           child: Row(children: [
             //image section
             Container(
-              width: dimensions.listViewImageSize(),
-              height: dimensions.listViewImageSize(),
+              width: Dimensions(context).listViewImageSize(),
+              height: Dimensions(context).listViewImageSize(),
               decoration: BoxDecoration(
                   image: DecorationImage(
                       fit: BoxFit.cover,
@@ -46,24 +45,26 @@ class _RecommendRowState extends State<RecommendRow> {
             // text container
             Expanded(
               child: Container(
-                  height: dimensions.listViewTextContentSize(),
+                  height: Dimensions(context).listViewTextContentSize(),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(dimensions.radius(20)),
-                          bottomRight: Radius.circular(dimensions.radius(20)))),
+                          topRight:
+                              Radius.circular(Dimensions(context).radius(20)),
+                          bottomRight:
+                              Radius.circular(Dimensions(context).radius(20)))),
                   child: Padding(
                       padding: EdgeInsets.only(
-                          left: dimensions.width(10),
-                          right: dimensions.width(10)),
+                          left: Dimensions(context).width(10),
+                          right: Dimensions(context).width(10)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           BigText(text: widget.data.name!),
-                          SizedBox(height: dimensions.height(10)),
+                          SizedBox(height: Dimensions(context).height(10)),
                           SmallText(text: 'With Taiwan characteristic'),
-                          SizedBox(height: dimensions.height(10)),
+                          SizedBox(height: Dimensions(context).height(10)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

@@ -64,8 +64,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Dimensions dimensions = Dimensions(context);
-
     /// 取得產品 api
     final Product? popularData = ref.watch(productPopularProvider).product;
 
@@ -88,7 +86,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             expandedTitleScale: 1,
             title: Container(
                 padding: EdgeInsets.only(
-                    left: dimensions.width(20), right: dimensions.width(20)),
+                    left: Dimensions(context).width(20),
+                    right: Dimensions(context).width(20)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -107,14 +106,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ]),
                     //搜尋框
                     Container(
-                      width: dimensions.height(45),
-                      height: dimensions.height(45),
+                      width: Dimensions(context).height(45),
+                      height: Dimensions(context).height(45),
                       decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(dimensions.radius(15)),
+                          borderRadius: BorderRadius.circular(
+                              Dimensions(context).radius(15)),
                           color: AppColors.mainColor),
                       child: Icon(Icons.search,
-                          color: Colors.white, size: dimensions.iconSize(24)),
+                          color: Colors.white,
+                          size: Dimensions(context).iconSize(24)),
                     )
                   ],
                 ))),
@@ -130,7 +130,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               children: [
                 //輪播區塊
                 SizedBox(
-                    height: dimensions.pageView(),
+                    height: Dimensions(context).pageView(),
                     child: PageView.builder(
                         controller: pageController,
                         itemCount: popularData!.products.isEmpty
@@ -157,23 +157,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           activeShape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                         ))),
-                SizedBox(height: dimensions.height(30)),
+                SizedBox(height: Dimensions(context).height(30)),
                 // Popular title
                 Container(
                   margin: EdgeInsets.only(
-                      left: dimensions.width(30), right: dimensions.width(30)),
+                      left: Dimensions(context).width(30),
+                      right: Dimensions(context).width(30)),
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         BigText(text: 'Recommended'),
                         SizedBox(
-                          width: dimensions.width(10),
+                          width: Dimensions(context).width(10),
                         ),
                         Container(
                             margin: EdgeInsets.only(bottom: 3),
                             child: Text('.')),
                         SizedBox(
-                          width: dimensions.width(10),
+                          width: Dimensions(context).width(10),
                         ),
                         Container(
                             margin: EdgeInsets.only(bottom: 2),

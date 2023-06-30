@@ -17,7 +17,7 @@ class _ExpandableTextWidgetState extends ConsumerState<ExpandableTextWidget> {
 
   bool hiddenText = true;
   double textHeight = 15;
-  // double textHeight = dimensions.height(15);
+  // double textHeight = Dimensions(context).height(15);
 
   @override
   void initState() {
@@ -35,7 +35,6 @@ class _ExpandableTextWidgetState extends ConsumerState<ExpandableTextWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Dimensions dimensions = Dimensions(context);
     return Container(
       child: secondHalf.isEmpty
           ? SmallText(text: firstHalf)
@@ -44,7 +43,7 @@ class _ExpandableTextWidgetState extends ConsumerState<ExpandableTextWidget> {
                 SmallText(
                   text:
                       hiddenText ? ("$firstHalf...") : (firstHalf + secondHalf),
-                  size: dimensions.fontSize(16),
+                  size: Dimensions(context).fontSize(16),
                   height: 1.8,
                 ),
                 InkWell(
