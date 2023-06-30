@@ -6,7 +6,7 @@ import 'package:let_api_flutter/src/core/riverpods/notifiers/popular_notifier.da
 import 'package:let_api_flutter/src/core/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/routes/main_route.dart';
+import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/core/widgets/widgets.dart';
 import 'package:let_api_flutter/src/screens/home/widgets/widgets.dart';
 

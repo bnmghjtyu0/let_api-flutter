@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/core/constants/dimensions.dart';
 import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
-import 'package:let_api_flutter/src/routes/main_route.dart';
+import 'package:let_api_flutter/src/router.dart';
 
 ///進入 app 的動畫
 class SplashScreen extends ConsumerStatefulWidget {

@@ -19,11 +19,6 @@ final productPopularProvider =
 class ProductNotifier extends StateNotifier<ProductState> {
   ProductNotifier() : super(ProductState()) {
     print('初始化 ProductNotifier');
-    initLoad();
-  }
-
-  void initLoad() {
-    loadProductPopular();
   }
 
   loadProductPopular() async {
