@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/riverpods/notifiers/popular_notifier.dart';
 import 'package:let_api_flutter/src/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
+import 'package:let_api_flutter/common_libs.dart';
 
 class PopularDetail extends ConsumerStatefulWidget {
   final int pageId;
@@ -23,6 +23,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
   int quantity = 0;
   int _inCartItems = 0;
   get inCartItems => _inCartItems + quantity;
+
+  void _handleBackPressed() => GoRouter.of(context).go(ScreenPaths.home());
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +67,51 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                             ApiConstants.UPLOAD_URL +
                             popularData!.products[widget.pageId].img!)))),
               )),
-          CustomAppBar(
-            page: 'cartPage',
+          Positioned(
+            top: Dimensions(context).height(0),
+            left: Dimensions(context).width(0),
+            right: Dimensions(context).width(0),
+            child: AppHeader(
+                isTransparent: true,
+                // showBackBtn: true,
+                onBack: _handleBackPressed,
+                // 前往購物車
+                trailing: (_) => GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).push(ScreenPaths.cartInfo());
+                        // if (controller.totalItems >= 1) {
+                        //   Get.toNamed(RouteHelper.getCartPage());
+                        // }
+                      },
+                      // 購物車數字 label
+                      child: Stack(children: [
+                        AppIcon(icon: Icons.shopping_cart_outlined),
+                        // cart number circle
+
+                        Visibility(
+                            visible: popularRef.state.totalItems >= 1,
+                            child: Positioned(
+                                top: 0,
+                                right: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ))),
+                        // cart number
+                        Visibility(
+                            visible: popularRef.state.totalItems >= 1,
+                            child: Positioned(
+                                top: 3,
+                                right: 3,
+                                child: SmallText(
+                                  text: popularRef.state.totalItems.toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                )))
+                      ]),
+                    )),
           ),
           Positioned(
               left: 0,
@@ -174,79 +219,5 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 )
               ],
             )));
-  }
-}
-
-///客製化導覽列
-class CustomAppBar extends StatelessWidget {
-  final String page;
-  const CustomAppBar({Key? key, required this.page}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return //cart icon
-        Consumer(
-      builder: (context, ref, child) {
-        final popularRef = ref.watch(popularProvider.notifier);
-
-        return Positioned(
-            top: Dimensions(context).height(45),
-            left: Dimensions(context).width(20),
-            right: Dimensions(context).width(20),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // 回上一頁
-                  GestureDetector(
-                      onTap: () {
-                        GoRouter.of(context).go(ScreenPaths.home());
-                        // if (page == 'cartPage') {
-                        //   Get.toNamed(RouteHelper.getCartPage());
-                        // } else {
-                        //   Get.toNamed(RouteHelper.getInitial());
-                        // }
-                      },
-                      child: AppIcon(icon: Icons.arrow_back_ios)),
-
-                  // 前往購物車 cart
-                  GestureDetector(
-                    onTap: () {
-                      GoRouter.of(context).push(ScreenPaths.cartInfo());
-                      // if (controller.totalItems >= 1) {
-                      //   Get.toNamed(RouteHelper.getCartPage());
-                      // }
-                    },
-                    // 購物車數字 label
-                    child: Stack(children: [
-                      AppIcon(icon: Icons.shopping_cart_outlined),
-                      // cart number circle
-
-                      Visibility(
-                          visible: popularRef.state.totalItems >= 1,
-                          child: Positioned(
-                              top: 0,
-                              right: 0,
-                              child: AppIcon(
-                                icon: Icons.circle,
-                                size: 20,
-                                iconColor: Colors.transparent,
-                                backgroundColor: AppColors.mainColor,
-                              ))),
-                      // cart number
-                      Visibility(
-                          visible: popularRef.state.totalItems >= 1,
-                          child: Positioned(
-                              top: 3,
-                              right: 3,
-                              child: SmallText(
-                                text: popularRef.state.totalItems.toString(),
-                                size: 12,
-                                color: Colors.white,
-                              )))
-                    ]),
-                  )
-                ]));
-      },
-    );
   }
 }
