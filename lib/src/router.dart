@@ -16,7 +16,7 @@ class RouteNames {
 class ScreenPaths {
   static String home() => '/';
   static String foodDetail(int pageId) => '/foodDetail/$pageId';
-  static String recommendDetail(int pageId) => '/foodDetail/$pageId';
+  static String recommendDetail(int pageId) => '/recommendDetail/$pageId';
   static String cart() => '/cart';
   static String cartInfo() => '/cartInfo';
   static String history() => '/history';

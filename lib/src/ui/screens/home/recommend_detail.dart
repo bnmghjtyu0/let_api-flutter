@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/riverpods/notifiers/popular_notifier.dart';
-import 'package:let_api_flutter/src/riverpods/providers/popular_provider.dart';
+import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
@@ -25,22 +24,23 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final popularRef = ref.watch(popularProvider.notifier);
-    final recommendData = ref.read(productRecommendProvider).recommend;
+    final cartNotifier = ref.read(cartProvider.notifier);
+    final cartData = ref.watch(cartProvider);
+    final recommendApiData = ref.watch(productRecommendProvider).recommend;
 
     void setQuantity(bool isIncrement) {
       // 增加
       if (isIncrement) {
         setState(() {
           quantity =
-              popularRef.checkQuantify(context, _inCartItems, quantity + 1);
+              cartNotifier.checkQuantify(context, _inCartItems, quantity + 1);
         });
       }
       // 減少
       else {
         setState(() {
           quantity =
-              popularRef.checkQuantify(context, _inCartItems, quantity - 1);
+              cartNotifier.checkQuantify(context, _inCartItems, quantity - 1);
         });
       }
       print(inCartItems);
@@ -52,7 +52,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
             SliverAppBar(
               pinned: true,
               automaticallyImplyLeading: false,
-              toolbarHeight: 70,
+              toolbarHeight: 120,
               backgroundColor: AppColors.mainColor,
               //上方區塊高度
               expandedHeight: 300,
@@ -60,10 +60,10 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                   background: Image.network(
                       ApiConstants.BASE_URL +
                           ApiConstants.UPLOAD_URL +
-                          recommendData!.products![widget.pageId].img!,
+                          recommendApiData!.products![widget.pageId].img!,
                       width: double.maxFinite,
                       fit: BoxFit.cover)),
-              title: CustomAppBar(page: 'cartPage', popularRef: popularRef),
+              title: CustomAppBar(page: 'cartPage'),
               //可浮動的標題
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(20),
@@ -79,7 +79,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                                 Dimensions(context).radius(20)))),
                     child: Center(
                         child: Text(
-                            recommendData.products![widget.pageId].name!,
+                            recommendApiData.products![widget.pageId].name!,
                             style: $styles.text.fz26))),
               ),
             ),
@@ -92,7 +92,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                         left: Dimensions(context).width(20),
                         right: Dimensions(context).width(20)),
                     child: ExpandableTextWidget(
-                        text: recommendData.products![widget.pageId].description
+                        text: recommendApiData
+                            .products![widget.pageId].description
                             .toString()))
               ],
             ))
@@ -180,13 +181,15 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                             Dimensions(context).radius(20))),
                     child: GestureDetector(
                       onTap: () {
-                        // popularRef.add(
-                        //     recommendData.products![widget.pageId],
-                        //     quantity);
+                        if (recommendApiData.products != null) {
+                          cartNotifier.add(
+                              recommendApiData.products![widget.pageId],
+                              quantity);
+                        }
                       },
                       child: BigText(
                           text:
-                              '\$ ${recommendData.products![widget.pageId].price} + Add to cart',
+                              '\$ ${recommendApiData.products![widget.pageId].price} + Add to cart',
                           color: Colors.white),
                     ),
                   )
@@ -198,65 +201,64 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
 
 class CustomAppBar extends StatelessWidget {
   final String page;
-  final PopularNotifier popularRef;
-  const CustomAppBar({Key? key, required this.page, required this.popularRef})
-      : super(key: key);
+  const CustomAppBar({Key? key, required this.page}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return //cart icon
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      GestureDetector(
-        onTap: (() {
-          GoRouter.of(context).go(ScreenPaths.home());
-        }),
-        child: Icon(Icons.clear),
-      ),
+        Consumer(builder: (context, ref, child) {
+      final cartProviderData = ref.watch(cartProvider);
+      return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        GestureDetector(
+          onTap: (() {
+            GoRouter.of(context).go(ScreenPaths.home());
+          }),
+          child: Icon(Icons.clear),
+        ),
 
-      //cart icon
-      GestureDetector(
-          onTap: () {
-            GoRouter.of(context).go(ScreenPaths.cartInfo());
-            // if (page == 'cartPage') {
-            //   Get.toNamed(RouteHelper.getCartPage());
-            // } else {
-            //   Get.toNamed(RouteHelper.getInitial());
-            // }
-          },
-          child: Stack(children: [
-            AppIcon(icon: Icons.shopping_cart_outlined),
+        //cart icon
+        GestureDetector(
+            onTap: () {
+              GoRouter.of(context).go(ScreenPaths.cartInfo());
+              // if (page == 'cartPage') {
+              //   Get.toNamed(RouteHelper.getCartPage());
+              // } else {
+              //   Get.toNamed(RouteHelper.getInitial());
+              // }
+            },
+            child: Stack(children: [
+              AppIcon(icon: Icons.shopping_cart_outlined),
 
-            // cart number circle
-            popularRef.state.totalItems >= 1
-                ? Positioned(
-                    top: 0,
-                    right: 0,
-                    child: AppIcon(
-                      icon: Icons.circle,
-                      size: 20,
-                      iconColor: Colors.transparent,
-                      backgroundColor: AppColors.mainColor,
-                    ))
-                : SizedBox(),
-
-            // // cart number
-            popularRef.state.totalItems >= 1
-                ? Positioned(
-                    top: 3,
-                    right: 3,
-                    child: SmallText(
-                      text: popularRef.state.totalItems.toString(),
-                      size: 10,
-                      color: Colors.white,
-                    ))
-                : Positioned(
-                    top: 0,
-                    right: 0,
-                    child: SizedBox(
-                      width: 0,
-                      height: 0,
-                    )),
-          ]))
-    ]);
+              // cart number circle
+              cartProviderData.totalItems >= 1
+                  ? Positioned(
+                      top: 0,
+                      right: 0,
+                      child: AppIcon(
+                        icon: Icons.circle,
+                        size: 20,
+                        iconColor: Colors.transparent,
+                        backgroundColor: AppColors.mainColor,
+                      ))
+                  : SizedBox(),
+              cartProviderData.totalItems >= 1
+                  ? Positioned(
+                      top: 3,
+                      right: 3,
+                      child: SmallText(
+                        text: cartProviderData.totalItems.toString(),
+                        size: 10,
+                        color: Colors.white,
+                      ))
+                  : Positioned(
+                      top: 0,
+                      right: 0,
+                      child: SizedBox(
+                        width: 0,
+                        height: 0,
+                      )),
+            ]))
+      ]);
+    });
   }
 }

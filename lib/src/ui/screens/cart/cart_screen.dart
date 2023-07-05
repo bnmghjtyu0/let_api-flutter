@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/models/models.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
-import 'package:let_api_flutter/src/riverpods/providers/popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 import 'package:let_api_flutter/src/router.dart';
@@ -18,8 +17,8 @@ class CartScreen extends StatelessWidget {
       return Scaffold(
         body: Consumer(
           builder: (context, ref, child) {
-            Product? popularData = ref.read(productPopularProvider).product;
-            final popularRef = ref.watch(popularProvider.notifier);
+            Product? popularApiData = ref.watch(productPopularProvider).product;
+            final cartNotifierRef = ref.read(cartProvider.notifier);
 
             return Stack(
               children: [
@@ -37,7 +36,7 @@ class CartScreen extends StatelessWidget {
                             margin: EdgeInsets.only(
                                 top: Dimensions(context).height(15)),
                             child: ListView.builder(
-                              itemCount: popularRef.getList.length,
+                              itemCount: cartNotifierRef.getList.length,
                               itemBuilder: (_, index) {
                                 return SizedBox(
                                     width: double.maxFinite,
@@ -46,9 +45,9 @@ class CartScreen extends StatelessWidget {
                                       //圖片
                                       GestureDetector(
                                         onTap: () {
-                                          var popularIndex = popularData!
+                                          var popularIndex = popularApiData!
                                               .products
-                                              .indexOf(popularRef
+                                              .indexOf(cartNotifierRef
                                                   .getList[index].product!);
 
                                           // 受歡迎商品
@@ -85,7 +84,7 @@ class CartScreen extends StatelessWidget {
                                                         ApiConstants.BASE_URL +
                                                             ApiConstants
                                                                 .UPLOAD_URL +
-                                                            popularRef
+                                                            cartNotifierRef
                                                                 .getList[index]
                                                                 .img!)),
                                                 borderRadius:
@@ -108,7 +107,7 @@ class CartScreen extends StatelessWidget {
                                                         .spaceEvenly,
                                                 children: [
                                                   BigText(
-                                                      text: popularRef
+                                                      text: cartNotifierRef
                                                           .getList[index].name!,
                                                       color: Colors.black54),
                                                   SmallText(text: 'spicy'),
@@ -118,7 +117,7 @@ class CartScreen extends StatelessWidget {
                                                             .spaceBetween,
                                                     children: [
                                                       BigText(
-                                                          text: popularRef
+                                                          text: cartNotifierRef
                                                               .getList[index]
                                                               .price
                                                               .toString(),

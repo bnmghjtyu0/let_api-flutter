@@ -1,8 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/riverpods/notifiers/popular_notifier.dart';
-import 'package:let_api_flutter/src/riverpods/providers/popular_provider.dart';
+import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
@@ -29,22 +28,23 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
   @override
   Widget build(BuildContext context) {
     /** 取得產品 api */
-    final Product? popularData = ref.watch(productPopularProvider).product;
-    final PopularNotifier popularRef = ref.watch(popularProvider.notifier);
+    final Product? popularApiData = ref.watch(productPopularProvider).product;
+    final cartNotifier = ref.read(cartProvider.notifier);
+    final cartProviderData = ref.watch(cartProvider);
 
     void setQuantity(bool isIncrement) {
       // 增加
       if (isIncrement) {
         setState(() {
           quantity =
-              popularRef.checkQuantify(context, _inCartItems, quantity + 1);
+              cartNotifier.checkQuantify(context, _inCartItems, quantity + 1);
         });
       }
       // 減少
       else {
         setState(() {
           quantity =
-              popularRef.checkQuantify(context, _inCartItems, quantity - 1);
+              cartNotifier.checkQuantify(context, _inCartItems, quantity - 1);
         });
       }
       print(inCartItems);
@@ -65,10 +65,11 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                         fit: BoxFit.cover,
                         image: NetworkImage((ApiConstants.BASE_URL +
                             ApiConstants.UPLOAD_URL +
-                            popularData!.products[widget.pageId].img!)))),
+                            popularApiData!.products[widget.pageId].img!)))),
               )),
+
           Positioned(
-            top: Dimensions(context).height(0),
+            top: Dimensions(context).height(40),
             left: Dimensions(context).width(0),
             right: Dimensions(context).width(0),
             child: AppHeader(
@@ -78,38 +79,33 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 // 前往購物車
                 trailing: (_) => GestureDetector(
                       onTap: () {
+                        print(cartNotifier.state.totalItems.toString());
                         GoRouter.of(context).push(ScreenPaths.cartInfo());
                         // if (controller.totalItems >= 1) {
                         //   Get.toNamed(RouteHelper.getCartPage());
                         // }
                       },
-                      // 購物車數字 label
                       child: Stack(children: [
                         AppIcon(icon: Icons.shopping_cart_outlined),
-                        // cart number circle
-
-                        Visibility(
-                            visible: popularRef.state.totalItems >= 1,
-                            child: Positioned(
-                                top: 0,
-                                right: 0,
-                                child: AppIcon(
-                                  icon: Icons.circle,
-                                  size: 20,
-                                  iconColor: Colors.transparent,
-                                  backgroundColor: AppColors.mainColor,
-                                ))),
-                        // cart number
-                        Visibility(
-                            visible: popularRef.state.totalItems >= 1,
-                            child: Positioned(
-                                top: 3,
-                                right: 3,
-                                child: SmallText(
-                                  text: popularRef.state.totalItems.toString(),
-                                  size: 12,
-                                  color: Colors.white,
-                                )))
+                        // 購物車圓形
+                        Positioned(
+                            top: 0,
+                            right: 0,
+                            child: AppIcon(
+                              icon: Icons.circle,
+                              size: 20,
+                              iconColor: Colors.transparent,
+                              backgroundColor: AppColors.mainColor,
+                            )),
+                        // 購物車數字
+                        Positioned(
+                            top: 3,
+                            right: 3,
+                            child: SmallText(
+                              text: cartProviderData.data.length.toString(),
+                              size: 12,
+                              color: Colors.white,
+                            ))
                       ]),
                     )),
           ),
@@ -134,7 +130,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InfoColumn(
-                          title: popularData.products[widget.pageId].name!),
+                          title: popularApiData.products[widget.pageId].name!),
                       SizedBox(height: Dimensions(context).height(20)),
                       // Introduce
                       BigText(text: 'Introduce'),
@@ -142,7 +138,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                       Expanded(
                           child: SingleChildScrollView(
                         child: ExpandableTextWidget(
-                            text: popularData
+                            text: popularApiData
                                 .products[widget.pageId].description!),
                       )),
                     ],
@@ -208,12 +204,12 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           Dimensions(context).radius(20))),
                   child: GestureDetector(
                     onTap: (() {
-                      ref.read(popularProvider.notifier).add(
-                          popularData.products[widget.pageId], inCartItems);
+                      ref.read(cartProvider.notifier).add(
+                          popularApiData.products[widget.pageId], inCartItems);
                     }),
                     child: BigText(
                         text:
-                            '\$ ${popularData.products[widget.pageId].price!} + Add to cart',
+                            '\$ ${popularApiData.products[widget.pageId].price!} + Add to cart',
                         color: Colors.white),
                   ),
                 )

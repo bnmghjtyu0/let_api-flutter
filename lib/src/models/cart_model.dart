@@ -9,7 +9,7 @@ class CartModel {
   int? quantity;
   bool? isExist;
   String? time;
-  ProductModel? product;
+  dynamic product;
 
   CartModel(
       {this.id,
