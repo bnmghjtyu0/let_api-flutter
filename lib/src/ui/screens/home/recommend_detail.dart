@@ -5,8 +5,8 @@ import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
+import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
 
 class RecommendDetailWidget extends ConsumerStatefulWidget {
   final int index;
@@ -31,7 +31,9 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
     final cartData = ref.watch(cartProvider);
     final recommendApiData = ref.watch(productRecommendProvider).recommend;
 
-    final RecommendModel product = recommendApiData!.products![widget.index];
+    final RecommendModel product =
+        recommendApiData?.products?[widget.index] ?? RecommendModel();
+    print(product);
 
     void setQuantity(bool isIncrement) {
       // 增加
@@ -99,10 +101,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                     margin: EdgeInsets.only(
                         left: Dimensions(context).width(20),
                         right: Dimensions(context).width(20)),
-                    child: ExpandableTextWidget(
-                        text: recommendApiData
-                            .products![widget.pageId].description
-                            .toString()))
+                    child: ExpandableTextWidget(text: product.description!))
               ],
             ))
           ],
@@ -189,7 +188,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                             Dimensions(context).radius(20))),
                     child: GestureDetector(
                       onTap: () {
-                        if (recommendApiData.products != null) {
+                        if (recommendApiData?.products != null) {
                           cartNotifier.add(product, quantity);
                           setState(() {
                             quantity = 0;

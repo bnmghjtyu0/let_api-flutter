@@ -33,7 +33,7 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   List<CartModel> get getItems {
-    return _items.entries.map((e) {
+    return state.data.entries.map((e) {
       return e.value;
     }).toList();
   }
@@ -52,7 +52,7 @@ class CartNotifier extends StateNotifier<CartState> {
     var totalQuantity = 0;
 
     print('product id:${product.id}');
-    Map<int, dynamic> tempData = {};
+    Map<int, CartModel> tempData = {};
     tempData.addAll(state.data);
 
     tempData.forEach((key, value) {
@@ -123,7 +123,7 @@ class CartNotifier extends StateNotifier<CartState> {
 
   //取得購物車全部資料 - 初始化載入一次
   List<CartModel> getCartData() {
-    // setCart = cartRepo.getCartList();
+    setCart = getCartList();
     return storageItems;
   }
 
@@ -133,6 +133,24 @@ class CartNotifier extends StateNotifier<CartState> {
 
     for (int i = 0; i < storageItems.length; i++) {
       _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
+  }
+
+  //檢查計數器數字 > 0 或小於 20
+  int checkQuantify(context, inCartItems, int quantity) {
+    if ((inCartItems + quantity) < 0) {
+      // Yay! 數字不能小於 0!
+      final snackBar = SnackBar(content: Text("Yay! 數字不能小於 0"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return 0;
+    } else if ((inCartItems + quantity) > 20) {
+      // Yay! 數字不能大於 20 拉!
+      final snackBar = SnackBar(content: Text("Yay! 數字不能大於 20 拉!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return 20;
+    } else {
+      return quantity;
     }
   }
 
@@ -162,29 +180,5 @@ class CartNotifier extends StateNotifier<CartState> {
       cartList.add(CartModel.fromJson(jsonDecode(element)));
     }
     return cartList;
-  }
-
-  //檢查計數器數字 > 0 或小於 20
-  int checkQuantify(context, inCartItems, int quantity) {
-    if ((inCartItems + quantity) < 0) {
-      // Yay! 數字不能小於 0!
-      final snackBar = SnackBar(content: Text("Yay! 數字不能小於 0"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-      return 0;
-    } else if ((inCartItems + quantity) > 20) {
-      // Yay! 數字不能大於 20 拉!
-      final snackBar = SnackBar(content: Text("Yay! 數字不能大於 20 拉!"));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      return 20;
-    } else {
-      return quantity;
-    }
-  }
-
-  List<dynamic> get getList {
-    return state.data.entries.map((e) {
-      return e.value;
-    }).toList();
   }
 }

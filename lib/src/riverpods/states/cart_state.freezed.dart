@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CartState {
-  Map<int, dynamic> get data => throw _privateConstructorUsedError;
+  Map<int, CartModel> get data => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   int get totalItems => throw _privateConstructorUsedError;
 
@@ -30,7 +30,7 @@ abstract class $CartStateCopyWith<$Res> {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) then) =
       _$CartStateCopyWithImpl<$Res, CartState>;
   @useResult
-  $Res call({Map<int, dynamic> data, int quantity, int totalItems});
+  $Res call({Map<int, CartModel> data, int quantity, int totalItems});
 }
 
 /// @nodoc
@@ -54,7 +54,7 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as Map<int, dynamic>,
+              as Map<int, CartModel>,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,7 @@ abstract class _$$_CartStateCopyWith<$Res> implements $CartStateCopyWith<$Res> {
       __$$_CartStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<int, dynamic> data, int quantity, int totalItems});
+  $Res call({Map<int, CartModel> data, int quantity, int totalItems});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$_CartStateCopyWithImpl<$Res>
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as Map<int, dynamic>,
+              as Map<int, CartModel>,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -113,14 +113,14 @@ class __$$_CartStateCopyWithImpl<$Res>
 
 class _$_CartState implements _CartState {
   _$_CartState(
-      {required final Map<int, dynamic> data,
+      {required final Map<int, CartModel> data,
       required this.quantity,
       required this.totalItems})
       : _data = data;
 
-  final Map<int, dynamic> _data;
+  final Map<int, CartModel> _data;
   @override
-  Map<int, dynamic> get data {
+  Map<int, CartModel> get data {
     if (_data is EqualUnmodifiableMapView) return _data;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_data);
@@ -161,12 +161,12 @@ class _$_CartState implements _CartState {
 
 abstract class _CartState implements CartState {
   factory _CartState(
-      {required final Map<int, dynamic> data,
+      {required final Map<int, CartModel> data,
       required final int quantity,
       required final int totalItems}) = _$_CartState;
 
   @override
-  Map<int, dynamic> get data;
+  Map<int, CartModel> get data;
   @override
   int get quantity;
   @override

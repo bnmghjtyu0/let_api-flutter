@@ -62,9 +62,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         margin: EdgeInsets.only(
                             top: Dimensions(context).height(15)),
                         child: ListView.builder(
-                          itemCount: cartNotifierRef.getList.length,
+                          itemCount: cartNotifierRef.getItems.length,
                           itemBuilder: (_, index) {
-                            final item = cartNotifierRef.getList[index];
+                            final item = cartNotifierRef.getItems[index];
                             final cartRefQuantity =
                                 Map.unmodifiable(cartRef.data)[item.id]
                                     .quantity;
@@ -86,7 +86,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                         print('受歡迎商品');
                                         GoRouter.of(context).go(
                                             ScreenPaths.foodDetail(
-                                                popularIndex, item.id));
+                                                popularIndex, item.id!));
                                       }
                                       // 推薦商品
                                       else {
@@ -98,7 +98,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                         GoRouter.of(context).go(
                                             ScreenPaths.recommendDetail(
-                                                recommendIndex, item.id));
+                                                recommendIndex, item.id!));
                                       }
                                     },
                                     child: Container(
@@ -145,7 +145,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                 children: [
                                                   BigText(
                                                       text:
-                                                          '\$ ${cartNotifierRef.getList[index].price}',
+                                                          '\$ ${cartNotifierRef.getItems[index].price}',
                                                       color: Colors.redAccent),
                                                   // 計數器 + 0 -
                                                   Container(
