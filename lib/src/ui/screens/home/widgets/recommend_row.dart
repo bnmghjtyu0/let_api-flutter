@@ -9,8 +9,10 @@ import 'package:let_api_flutter/src/router.dart';
 class RecommendRow extends StatefulWidget {
   final RecommendModel data;
   final int index;
+  final int pageId;
 
-  RecommendRow({Key? key, required this.data, required this.index})
+  RecommendRow(
+      {Key? key, required this.data, required this.index, required this.pageId})
       : super(key: key);
 
   @override
@@ -22,7 +24,8 @@ class _RecommendRowState extends State<RecommendRow> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: (() {
-          GoRouter.of(context).go(ScreenPaths.recommendDetail(widget.index));
+          GoRouter.of(context)
+              .go(ScreenPaths.recommendDetail(widget.index, widget.pageId));
         }),
         child: Container(
           margin: EdgeInsets.only(

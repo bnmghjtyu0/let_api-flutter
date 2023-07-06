@@ -1,4 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
@@ -43,7 +42,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
     final innerList = <RecommendRow>[];
     for (int j = 0; j < recommendProducts.length; j++) {
-      innerList.add(RecommendRow(data: recommendProducts[j], index: j));
+      innerList.add(RecommendRow(
+          data: recommendProducts[j],
+          index: j,
+          pageId: recommendProducts[j].id!));
     }
     innerLists.add(
       SliverList(

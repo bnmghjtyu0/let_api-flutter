@@ -9,7 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 ///購物車 reducer
 class CartNotifier extends StateNotifier<CartState> {
+  // 初始值
+  CartNotifier({this.sharedPreferences})
+      : super(CartState(data: {}, quantity: 0, totalItems: 0));
+
   final SharedPreferences? sharedPreferences;
+
+  Map<int, dynamic> tempData = {};
 
   Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
@@ -32,40 +38,39 @@ class CartNotifier extends StateNotifier<CartState> {
     }).toList();
   }
 
-  // //購物車總金額
-  int get totalAmount {
-    int total = 0;
-    _items.forEach((key, value) {
+  //計算總金額
+  num get totalAmount {
+    num total = 0;
+    state.data.forEach((key, value) {
       total += value.quantity! * value.price!;
     });
     return total;
   }
 
-  CartNotifier({this.sharedPreferences})
-      : super(CartState(data: {}, quantity: 0, totalItems: 0));
-
   //新增與更新
   void add(dynamic product, int quantity) {
-    print('add');
-    print('product:${product.id}');
+    var totalQuantity = 0;
 
-    state.data.forEach((key, value) {
+    print('product id:${product.id}');
+    Map<int, dynamic> tempData = {};
+    tempData.addAll(state.data);
+
+    tempData.forEach((key, value) {
       print('the id is ${value.id.toString()}');
       print('the quantity is ${value.quantity.toString()}');
     });
 
-    var totalQuantity = 0;
-    Map<int, dynamic> tempData = {};
-
     if (tempData.containsKey(product.id)) {
+      print('find product id is $product.id');
       tempData.update(product.id!, (value) {
         totalQuantity = value.quantity! + quantity;
+        print('totalQuantity $totalQuantity');
         return CartModel(
             id: product.id,
             name: product.name,
             price: product.price,
             img: product.img,
-            quantity: value.quantity! + quantity,
+            quantity: totalQuantity,
             isExist: true,
             time: DateTime.now().toString(),
             product: product);
@@ -75,9 +80,10 @@ class CartNotifier extends StateNotifier<CartState> {
         tempData.remove(product.id);
       }
     } else {
+      print('can not find product id');
       if (quantity > 0) {
-        print('購物車加入一筆資料, productId: ${product.id}');
-        tempData.putIfAbsent(product.id!, () {
+        print('add product id: ${product.id}');
+        tempData.putIfAbsent(product.id, () {
           return CartModel(
               id: product.id,
               name: product.name,
@@ -89,10 +95,10 @@ class CartNotifier extends StateNotifier<CartState> {
               product: product);
         });
       }
-
-      state = state.copyWith(
-          quantity: quantity, data: tempData, totalItems: tempData.length);
     }
+
+    state = state.copyWith(
+        quantity: quantity, data: tempData, totalItems: tempData.length);
   }
 
   bool existInCart(ProductModel product) {

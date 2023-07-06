@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
@@ -8,9 +9,11 @@ import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 
 class RecommendDetailWidget extends ConsumerStatefulWidget {
+  final int index;
   final int pageId;
 
-  const RecommendDetailWidget({Key? key, required this.pageId})
+  const RecommendDetailWidget(
+      {Key? key, required this.index, required this.pageId})
       : super(key: key);
 
   @override
@@ -28,6 +31,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
     final cartData = ref.watch(cartProvider);
     final recommendApiData = ref.watch(productRecommendProvider).recommend;
 
+    final RecommendModel product = recommendApiData!.products![widget.index];
+
     void setQuantity(bool isIncrement) {
       // 增加
       if (isIncrement) {
@@ -43,7 +48,12 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
               cartNotifier.checkQuantify(context, _inCartItems, quantity - 1);
         });
       }
-      print(inCartItems);
+    }
+
+    getQuantity() {
+      return cartData.data.containsKey(widget.pageId)
+          ? Map.unmodifiable(cartData.data)[widget.pageId].quantity
+          : 0;
     }
 
     return Scaffold(
@@ -60,7 +70,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                   background: Image.network(
                       ApiConstants.BASE_URL +
                           ApiConstants.UPLOAD_URL +
-                          recommendApiData!.products![widget.pageId].img!,
+                          product.img!,
                       width: double.maxFinite,
                       fit: BoxFit.cover)),
               title: CustomAppBar(page: 'cartPage'),
@@ -78,9 +88,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                             topRight: Radius.circular(
                                 Dimensions(context).radius(20)))),
                     child: Center(
-                        child: Text(
-                            recommendApiData.products![widget.pageId].name!,
-                            style: $styles.text.fz26))),
+                        child: Text(product.name!, style: $styles.text.fz26))),
               ),
             ),
             //內容
@@ -122,7 +130,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                       iconSize: Dimensions(context).iconSize(24),
                     ),
                   ),
-                  Text("12.88 X $quantity",
+                  Text("${product.price} X ${quantity + getQuantity()}",
                       style: $styles.text.fz26.copyWith(color: Colors.black)),
                   GestureDetector(
                     onTap: () {
@@ -182,14 +190,14 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                     child: GestureDetector(
                       onTap: () {
                         if (recommendApiData.products != null) {
-                          cartNotifier.add(
-                              recommendApiData.products![widget.pageId],
-                              quantity);
+                          cartNotifier.add(product, quantity);
+                          setState(() {
+                            quantity = 0;
+                          });
                         }
                       },
                       child: BigText(
-                          text:
-                              '\$ ${recommendApiData.products![widget.pageId].price} + Add to cart',
+                          text: '\$ ${product.price} + Add to cart',
                           color: Colors.white),
                     ),
                   )

@@ -62,7 +62,8 @@ class PageViewItem extends StatelessWidget {
             //圖片
             GestureDetector(
               onTap: (() {
-                GoRouter.of(context).go(ScreenPaths.foodDetail(index));
+                GoRouter.of(context)
+                    .go(ScreenPaths.foodDetail(index, popularProduct.id!));
               }),
               child: Container(
                   height: Dimensions(context).pageViewContainer(),

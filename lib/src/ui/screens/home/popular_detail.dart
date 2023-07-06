@@ -10,9 +10,14 @@ import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
 import 'package:let_api_flutter/common_libs.dart';
 
 class PopularDetail extends ConsumerStatefulWidget {
+  /// 索引
+  final int index;
+
+  /// 商品ID
   final int pageId;
 
-  const PopularDetail({Key? key, required this.pageId}) : super(key: key);
+  const PopularDetail({Key? key, required this.pageId, required this.index})
+      : super(key: key);
 
   @override
   _PopularDetailState createState() => _PopularDetailState();
@@ -30,7 +35,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
     /** 取得產品 api */
     final Product? popularApiData = ref.watch(productPopularProvider).product;
     final cartNotifier = ref.read(cartProvider.notifier);
-    final cartProviderData = ref.watch(cartProvider);
+    final cartData = ref.watch(cartProvider);
+    final ProductModel product = popularApiData!.products[widget.index];
 
     void setQuantity(bool isIncrement) {
       // 增加
@@ -50,6 +56,12 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
       print(inCartItems);
     }
 
+    getQuantity() {
+      return cartData.data.containsKey(widget.pageId)
+          ? Map.unmodifiable(cartData.data)[widget.pageId].quantity
+          : 0;
+    }
+
     return Scaffold(
         body: Stack(children: [
           //大圖
@@ -65,7 +77,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                         fit: BoxFit.cover,
                         image: NetworkImage((ApiConstants.BASE_URL +
                             ApiConstants.UPLOAD_URL +
-                            popularApiData!.products[widget.pageId].img!)))),
+                            product.img!)))),
               )),
 
           Positioned(
@@ -102,7 +114,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                             top: 3,
                             right: 3,
                             child: SmallText(
-                              text: cartProviderData.data.length.toString(),
+                              text: cartData.data.length.toString(),
                               size: 12,
                               color: Colors.white,
                             ))
@@ -129,17 +141,14 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InfoColumn(
-                          title: popularApiData.products[widget.pageId].name!),
+                      InfoColumn(title: product.name!),
                       SizedBox(height: Dimensions(context).height(20)),
                       // Introduce
                       BigText(text: 'Introduce'),
                       // expandable text
                       Expanded(
                           child: SingleChildScrollView(
-                        child: ExpandableTextWidget(
-                            text: popularApiData
-                                .products[widget.pageId].description!),
+                        child: ExpandableTextWidget(text: product.description!),
                       )),
                     ],
                   ))),
@@ -180,7 +189,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           child: Icon(Icons.remove, color: AppColors.signColor),
                         ),
                         SizedBox(width: Dimensions(context).width(10) / 2),
-                        BigText(text: quantity.toString()),
+                        BigText(text: '${quantity + getQuantity()}'),
                         SizedBox(width: Dimensions(context).width(10) / 2),
                         GestureDetector(
                           onTap: (() {
@@ -204,12 +213,13 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           Dimensions(context).radius(20))),
                   child: GestureDetector(
                     onTap: (() {
-                      ref.read(cartProvider.notifier).add(
-                          popularApiData.products[widget.pageId], inCartItems);
+                      ref.read(cartProvider.notifier).add(product, inCartItems);
+                      setState(() {
+                        quantity = 0;
+                      });
                     }),
                     child: BigText(
-                        text:
-                            '\$ ${popularApiData.products[widget.pageId].price!} + Add to cart',
+                        text: '\$ ${product.price!} + Add to cart',
                         color: Colors.white),
                   ),
                 )

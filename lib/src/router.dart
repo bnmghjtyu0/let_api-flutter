@@ -15,8 +15,10 @@ class RouteNames {
 
 class ScreenPaths {
   static String home() => '/';
-  static String foodDetail(int pageId) => '/foodDetail/$pageId';
-  static String recommendDetail(int pageId) => '/recommendDetail/$pageId';
+  static String foodDetail(int index, int pageId) =>
+      '/foodDetail/$index?pageId=$pageId';
+  static String recommendDetail(int index, int pageId) =>
+      '/recommendDetail/$index?pageId=$pageId';
   static String cart() => '/cart';
   static String cartInfo() => '/cartInfo';
   static String history() => '/history';
@@ -41,15 +43,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             },
             routes: [
               // 受歡迎的美食
-              AppRoute('/foodDetail/:pageId', (state) {
-                int pageId = int.parse(state.pathParameters['pageId']!);
-                return PopularDetail(pageId: pageId);
+              AppRoute('/foodDetail/:index', (state) {
+                int index = int.parse(state.pathParameters['index']!);
+                int pageId = int.parse(state.queryParameters['pageId']!);
+                return PopularDetail(index: index, pageId: pageId);
               }, useFade: true),
 
               // 推薦的美食
-              AppRoute('/recommendDetail/:pageId', (state) {
-                int pageId = int.parse(state.pathParameters['pageId']!);
-                return RecommendDetailWidget(pageId: pageId);
+              AppRoute('/recommendDetail/:index', (state) {
+                int pageId = int.parse(state.queryParameters['pageId']!);
+                int index = int.parse(state.pathParameters['index']!);
+                return RecommendDetailWidget(index: index, pageId: pageId);
               }),
 
               // 購物車

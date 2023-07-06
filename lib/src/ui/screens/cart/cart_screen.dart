@@ -1,267 +1,285 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/models/models.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 import 'package:let_api_flutter/src/router.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
 
   @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends ConsumerState<CartScreen> {
+  int quantity = 0;
+  @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child) {
-      return Scaffold(
-        body: Consumer(
-          builder: (context, ref, child) {
-            Product? popularApiData = ref.watch(productPopularProvider).product;
-            final cartNotifierRef = ref.read(cartProvider.notifier);
+    final popularApiData = ref.watch(productPopularProvider);
+    final recommendApiData = ref.watch(productRecommendProvider).recommend;
+    final cartRef = ref.watch(cartProvider);
+    final cartNotifier = ref.read(cartProvider.notifier);
+    final cartNotifierRef = ref.read(cartProvider.notifier);
 
-            return Stack(
-              children: [
-                CustomAppBar(),
+    void setQuantity(bool isIncrement, int cartQuantity, dynamic product) {
+      quantity = 0;
+      print(cartQuantity);
+      // 增加
+      if (isIncrement) {
+        setState(() {
+          quantity =
+              cartNotifier.checkQuantify(context, cartQuantity, quantity + 1);
+        });
+      }
+      // 減少
+      else {
+        setState(() {
+          quantity =
+              cartNotifier.checkQuantify(context, cartQuantity, quantity - 1);
+        });
+      }
+      cartNotifier.add(product, quantity);
+    }
 
-                // 商品列表
-                Positioned(
-                    top: Dimensions(context).height(20) * 5,
-                    left: Dimensions(context).width(20),
-                    right: Dimensions(context).width(20),
-                    bottom: 0,
-                    child: MediaQuery.removePadding(
-                        context: context,
-                        child: Container(
-                            margin: EdgeInsets.only(
-                                top: Dimensions(context).height(15)),
-                            child: ListView.builder(
-                              itemCount: cartNotifierRef.getList.length,
-                              itemBuilder: (_, index) {
-                                return SizedBox(
-                                    width: double.maxFinite,
-                                    height: Dimensions(context).height(20) * 5,
-                                    child: Row(children: [
-                                      //圖片
-                                      GestureDetector(
-                                        onTap: () {
-                                          var popularIndex = popularApiData!
-                                              .products
-                                              .indexOf(cartNotifierRef
-                                                  .getList[index].product!);
+    return Scaffold(
+        body: Stack(
+          children: [
+            CustomAppBar(),
 
-                                          // 受歡迎商品
-                                          if (popularIndex >= 0) {
-                                            GoRouter.of(context).go(
-                                                ScreenPaths.foodDetail(
-                                                    popularIndex));
-                                          }
-                                          // 推薦商品
-                                          else {
-                                            // var recommendIndex =
-                                            //     Get.find<RecommendProductController>()
-                                            //         .recommendProductList
-                                            //         .indexOf(cartController
-                                            //             .getItems[index].product!);
+            // 商品列表
+            Positioned(
+                top: Dimensions(context).height(20) * 5,
+                left: Dimensions(context).width(20),
+                right: Dimensions(context).width(20),
+                bottom: 0,
+                child: MediaQuery.removePadding(
+                    context: context,
+                    child: Container(
+                        margin: EdgeInsets.only(
+                            top: Dimensions(context).height(15)),
+                        child: ListView.builder(
+                          itemCount: cartNotifierRef.getList.length,
+                          itemBuilder: (_, index) {
+                            final item = cartNotifierRef.getList[index];
+                            final cartRefQuantity =
+                                Map.unmodifiable(cartRef.data)[item.id]
+                                    .quantity;
 
-                                            // Get.toNamed(RouteHelper.getRecommendFood(
-                                            //     recommendIndex, 'cartPage'));
-                                          }
-                                        },
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: Dimensions(context)
-                                                    .height(10)),
-                                            width: Dimensions(context).height(20) *
-                                                5,
-                                            height: Dimensions(context)
-                                                    .height(20) *
-                                                5,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    fit: BoxFit.cover,
-                                                    image: NetworkImage(
-                                                        ApiConstants.BASE_URL +
-                                                            ApiConstants
-                                                                .UPLOAD_URL +
-                                                            cartNotifierRef
-                                                                .getList[index]
-                                                                .img!)),
-                                                borderRadius:
-                                                    BorderRadius.circular(Dimensions(context).radius(20)),
-                                                color: Colors.white)),
-                                      ),
-                                      SizedBox(
-                                        width: Dimensions(context).width(10),
-                                      ),
-                                      Expanded(
-                                          child: SizedBox(
-                                              height: Dimensions(context)
-                                                      .height(20) *
+                            return SizedBox(
+                                width: double.maxFinite,
+                                height: Dimensions(context).height(20) * 5,
+                                child: Row(children: [
+                                  //圖片
+                                  GestureDetector(
+                                    onTap: () {
+                                      var popularIndex = popularApiData
+                                          .product?.products
+                                          .indexWhere((value) =>
+                                              value.id == item.product.id);
+
+                                      // 受歡迎商品
+                                      if (popularIndex! >= 0) {
+                                        print('受歡迎商品');
+                                        GoRouter.of(context).go(
+                                            ScreenPaths.foodDetail(
+                                                popularIndex, item.id));
+                                      }
+                                      // 推薦商品
+                                      else {
+                                        print('推薦商品');
+                                        var recommendIndex = recommendApiData!
+                                            .products!
+                                            .indexWhere((value) =>
+                                                value.id == item.product.id);
+
+                                        GoRouter.of(context).go(
+                                            ScreenPaths.recommendDetail(
+                                                recommendIndex, item.id));
+                                      }
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(
+                                            bottom:
+                                                Dimensions(context).height(10)),
+                                        width:
+                                            Dimensions(context).height(20) * 5,
+                                        height:
+                                            Dimensions(context).height(20) * 5,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(ApiConstants
+                                                        .BASE_URL +
+                                                    ApiConstants.UPLOAD_URL +
+                                                    item.img!)),
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions(context).radius(20)),
+                                            color: Colors.white)),
+                                  ),
+                                  SizedBox(
+                                    width: Dimensions(context).width(10),
+                                  ),
+                                  Expanded(
+                                      child: SizedBox(
+                                          height:
+                                              Dimensions(context).height(20) *
                                                   5,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              BigText(
+                                                  text: item.name!,
+                                                  color: Colors.black54),
+                                              // SmallText(text: 'spicy'),
+                                              Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
-                                                        .spaceEvenly,
+                                                        .spaceBetween,
                                                 children: [
                                                   BigText(
-                                                      text: cartNotifierRef
-                                                          .getList[index].name!,
-                                                      color: Colors.black54),
-                                                  SmallText(text: 'spicy'),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      BigText(
-                                                          text: cartNotifierRef
-                                                              .getList[index]
-                                                              .price
-                                                              .toString(),
-                                                          color:
-                                                              Colors.redAccent),
-                                                      // 計數器 + 0 -
-                                                      Container(
-                                                        padding: EdgeInsets.only(
-                                                            top: Dimensions(
-                                                                    context)
-                                                                .height(10),
-                                                            bottom: Dimensions(
-                                                                    context)
-                                                                .height(10),
-                                                            left: Dimensions(
-                                                                    context)
-                                                                .width(20),
-                                                            right: Dimensions(
-                                                                    context)
-                                                                .width(20)),
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20)),
-                                                        // child: GetBuilder<PopularProductController>(
-                                                        //     builder:
-                                                        //         (popularProduct) {
-                                                        //   return Row(
-                                                        //     children: [
-                                                        //       GestureDetector(
-                                                        //         onTap: (() {
-                                                        //           popularProduct
-                                                        //               .setQuantity(
-                                                        //                   false);
-                                                        //         }),
-                                                        //         child: Icon(
-                                                        //             Icons.remove,
-                                                        //             color: AppColors
-                                                        //                 .signColor),
-                                                        //       ),
-                                                        //       SizedBox(
-                                                        //           width: Dimensions(context)(
-                                                        //                       context)
-                                                        //                   .width(
-                                                        //                       10) /
-                                                        //               2),
-                                                        //       BigText(
-                                                        //           text: popularProduct
-                                                        //               .inCartItems
-                                                        //               .toString()),
-                                                        //       SizedBox(
-                                                        //           width: Dimensions(context)(
-                                                        //                       context)
-                                                        //                   .width(
-                                                        //                       10) /
-                                                        //               2),
-                                                        //       GestureDetector(
-                                                        //         onTap: (() {
-                                                        //           popularProduct
-                                                        //               .setQuantity(
-                                                        //                   true);
-                                                        //         }),
-                                                        //         child: Icon(
-                                                        //             Icons.add,
-                                                        //             color: AppColors
-                                                        //                 .signColor),
-                                                        //       )
-                                                        //     ],
-                                                        //   );
-                                                        // })
-                                                      )
-                                                    ],
-                                                  )
+                                                      text:
+                                                          '\$ ${cartNotifierRef.getList[index].price}',
+                                                      color: Colors.redAccent),
+                                                  // 計數器 + 0 -
+                                                  Container(
+                                                      padding: EdgeInsets.only(
+                                                          top: Dimensions(
+                                                                  context)
+                                                              .height(10),
+                                                          bottom:
+                                                              Dimensions(context)
+                                                                  .height(10),
+                                                          left:
+                                                              Dimensions(context)
+                                                                  .width(20),
+                                                          right:
+                                                              Dimensions(context)
+                                                                  .width(20)),
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20)),
+                                                      child: Row(
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: (() {
+                                                              setQuantity(
+                                                                  false,
+                                                                  cartRefQuantity,
+                                                                  item);
+                                                            }),
+                                                            child: Icon(
+                                                                Icons.remove,
+                                                                color: AppColors
+                                                                    .signColor),
+                                                          ),
+                                                          SizedBox(
+                                                              width: Dimensions(
+                                                                          context)
+                                                                      .width(
+                                                                          10) /
+                                                                  2),
+                                                          // 計數器的數字
+                                                          BigText(
+                                                              text: Map.unmodifiable(
+                                                                      cartRef
+                                                                          .data)[item
+                                                                      .id]
+                                                                  .quantity
+                                                                  .toString()),
+                                                          SizedBox(
+                                                              width: Dimensions(
+                                                                          context)
+                                                                      .width(
+                                                                          10) /
+                                                                  2),
+                                                          GestureDetector(
+                                                            onTap: (() {
+                                                              setQuantity(
+                                                                  true,
+                                                                  cartRefQuantity,
+                                                                  item);
+                                                            }),
+                                                            child: Icon(
+                                                                Icons.add,
+                                                                color: AppColors
+                                                                    .signColor),
+                                                          )
+                                                        ],
+                                                      ))
                                                 ],
-                                              )))
-                                    ]));
-                              },
-                            ))))
-              ],
-            );
-          },
+                                              )
+                                            ],
+                                          )))
+                                ]));
+                          },
+                        ))))
+          ],
         ),
-        bottomNavigationBar: Consumer(builder: (context, ref, child) {
-          final cartRef = ref.read(cartProvider.notifier);
-          return Container(
-              height: Dimensions(context).bottomHeightBar(),
-              padding: EdgeInsets.only(
-                  top: Dimensions(context).height(30),
-                  bottom: Dimensions(context).height(30),
-                  left: Dimensions(context).height(20),
-                  right: Dimensions(context).height(20)),
-              decoration: BoxDecoration(
-                  color: AppColors.bottomBackgroundColor,
-                  borderRadius: BorderRadius.only(
-                      topLeft:
-                          Radius.circular(Dimensions(context).radius(20) * 2),
-                      topRight:
-                          Radius.circular(Dimensions(context).radius(20) * 2))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // 計數器
-                  Container(
-                      padding: EdgeInsets.only(
-                          top: Dimensions(context).height(20),
-                          bottom: Dimensions(context).height(20),
-                          left: Dimensions(context).width(20),
-                          right: Dimensions(context).width(20)),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Row(
-                        children: [
-                          SizedBox(width: Dimensions(context).width(10) / 2),
-                          BigText(text: '\$ ${cartRef.totalAmount.toString()}'),
-                          SizedBox(width: Dimensions(context).width(10) / 2),
-                        ],
-                      )),
-
-                  // price + Add to cart
-                  Container(
+        bottomNavigationBar: Container(
+            height: Dimensions(context).bottomHeightBar(),
+            padding: EdgeInsets.only(
+                top: Dimensions(context).height(30),
+                bottom: Dimensions(context).height(30),
+                left: Dimensions(context).height(20),
+                right: Dimensions(context).height(20)),
+            decoration: BoxDecoration(
+                color: AppColors.bottomBackgroundColor,
+                borderRadius: BorderRadius.only(
+                    topLeft:
+                        Radius.circular(Dimensions(context).radius(20) * 2),
+                    topRight:
+                        Radius.circular(Dimensions(context).radius(20) * 2))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // 計數器
+                Container(
                     padding: EdgeInsets.only(
                         top: Dimensions(context).height(20),
                         bottom: Dimensions(context).height(20),
                         left: Dimensions(context).width(20),
                         right: Dimensions(context).width(20)),
                     decoration: BoxDecoration(
-                        color: AppColors.mainColor,
-                        borderRadius: BorderRadius.circular(
-                            Dimensions(context).radius(20))),
-                    child: GestureDetector(
-                      onTap: (() {
-                        // popularProduct.addItem(product);
-                      }),
-                      child: BigText(text: 'Check out', color: Colors.white),
-                    ),
-                  )
-                ],
-              ));
-        }),
-      );
-    });
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Row(
+                      children: [
+                        SizedBox(width: Dimensions(context).width(10) / 2),
+                        BigText(
+                            text: '\$ ${cartNotifier.totalAmount.toString()}'),
+                        SizedBox(width: Dimensions(context).width(10) / 2),
+                      ],
+                    )),
+
+                // price + Add to cart
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Dimensions(context).height(20),
+                      bottom: Dimensions(context).height(20),
+                      left: Dimensions(context).width(20),
+                      right: Dimensions(context).width(20)),
+                  decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      borderRadius: BorderRadius.circular(
+                          Dimensions(context).radius(20))),
+                  child: GestureDetector(
+                    onTap: (() {
+                      // popularProduct.addItem(product);
+                    }),
+                    child: BigText(text: 'Check out', color: Colors.white),
+                  ),
+                )
+              ],
+            )));
   }
 }
 

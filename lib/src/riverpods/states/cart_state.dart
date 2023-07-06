@@ -7,7 +7,7 @@ part 'cart_state.freezed.dart';
 @freezed
 class CartState with _$CartState {
   factory CartState(
-      {required Map<int, dynamic> data,
+      {required Map<int, CartModel> data,
       required int quantity,
       required int totalItems}) = _CartState;
 }
