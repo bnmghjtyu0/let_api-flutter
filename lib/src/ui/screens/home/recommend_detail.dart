@@ -33,7 +33,6 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
 
     final RecommendModel product =
         recommendApiData?.products?[widget.index] ?? RecommendModel();
-    print(product);
 
     void setQuantity(bool isIncrement) {
       // 增加

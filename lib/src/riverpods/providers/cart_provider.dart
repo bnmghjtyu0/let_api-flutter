@@ -3,4 +3,4 @@ import 'package:let_api_flutter/src/riverpods/notifiers/cart_notifier.dart';
 import 'package:let_api_flutter/src/riverpods/states/cart_state.dart';
 
 final cartProvider =
-    StateNotifierProvider<CartNotifier, CartState>((ref) => CartNotifier());
+    StateNotifierProvider<CartNotifier, CartState>((ref) => CartNotifier(ref));

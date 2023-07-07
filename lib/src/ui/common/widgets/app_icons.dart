@@ -14,7 +14,6 @@ class AppIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     String i = describeEnum(icon).toLowerCase().replaceAll('_', '-');
     String path = 'assets/images/_common/icons/icon-$i.png';
-    //print(path);
     return SizedBox(
       width: size,
       height: size,

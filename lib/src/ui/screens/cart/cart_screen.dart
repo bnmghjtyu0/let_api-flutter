@@ -27,7 +27,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     void setQuantity(bool isIncrement, int cartQuantity, dynamic product) {
       quantity = 0;
-      print(cartQuantity);
       // 增加
       if (isIncrement) {
         setState(() {
@@ -83,14 +82,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                       // 受歡迎商品
                                       if (popularIndex! >= 0) {
-                                        print('受歡迎商品');
                                         GoRouter.of(context).go(
                                             ScreenPaths.foodDetail(
-                                                popularIndex, item.id!));
+                                                popularIndex, item.id));
                                       }
                                       // 推薦商品
                                       else {
-                                        print('推薦商品');
                                         var recommendIndex = recommendApiData!
                                             .products!
                                             .indexWhere((value) =>
@@ -98,7 +95,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                         GoRouter.of(context).go(
                                             ScreenPaths.recommendDetail(
-                                                recommendIndex, item.id!));
+                                                recommendIndex, item.id));
                                       }
                                     },
                                     child: Container(
@@ -115,7 +112,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                 image: NetworkImage(ApiConstants
                                                         .BASE_URL +
                                                     ApiConstants.UPLOAD_URL +
-                                                    item.img!)),
+                                                    item.img)),
                                             borderRadius: BorderRadius.circular(
                                                 Dimensions(context).radius(20)),
                                             color: Colors.white)),
@@ -135,7 +132,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
                                               BigText(
-                                                  text: item.name!,
+                                                  text: item.name,
                                                   color: Colors.black54),
                                               // SmallText(text: 'spicy'),
                                               Row(

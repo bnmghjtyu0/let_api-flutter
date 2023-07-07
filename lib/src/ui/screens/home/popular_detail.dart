@@ -53,7 +53,6 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
               cartNotifier.checkQuantify(context, _inCartItems, quantity - 1);
         });
       }
-      print(inCartItems);
     }
 
     dynamic getQuantity() {
@@ -91,7 +90,6 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 // 前往購物車
                 trailing: (_) => GestureDetector(
                       onTap: () {
-                        print(cartNotifier.state.totalItems.toString());
                         GoRouter.of(context).push(ScreenPaths.cartInfo());
                         // if (controller.totalItems >= 1) {
                         //   Get.toNamed(RouteHelper.getCartPage());

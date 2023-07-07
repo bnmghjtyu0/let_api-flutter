@@ -1,6 +1,7 @@
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
+import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/firebase_service.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
@@ -15,6 +16,8 @@ Future<void> bootstrap(ProviderContainer ref) async {
   //載入 api
   await ref.read(productPopularProvider.notifier).loadProductPopular();
   await ref.read(productRecommendProvider.notifier).loadProductPopular();
+  //取得購物車資料 localStorage
+  ref.read(cartProvider.notifier).getCartData();
 }
 
 //專案起點

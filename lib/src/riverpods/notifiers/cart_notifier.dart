@@ -1,26 +1,22 @@
 import 'dart:convert';
 
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
+import 'package:let_api_flutter/src/constants/shared_preference_constant.dart';
 import 'package:let_api_flutter/src/models/cart_model.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
+import 'package:let_api_flutter/src/riverpods/providers/shared_preference_provider.dart';
 import 'package:let_api_flutter/src/riverpods/states/cart_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 ///購物車 reducer
 class CartNotifier extends StateNotifier<CartState> {
-  // 初始值
-  CartNotifier({this.sharedPreferences})
-      : super(CartState(data: {}, quantity: 0, totalItems: 0));
-
-  final SharedPreferences? sharedPreferences;
+  final Ref ref;
 
   Map<int, dynamic> tempData = {};
 
   final Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
 
-  /// only for storage and shared_preference
+  /// 暫存 local storage 的資料
   List<CartModel> storageItems = [];
   List<String> cart = [];
 
@@ -42,29 +38,25 @@ class CartNotifier extends StateNotifier<CartState> {
   num get totalAmount {
     num total = 0;
     state.data.forEach((key, value) {
-      total += value.quantity! * value.price!;
+      total += value.quantity * value.price;
     });
     return total;
   }
+
+  // 初始值
+  CartNotifier(this.ref)
+      : super(CartState(data: {}, quantity: 0, totalItems: 0));
 
   //新增與更新
   void add(dynamic product, int quantity) {
     var totalQuantity = 0;
 
-    print('product id:${product.id}');
     Map<int, CartModel> tempData = {};
     tempData.addAll(state.data);
 
-    tempData.forEach((key, value) {
-      print('the id is ${value.id.toString()}');
-      print('the quantity is ${value.quantity.toString()}');
-    });
-
     if (tempData.containsKey(product.id)) {
-      print('find product id is $product.id');
       tempData.update(product.id!, (value) {
-        totalQuantity = value.quantity! + quantity;
-        print('totalQuantity $totalQuantity');
+        totalQuantity = value.quantity + quantity;
         return CartModel(
             id: product.id,
             name: product.name,
@@ -80,9 +72,7 @@ class CartNotifier extends StateNotifier<CartState> {
         tempData.remove(product.id);
       }
     } else {
-      print('can not find product id');
       if (quantity > 0) {
-        print('add product id: ${product.id}');
         tempData.putIfAbsent(product.id, () {
           return CartModel(
               id: product.id,
@@ -96,6 +86,12 @@ class CartNotifier extends StateNotifier<CartState> {
         });
       }
     }
+
+    var itemsList = tempData.entries.map((e) {
+      return e.value;
+    }).toList();
+    //儲存到 localStorage
+    addToCartList(itemsList);
 
     state = state.copyWith(
         quantity: quantity, data: tempData, totalItems: tempData.length);
@@ -121,21 +117,6 @@ class CartNotifier extends StateNotifier<CartState> {
     return quantity;
   }
 
-  //取得購物車全部資料 - 初始化載入一次
-  List<CartModel> getCartData() {
-    setCart = getCartList();
-    return storageItems;
-  }
-
-  //setter, getter 設定購物車全部資料
-  set setCart(List<CartModel> items) {
-    storageItems = items;
-
-    for (int i = 0; i < storageItems.length; i++) {
-      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
-    }
-  }
-
   //檢查計數器數字 > 0 或小於 20
   int checkQuantify(context, inCartItems, int quantity) {
     if ((inCartItems + quantity) < 0) {
@@ -155,30 +136,55 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   //sharedPreferences 新增資料
-  void addToCartList(List<CartModel> cartList) {
-    print('addToCartList');
+  void addToCartList(List<CartModel> cartList) async {
     List<String> cart = [];
-    for (var element in cartList) {
-      cart.add(jsonEncode(element));
-    }
 
-    sharedPreferences!.setStringList(ApiConstants.CART_LIST, cart);
+    // convert object to string because sharePreferences only accepts string
+    cartList.forEach((element) {
+      cart.add(jsonEncode(element));
+    });
+
+    final sharedPreference = await ref.read(sharedPreferenceProvider.future);
+
+    sharedPreference.setStringList(SharedPreferenceConstants.CART_LIST, cart);
   }
 
   //sharedPreferences 取得資料
-  List<CartModel> getCartList() {
+  Future<List<CartModel>> getCartList() async {
     List<String> carts = [];
 
+    final sharedPreference = await ref.read(sharedPreferenceProvider.future);
     //如果 localStorage 有資料
-    if (sharedPreferences!.containsKey(ApiConstants.CART_LIST)) {
-      carts = sharedPreferences!.getStringList(ApiConstants.CART_LIST)!;
+    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_LIST)) {
+      carts =
+          sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
     }
 
     List<CartModel> cartList = [];
 
-    for (var element in carts) {
-      cartList.add(CartModel.fromJson(jsonDecode(element)));
-    }
+    //convert string to object array
+    carts.forEach((cart) {
+      cartList.add(CartModel.fromJson(jsonDecode(cart)));
+    });
+
     return cartList;
+  }
+
+  //取得購物車全部資料 - 初始化載入一次
+  void getCartData() async {
+    List<CartModel> cartList = await getCartList();
+    setCart(cartList);
+  }
+
+  // 設定購物車全部資料
+  void setCart(List<CartModel> items) {
+    Map<int, CartModel> tempData = {};
+    storageItems = items;
+
+    storageItems.forEach((cart) {
+      tempData.putIfAbsent(cart.id, () => cart);
+    });
+
+    state = state.copyWith(data: tempData);
   }
 }

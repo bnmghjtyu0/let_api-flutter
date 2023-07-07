@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/constants/dimensions.dart';
-import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
+import 'package:let_api_flutter/src/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 
 ///進入 app 的動畫
 class SplashScreen extends ConsumerStatefulWidget {
@@ -31,8 +31,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
 
     Timer(const Duration(seconds: 3), () {
-      print('進入首頁');
-      GoRouter.of(context).goNamed(RouteNames.foodHome);
+      GoRouter.of(context).goNamed(ScreenPaths.home());
     });
   }
 
