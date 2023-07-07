@@ -64,7 +64,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
               pinned: true,
               automaticallyImplyLeading: false,
               toolbarHeight: 120,
-              backgroundColor: AppColors.mainColor,
+              backgroundColor: $styles.colors.mainColor,
               //上方區塊高度
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
@@ -124,7 +124,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                     child: AppIcon(
                       iconColor: Colors.white,
                       icon: Icons.remove,
-                      backgroundColor: AppColors.mainColor,
+                      backgroundColor: $styles.colors.mainColor,
                       iconSize: Dimensions(context).iconSize(24),
                     ),
                   ),
@@ -137,7 +137,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                     child: AppIcon(
                       iconColor: Colors.white,
                       icon: Icons.add,
-                      backgroundColor: AppColors.mainColor,
+                      backgroundColor: $styles.colors.mainColor,
                       iconSize: Dimensions(context).iconSize(24),
                     ),
                   )
@@ -152,7 +152,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                   left: Dimensions(context).height(20),
                   right: Dimensions(context).height(20)),
               decoration: BoxDecoration(
-                  color: AppColors.bottomBackgroundColor,
+                  color: $styles.colors.bottomBackgroundColor,
                   borderRadius: BorderRadius.only(
                       topLeft:
                           Radius.circular(Dimensions(context).radius(20) * 2),
@@ -173,7 +173,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                           borderRadius: BorderRadius.circular(20)),
                       child: Icon(
                         Icons.favorite,
-                        color: AppColors.signColor,
+                        color: $styles.colors.signColor,
                       )),
                   Container(
                     padding: EdgeInsets.only(
@@ -182,7 +182,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                         left: Dimensions(context).width(20),
                         right: Dimensions(context).width(20)),
                     decoration: BoxDecoration(
-                        color: AppColors.mainColor,
+                        color: $styles.colors.mainColor,
                         borderRadius: BorderRadius.circular(
                             Dimensions(context).radius(20))),
                     child: GestureDetector(
@@ -244,7 +244,7 @@ class CustomAppBar extends StatelessWidget {
                         icon: Icons.circle,
                         size: 20,
                         iconColor: Colors.transparent,
-                        backgroundColor: AppColors.mainColor,
+                        backgroundColor: $styles.colors.mainColor,
                       ))
                   : SizedBox(),
               cartProviderData.totalItems >= 1

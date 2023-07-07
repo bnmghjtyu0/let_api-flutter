@@ -98,7 +98,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   children: [
                     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                       BigText(
-                          text: 'Food Delivery', color: AppColors.mainColor),
+                          text: 'Food Delivery',
+                          color: $styles.colors.mainColor),
                       Row(
                         children: const [
                           SmallText(
@@ -115,7 +116,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                               Dimensions(context).radius(15)),
-                          color: AppColors.mainColor),
+                          color: $styles.colors.mainColor),
                       child: Icon(Icons.search,
                           color: Colors.white,
                           size: Dimensions(context).iconSize(24)),
@@ -157,7 +158,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         decorator: DotsDecorator(
                           size: const Size.square(9.0),
                           activeSize: const Size(18.0, 9.0),
-                          activeColor: AppColors.mainColor,
+                          activeColor: $styles.colors.mainColor,
                           activeShape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                         ))),

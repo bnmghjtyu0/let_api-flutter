@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
@@ -175,7 +174,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                             }),
                                                             child: Icon(
                                                                 Icons.remove,
-                                                                color: AppColors
+                                                                color: $styles
+                                                                    .colors
                                                                     .signColor),
                                                           ),
                                                           SizedBox(
@@ -207,7 +207,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                             }),
                                                             child: Icon(
                                                                 Icons.add,
-                                                                color: AppColors
+                                                                color: $styles
+                                                                    .colors
                                                                     .signColor),
                                                           )
                                                         ],
@@ -229,7 +230,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 left: Dimensions(context).height(20),
                 right: Dimensions(context).height(20)),
             decoration: BoxDecoration(
-                color: AppColors.bottomBackgroundColor,
+                color: $styles.colors.bottomBackgroundColor,
                 borderRadius: BorderRadius.only(
                     topLeft:
                         Radius.circular(Dimensions(context).radius(20) * 2),
@@ -265,12 +266,18 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       left: Dimensions(context).width(20),
                       right: Dimensions(context).width(20)),
                   decoration: BoxDecoration(
-                      color: AppColors.mainColor,
+                      color: $styles.colors.mainColor,
                       borderRadius: BorderRadius.circular(
                           Dimensions(context).radius(20))),
+                  // 結帳: 點結帳後，清空購物車的商品，加入歷史購買紀錄
                   child: GestureDetector(
                     onTap: (() {
-                      // popularProduct.addItem(product);
+                      //加入歷史購買紀錄，
+                      cartNotifier.addToCartHistory();
+                      //清空資料
+                      cartNotifier.removeCart();
+                      //回到首頁
+                      GoRouter.of(context).go(ScreenPaths.home());
                     }),
                     child: BigText(text: 'Check out', color: Colors.white),
                   ),
@@ -300,7 +307,7 @@ class CustomAppBar extends StatelessWidget {
                 },
                 child: AppIcon(
                   icon: Icons.arrow_back_ios,
-                  iconColor: AppColors.mainColor,
+                  iconColor: $styles.colors.mainColor,
                   iconSize: Dimensions(context).iconSize(24),
                 ),
               ),
@@ -311,14 +318,14 @@ class CustomAppBar extends StatelessWidget {
                 },
                 child: AppIcon(
                   icon: Icons.home_outlined,
-                  iconColor: AppColors.mainColor,
+                  iconColor: $styles.colors.mainColor,
                   iconSize: Dimensions(context).iconSize(24),
                 ),
               ),
               // 購物車
               AppIcon(
                 icon: Icons.shopping_cart,
-                iconColor: AppColors.mainColor,
+                iconColor: $styles.colors.mainColor,
                 iconSize: Dimensions(context).iconSize(24),
               )
             ],

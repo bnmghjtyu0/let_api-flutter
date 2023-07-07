@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
@@ -73,15 +73,15 @@ class _RecommendRowState extends State<RecommendRow> {
                               IconAndTextWidget(
                                   icon: Icons.circle_sharp,
                                   text: widget.data.price.toString() ?? '',
-                                  iconColor: AppColors.mainColor),
+                                  iconColor: $styles.colors.mainColor),
                               IconAndTextWidget(
                                   icon: Icons.location_on,
                                   text: widget.data.location ?? '',
-                                  iconColor: AppColors.mainColor),
+                                  iconColor: $styles.colors.mainColor),
                               IconAndTextWidget(
                                   icon: Icons.access_time_rounded,
                                   text: '32min',
-                                  iconColor: AppColors.mainColor)
+                                  iconColor: $styles.colors.mainColor)
                             ],
                           )
                         ],

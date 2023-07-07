@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
@@ -15,7 +14,8 @@ class PageViewItem extends StatelessWidget {
   ProductModel popularProduct;
 
   PageViewItem(
-      {super.key, required this.index,
+      {super.key,
+      required this.index,
       required this.currPageValue,
       required this.popularProduct});
 
@@ -71,7 +71,8 @@ class PageViewItem extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.circular(Dimensions(context).radius(30)),
-                      color: index.isEven ? AppColors.mainColor : Colors.blue,
+                      color:
+                          index.isEven ? $styles.colors.mainColor : Colors.blue,
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(ApiConstants.BASE_URL +
@@ -114,7 +115,7 @@ class PageViewItem extends StatelessWidget {
                                 children: List.generate(
                                     5,
                                     (index) => Icon(Icons.star,
-                                        color: AppColors.mainColor))),
+                                        color: $styles.colors.mainColor))),
                             SizedBox(width: Dimensions(context).width(10)),
                             SmallText(text: '4.5'),
                             SizedBox(width: Dimensions(context).width(10)),
@@ -130,15 +131,15 @@ class PageViewItem extends StatelessWidget {
                             IconAndTextWidget(
                                 icon: Icons.circle_sharp,
                                 text: 'Normal',
-                                iconColor: AppColors.mainColor),
+                                iconColor: $styles.colors.mainColor),
                             IconAndTextWidget(
                                 icon: Icons.location_on,
                                 text: '1.7km',
-                                iconColor: AppColors.mainColor),
+                                iconColor: $styles.colors.mainColor),
                             IconAndTextWidget(
                                 icon: Icons.access_time_rounded,
                                 text: '32min',
-                                iconColor: AppColors.mainColor)
+                                iconColor: $styles.colors.mainColor)
                           ],
                         )
                       ]))),

@@ -4,7 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
 import 'package:let_api_flutter/src/riverpods/providers/route_provider.dart';
 import 'package:let_api_flutter/src/ui/layout/main_layout.dart';
-import 'package:let_api_flutter/src/ui/screens/cart/cart_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/home/cart_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/home/home.dart';
 import 'package:let_api_flutter/src/ui/screens/home/popular_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/home/recommend_detail.dart';
@@ -19,7 +20,6 @@ class ScreenPaths {
       '/foodDetail/$index?pageId=$pageId';
   static String recommendDetail(int index, int pageId) =>
       '/recommendDetail/$index?pageId=$pageId';
-  static String cart() => '/cart';
   static String cartInfo() => '/cartInfo';
   static String history() => '/history';
 }
@@ -78,9 +78,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       // navigatorKey: _musicHomeNavigatorAKey,
                       routes: [
                         AppRoute(
-                            '/history',
+                            '/next',
                             (state) => Center(
-                                  child: Text('歷史紀錄'),
+                                  child: Text('next page'),
                                 )),
                       ],
                     ),
@@ -89,10 +89,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       // navigatorKey: _musicHomeNavigatorAKey,
                       routes: [
                         AppRoute(
-                          '/cart',
-                          (state) => Center(
-                            child: Text('購物車'),
-                          ),
+                          '/history',
+                          (state) => HistoryScreen(),
                         ),
                       ],
                     ),

@@ -19,6 +19,7 @@ class CartNotifier extends StateNotifier<CartState> {
   /// 暫存 local storage 的資料
   List<CartModel> storageItems = [];
   List<String> cart = [];
+  List<String> cartHistory = [];
 
   int get totalItems {
     var totalQuantity = 0;
@@ -186,5 +187,46 @@ class CartNotifier extends StateNotifier<CartState> {
     });
 
     state = state.copyWith(data: tempData);
+  }
+
+  //加入歷史清單與移除購物車清單
+  void addToCartHistory() async {
+    final sharedPreference = await ref.read(sharedPreferenceProvider.future);
+    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_LIST)) {
+      cartHistory =
+          sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
+    }
+
+    for (int i = 0; i < cart.length; i++) {
+      cartHistory.add(cart[i]);
+    }
+
+    sharedPreference.setStringList(
+        SharedPreferenceConstants.CART_LIST, cartHistory);
+  }
+
+  Future<List<CartModel>> getCartHistoryList() async {
+    final sharedPreference = await ref.read(sharedPreferenceProvider.future);
+    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_LIST)) {
+      cartHistory = [];
+      cartHistory =
+          sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
+    }
+    List<CartModel> cartListHistory = [];
+
+    cartHistory.forEach((element) =>
+        cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
+
+    return cartListHistory;
+  }
+
+//清空購物車的資料
+  void removeCart() async {
+    //清空 RiverPod 的資料
+    state = state.copyWith(data: {}, quantity: 0, totalItems: 0);
+
+    //清空 local storage 的資料
+    final sharedPreference = await ref.read(sharedPreferenceProvider.future);
+    sharedPreference.remove(SharedPreferenceConstants.CART_LIST);
   }
 }

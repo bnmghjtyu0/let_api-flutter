@@ -105,7 +105,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                               icon: Icons.circle,
                               size: 20,
                               iconColor: Colors.transparent,
-                              backgroundColor: AppColors.mainColor,
+                              backgroundColor: $styles.colors.mainColor,
                             )),
                         // 購物車數字
                         Positioned(
@@ -159,7 +159,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 left: Dimensions(context).height(20),
                 right: Dimensions(context).height(20)),
             decoration: BoxDecoration(
-                color: AppColors.bottomBackgroundColor,
+                color: $styles.colors.bottomBackgroundColor,
                 borderRadius: BorderRadius.only(
                     topLeft:
                         Radius.circular(Dimensions(context).radius(20) * 2),
@@ -184,7 +184,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           onTap: (() {
                             setQuantity(false);
                           }),
-                          child: Icon(Icons.remove, color: AppColors.signColor),
+                          child: Icon(Icons.remove,
+                              color: $styles.colors.signColor),
                         ),
                         SizedBox(width: Dimensions(context).width(10) / 2),
                         BigText(text: '${quantity + getQuantity()}'),
@@ -193,7 +194,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           onTap: (() {
                             setQuantity(true);
                           }),
-                          child: Icon(Icons.add, color: AppColors.signColor),
+                          child:
+                              Icon(Icons.add, color: $styles.colors.signColor),
                         )
                       ],
                     )),
@@ -206,7 +208,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                       left: Dimensions(context).width(20),
                       right: Dimensions(context).width(20)),
                   decoration: BoxDecoration(
-                      color: AppColors.mainColor,
+                      color: $styles.colors.mainColor,
                       borderRadius: BorderRadius.circular(
                           Dimensions(context).radius(20))),
                   child: GestureDetector(

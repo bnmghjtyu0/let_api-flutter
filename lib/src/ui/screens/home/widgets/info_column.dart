@@ -17,8 +17,10 @@ class InfoColumn extends StatelessWidget {
         Row(
           children: [
             Wrap(
-                children: List.generate(5,
-                    (index) => Icon(Icons.star, color: AppColors.mainColor))),
+                children: List.generate(
+                    5,
+                    (index) =>
+                        Icon(Icons.star, color: $styles.colors.mainColor))),
             SizedBox(width: Dimensions(context).width(10)),
             SmallText(text: '4.5'),
             SizedBox(width: Dimensions(context).width(10)),
@@ -34,15 +36,15 @@ class InfoColumn extends StatelessWidget {
             IconAndTextWidget(
                 icon: Icons.circle_sharp,
                 text: 'Normal',
-                iconColor: AppColors.mainColor),
+                iconColor: $styles.colors.mainColor),
             IconAndTextWidget(
                 icon: Icons.location_on,
                 text: '1.7km',
-                iconColor: AppColors.mainColor),
+                iconColor: $styles.colors.mainColor),
             IconAndTextWidget(
                 icon: Icons.access_time_rounded,
                 text: '32min',
-                iconColor: AppColors.mainColor)
+                iconColor: $styles.colors.mainColor)
           ],
         )
       ]);

@@ -49,12 +49,12 @@ class _ExpandableTextWidgetState extends ConsumerState<ExpandableTextWidget> {
                     child: Row(
                       children: [
                         SmallText(
-                            text: "Show more", color: AppColors.mainColor),
+                            text: "Show more", color: $styles.colors.mainColor),
                         Icon(
                             hiddenText
                                 ? Icons.arrow_drop_down
                                 : Icons.arrow_drop_up,
-                            color: AppColors.mainColor)
+                            color: $styles.colors.mainColor)
                       ],
                     ))
               ],

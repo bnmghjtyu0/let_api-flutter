@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/router.dart';
 
@@ -19,7 +18,7 @@ class CommonDrawer extends StatelessWidget {
           DrawerHeader(
               padding: EdgeInsets.zero,
               decoration: BoxDecoration(
-                color: AppColors.mainColor,
+                color: $styles.colors.mainColor,
               ),
               child: Stack(alignment: AlignmentDirectional.center, children: [
                 //大圖
@@ -40,7 +39,7 @@ class CommonDrawer extends StatelessWidget {
             title: Text('Home',
                 style: TextStyle(
                     color: navigationShell.currentIndex == 0
-                        ? AppColors.mainColor
+                        ? $styles.colors.mainColor
                         : null)),
             onTap: () {
               GoRouter.of(context).goNamed(ScreenPaths.home());
@@ -50,7 +49,7 @@ class CommonDrawer extends StatelessWidget {
             title: Text('Music',
                 style: TextStyle(
                     color: navigationShell.currentIndex == 1
-                        ? AppColors.mainColor
+                        ? $styles.colors.mainColor
                         : null)),
             onTap: () {
               // GoRouter.of(context).goNamed(RouteNames.musicHome);
