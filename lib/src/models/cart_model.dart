@@ -1,48 +1,21 @@
 //購物車
-import 'package:let_api_flutter/src/models/products_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class CartModel {
-  int? id;
-  String? name;
-  int? price;
-  String? img;
-  int? quantity;
-  bool? isExist;
-  String? time;
-  dynamic product;
+part 'cart_model.freezed.dart';
+part 'cart_model.g.dart';
 
-  CartModel(
-      {this.id,
-      this.name,
-      this.price,
-      this.img,
-      this.quantity,
-      this.isExist,
-      this.time,
-      this.product});
+@freezed
+class CartModel with _$CartModel {
+  const factory CartModel(
+      {@Default(0) int id,
+      @Default('') String name,
+      @Default(0) int price,
+      @Default('') String img,
+      @Default(0) int quantity,
+      @Default(false) bool isExist,
+      String? time,
+      @Default({}) dynamic product}) = _CartModel;
 
-  CartModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    price = json['price'];
-    img = json['img'];
-    quantity = json['quantity'];
-    isExist = json['isExist'];
-    time = json['time'];
-    product = ProductModel.fromJson(json['product']);
-  }
-
-// object convert to json
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      "name": name,
-      "price": price,
-      "img": img,
-      "quantify": quantity,
-      "isExist": isExist,
-      "time": time,
-      'product': product!.toJson()
-    };
-  }
+  factory CartModel.fromJson(Map<String, dynamic> json) =>
+      _$CartModelFromJson(json);
 }

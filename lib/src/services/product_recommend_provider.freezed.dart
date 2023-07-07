@@ -31,6 +31,8 @@ abstract class $ProductRecommendStateCopyWith<$Res> {
       _$ProductRecommendStateCopyWithImpl<$Res, ProductRecommendState>;
   @useResult
   $Res call({Recommend? recommend, bool isLoading});
+
+  $RecommendCopyWith<$Res>? get recommend;
 }
 
 /// @nodoc
@@ -61,6 +63,18 @@ class _$ProductRecommendStateCopyWithImpl<$Res,
               as bool,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RecommendCopyWith<$Res>? get recommend {
+    if (_value.recommend == null) {
+      return null;
+    }
+
+    return $RecommendCopyWith<$Res>(_value.recommend!, (value) {
+      return _then(_value.copyWith(recommend: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -72,6 +86,9 @@ abstract class _$$_ProductRecommendStateCopyWith<$Res>
   @override
   @useResult
   $Res call({Recommend? recommend, bool isLoading});
+
+  @override
+  $RecommendCopyWith<$Res>? get recommend;
 }
 
 /// @nodoc

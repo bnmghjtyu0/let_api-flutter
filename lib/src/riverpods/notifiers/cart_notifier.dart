@@ -27,7 +27,7 @@ class CartNotifier extends StateNotifier<CartState> {
   int get totalItems {
     var totalQuantity = 0;
     _items.forEach((key, value) {
-      totalQuantity += value.quantity!;
+      totalQuantity += value.quantity;
     });
     return totalQuantity;
   }
@@ -114,7 +114,7 @@ class CartNotifier extends StateNotifier<CartState> {
     if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
         if (key == product.id) {
-          quantity = value.quantity!;
+          quantity = value.quantity;
         }
       });
     }
