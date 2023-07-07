@@ -25,8 +25,8 @@ class PopularDetail extends ConsumerStatefulWidget {
 
 class _PopularDetailState extends ConsumerState<PopularDetail> {
   int quantity = 0;
-  int _inCartItems = 0;
-  get inCartItems => _inCartItems + quantity;
+  final int _inCartItems = 0;
+  int get inCartItems => _inCartItems + quantity;
 
   void _handleBackPressed() => GoRouter.of(context).go(ScreenPaths.home());
 
@@ -56,7 +56,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
       print(inCartItems);
     }
 
-    getQuantity() {
+    dynamic getQuantity() {
       return cartData.data.containsKey(widget.pageId)
           ? Map.unmodifiable(cartData.data)[widget.pageId].quantity
           : 0;

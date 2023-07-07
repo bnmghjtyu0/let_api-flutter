@@ -17,7 +17,7 @@ class CartNotifier extends StateNotifier<CartState> {
 
   Map<int, dynamic> tempData = {};
 
-  Map<int, CartModel> _items = {};
+  final Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
 
   /// only for storage and shared_preference

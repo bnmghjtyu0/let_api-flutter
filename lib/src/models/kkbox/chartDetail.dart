@@ -20,7 +20,7 @@ class ChartDetailResponse {
 
   ChartDetailResponse.fromJson(Map<String, dynamic> json) {
     tracks =
-        json['tracks'] != null ? new Tracks.fromJson(json['tracks']) : null;
+        json['tracks'] != null ? Tracks.fromJson(json['tracks']) : null;
     id = json['id'];
     title = json['title'];
     description = json['description'];
@@ -28,28 +28,28 @@ class ChartDetailResponse {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
     updatedAt = json['updated_at'];
-    owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
+    owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.tracks != null) {
-      data['tracks'] = this.tracks!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (tracks != null) {
+      data['tracks'] = tracks!.toJson();
     }
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['url'] = this.url;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    data['url'] = url;
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
-    data['updated_at'] = this.updatedAt;
-    if (this.owner != null) {
-      data['owner'] = this.owner!.toJson();
+    data['updated_at'] = updatedAt;
+    if (owner != null) {
+      data['owner'] = owner!.toJson();
     }
     return data;
   }
@@ -66,25 +66,25 @@ class Tracks {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
     paging =
-        json['paging'] != null ? new Paging.fromJson(json['paging']) : null;
+        json['paging'] != null ? Paging.fromJson(json['paging']) : null;
     summary =
-        json['summary'] != null ? new Summary.fromJson(json['summary']) : null;
+        json['summary'] != null ? Summary.fromJson(json['summary']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.paging != null) {
-      data['paging'] = this.paging!.toJson();
+    if (paging != null) {
+      data['paging'] = paging!.toJson();
     }
-    if (this.summary != null) {
-      data['summary'] = this.summary!.toJson();
+    if (summary != null) {
+      data['summary'] = summary!.toJson();
     }
     return data;
   }
@@ -121,21 +121,21 @@ class Data {
     trackNumber = json['track_number'];
     explicitness = json['explicitness'];
     availableTerritories = json['available_territories'].cast<String>();
-    album = json['album'] != null ? new Album.fromJson(json['album']) : null;
+    album = json['album'] != null ? Album.fromJson(json['album']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['duration'] = this.duration;
-    data['isrc'] = this.isrc;
-    data['url'] = this.url;
-    data['track_number'] = this.trackNumber;
-    data['explicitness'] = this.explicitness;
-    data['available_territories'] = this.availableTerritories;
-    if (this.album != null) {
-      data['album'] = this.album!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['duration'] = duration;
+    data['isrc'] = isrc;
+    data['url'] = url;
+    data['track_number'] = trackNumber;
+    data['explicitness'] = explicitness;
+    data['available_territories'] = availableTerritories;
+    if (album != null) {
+      data['album'] = album!.toJson();
     }
     return data;
   }
@@ -171,26 +171,26 @@ class Album {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
     artist =
-        json['artist'] != null ? new Artist.fromJson(json['artist']) : null;
+        json['artist'] != null ? Artist.fromJson(json['artist']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['url'] = this.url;
-    data['explicitness'] = this.explicitness;
-    data['available_territories'] = this.availableTerritories;
-    data['release_date'] = this.releaseDate;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['url'] = url;
+    data['explicitness'] = explicitness;
+    data['available_territories'] = availableTerritories;
+    data['release_date'] = releaseDate;
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
-    if (this.artist != null) {
-      data['artist'] = this.artist!.toJson();
+    if (artist != null) {
+      data['artist'] = artist!.toJson();
     }
     return data;
   }
@@ -210,10 +210,10 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['height'] = this.height;
-    data['width'] = this.width;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['height'] = height;
+    data['width'] = width;
+    data['url'] = url;
     return data;
   }
 }
@@ -233,18 +233,18 @@ class Artist {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['url'] = this.url;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['url'] = url;
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -253,8 +253,8 @@ class Artist {
 class Paging {
   int? offset;
   int? limit;
-  Null? previous;
-  Null? next;
+  void previous;
+  void next;
 
   Paging({this.offset, this.limit, this.previous, this.next});
 
@@ -266,11 +266,11 @@ class Paging {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['offset'] = this.offset;
-    data['limit'] = this.limit;
-    data['previous'] = this.previous;
-    data['next'] = this.next;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['offset'] = offset;
+    data['limit'] = limit;
+    data['previous'] = previous;
+    data['next'] = next;
     return data;
   }
 }
@@ -285,8 +285,8 @@ class Summary {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total'] = total;
     return data;
   }
 }
@@ -308,19 +308,19 @@ class Owner {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['url'] = this.url;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['url'] = url;
+    data['name'] = name;
+    data['description'] = description;
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
     return data;
   }

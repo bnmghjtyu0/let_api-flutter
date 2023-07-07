@@ -22,7 +22,7 @@ class RecommendDetailWidget extends ConsumerStatefulWidget {
 
 class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
   int quantity = 0;
-  int _inCartItems = 0;
+  final int _inCartItems = 0;
   int get inCartItems => _inCartItems;
 
   @override
@@ -50,7 +50,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
       }
     }
 
-    getQuantity() {
+    dynamic getQuantity() {
       return cartData.data.containsKey(widget.pageId)
           ? Map.unmodifiable(cartData.data)[widget.pageId].quantity
           : 0;

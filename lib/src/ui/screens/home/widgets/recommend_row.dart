@@ -11,7 +11,7 @@ class RecommendRow extends StatefulWidget {
   final int index;
   final int pageId;
 
-  RecommendRow(
+  const RecommendRow(
       {Key? key, required this.data, required this.index, required this.pageId})
       : super(key: key);
 

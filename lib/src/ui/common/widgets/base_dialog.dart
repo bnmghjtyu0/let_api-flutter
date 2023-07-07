@@ -8,8 +8,8 @@ class BaseAlertDialog extends StatelessWidget {
   final Function yesOnPressed;
   final Function? noOnPressed;
 
-  BaseAlertDialog(
-      {required this.title,
+  const BaseAlertDialog(
+      {super.key, required this.title,
       required this.content,
       required this.yes,
       this.no,

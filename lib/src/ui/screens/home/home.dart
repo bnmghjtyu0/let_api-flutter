@@ -10,6 +10,8 @@ import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -98,7 +100,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       BigText(
                           text: 'Food Delivery', color: AppColors.mainColor),
                       Row(
-                        children: [
+                        children: const [
                           SmallText(
                             text: '一個美食外送平台',
                           ),

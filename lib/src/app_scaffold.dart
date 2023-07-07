@@ -6,7 +6,7 @@ class AppScaffold extends StatelessWidget {
   const AppScaffold({Key? key, required this.child}) : super(key: key);
   final Widget child;
   static AppStyle get style => _style;
-  static AppStyle _style = AppStyle();
+  static final AppStyle _style = AppStyle();
 
   @override
   Widget build(BuildContext context) {

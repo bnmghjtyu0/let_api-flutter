@@ -15,7 +15,7 @@ class PageViewItem extends StatelessWidget {
   ProductModel popularProduct;
 
   PageViewItem(
-      {required this.index,
+      {super.key, required this.index,
       required this.currPageValue,
       required this.popularProduct});
 
@@ -92,7 +92,7 @@ class PageViewItem extends StatelessWidget {
                       borderRadius:
                           BorderRadius.circular(Dimensions(context).radius(30)),
                       color: Colors.white,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                             color: Color(0xFFe8e8e8),
                             blurRadius: 5.0,

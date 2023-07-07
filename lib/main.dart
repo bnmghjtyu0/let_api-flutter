@@ -40,6 +40,8 @@ void main() async {
 }
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   //渲染到畫面
   @override
   Widget build(BuildContext context) {
