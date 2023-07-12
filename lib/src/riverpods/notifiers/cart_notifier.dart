@@ -138,7 +138,8 @@ class CartNotifier extends StateNotifier<CartState> {
 
   //sharedPreferences 新增資料
   void addToCartList(List<CartModel> cartList) async {
-    List<String> cart = [];
+    //重置資料(注意這裡不是定義新的變數，而是清空外層的 cart)
+    cart = [];
 
     // convert object to string because sharePreferences only accepts string
     cartList.forEach((element) {
@@ -192,32 +193,50 @@ class CartNotifier extends StateNotifier<CartState> {
   //加入歷史清單與移除購物車清單
   void addToCartHistory() async {
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
-    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_LIST)) {
-      cartHistory =
-          sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
+
+    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_HISTORY)) {
+      cartHistory = sharedPreference
+          .getStringList(SharedPreferenceConstants.CART_HISTORY)!;
     }
 
+    //結帳後，設定結帳時間
     for (int i = 0; i < cart.length; i++) {
-      cartHistory.add(cart[i]);
+      String tempData = cart[i];
+      CartModel tempCart = CartModel.fromJson(jsonDecode(cart[i]));
+
+      //設定結帳時間
+      tempCart = CartModel(
+          id: tempCart.id,
+          name: tempCart.name,
+          price: tempCart.price,
+          img: tempCart.img,
+          quantity: tempCart.quantity,
+          isExist: tempCart.isExist,
+          time: DateTime.now().toString(),
+          product: tempCart.product);
+
+      String tempCartString = jsonEncode(tempCart);
+
+      cartHistory.add(tempCartString);
     }
 
     sharedPreference.setStringList(
-        SharedPreferenceConstants.CART_LIST, cartHistory);
+        SharedPreferenceConstants.CART_HISTORY, cartHistory);
   }
 
   Future<List<CartModel>> getCartHistoryList() async {
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
-    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_LIST)) {
+    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_HISTORY)) {
       cartHistory = [];
-      cartHistory =
-          sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
+      cartHistory = sharedPreference
+          .getStringList(SharedPreferenceConstants.CART_HISTORY)!;
     }
     List<CartModel> cartListHistory = [];
-
     cartHistory.forEach((element) =>
         cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
 
-    return cartListHistory;
+    List<CartModel> cartHistoryReversed = List.from(cartListHistory.reversed);
+    return cartHistoryReversed;
   }
 
 //清空購物車的資料

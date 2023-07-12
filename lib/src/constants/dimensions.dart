@@ -11,7 +11,7 @@ class Dimensions {
     return MediaQuery.of(context).size;
   }
 
-  double height(int size) {
+  double height(double size) {
     double screenHeight = displaySize(context).height;
     double realSize = 844 / size;
     return screenHeight / realSize;
@@ -23,7 +23,7 @@ class Dimensions {
     return screenWidth / realSize;
   }
 
-  double radius(int size) {
+  double radius(double size) {
     double screenHeight = displaySize(context).height;
     double realSize = 844 / size;
     return screenHeight / realSize;

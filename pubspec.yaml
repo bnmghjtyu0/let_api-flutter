@@ -38,6 +38,8 @@ dependencies:
   flutter_hooks: ^0.18.0
   #本地儲存庫 localStorage
   shared_preferences: ^2.1.2
+  #日期轉換工具
+  intl: ^0.18.1
 
   #狀態管理
   hooks_riverpod: ^2.3.6
