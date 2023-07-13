@@ -18,8 +18,7 @@ class CircleBtn extends StatelessWidget {
     this.bgColor,
   }) : super(key: key);
 
-  const CircleBtn.close(
-      {Key? key, VoidCallback? onPressed, Color? bgColor, Color? iconColor})
+  const CircleBtn.close({Key? key, VoidCallback? onPressed, Color? bgColor, Color? iconColor})
       : this(
             key: key,
             icon: Icons.close,
@@ -32,7 +31,6 @@ class CircleBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed ??
           () {
-            print('pop');
             GoRouter.of(context).pop();
           },
       child: AppIcon(icon: icon, color: color ?? $styles.colors.black),
