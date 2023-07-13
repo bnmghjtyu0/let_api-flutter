@@ -24,11 +24,15 @@ class PopularDetail extends ConsumerStatefulWidget {
 }
 
 class _PopularDetailState extends ConsumerState<PopularDetail> {
-  int quantity = 0;
+  int quantity = 1;
   final int _inCartItems = 0;
   int get inCartItems => _inCartItems + quantity;
 
-  void _handleBackPressed() => GoRouter.of(context).go(ScreenPaths.home());
+  void resetQuantity() {
+    setState(() {
+      quantity = 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +59,6 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
       }
     }
 
-    dynamic getQuantity() {
-      return cartData.data.containsKey(widget.pageId)
-          ? Map.unmodifiable(cartData.data)[widget.pageId].quantity
-          : 0;
-    }
-
     return Scaffold(
         body: Stack(children: [
           //大圖
@@ -84,40 +82,13 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
             left: Dimensions(context).width(0),
             right: Dimensions(context).width(0),
             child: AppHeader(
-                isTransparent: true,
-                // showBackBtn: true,
-                onBack: _handleBackPressed,
-                // 前往購物車
-                trailing: (_) => GestureDetector(
-                      onTap: () {
-                        GoRouter.of(context).push(ScreenPaths.cartInfo());
-                        // if (controller.totalItems >= 1) {
-                        //   Get.toNamed(RouteHelper.getCartPage());
-                        // }
-                      },
-                      child: Stack(children: [
-                        AppIcon(icon: Icons.shopping_cart_outlined),
-                        // 購物車圓形
-                        Positioned(
-                            top: 0,
-                            right: 0,
-                            child: AppIcon(
-                              icon: Icons.circle,
-                              size: 20,
-                              iconColor: Colors.transparent,
-                              backgroundColor: $styles.colors.mainColor,
-                            )),
-                        // 購物車數字
-                        Positioned(
-                            top: 3,
-                            right: 3,
-                            child: SmallText(
-                              text: cartData.data.length.toString(),
-                              size: 12,
-                              color: Colors.white,
-                            ))
-                      ]),
-                    )),
+              isTransparent: true,
+              showBackBtn: true,
+              showCartBtn: true,
+              onBack: () {
+                GoRouter.of(context).go(ScreenPaths.home());
+              },
+            ),
           ),
           Positioned(
               left: 0,
@@ -188,7 +159,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                               color: $styles.colors.signColor),
                         ),
                         SizedBox(width: Dimensions(context).width(10) / 2),
-                        BigText(text: '${quantity + getQuantity()}'),
+                        BigText(text: '$quantity '),
                         SizedBox(width: Dimensions(context).width(10) / 2),
                         GestureDetector(
                           onTap: (() {
@@ -215,7 +186,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                     onTap: (() {
                       ref.read(cartProvider.notifier).add(product, inCartItems);
                       setState(() {
-                        quantity = 0;
+                        resetQuantity();
                       });
                     }),
                     child: BigText(

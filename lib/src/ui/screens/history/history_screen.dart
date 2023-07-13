@@ -71,7 +71,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
               BigText(text: "Cart History", color: Colors.white),
               AppIcon(
                 icon: Icons.shopping_cart_outlined,
-                iconColor: $styles.colors.mainColor,
+                color: $styles.colors.mainColor,
                 backgroundColor: $styles.colors.white,
               ),
             ],
@@ -98,7 +98,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<CartModel>> snapshot) {
                                 //購物車歷史紀錄列表
-                                List<CartModel> cartHistoryList = snapshot.data!;
+                                List<CartModel> cartHistoryList =
+                                    snapshot.data!;
                                 return Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

@@ -1,18 +1,19 @@
-import 'package:flutter/material.dart';
+import 'package:let_api_flutter/common_libs.dart';
 
+//使用 material icon
 class AppIcon extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;
-  final Color iconColor;
+  final Color? color;
   final double size;
   final double iconSize;
 
   const AppIcon({
     Key? key,
     required this.icon,
+    this.color = const Color.fromARGB(255, 0, 0, 0),
     this.backgroundColor = const Color(0xFFfcf4e4),
     this.size = 40,
-    this.iconColor = const Color(0xFF756d54),
     this.iconSize = 16,
   }) : super(key: key);
 
@@ -24,6 +25,6 @@ class AppIcon extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(size / 2),
             color: backgroundColor),
-        child: Icon(icon, color: iconColor, size: iconSize));
+        child: Icon(icon, color: color));
   }
 }

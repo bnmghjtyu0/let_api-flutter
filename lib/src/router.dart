@@ -47,7 +47,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 int index = int.parse(state.pathParameters['index']!);
                 int pageId = int.parse(state.queryParameters['pageId']!);
                 return PopularDetail(index: index, pageId: pageId);
-              }, useFade: true),
+              }, transition: 'fadeIn'),
 
               // 推薦的美食
               AppRoute('/recommendDetail/:index', (state) {
@@ -57,7 +57,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               }),
 
               // 購物車
-              AppRoute('/cartInfo', (state) => CartScreen()),
+              AppRoute('/cartInfo', (state) => CartScreen(),
+                  transition: 'slideUp'),
 
               //bottomNavigationBar 的路由
               StatefulShellRoute.indexedStack(
@@ -78,23 +79,13 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       // navigatorKey: _musicHomeNavigatorAKey,
                       routes: [
                         AppRoute(
-                            '/next',
-                            (state) => Center(
-                                  child: Text('next page'),
-                                )),
-                      ],
-                    ),
-                    //bottomNavigationBar 的路由 index=2 Cart
-                    StatefulShellBranch(
-                      // navigatorKey: _musicHomeNavigatorAKey,
-                      routes: [
-                        AppRoute(
                           '/history',
                           (state) => HistoryScreen(),
                         ),
                       ],
                     ),
-                    //bottomNavigationBar 的路由 index=3 Me
+
+                    //bottomNavigationBar 的路由 index=2 Me
                     StatefulShellBranch(
                       // navigatorKey: _musicHomeNavigatorAKey,
                       routes: [
@@ -129,7 +120,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 //路由共用公式
 class AppRoute extends GoRoute {
   AppRoute(String path, Widget Function(GoRouterState state) builder,
-      {List<GoRoute> routes = const [], this.useFade = false})
+      {List<GoRoute> routes = const [], transition = 'fadeIn'})
       : super(
           path: path,
           routes: routes,
@@ -140,7 +131,7 @@ class AppRoute extends GoRoute {
             );
 
             //使用換頁效果 fade
-            if (useFade) {
+            if (transition == 'fadeIn') {
               return CustomTransitionPage(
                 key: state.pageKey,
                 child: pageContent,
@@ -150,8 +141,23 @@ class AppRoute extends GoRoute {
                 },
               );
             }
+            if (transition == 'slideUp') {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: pageContent,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) =>
+                        SlideTransition(
+                            position: animation.drive(
+                              Tween<Offset>(
+                                begin: const Offset(0, 1),
+                                end: Offset.zero,
+                              ).chain(CurveTween(curve: Curves.linear)),
+                            ),
+                            child: child),
+              );
+            }
             return MaterialPage(child: pageContent);
           },
         );
-  final bool useFade;
 }

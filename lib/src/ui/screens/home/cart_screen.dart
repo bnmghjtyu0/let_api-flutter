@@ -4,10 +4,13 @@ import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 import 'package:let_api_flutter/src/router.dart';
 
+//購物車頁面
 class CartScreen extends ConsumerStatefulWidget {
+  //購物車頁面 - 建構式
   const CartScreen({Key? key}) : super(key: key);
 
   @override
@@ -46,8 +49,18 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     return Scaffold(
         body: Stack(
           children: [
-            CustomAppBar(),
-
+            Positioned(
+              top: Dimensions(context).height(20),
+              left: Dimensions(context).width(20),
+              right: Dimensions(context).width(20),
+              child: AppHeader(
+                showCloseBtn: true,
+                isTransparent: true,
+                onBack: () {
+                  GoRouter.of(context).go(ScreenPaths.home());
+                },
+              ),
+            ),
             // 商品列表
             Positioned(
                 top: Dimensions(context).height(20) * 5,
@@ -284,52 +297,5 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 )
               ],
             )));
-  }
-}
-
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child) {
-      return Positioned(
-          top: Dimensions(context).height(20) * 3,
-          left: Dimensions(context).width(20),
-          right: Dimensions(context).width(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // 回上一頁
-              GestureDetector(
-                onTap: () {
-                  GoRouter.of(context).pop();
-                },
-                child: AppIcon(
-                  icon: Icons.arrow_back_ios,
-                  iconColor: $styles.colors.mainColor,
-                  iconSize: Dimensions(context).iconSize(24),
-                ),
-              ),
-              // 回首頁
-              GestureDetector(
-                onTap: () {
-                  GoRouter.of(context).go(ScreenPaths.home());
-                },
-                child: AppIcon(
-                  icon: Icons.home_outlined,
-                  iconColor: $styles.colors.mainColor,
-                  iconSize: Dimensions(context).iconSize(24),
-                ),
-              ),
-              // 購物車
-              AppIcon(
-                icon: Icons.shopping_cart,
-                iconColor: $styles.colors.mainColor,
-                iconSize: Dimensions(context).iconSize(24),
-              )
-            ],
-          ));
-    });
   }
 }

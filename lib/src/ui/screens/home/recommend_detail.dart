@@ -4,6 +4,7 @@ import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
@@ -28,7 +29,6 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
   @override
   Widget build(BuildContext context) {
     final cartNotifier = ref.read(cartProvider.notifier);
-    final cartData = ref.watch(cartProvider);
     final recommendApiData = ref.watch(productRecommendProvider).recommend;
 
     final RecommendModel product =
@@ -51,12 +51,6 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
       }
     }
 
-    dynamic getQuantity() {
-      return cartData.data.containsKey(widget.pageId)
-          ? Map.unmodifiable(cartData.data)[widget.pageId].quantity
-          : 0;
-    }
-
     return Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
@@ -74,7 +68,18 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                           product.img!,
                       width: double.maxFinite,
                       fit: BoxFit.cover)),
-              title: CustomAppBar(page: 'cartPage'),
+              title: AppHeader(
+                showBackBtn: true,
+                isTransparent: true,
+                showCartBtn: true,
+                onBack: () {
+                  GoRouter.of(context).go(ScreenPaths.home());
+                },
+              ),
+
+              // CustomAppBar(
+              //     page: 'cartPage',
+              //     totalItems: cartNotifier.totalItems.toString()),
               //可浮動的標題
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(20),
@@ -122,20 +127,20 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                       setQuantity(false);
                     },
                     child: AppIcon(
-                      iconColor: Colors.white,
+                      color: Colors.white,
                       icon: Icons.remove,
                       backgroundColor: $styles.colors.mainColor,
                       iconSize: Dimensions(context).iconSize(24),
                     ),
                   ),
-                  Text("${product.price} X ${quantity + getQuantity()}",
+                  Text("${product.price} X $quantity",
                       style: $styles.text.fz26.copyWith(color: Colors.black)),
                   GestureDetector(
                     onTap: () {
                       setQuantity(true);
                     },
                     child: AppIcon(
-                      iconColor: Colors.white,
+                      color: Colors.white,
                       icon: Icons.add,
                       backgroundColor: $styles.colors.mainColor,
                       iconSize: Dimensions(context).iconSize(24),
@@ -207,13 +212,14 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
 
 class CustomAppBar extends StatelessWidget {
   final String page;
-  const CustomAppBar({Key? key, required this.page}) : super(key: key);
-
+  final String totalItems;
+  const CustomAppBar({Key? key, required this.page, required this.totalItems})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return //cart icon
         Consumer(builder: (context, ref, child) {
-      final cartProviderData = ref.watch(cartProvider);
+      final cartData = ref.watch(cartProvider);
       return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         GestureDetector(
           onTap: (() {
@@ -236,23 +242,23 @@ class CustomAppBar extends StatelessWidget {
               AppIcon(icon: Icons.shopping_cart_outlined),
 
               // cart number circle
-              cartProviderData.totalItems >= 1
+              cartData.totalItems >= 1
                   ? Positioned(
                       top: 0,
                       right: 0,
                       child: AppIcon(
                         icon: Icons.circle,
                         size: 20,
-                        iconColor: Colors.transparent,
+                        color: Colors.transparent,
                         backgroundColor: $styles.colors.mainColor,
                       ))
                   : SizedBox(),
-              cartProviderData.totalItems >= 1
+              cartData.totalItems >= 1
                   ? Positioned(
                       top: 3,
                       right: 3,
                       child: SmallText(
-                        text: cartProviderData.totalItems.toString(),
+                        text: totalItems.toString(),
                         size: 10,
                         color: Colors.white,
                       ))

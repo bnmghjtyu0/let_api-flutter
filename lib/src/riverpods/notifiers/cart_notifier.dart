@@ -13,17 +13,15 @@ class CartNotifier extends StateNotifier<CartState> {
 
   Map<int, dynamic> tempData = {};
 
-  final Map<int, CartModel> _items = {};
-  Map<int, CartModel> get items => _items;
-
   /// 暫存 local storage 的資料
   List<CartModel> storageItems = [];
   List<String> cart = [];
   List<String> cartHistory = [];
 
+  // 取得目前購物車數量
   int get totalItems {
     var totalQuantity = 0;
-    _items.forEach((key, value) {
+    state.data.forEach((key, value) {
       totalQuantity += value.quantity;
     });
     return totalQuantity;
@@ -99,7 +97,7 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   bool existInCart(ProductModel product) {
-    if (_items.containsKey(product.id)) {
+    if (state.data.containsKey(product.id)) {
       return true;
     } else {
       return false;
@@ -108,8 +106,8 @@ class CartNotifier extends StateNotifier<CartState> {
 
   int getQuantity(ProductModel product) {
     var quantity = 0;
-    if (_items.containsKey(product.id)) {
-      _items.forEach((key, value) {
+    if (state.data.containsKey(product.id)) {
+      state.data.forEach((key, value) {
         if (key == product.id) {
           quantity = value.quantity;
         }
@@ -120,15 +118,15 @@ class CartNotifier extends StateNotifier<CartState> {
 
   //檢查計數器數字 > 0 或小於 20
   int checkQuantify(context, inCartItems, int quantity) {
-    if ((inCartItems + quantity) < 0) {
-      // Yay! 數字不能小於 0!
-      final snackBar = SnackBar(content: Text("Yay! 數字不能小於 0"));
+    if ((inCartItems + quantity) < 1) {
+      // Yay! 數字不能小於 1!
+      final snackBar = SnackBar(content: Text("Yay! 數字不能小於 1"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-      return 0;
+      return 1;
     } else if ((inCartItems + quantity) > 20) {
       // Yay! 數字不能大於 20 拉!
-      final snackBar = SnackBar(content: Text("Yay! 數字不能大於 20 拉!"));
+      final snackBar = SnackBar(content: Text("Yay! 數字不能大於 20"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return 20;
     } else {

@@ -4,6 +4,7 @@ import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/big_text.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/small_text.dart';
 import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
@@ -88,15 +89,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         foregroundColor: Colors.white,
         flexibleSpace: FlexibleSpaceBar(
             expandedTitleScale: 1,
-            title: Container(
-                padding: EdgeInsets.only(
-                    left: Dimensions(context).width(20),
-                    right: Dimensions(context).width(20)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+            title: AppHeader(
+              isTransparent: true,
+              showCartBtn: true,
+              trailing: (context) {
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
                       BigText(
                           text: 'Food Delivery',
                           color: $styles.colors.mainColor),
@@ -108,21 +107,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           Icon(Icons.arrow_drop_down_rounded),
                         ],
                       ),
-                    ]),
-                    //搜尋框
-                    Container(
-                      width: Dimensions(context).height(45),
-                      height: Dimensions(context).height(45),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                              Dimensions(context).radius(15)),
-                          color: $styles.colors.mainColor),
-                      child: Icon(Icons.search,
-                          color: Colors.white,
-                          size: Dimensions(context).iconSize(24)),
-                    )
-                  ],
-                ))),
+                    ]);
+              },
+            )),
         // 使用 SliverAppBar
       ),
       SliverList(

@@ -1,10 +1,11 @@
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_icons.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 
 /// Shared methods across button types
-Widget _buildIcon(BuildContext context, EAppIcon icon,
+Widget _buildIcon(BuildContext context, IconData icon,
         {required bool isSecondary, required double? size}) =>
-    AppIcons(icon,
+    AppIcon(
+        icon: icon,
         color: isSecondary ? $styles.colors.black : $styles.colors.white,
         size: size ?? 18);
 
@@ -41,7 +42,7 @@ class AppBtn extends StatelessWidget {
     this.border,
     String? semanticLabel,
     String? text,
-    EAppIcon? icon,
+    IconData? icon,
     double? iconSize,
   })  : child = null,
         circular = false,

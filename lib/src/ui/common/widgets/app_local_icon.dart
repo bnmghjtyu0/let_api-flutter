@@ -3,8 +3,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:let_api_flutter/common_libs.dart';
 
-class AppIcons extends StatelessWidget {
-  const AppIcons(this.icon, {Key? key, this.size = 22, this.color})
+//自定義的 icons
+class AppLocalIcon extends StatelessWidget {
+  const AppLocalIcon(this.icon, {Key? key, this.size = 22, this.color})
       : super(key: key);
   final EAppIcon icon;
   final double size;
