@@ -43,8 +43,7 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   // 初始值
-  CartNotifier(this.ref)
-      : super(CartState(data: {}, quantity: 0, totalItems: 0));
+  CartNotifier(this.ref) : super(CartState(data: {}, quantity: 0, totalItems: 0));
 
   //新增與更新
   void add(dynamic product, int quantity) {
@@ -92,8 +91,7 @@ class CartNotifier extends StateNotifier<CartState> {
     //儲存到 localStorage
     addToCartList(itemsList);
 
-    state = state.copyWith(
-        quantity: quantity, data: tempData, totalItems: tempData.length);
+    state = state.copyWith(quantity: quantity, data: tempData, totalItems: tempData.length);
   }
 
   bool existInCart(ProductModel product) {
@@ -118,8 +116,6 @@ class CartNotifier extends StateNotifier<CartState> {
 
   //檢查計數器數字 > 0 或小於 20
   int? checkQuantify(BuildContext context, inCartItems, int quantity) {
-    print(inCartItems);
-    print(quantity);
     if ((inCartItems + quantity) < 1) {
       // Yay! 數字不能小於 1!
       final snackBar = SnackBar(content: Text("商品數量不能小於 1"));
@@ -158,8 +154,7 @@ class CartNotifier extends StateNotifier<CartState> {
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
     //如果 localStorage 有資料
     if (sharedPreference.containsKey(SharedPreferenceConstants.CART_LIST)) {
-      carts =
-          sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
+      carts = sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
     }
 
     List<CartModel> cartList = [];
@@ -195,8 +190,7 @@ class CartNotifier extends StateNotifier<CartState> {
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
 
     if (sharedPreference.containsKey(SharedPreferenceConstants.CART_HISTORY)) {
-      cartHistory = sharedPreference
-          .getStringList(SharedPreferenceConstants.CART_HISTORY)!;
+      cartHistory = sharedPreference.getStringList(SharedPreferenceConstants.CART_HISTORY)!;
     }
 
     //結帳後，設定結帳時間
@@ -220,20 +214,17 @@ class CartNotifier extends StateNotifier<CartState> {
       cartHistory.add(tempCartString);
     }
 
-    sharedPreference.setStringList(
-        SharedPreferenceConstants.CART_HISTORY, cartHistory);
+    sharedPreference.setStringList(SharedPreferenceConstants.CART_HISTORY, cartHistory);
   }
 
   Future<List<CartModel>> getCartHistoryList() async {
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
     if (sharedPreference.containsKey(SharedPreferenceConstants.CART_HISTORY)) {
       cartHistory = [];
-      cartHistory = sharedPreference
-          .getStringList(SharedPreferenceConstants.CART_HISTORY)!;
+      cartHistory = sharedPreference.getStringList(SharedPreferenceConstants.CART_HISTORY)!;
     }
     List<CartModel> cartListHistory = [];
-    cartHistory.forEach((element) =>
-        cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
+    cartHistory.forEach((element) => cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
 
     List<CartModel> cartHistoryReversed = List.from(cartListHistory.reversed);
     return cartHistoryReversed;
