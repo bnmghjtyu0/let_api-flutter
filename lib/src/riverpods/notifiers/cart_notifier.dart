@@ -117,18 +117,20 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   //檢查計數器數字 > 0 或小於 20
-  int checkQuantify(context, inCartItems, int quantity) {
+  int? checkQuantify(BuildContext context, inCartItems, int quantity) {
+    print(inCartItems);
+    print(quantity);
     if ((inCartItems + quantity) < 1) {
       // Yay! 數字不能小於 1!
-      final snackBar = SnackBar(content: Text("Yay! 數字不能小於 1"));
+      final snackBar = SnackBar(content: Text("商品數量不能小於 1"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-      return 1;
+      return null;
     } else if ((inCartItems + quantity) > 20) {
       // Yay! 數字不能大於 20 拉!
-      final snackBar = SnackBar(content: Text("Yay! 數字不能大於 20"));
+      final snackBar = SnackBar(content: Text("商品數量不能大於 20"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      return 20;
+      return null;
     } else {
       return quantity;
     }

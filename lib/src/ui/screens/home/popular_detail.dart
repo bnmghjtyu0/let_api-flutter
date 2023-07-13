@@ -43,18 +43,20 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
     final ProductModel product = popularApiData!.products[widget.index];
 
     void setQuantity(bool isIncrement) {
+      if (cartNotifier.checkQuantify(context, _inCartItems, quantity + 1) ==
+          null) return;
       // 增加
       if (isIncrement) {
         setState(() {
           quantity =
-              cartNotifier.checkQuantify(context, _inCartItems, quantity + 1);
+              cartNotifier.checkQuantify(context, _inCartItems, quantity + 1)!;
         });
       }
       // 減少
       else {
         setState(() {
           quantity =
-              cartNotifier.checkQuantify(context, _inCartItems, quantity - 1);
+              cartNotifier.checkQuantify(context, _inCartItems, quantity - 1)!;
         });
       }
     }
