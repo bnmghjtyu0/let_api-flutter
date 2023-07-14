@@ -11,7 +11,10 @@ import 'package:let_api_flutter/src/router.dart';
 //購物車頁面
 class CartScreen extends ConsumerStatefulWidget {
   //購物車頁面 - 建構式
-  const CartScreen({Key? key}) : super(key: key);
+  CartScreen({Key? key, required this.extra}) : super(key: key);
+
+  //路由方法： go or push
+  CartRouteExtraModel extra;
 
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -58,7 +61,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 showCloseBtn: true,
                 isTransparent: true,
                 onBack: () {
-                  GoRouter.of(context).go(ScreenPaths.home());
+                  if (widget.extra.routeMethod == 'push') {
+                    print('push');
+                    GoRouter.of(context).pop();
+                  } else {
+                    GoRouter.of(context).go(ScreenPaths.home());
+                  }
                 },
               ),
             ),
@@ -86,7 +94,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                       //圖片
                                       GestureDetector(
                                         onTap: () {
-                                          var popularIndex = popularApiData.product?.products.indexWhere((value) => value.id == item.product.id);
+                                          var popularIndex = popularApiData.product?.products
+                                              .indexWhere((value) => value.id == item.product.id);
 
                                           // 受歡迎商品
                                           if (popularIndex! >= 0) {
@@ -94,9 +103,11 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                           }
                                           // 推薦商品
                                           else {
-                                            var recommendIndex = recommendApiData!.products!.indexWhere((value) => value.id == item.product.id);
+                                            var recommendIndex = recommendApiData!.products!
+                                                .indexWhere((value) => value.id == item.product.id);
 
-                                            GoRouter.of(context).go(ScreenPaths.recommendDetail(recommendIndex, item.id));
+                                            GoRouter.of(context)
+                                                .go(ScreenPaths.recommendDetail(recommendIndex, item.id));
                                           }
                                         },
                                         child: Container(
@@ -106,7 +117,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                             decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     fit: BoxFit.cover,
-                                                    image: NetworkImage(ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + item.img)),
+                                                    image: NetworkImage(
+                                                        ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + item.img)),
                                                 borderRadius: BorderRadius.circular(Dimensions(context).radius(20)),
                                                 color: Colors.white)),
                                       ),
@@ -125,7 +137,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      BigText(text: '\$ ${cartNotifier.getItems[index].price}', color: Colors.redAccent),
+                                                      BigText(
+                                                          text: '\$ ${cartNotifier.getItems[index].price}',
+                                                          color: Colors.redAccent),
                                                       // 計數器 + 0 -
                                                       Container(
                                                           padding: EdgeInsets.only(
@@ -133,18 +147,24 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                               bottom: Dimensions(context).height(10),
                                                               left: Dimensions(context).width(20),
                                                               right: Dimensions(context).width(20)),
-                                                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.circular(20)),
                                                           child: Row(
                                                             children: [
                                                               GestureDetector(
                                                                 onTap: (() {
                                                                   setQuantity(false, cartRefQuantity, item);
                                                                 }),
-                                                                child: Icon(Icons.remove, color: $styles.colors.signColor),
+                                                                child:
+                                                                    Icon(Icons.remove, color: $styles.colors.signColor),
                                                               ),
                                                               SizedBox(width: Dimensions(context).width(10) / 2),
                                                               // 計數器的數字
-                                                              BigText(text: Map.unmodifiable(cartState.data)[item.id].quantity.toString()),
+                                                              BigText(
+                                                                  text: Map.unmodifiable(cartState.data)[item.id]
+                                                                      .quantity
+                                                                      .toString()),
                                                               SizedBox(width: Dimensions(context).width(10) / 2),
                                                               GestureDetector(
                                                                 onTap: (() {
@@ -175,7 +195,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 decoration: BoxDecoration(
                     color: $styles.colors.bottomBackgroundColor,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(Dimensions(context).radius(20) * 2), topRight: Radius.circular(Dimensions(context).radius(20) * 2))),
+                        topLeft: Radius.circular(Dimensions(context).radius(20) * 2),
+                        topRight: Radius.circular(Dimensions(context).radius(20) * 2))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -202,7 +223,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                           bottom: Dimensions(context).height(20),
                           left: Dimensions(context).width(20),
                           right: Dimensions(context).width(20)),
-                      decoration: BoxDecoration(color: $styles.colors.mainColor, borderRadius: BorderRadius.circular(Dimensions(context).radius(20))),
+                      decoration: BoxDecoration(
+                          color: $styles.colors.mainColor,
+                          borderRadius: BorderRadius.circular(Dimensions(context).radius(20))),
                       // 結帳: 點結帳後，清空購物車的商品，加入歷史購買紀錄
                       child: GestureDetector(
                         onTap: (() {

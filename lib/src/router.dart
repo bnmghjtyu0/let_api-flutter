@@ -11,6 +11,11 @@ import 'package:let_api_flutter/src/ui/screens/home/home.dart';
 import 'package:let_api_flutter/src/ui/screens/home/popular_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/home/recommend_detail.dart';
 
+class CartRouteExtraModel {
+  String? routeMethod;
+  CartRouteExtraModel({this.routeMethod});
+}
+
 class RouteNames {
   static const String me = 'me';
 }
@@ -24,8 +29,9 @@ class ScreenPaths {
 }
 
 // 提供 debug 用的 label
-final _foodHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'Food');
-final _musicHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'Music');
+final _productDetailNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'productDetail');
+final _foodHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'food');
+final _musicHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'music');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -52,7 +58,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           }),
 
           // 購物車
-          AppRoute('/cartInfo', (state) => CartScreen(), transition: 'slideUp'),
+          AppRoute('/cartInfo', (GoRouterState state) {
+            CartRouteExtraModel extra = state.extra as CartRouteExtraModel;
+
+            return CartScreen(extra: extra);
+          }, transition: 'slideUp'),
 
           //bottomNavigationBar 的路由
           StatefulShellRoute.indexedStack(
