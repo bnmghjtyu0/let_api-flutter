@@ -22,9 +22,11 @@ class AppIcon extends StatelessWidget {
     return Container(
         width: size,
         height: size,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size / 2),
-            color: backgroundColor),
-        child: Icon(icon, color: color));
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(size / 2), color: backgroundColor),
+        child: Icon(
+          icon,
+          color: color,
+          size: iconSize,
+        ));
   }
 }
