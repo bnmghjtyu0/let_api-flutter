@@ -13,9 +13,7 @@ class RecommendDetailWidget extends ConsumerStatefulWidget {
   final int index;
   final int pageId;
 
-  const RecommendDetailWidget(
-      {Key? key, required this.index, required this.pageId})
-      : super(key: key);
+  const RecommendDetailWidget({Key? key, required this.index, required this.pageId}) : super(key: key);
 
   @override
   _RecommendDetailWidgetState createState() => _RecommendDetailWidgetState();
@@ -31,24 +29,20 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
     final cartNotifier = ref.read(cartProvider.notifier);
     final recommendApiData = ref.watch(productRecommendProvider).recommend;
 
-    final RecommendModel product =
-        recommendApiData?.products?[widget.index] ?? RecommendModel();
+    final RecommendModel product = recommendApiData?.products?[widget.index] ?? RecommendModel();
 
     void setQuantity(bool isIncrement) {
-      if (cartNotifier.checkQuantify(context, _inCartItems, quantity + 1) ==
-          null) return;
+      if (cartNotifier.checkQuantify(context, _inCartItems, quantity + 1) == null) return;
       // 增加
       if (isIncrement) {
         setState(() {
-          quantity =
-              cartNotifier.checkQuantify(context, _inCartItems, quantity + 1)!;
+          quantity = cartNotifier.checkQuantify(context, _inCartItems, quantity + 1)!;
         });
       }
       // 減少
       else {
         setState(() {
-          quantity =
-              cartNotifier.checkQuantify(context, _inCartItems, quantity - 1)!;
+          quantity = cartNotifier.checkQuantify(context, _inCartItems, quantity - 1)!;
         });
       }
     }
@@ -64,18 +58,18 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
               //上方區塊高度
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
-                  background: Image.network(
-                      ApiConstants.BASE_URL +
-                          ApiConstants.UPLOAD_URL +
-                          product.img!,
-                      width: double.maxFinite,
-                      fit: BoxFit.cover)),
+                  background: Image.network(ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + product.img!,
+                      width: double.maxFinite, fit: BoxFit.cover)),
               title: AppHeader(
                 showBackBtn: true,
                 isTransparent: true,
                 showCartBtn: true,
                 onBack: () {
                   GoRouter.of(context).go(ScreenPaths.home());
+                },
+                onCartPressed: () {
+                  CartRouteExtraModel extra = CartRouteExtraModel(routeMethod: "push");
+                  GoRouter.of(context).push(ScreenPaths.cartInfo(), extra: extra);
                 },
               ),
 
@@ -91,12 +85,9 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
-                            topLeft:
-                                Radius.circular(Dimensions(context).radius(20)),
-                            topRight: Radius.circular(
-                                Dimensions(context).radius(20)))),
-                    child: Center(
-                        child: Text(product.name!, style: $styles.text.fz26))),
+                            topLeft: Radius.circular(Dimensions(context).radius(20)),
+                            topRight: Radius.circular(Dimensions(context).radius(20)))),
+                    child: Center(child: Text(product.name!, style: $styles.text.fz26))),
               ),
             ),
             //內容
@@ -104,9 +95,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                 child: Column(
               children: [
                 Container(
-                    margin: EdgeInsets.only(
-                        left: Dimensions(context).width(20),
-                        right: Dimensions(context).width(20)),
+                    margin: EdgeInsets.only(left: Dimensions(context).width(20), right: Dimensions(context).width(20)),
                     child: ExpandableTextWidget(text: product.description!))
               ],
             ))
@@ -135,8 +124,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                       iconSize: Dimensions(context).iconSize(24),
                     ),
                   ),
-                  Text("${product.price} X $quantity",
-                      style: $styles.text.fz26.copyWith(color: Colors.black)),
+                  Text("${product.price} X $quantity", style: $styles.text.fz26.copyWith(color: Colors.black)),
                   GestureDetector(
                     onTap: () {
                       setQuantity(true);
@@ -161,10 +149,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
               decoration: BoxDecoration(
                   color: $styles.colors.bottomBackgroundColor,
                   borderRadius: BorderRadius.only(
-                      topLeft:
-                          Radius.circular(Dimensions(context).radius(20) * 2),
-                      topRight:
-                          Radius.circular(Dimensions(context).radius(20) * 2))),
+                      topLeft: Radius.circular(Dimensions(context).radius(20) * 2),
+                      topRight: Radius.circular(Dimensions(context).radius(20) * 2))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -175,9 +161,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                           bottom: Dimensions(context).height(20),
                           left: Dimensions(context).width(20),
                           right: Dimensions(context).width(20)),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20)),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
                       child: Icon(
                         Icons.favorite,
                         color: $styles.colors.signColor,
@@ -190,8 +174,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                         right: Dimensions(context).width(20)),
                     decoration: BoxDecoration(
                         color: $styles.colors.mainColor,
-                        borderRadius: BorderRadius.circular(
-                            Dimensions(context).radius(20))),
+                        borderRadius: BorderRadius.circular(Dimensions(context).radius(20))),
                     child: GestureDetector(
                       onTap: () {
                         if (recommendApiData?.products != null) {
@@ -201,9 +184,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                           });
                         }
                       },
-                      child: BigText(
-                          text: '\$ ${product.price} + Add to cart',
-                          color: Colors.white),
+                      child: BigText(text: '\$ ${product.price} + Add to cart', color: Colors.white),
                     ),
                   )
                 ],
@@ -215,8 +196,7 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
 class CustomAppBar extends StatelessWidget {
   final String page;
   final String totalItems;
-  const CustomAppBar({Key? key, required this.page, required this.totalItems})
-      : super(key: key);
+  const CustomAppBar({Key? key, required this.page, required this.totalItems}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return //cart icon

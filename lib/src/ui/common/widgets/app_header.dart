@@ -6,29 +6,31 @@ import 'package:let_api_flutter/src/ui/common/widgets/circle_buttons.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 
 class AppHeader extends StatelessWidget {
-  const AppHeader({
-    Key? key,
-    //標題
-    this.title,
-    //副標題
-    this.subtitle,
-    //按鈕：回上一頁
-    this.showBackBtn = false,
-    //按鈕：關閉
-    this.showCloseBtn = false,
-    //按鈕：購物車
-    this.showCartBtn = false,
-    //背景：透明
-    this.isTransparent = false,
-    //背景：自定義
-    this.backgroundColor = Colors.black,
-    //Fn: 回上一頁的事件
-    this.onBack,
-    this.trailing,
-    this.closeIcon = Icons.close,
-    this.backIcon = Icons.navigate_before,
-    this.backBtnSemantics,
-  }) : super(key: key);
+  const AppHeader(
+      {Key? key,
+      //標題
+      this.title,
+      //副標題
+      this.subtitle,
+      //按鈕：回上一頁
+      this.showBackBtn = false,
+      //按鈕：關閉
+      this.showCloseBtn = false,
+      //按鈕：購物車
+      this.showCartBtn = false,
+      //背景：透明
+      this.isTransparent = false,
+      //背景：自定義
+      this.backgroundColor = Colors.black,
+      //Fn: 回上一頁的事件
+      this.onBack,
+      this.trailing,
+      this.closeIcon = Icons.close,
+      this.backIcon = Icons.navigate_before,
+      this.backBtnSemantics,
+      this.onCartPressed})
+      : super(key: key);
+
   final String? title;
   final String? subtitle;
   final bool showBackBtn;
@@ -39,6 +41,7 @@ class AppHeader extends StatelessWidget {
   final String? backBtnSemantics;
   final bool isTransparent;
   final Color backgroundColor;
+  final VoidCallback? onCartPressed;
   final VoidCallback? onBack;
   final Widget Function(BuildContext context)? trailing;
 
@@ -77,9 +80,11 @@ class AppHeader extends StatelessWidget {
                       SizedBox(width: $styles.insets.sm),
                       if (showCartBtn)
                         GestureDetector(
-                          onTap: () {
-                            GoRouter.of(context).go(ScreenPaths.cartInfo());
-                          },
+                          onTap: onCartPressed ??
+                              () {
+                                CartRouteExtraModel extra = CartRouteExtraModel(routeMethod: 'go');
+                                GoRouter.of(context).go(ScreenPaths.cartInfo(), extra: extra);
+                              },
                           child: Stack(children: [
                             AppIcon(icon: Icons.shopping_cart_outlined),
                             // 購物車圓形
