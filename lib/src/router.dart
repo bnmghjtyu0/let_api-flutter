@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
 import 'package:let_api_flutter/src/riverpods/providers/route_provider.dart';
 import 'package:let_api_flutter/src/ui/layout/main_layout.dart';
+import 'package:let_api_flutter/src/ui/screens/account/account_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/home/cart_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/home/home.dart';
@@ -16,10 +17,8 @@ class RouteNames {
 
 class ScreenPaths {
   static String home() => '/';
-  static String foodDetail(int index, int pageId) =>
-      '/foodDetail/$index?pageId=$pageId';
-  static String recommendDetail(int index, int pageId) =>
-      '/recommendDetail/$index?pageId=$pageId';
+  static String foodDetail(int index, int pageId) => '/foodDetail/$index?pageId=$pageId';
+  static String recommendDetail(int index, int pageId) => '/recommendDetail/$index?pageId=$pageId';
   static String cartInfo() => '/cartInfo';
   static String history() => '/history';
 }
@@ -32,89 +31,78 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
 final goRouterProvider = Provider<GoRouter>((ref) {
   final notifier = ref.read(goRouterNotifierProvider);
 
-  return GoRouter(
-      debugLogDiagnostics: true,
-      initialLocation: '/',
-      refreshListenable: notifier,
-      routes: <RouteBase>[
-        ShellRoute(
-            builder: (context, router, navigator) {
-              return AppScaffold(child: navigator);
-            },
-            routes: [
-              // 受歡迎的美食
-              AppRoute('/foodDetail/:index', (state) {
-                int index = int.parse(state.pathParameters['index']!);
-                int pageId = int.parse(state.queryParameters['pageId']!);
-                return PopularDetail(index: index, pageId: pageId);
-              }, transition: 'fadeIn'),
+  return GoRouter(debugLogDiagnostics: true, initialLocation: '/', refreshListenable: notifier, routes: <RouteBase>[
+    ShellRoute(
+        builder: (context, router, navigator) {
+          return AppScaffold(child: navigator);
+        },
+        routes: [
+          // 受歡迎的美食
+          AppRoute('/foodDetail/:index', (state) {
+            int index = int.parse(state.pathParameters['index']!);
+            int pageId = int.parse(state.queryParameters['pageId']!);
+            return PopularDetail(index: index, pageId: pageId);
+          }, transition: 'fadeIn'),
 
-              // 推薦的美食
-              AppRoute('/recommendDetail/:index', (state) {
-                int pageId = int.parse(state.queryParameters['pageId']!);
-                int index = int.parse(state.pathParameters['index']!);
-                return RecommendDetailWidget(index: index, pageId: pageId);
-              }),
+          // 推薦的美食
+          AppRoute('/recommendDetail/:index', (state) {
+            int pageId = int.parse(state.queryParameters['pageId']!);
+            int index = int.parse(state.pathParameters['index']!);
+            return RecommendDetailWidget(index: index, pageId: pageId);
+          }),
 
-              // 購物車
-              AppRoute('/cartInfo', (state) => CartScreen(),
-                  transition: 'slideUp'),
+          // 購物車
+          AppRoute('/cartInfo', (state) => CartScreen(), transition: 'slideUp'),
 
-              //bottomNavigationBar 的路由
-              StatefulShellRoute.indexedStack(
-                  builder: (BuildContext context, GoRouterState state,
-                      StatefulNavigationShell navigationShell) {
-                    return MainLayout(navigationShell: navigationShell);
-                  },
-                  branches: [
-                    //bottomNavigationBar 的路由 index=0 美食平台
-                    StatefulShellBranch(
-                      navigatorKey: _foodHomeNavigatorAKey,
-                      routes: [
-                        AppRoute('/', (state) => HomeScreen()),
-                      ],
+          //bottomNavigationBar 的路由
+          StatefulShellRoute.indexedStack(
+              builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+                return MainLayout(navigationShell: navigationShell);
+              },
+              branches: [
+                //bottomNavigationBar 的路由 index=0 美食平台
+                StatefulShellBranch(
+                  navigatorKey: _foodHomeNavigatorAKey,
+                  routes: [
+                    AppRoute('/', (state) => HomeScreen()),
+                  ],
+                ),
+                //bottomNavigationBar 的路由 index=1 History
+                StatefulShellBranch(
+                  // navigatorKey: _musicHomeNavigatorAKey,
+                  routes: [
+                    AppRoute(
+                      '/history',
+                      (state) => HistoryScreen(),
                     ),
-                    //bottomNavigationBar 的路由 index=1 History
-                    StatefulShellBranch(
-                      // navigatorKey: _musicHomeNavigatorAKey,
-                      routes: [
-                        AppRoute(
-                          '/history',
-                          (state) => HistoryScreen(),
-                        ),
-                      ],
-                    ),
+                  ],
+                ),
 
-                    //bottomNavigationBar 的路由 index=2 Me
-                    StatefulShellBranch(
-                      // navigatorKey: _musicHomeNavigatorAKey,
-                      routes: [
-                        AppRoute(
-                          '/me',
-                          (state) => Center(
-                            child: Text('關於作者'),
-                          ),
-                        ),
-                      ],
-                    ),
+                //bottomNavigationBar 的路由 index=2 Me
+                StatefulShellBranch(
+                  // navigatorKey: _musicHomeNavigatorAKey,
+                  routes: [
+                    AppRoute('/me', (state) => AccountScreen()),
+                  ],
+                ),
 
-                    // StatefulShellBranch(
-                    //   navigatorKey: _musicHomeNavigatorAKey,
-                    //   routes: [
-                    //     GoRoute(
-                    //       name: RouteNames.musicHome,
-                    //       path: '/musicHome',
-                    //       pageBuilder: (context, state) => MaterialPage(
-                    //           key: state.pageKey,
-                    //           child: MusicHomeScreen(
-                    //             title: '音樂時光',
-                    //           )),
-                    //     ),
-                    //   ],
-                    // ),
-                  ]),
-            ])
-      ]);
+                // StatefulShellBranch(
+                //   navigatorKey: _musicHomeNavigatorAKey,
+                //   routes: [
+                //     GoRoute(
+                //       name: RouteNames.musicHome,
+                //       path: '/musicHome',
+                //       pageBuilder: (context, state) => MaterialPage(
+                //           key: state.pageKey,
+                //           child: MusicHomeScreen(
+                //             title: '音樂時光',
+                //           )),
+                //     ),
+                //   ],
+                // ),
+              ]),
+        ])
+  ]);
 });
 
 //路由共用公式
@@ -135,8 +123,7 @@ class AppRoute extends GoRoute {
               return CustomTransitionPage(
                 key: state.pageKey,
                 child: pageContent,
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);
                 },
               );
@@ -145,16 +132,14 @@ class AppRoute extends GoRoute {
               return CustomTransitionPage(
                 key: state.pageKey,
                 child: pageContent,
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        SlideTransition(
-                            position: animation.drive(
-                              Tween<Offset>(
-                                begin: const Offset(0, 1),
-                                end: Offset.zero,
-                              ).chain(CurveTween(curve: Curves.linear)),
-                            ),
-                            child: child),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                    position: animation.drive(
+                      Tween<Offset>(
+                        begin: const Offset(0, 1),
+                        end: Offset.zero,
+                      ).chain(CurveTween(curve: Curves.linear)),
+                    ),
+                    child: child),
               );
             }
             return MaterialPage(child: pageContent);

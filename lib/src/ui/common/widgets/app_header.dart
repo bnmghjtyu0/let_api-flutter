@@ -6,24 +6,29 @@ import 'package:let_api_flutter/src/ui/common/widgets/circle_buttons.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 
 class AppHeader extends StatelessWidget {
-  const AppHeader(
-      {Key? key,
-      this.title,
-      this.subtitle,
-      // 回上一頁
-      this.showBackBtn = false,
-      //關閉
-      this.showCloseBtn = false,
-      //購物車按鈕
-      this.showCartBtn = false,
-      //背景透明
-      this.isTransparent = false,
-      this.onBack,
-      this.trailing,
-      this.closeIcon = Icons.close,
-      this.backIcon = Icons.navigate_before,
-      this.backBtnSemantics})
-      : super(key: key);
+  const AppHeader({
+    Key? key,
+    //標題
+    this.title,
+    //副標題
+    this.subtitle,
+    //按鈕：回上一頁
+    this.showBackBtn = false,
+    //按鈕：關閉
+    this.showCloseBtn = false,
+    //按鈕：購物車
+    this.showCartBtn = false,
+    //背景：透明
+    this.isTransparent = false,
+    //背景：自定義
+    this.backgroundColor = Colors.black,
+    //Fn: 回上一頁的事件
+    this.onBack,
+    this.trailing,
+    this.closeIcon = Icons.close,
+    this.backIcon = Icons.navigate_before,
+    this.backBtnSemantics,
+  }) : super(key: key);
   final String? title;
   final String? subtitle;
   final bool showBackBtn;
@@ -33,6 +38,7 @@ class AppHeader extends StatelessWidget {
   final dynamic backIcon;
   final String? backBtnSemantics;
   final bool isTransparent;
+  final Color backgroundColor;
   final VoidCallback? onBack;
   final Widget Function(BuildContext context)? trailing;
 
@@ -41,7 +47,7 @@ class AppHeader extends StatelessWidget {
     return Consumer(builder: (context, ref, child) {
       final cartNotifier = ref.read(cartProvider.notifier);
       return ColoredBox(
-        color: isTransparent ? Colors.transparent : $styles.colors.black,
+        color: isTransparent ? Colors.transparent : backgroundColor,
         child: SafeArea(
           bottom: false,
           child: SizedBox(
@@ -50,57 +56,55 @@ class AppHeader extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Center(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: $styles.insets.sm,
-                          ),
-                          if (showBackBtn)
-                            CircleBtn(
-                              onPressed: onBack,
-                              icon: backIcon,
-                              semanticLabel: backBtnSemantics,
-                            ),
-                          if (showCloseBtn)
-                            CircleBtn(
-                              onPressed: onBack,
-                              icon: closeIcon,
-                              semanticLabel: backBtnSemantics,
-                            ),
-                          if (trailing != null) trailing!.call(context),
-                          Spacer(),
-                          SizedBox(width: $styles.insets.sm),
-                          if (showCartBtn)
-                            GestureDetector(
-                              onTap: () {
-                                GoRouter.of(context).go(ScreenPaths.cartInfo());
-                              },
-                              child: Stack(children: [
-                                AppIcon(icon: Icons.shopping_cart_outlined),
-                                // 購物車圓形
-                                Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: AppIcon(
-                                      icon: Icons.circle,
-                                      size: 20,
-                                      color: Colors.transparent,
-                                      backgroundColor: $styles.colors.mainColor,
-                                    )),
-                                // 購物車數字
-                                Positioned(
-                                    top: 3,
-                                    right: 3,
-                                    child: SmallText(
-                                      text: cartNotifier.totalItems.toString(),
-                                      size: 12,
-                                      color: Colors.white,
-                                    ))
-                              ]),
-                            ),
-                          SizedBox(width: $styles.insets.sm),
-                        ]),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                      SizedBox(
+                        width: $styles.insets.sm,
+                      ),
+                      if (showBackBtn)
+                        CircleBtn(
+                          onPressed: onBack,
+                          icon: backIcon,
+                          semanticLabel: backBtnSemantics,
+                        ),
+                      if (showCloseBtn)
+                        CircleBtn(
+                          onPressed: onBack,
+                          icon: closeIcon,
+                          semanticLabel: backBtnSemantics,
+                        ),
+                      if (trailing != null) trailing!.call(context),
+                      Spacer(),
+                      SizedBox(width: $styles.insets.sm),
+                      if (showCartBtn)
+                        GestureDetector(
+                          onTap: () {
+                            GoRouter.of(context).go(ScreenPaths.cartInfo());
+                          },
+                          child: Stack(children: [
+                            AppIcon(icon: Icons.shopping_cart_outlined),
+                            // 購物車圓形
+                            Positioned(
+                                top: 0,
+                                right: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  color: Colors.transparent,
+                                  backgroundColor: $styles.colors.mainColor,
+                                )),
+                            // 購物車數字
+                            Positioned(
+                                top: 3,
+                                right: 3,
+                                child: SmallText(
+                                  text: cartNotifier.totalItems.toString(),
+                                  size: 12,
+                                  color: Colors.white,
+                                ))
+                          ]),
+                        ),
+                      SizedBox(width: $styles.insets.sm),
+                    ]),
                   ),
                 ),
                 MergeSemantics(
@@ -113,19 +117,14 @@ class AppHeader extends StatelessWidget {
                           if (title != null)
                             Text(
                               title!.toUpperCase(),
-                              textHeightBehavior: TextHeightBehavior(
-                                  applyHeightToFirstAscent: false),
-                              style: $styles.text.h4.copyWith(
-                                  color: $styles.colors.white,
-                                  fontWeight: FontWeight.w500),
+                              textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+                              style: $styles.text.h4.copyWith(color: $styles.colors.white, fontWeight: FontWeight.w500),
                             ),
                           if (subtitle != null)
                             Text(
                               subtitle!.toUpperCase(),
-                              textHeightBehavior: TextHeightBehavior(
-                                  applyHeightToFirstAscent: false),
-                              style: $styles.text.title1
-                                  .copyWith(color: $styles.colors.accent1),
+                              textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+                              style: $styles.text.title1.copyWith(color: $styles.colors.accent1),
                             ),
                         ],
                       ),
