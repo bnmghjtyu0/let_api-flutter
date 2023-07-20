@@ -1,5 +1,6 @@
 {
   "security.workspace.trust.enabled": false,
+  "dart.lineLength": 80, //程式碼最大長度 120
   "[dart]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": true,
@@ -25,5 +26,19 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   // cSpell 白名單
-  "cSpell.words": ["fenix"]
+  "cSpell.words": ["fenix"],
+
+  // fvm
+  // -------------------------------
+  "dart.flutterSdkPaths": ["/Users/$USER/fvm/versions/3.10.2"],
+  "dart.flutterSdkPath": "/Users/$USER/fvm/versions/3.10.2",
+  // Remove .fvm files from search
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  }
+  // -------------------------------
 }

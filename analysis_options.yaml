@@ -8,3 +8,4 @@ linter:
     prefer_single_quotes: false
     #true: 不能使用 forEach, false: 可以使用 forEach
     avoid_function_literals_in_foreach_calls: false
+    lines_longer_than_80_chars: true
