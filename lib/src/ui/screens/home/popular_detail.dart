@@ -16,7 +16,8 @@ class PopularDetail extends ConsumerStatefulWidget {
   /// 商品ID
   final int pageId;
 
-  const PopularDetail({Key? key, required this.pageId, required this.index}) : super(key: key);
+  const PopularDetail({Key? key, required this.pageId, required this.index})
+      : super(key: key);
 
   @override
   _PopularDetailState createState() => _PopularDetailState();
@@ -42,17 +43,20 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
     final ProductModel product = popularApiData!.products[widget.index];
 
     void setQuantity(bool isIncrement) {
-      if (cartNotifier.checkQuantify(context, _inCartItems, quantity + 1) == null) return;
+      if (cartNotifier.checkQuantify(context, _inCartItems, quantity + 1) ==
+          null) return;
       // 增加
       if (isIncrement) {
         setState(() {
-          quantity = cartNotifier.checkQuantify(context, _inCartItems, quantity + 1)!;
+          quantity =
+              cartNotifier.checkQuantify(context, _inCartItems, quantity + 1)!;
         });
       }
       // 減少
       else {
         setState(() {
-          quantity = cartNotifier.checkQuantify(context, _inCartItems, quantity - 1)!;
+          quantity =
+              cartNotifier.checkQuantify(context, _inCartItems, quantity - 1)!;
         });
       }
     }
@@ -70,7 +74,9 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage((ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + product.img!)))),
+                        image: NetworkImage((ApiConstants.BASE_URL +
+                            ApiConstants.UPLOAD_URL +
+                            product.img!)))),
               )),
 
           Positioned(
@@ -85,8 +91,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 GoRouter.of(context).go(ScreenPaths.home());
               },
               onCartPressed: () {
-                CartRouteExtraModel extra = CartRouteExtraModel(routeMethod: "push");
-                GoRouter.of(context).push(ScreenPaths.cartInfo(), extra: extra);
+                GoRouter.of(context).go(ScreenPaths.cartInfo(),
+                    extra: CartRouteExtraModel(routeMethod: "push"));
               },
             ),
           ),
@@ -102,8 +108,10 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                       top: Dimensions(context).height(20)),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(Dimensions(context).radius(20)),
-                          topRight: Radius.circular(Dimensions(context).radius(20))),
+                          topLeft:
+                              Radius.circular(Dimensions(context).radius(20)),
+                          topRight:
+                              Radius.circular(Dimensions(context).radius(20))),
                       color: Colors.white),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,8 +138,10 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
             decoration: BoxDecoration(
                 color: $styles.colors.bottomBackgroundColor,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Dimensions(context).radius(20) * 2),
-                    topRight: Radius.circular(Dimensions(context).radius(20) * 2))),
+                    topLeft:
+                        Radius.circular(Dimensions(context).radius(20) * 2),
+                    topRight:
+                        Radius.circular(Dimensions(context).radius(20) * 2))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -142,14 +152,17 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                         bottom: Dimensions(context).height(20),
                         left: Dimensions(context).width(20),
                         right: Dimensions(context).width(20)),
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)),
                     child: Row(
                       children: [
                         GestureDetector(
                           onTap: (() {
                             setQuantity(false);
                           }),
-                          child: Icon(Icons.remove, color: $styles.colors.signColor),
+                          child: Icon(Icons.remove,
+                              color: $styles.colors.signColor),
                         ),
                         SizedBox(width: Dimensions(context).width(10) / 2),
                         BigText(text: '$quantity '),
@@ -158,7 +171,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           onTap: (() {
                             setQuantity(true);
                           }),
-                          child: Icon(Icons.add, color: $styles.colors.signColor),
+                          child:
+                              Icon(Icons.add, color: $styles.colors.signColor),
                         )
                       ],
                     )),
@@ -172,7 +186,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                       right: Dimensions(context).width(20)),
                   decoration: BoxDecoration(
                       color: $styles.colors.mainColor,
-                      borderRadius: BorderRadius.circular(Dimensions(context).radius(20))),
+                      borderRadius: BorderRadius.circular(
+                          Dimensions(context).radius(20))),
                   child: GestureDetector(
                     onTap: (() {
                       ref.read(cartProvider.notifier).add(product, inCartItems);
@@ -180,7 +195,9 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                         resetQuantity();
                       });
                     }),
-                    child: BigText(text: '\$ ${product.price!} + Add to cart', color: Colors.white),
+                    child: BigText(
+                        text: '\$ ${product.price!} + Add to cart',
+                        color: Colors.white),
                   ),
                 )
               ],

@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
+import 'package:let_api_flutter/src/router.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
@@ -36,14 +38,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     });
 
     /** 取得推薦項目 api */
-    final Recommend? recommendData = ref.read(productRecommendProvider).recommend;
+    final Recommend? recommendData =
+        ref.read(productRecommendProvider).recommend;
 
     List<RecommendModel> recommendProducts = recommendData?.products ?? [];
 
     super.initState();
     final innerList = <RecommendRow>[];
     for (int j = 0; j < recommendProducts.length; j++) {
-      innerList.add(RecommendRow(data: recommendProducts[j], index: j, pageId: recommendProducts[j].id!));
+      innerList.add(RecommendRow(
+          data: recommendProducts[j],
+          index: j,
+          pageId: recommendProducts[j].id!));
     }
     innerLists.add(
       SliverList(
@@ -94,18 +100,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 title: AppHeader(
                   isTransparent: true,
                   showCartBtn: true,
+                  onCartPressed: () {
+                    GoRouter.of(context).go(ScreenPaths.cartInfo(),
+                        extra: CartRouteExtraModel(routeMethod: "push"));
+                  },
                   trailing: (context) {
-                    return Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      BigText(text: 'Food Delivery', color: $styles.colors.mainColor),
-                      Row(
-                        children: const [
-                          SmallText(
-                            text: '一個美食外送平台',
+                    return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          BigText(
+                              text: 'Food Delivery',
+                              color: $styles.colors.mainColor),
+                          Row(
+                            children: const [
+                              SmallText(
+                                text: '一個美食外送平台',
+                              ),
+                              Icon(Icons.arrow_drop_down_rounded),
+                            ],
                           ),
-                          Icon(Icons.arrow_drop_down_rounded),
-                        ],
-                      ),
-                    ]);
+                        ]);
                   },
                 )),
             // 使用 SliverAppBar
@@ -115,53 +129,63 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             [
               //body
               //SingleChildScrollView 可滾動
-              Expanded(
-                child: Column(
-                  children: [
-                    //輪播區塊
-                    SizedBox(
-                        height: Dimensions(context).pageView(),
-                        child: PageView.builder(
-                            controller: pageController,
-                            itemCount: popularData!.products.isEmpty ? 1 : popularData.products.length,
-                            itemBuilder: (BuildContext context, position) {
-                              return PageViewItem(
-                                  index: position,
-                                  currPageValue: _currPageValue,
-                                  popularProduct: popularData.products[position]);
-                            })),
+              Column(
+                children: [
+                  //輪播區塊
+                  SizedBox(
+                      height: Dimensions(context).pageView(),
+                      child: PageView.builder(
+                          controller: pageController,
+                          itemCount: popularData!.products.isEmpty
+                              ? 1
+                              : popularData.products.length,
+                          itemBuilder: (BuildContext context, position) {
+                            return PageViewItem(
+                                index: position,
+                                currPageValue: _currPageValue,
+                                popularProduct: popularData.products[position]);
+                          })),
 
-                    // 點點區塊
-                    Visibility(
-                        child: DotsIndicator(
-                            dotsCount: popularData.products.isEmpty ? 1 : popularData.products.length,
-                            position: _currPageValue,
-                            decorator: DotsDecorator(
-                              size: const Size.square(9.0),
-                              activeSize: const Size(18.0, 9.0),
-                              activeColor: $styles.colors.mainColor,
-                              activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                            ))),
-                    SizedBox(height: Dimensions(context).height(30)),
-                    // Popular title
-                    Container(
-                      margin:
-                          EdgeInsets.only(left: Dimensions(context).width(30), right: Dimensions(context).width(30)),
-                      child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                        Text('Recommend', style: $styles.text.h3),
-                        SizedBox(
-                          width: Dimensions(context).width(10),
-                        ),
-                        Container(margin: EdgeInsets.only(bottom: 3), child: Text('.')),
-                        SizedBox(
-                          width: Dimensions(context).width(10),
-                        ),
-                        Container(
-                            margin: EdgeInsets.only(bottom: 2), child: Text('Food paring', style: $styles.text.span))
-                      ]),
-                    ),
-                  ],
-                ),
+                  // 點點區塊
+                  Visibility(
+                      child: DotsIndicator(
+                          dotsCount: popularData.products.isEmpty
+                              ? 1
+                              : popularData.products.length,
+                          position: _currPageValue,
+                          decorator: DotsDecorator(
+                            size: const Size.square(9.0),
+                            activeSize: const Size(18.0, 9.0),
+                            activeColor: $styles.colors.mainColor,
+                            activeShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ))),
+                  SizedBox(height: Dimensions(context).height(30)),
+                  // Popular title
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: Dimensions(context).width(30),
+                        right: Dimensions(context).width(30)),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('Recommend', style: $styles.text.h3),
+                          SizedBox(
+                            width: Dimensions(context).width(10),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(bottom: 3),
+                              child: Text('.')),
+                          SizedBox(
+                            width: Dimensions(context).width(10),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(bottom: 2),
+                              child:
+                                  Text('Food paring', style: $styles.text.span))
+                        ]),
+                  ),
+                ],
               )
             ],
           )),

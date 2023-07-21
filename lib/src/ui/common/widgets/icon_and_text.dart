@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 
 class IconAndTextWidget extends StatelessWidget {
   final IconData icon;
@@ -19,7 +18,19 @@ class IconAndTextWidget extends StatelessWidget {
       children: [
         Icon(icon, color: iconColor),
         SizedBox(width: 5),
-        SmallText(text: text)
+        Container(
+          padding: EdgeInsets.only(right: 0),
+          child: Text(
+            text,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontFamily: 'Roboto',
+              color: Color(0xFF212121),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
       ],
     );
   }
