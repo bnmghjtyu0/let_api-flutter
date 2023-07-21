@@ -102,7 +102,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   showCartBtn: true,
                   onCartPressed: () {
                     GoRouter.of(context).go(ScreenPaths.cartInfo(),
-                        extra: CartRouteExtraModel(routeMethod: "push"));
+                        extra: CartRouteExtraModel(routeMethod: "go"));
                   },
                   trailing: (context) {
                     return Column(

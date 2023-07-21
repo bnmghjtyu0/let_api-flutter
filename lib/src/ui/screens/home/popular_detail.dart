@@ -91,7 +91,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 GoRouter.of(context).go(ScreenPaths.home());
               },
               onCartPressed: () {
-                GoRouter.of(context).go(ScreenPaths.cartInfo(),
+                GoRouter.of(context).push(ScreenPaths.cartInfo(),
                     extra: CartRouteExtraModel(routeMethod: "push"));
               },
             ),
