@@ -5,9 +5,9 @@ variables:
 scripts:
   # Simple command (slidy run doctor)
   doctor: flutter doctor
-  run:chrome: flutter run -d chrome --web-browser-flag "--disable-web-security"
-  run:ios: flutter run
-  run:realios: flutter devices
-  run:freezed: dart run build_runner build --delete-conflicting-outputs
-  run:build:android: flutter build appbundle
+  chrome: flutter run -d chrome --web-browser-flag "--disable-web-security"
+  ios: flutter run
+  real:ios: flutter devices
+  freezed: dart run build_runner build --delete-conflicting-outputs
+  build:android: flutter build appbundle
   build:splash: dart run flutter_native_splash:create
