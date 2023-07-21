@@ -10,6 +10,8 @@ import 'package:let_api_flutter/src/ui/screens/home/cart_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/home/home.dart';
 import 'package:let_api_flutter/src/ui/screens/home/popular_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/home/recommend_detail.dart';
+import 'package:let_api_flutter/src/ui/screens/login/login_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/register/register_screen.dart';
 
 class CartRouteExtraModel {
   String? routeMethod;
@@ -25,6 +27,8 @@ class ScreenPaths {
   static String foodDetail(int index, int pageId) => '/foodDetail/$index?pageId=$pageId';
   static String recommendDetail(int index, int pageId) => '/recommendDetail/$index?pageId=$pageId';
   static String cartInfo() => '/cartInfo';
+  static String register() => '/register';
+  static String login() => '/login';
   static String history() => '/history';
 }
 
@@ -43,6 +47,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           return AppScaffold(child: navigator);
         },
         routes: [
+          // 註冊
+          AppRoute('/register', (state) {
+            return RegisterScreen();
+          }, transition: 'fadeIn'),
+          // 登入
+          AppRoute('/login', (state) {
+            return LoginScreen();
+          }, transition: 'fadeIn'),
           // 受歡迎的美食
           AppRoute('/foodDetail/:index', (state) {
             int index = int.parse(state.pathParameters['index']!);
@@ -77,7 +89,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     AppRoute('/', (state) => HomeScreen()),
                   ],
                 ),
-                //bottomNavigationBar 的路由 index=1 History
+                //bottomNavigationBar 的路由 index=1 註冊
+                StatefulShellBranch(
+                  // navigatorKey: _musicHomeNavigatorAKey,
+                  routes: [
+                    AppRoute(
+                      '/register',
+                      (state) => RegisterScreen(),
+                    ),
+                  ],
+                ),
+                //bottomNavigationBar 的路由 index=2 History
                 StatefulShellBranch(
                   // navigatorKey: _musicHomeNavigatorAKey,
                   routes: [
@@ -88,7 +110,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   ],
                 ),
 
-                //bottomNavigationBar 的路由 index=2 Me
+                //bottomNavigationBar 的路由 index=3 Me
                 StatefulShellBranch(
                   // navigatorKey: _musicHomeNavigatorAKey,
                   routes: [

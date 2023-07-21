@@ -9,8 +9,7 @@ class BottomNavigationBarCustom extends StatefulWidget {
   }) : super(key: key ?? const ValueKey('ScaffoldWithNestedNavigation'));
 
   @override
-  State<BottomNavigationBarCustom> createState() =>
-      _BottomNavigationBarCustomState();
+  State<BottomNavigationBarCustom> createState() => _BottomNavigationBarCustomState();
 }
 
 class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
@@ -44,9 +43,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
             canvasColor: Colors.white,
             // 設定背景顏色 if `Brightness` is light
             primaryColor: Colors.red,
-            textTheme: Theme.of(context)
-                .textTheme
-                .copyWith(bodySmall: TextStyle(color: Colors.yellow))),
+            textTheme: Theme.of(context).textTheme.copyWith(bodySmall: TextStyle(color: Colors.yellow))),
         child: BottomNavigationBar(
           currentIndex: _selectedIndex,
           unselectedItemColor: Colors.black45,
@@ -61,6 +58,10 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.archive),
+              label: 'Register',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history),
               label: 'History',
             ),
             BottomNavigationBarItem(

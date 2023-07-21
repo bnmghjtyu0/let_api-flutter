@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:let_api_flutter/src/styles/colors.dart';
+import 'package:let_api_flutter/common_libs.dart';
 
 class BottomNavigationBarCustom extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
@@ -51,7 +50,7 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
         child: BottomNavigationBar(
           currentIndex: _selectedIndex,
           unselectedItemColor: Colors.black45,
-          selectedItemColor: AppColors.mainColor,
+          selectedItemColor: $styles.colors.mainColor,
           showSelectedLabels: true,
           showUnselectedLabels: true,
           onTap: _goBranch,

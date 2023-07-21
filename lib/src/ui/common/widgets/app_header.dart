@@ -24,6 +24,7 @@ class AppHeader extends StatelessWidget {
       this.backgroundColor = Colors.black,
       //Fn: 回上一頁的事件
       this.onBack,
+      this.onClose,
       this.trailing,
       this.closeIcon = Icons.close,
       this.backIcon = Icons.navigate_before,
@@ -43,6 +44,7 @@ class AppHeader extends StatelessWidget {
   final Color backgroundColor;
   final VoidCallback? onCartPressed;
   final VoidCallback? onBack;
+  final VoidCallback? onClose;
   final Widget Function(BuildContext context)? trailing;
 
   @override
@@ -59,57 +61,62 @@ class AppHeader extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Center(
-                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      SizedBox(
-                        width: $styles.insets.sm,
-                      ),
-                      if (showBackBtn)
-                        CircleBtn(
-                          onPressed: onBack,
-                          icon: backIcon,
-                          semanticLabel: backBtnSemantics,
-                        ),
-                      if (showCloseBtn)
-                        CircleBtn(
-                          onPressed: onBack,
-                          icon: closeIcon,
-                          semanticLabel: backBtnSemantics,
-                        ),
-                      if (trailing != null) trailing!.call(context),
-                      Spacer(),
-                      SizedBox(width: $styles.insets.sm),
-                      if (showCartBtn)
-                        GestureDetector(
-                          onTap: onCartPressed ??
-                              () {
-                                CartRouteExtraModel extra = CartRouteExtraModel(routeMethod: 'go');
-                                GoRouter.of(context).go(ScreenPaths.cartInfo(), extra: extra);
-                              },
-                          child: Stack(children: [
-                            AppIcon(icon: Icons.shopping_cart_outlined),
-                            // 購物車圓形
-                            Positioned(
-                                top: 0,
-                                right: 0,
-                                child: AppIcon(
-                                  icon: Icons.circle,
-                                  size: 20,
-                                  color: Colors.transparent,
-                                  backgroundColor: $styles.colors.mainColor,
-                                )),
-                            // 購物車數字
-                            Positioned(
-                                top: 3,
-                                right: 3,
-                                child: SmallText(
-                                  text: cartNotifier.totalItems.toString(),
-                                  size: 12,
-                                  color: Colors.white,
-                                ))
-                          ]),
-                        ),
-                      SizedBox(width: $styles.insets.sm),
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: $styles.insets.sm,
+                          ),
+                          if (showBackBtn)
+                            CircleBtn(
+                              onPressed: onBack,
+                              icon: backIcon,
+                              semanticLabel: backBtnSemantics,
+                            ),
+                          if (showCloseBtn)
+                            CircleBtn(
+                              onPressed: onClose,
+                              icon: closeIcon,
+                              semanticLabel: backBtnSemantics,
+                            ),
+                          if (trailing != null) trailing!.call(context),
+                          Spacer(),
+                          SizedBox(width: $styles.insets.sm),
+                          if (showCartBtn)
+                            GestureDetector(
+                              onTap: onCartPressed ??
+                                  () {
+                                    CartRouteExtraModel extra =
+                                        CartRouteExtraModel(routeMethod: 'go');
+                                    GoRouter.of(context).go(
+                                        ScreenPaths.cartInfo(),
+                                        extra: extra);
+                                  },
+                              child: Stack(children: [
+                                AppIcon(icon: Icons.shopping_cart_outlined),
+                                // 購物車圓形
+                                Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: AppIcon(
+                                      icon: Icons.circle,
+                                      size: 20,
+                                      color: Colors.transparent,
+                                      backgroundColor: $styles.colors.mainColor,
+                                    )),
+                                // 購物車數字
+                                Positioned(
+                                    top: 3,
+                                    right: 3,
+                                    child: SmallText(
+                                      text: cartNotifier.totalItems.toString(),
+                                      size: 12,
+                                      color: Colors.white,
+                                    ))
+                              ]),
+                            ),
+                          SizedBox(width: $styles.insets.sm),
+                        ]),
                   ),
                 ),
                 MergeSemantics(
@@ -122,14 +129,19 @@ class AppHeader extends StatelessWidget {
                           if (title != null)
                             Text(
                               title!.toUpperCase(),
-                              textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
-                              style: $styles.text.h4.copyWith(color: $styles.colors.white, fontWeight: FontWeight.w500),
+                              textHeightBehavior: TextHeightBehavior(
+                                  applyHeightToFirstAscent: false),
+                              style: $styles.text.h4.copyWith(
+                                  color: $styles.colors.white,
+                                  fontWeight: FontWeight.w500),
                             ),
                           if (subtitle != null)
                             Text(
                               subtitle!.toUpperCase(),
-                              textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
-                              style: $styles.text.title1.copyWith(color: $styles.colors.accent1),
+                              textHeightBehavior: TextHeightBehavior(
+                                  applyHeightToFirstAscent: false),
+                              style: $styles.text.title1
+                                  .copyWith(color: $styles.colors.accent1),
                             ),
                         ],
                       ),

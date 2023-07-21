@@ -50,31 +50,21 @@ class _MusicHomeScreenState extends State<MusicHomeScreen> {
                                 decoration: BoxDecoration(
                                   // 裝飾內裝元件
                                   color: Colors.white, // 背景
-                                  border: Border.all(
-                                      width: 1, color: Colors.white), // 藍色邊框
+                                  border: Border.all(width: 1, color: Colors.white), // 藍色邊框
                                 ),
                                 padding: const EdgeInsets.all(4), // 墊充
-                                child: Image.network(
-                                    results[index].images?[0].url ?? '')),
+                                child: Image.network(results[index].images?[0].url ?? '')),
                             Flexible(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: Text(
-                                          style: TextStyle(color: Colors.black),
-                                          results[index].title ?? '')),
-                                ]))
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Text(style: TextStyle(color: Colors.black), results[index].title ?? '')),
+                            ]))
                           ]),
                           onTap: () {
                             final videoId = results[index].id;
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        HomeDetailPage(videoId: videoId)));
+                                context, MaterialPageRoute(builder: (context) => HomeDetailPage(videoId: videoId)));
                             // Navigator.of(context).push(MaterialPageRoute(
                             //     builder: (context) =>
                             //         HomeDetailPage(videoId: videoId)));
