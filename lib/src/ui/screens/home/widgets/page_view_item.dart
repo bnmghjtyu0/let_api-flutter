@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
-import 'package:let_api_flutter/src/router.dart';
+import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/big_text.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/icon_and_text.dart';

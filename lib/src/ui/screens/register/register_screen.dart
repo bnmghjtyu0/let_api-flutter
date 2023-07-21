@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/dimensions.dart';
-import 'package:let_api_flutter/src/router.dart';
+import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/services/validation/register_validation.dart';
 import 'package:let_api_flutter/src/ui/common/app_logo.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';

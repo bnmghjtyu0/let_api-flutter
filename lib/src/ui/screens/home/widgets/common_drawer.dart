@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/router.dart';
+import 'package:let_api_flutter/router.dart';
 
 class CommonDrawer extends StatelessWidget {
   final StatefulNavigationShell navigationShell;

@@ -3,7 +3,7 @@ import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:let_api_flutter/src/router.dart';
+import 'package:let_api_flutter/router.dart';
 
 @immutable
 class RecommendRow extends StatefulWidget {
