@@ -61,16 +61,19 @@ class RecommendRow extends StatelessWidget {
               bottom: Dimensions(context).height(10)),
           child: Row(children: [
             //image section
-            Container(
-              width: Dimensions(context).listViewImageSize(),
-              height: Dimensions(context).listViewImageSize(),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(ApiConstants.BASE_URL +
-                          ApiConstants.UPLOAD_URL +
-                          data.img!))),
-            ),
+            SizedBox(
+                width: Dimensions(context).listViewImageSize(),
+                height: Dimensions(context).listViewImageSize(),
+                child: Image.network(
+                    ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + data.img!,
+                    loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null);
+                })),
             // text container
             Expanded(
               child: Container(
