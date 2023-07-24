@@ -1,13 +1,30 @@
 // ignore_for_file: library_private_types_in_public_api
-
 import 'dart:ui';
-
 import 'package:let_api_flutter/common_libs.dart';
-
 export 'colors.dart';
 
+///樣式區 (文字大小、顏色、圓角、陰影)
 @immutable
 class AppStyle {
+  /// 比例
+  late final double scale;
+
+  /// 顏色
+  final AppColors colors = AppColors();
+
+  /// 圓角
+  late final _Rounded corners = _Rounded();
+
+  /// 陰影
+  late final _Shadows shadows = _Shadows();
+
+  /// Padding and margin values
+  late final _Insets insets = _Insets(scale);
+
+  /// 文字樣式
+  late final _Text text = _Text(scale);
+
+  /// 建構式
   AppStyle({Size? screenSize}) {
     if (screenSize == null) {
       scale = 1;
@@ -30,25 +47,9 @@ class AppStyle {
       scale = .85; // small phone
     }
   }
-
-  late final double scale;
-
-  /// 顏色
-  final AppColors colors = AppColors();
-
-  /// 圓角
-  late final _Rounded corners = _Rounded();
-
-  ///陰影
-  late final _Shadows shadows = _Shadows();
-
-  /// Padding and margin values
-  late final _Insets insets = _Insets(scale);
-
-  /// 文字樣式
-  late final _Text text = _Text(scale);
 }
 
+///文字大小與樣式
 @immutable
 class _Text {
   _Text(this._scale);
@@ -118,6 +119,7 @@ class _Text {
   }
 }
 
+///圓角
 @immutable
 class _Rounded {
   late final double sm = 4;
@@ -140,6 +142,7 @@ class _Insets {
   late final double offset = 80 * _scale;
 }
 
+///陰影
 @immutable
 class _Shadows {
   final textSoft = [
