@@ -3,15 +3,16 @@ import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/router.dart';
+import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:let_api_flutter/src/ui/screens/home/widgets/page_view_item.dart';
-import 'package:let_api_flutter/src/ui/screens/home/widgets/recommend_listview.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 part './widgets/search_input.dart';
+part './widgets/recommend_listview.dart';
+part './widgets/page_view_item.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
