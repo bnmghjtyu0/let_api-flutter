@@ -3,13 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
 import 'package:let_api_flutter/src/riverpods/providers/route_provider.dart';
-import 'package:let_api_flutter/src/ui/layout/main_layout.dart';
+import 'package:let_api_flutter/src/ui/common/layout/main_layout.dart';
 import 'package:let_api_flutter/src/ui/screens/account/account_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
-import 'package:let_api_flutter/src/ui/screens/home/cart_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/cart_screen/cart_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/home/home.dart';
-import 'package:let_api_flutter/src/ui/screens/home/popular_detail.dart';
-import 'package:let_api_flutter/src/ui/screens/home/recommend_detail.dart';
+import 'package:let_api_flutter/src/ui/screens/popular_detail/popular_detail.dart';
+import 'package:let_api_flutter/src/ui/screens/recommend_detail/recommend_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/login/login_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/register/register_screen.dart';
 
@@ -41,6 +41,7 @@ final _foodHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'food');
 final _musicHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'music');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
 
+final _rootNaviagorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
 final goRouterProvider = Provider<GoRouter>((ref) {
   final notifier = ref.read(goRouterNotifierProvider);
 
@@ -50,6 +51,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       refreshListenable: notifier,
       routes: <RouteBase>[
         ShellRoute(
+            navigatorKey: _rootNaviagorKey,
             builder: (context, router, navigator) {
               return AppScaffold(child: navigator);
             },
@@ -67,21 +69,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 int index = int.parse(state.pathParameters['index']!);
                 int pageId = int.parse(state.queryParameters['pageId']!);
                 return PopularDetail(index: index, pageId: pageId);
-              }, transition: 'fadeIn'),
+              }, transition: 'fadeIn', parentNavigatorKey: _rootNaviagorKey),
 
               // 推薦的美食
               AppRoute('/recommendDetail/:index', (state) {
                 int pageId = int.parse(state.queryParameters['pageId']!);
                 int index = int.parse(state.pathParameters['index']!);
                 return RecommendDetailWidget(index: index, pageId: pageId);
-              }),
+              }, parentNavigatorKey: _rootNaviagorKey),
 
               // 購物車
               AppRoute('/cartInfo', (GoRouterState state) {
                 CartRouteExtraModel extra = state.extra as CartRouteExtraModel;
 
                 return CartScreen(extra: extra);
-              }, transition: 'slideUp'),
+              }, transition: 'slideUp', parentNavigatorKey: _rootNaviagorKey),
 
               //bottomNavigationBar 的路由
               StatefulShellRoute.indexedStack(
@@ -148,8 +150,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 //路由共用公式
 class AppRoute extends GoRoute {
   AppRoute(String path, Widget Function(GoRouterState state) builder,
-      {List<GoRoute> routes = const [], transition = 'fadeIn'})
+      {List<GoRoute> routes = const [],
+      transition = 'fadeIn',
+      parentNavigatorKey})
       : super(
+          parentNavigatorKey: parentNavigatorKey,
           path: path,
           routes: routes,
           pageBuilder: (context, state) {

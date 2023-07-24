@@ -16,6 +16,10 @@ final productRecommendProvider =
     StateNotifierProvider<ProductNotifier, ProductRecommendState>(
         (ref) => ProductNotifier());
 
+final recommendApiData = FutureProvider<Recommend>((ref) {
+  return BslmeiyuService().productRecommend();
+});
+
 class ProductNotifier extends StateNotifier<ProductRecommendState> {
   ProductNotifier() : super(ProductRecommendState()) {
     print('初始化 ProductRecommendNotifier');

@@ -2,13 +2,13 @@ import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
-import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
+import 'package:let_api_flutter/src/ui/screens/home/widgets/page_view_item.dart';
+import 'package:let_api_flutter/src/ui/screens/home/widgets/recommend_listview.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -19,8 +19,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  //推薦商品清單
-  List<SliverList> innerLists = [];
   final numLists = 1;
   //目前輪播位置
   var _currPageValue = 0.0;
@@ -37,28 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       });
     });
 
-    /** 取得推薦項目 api */
-    final Recommend? recommendData =
-        ref.read(productRecommendProvider).recommend;
-
-    List<RecommendModel> recommendProducts = recommendData?.products ?? [];
-
     super.initState();
-    final innerList = <RecommendRow>[];
-    for (int j = 0; j < recommendProducts.length; j++) {
-      innerList.add(RecommendRow(
-          data: recommendProducts[j],
-          index: j,
-          pageId: recommendProducts[j].id!));
-    }
-    innerLists.add(
-      SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) => innerList[index],
-          childCount: recommendProducts.length,
-        ),
-      ),
-    );
   }
 
   /// 卸載資源
@@ -190,7 +167,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ],
           )),
           //推薦清單
-          ...innerLists
+          RecommendListView()
         ]));
   }
 }

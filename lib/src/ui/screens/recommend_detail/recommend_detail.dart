@@ -5,9 +5,9 @@ import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/expandable_text.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
 
 class RecommendDetailWidget extends ConsumerStatefulWidget {
   final int index;
@@ -74,14 +74,9 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
                 showBackBtn: true,
                 isTransparent: true,
                 showCartBtn: true,
-                onBack: () {
-                  GoRouter.of(context).go(ScreenPaths.home());
-                },
                 onCartPressed: () {
-                  CartRouteExtraModel extra =
-                      CartRouteExtraModel(routeMethod: "push");
-                  GoRouter.of(context)
-                      .push(ScreenPaths.cartInfo(), extra: extra);
+                  GoRouter.of(context).push(ScreenPaths.cartInfo(),
+                      extra: CartRouteExtraModel(routeMethod: "push"));
                 },
               ),
 

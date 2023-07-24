@@ -5,9 +5,10 @@ import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/expandable_text.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:let_api_flutter/src/ui/screens/home/widgets/widgets.dart';
 import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/src/ui/screens/popular_detail/widgets/info_column.dart';
 
 class PopularDetail extends ConsumerStatefulWidget {
   /// 索引
