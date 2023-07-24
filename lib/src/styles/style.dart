@@ -70,7 +70,8 @@ class _Text {
 
   TextStyle get titleFont => _getFontForLocale(_titleFonts);
   TextStyle get contentFont => _getFontForLocale(_contentFonts);
-
+  late final TextStyle bodySmall =
+      _createFont(contentFont, sizePx: 14, heightPx: 23);
   late final TextStyle h1 = _createFont(titleFont, sizePx: 64, heightPx: 62);
   late final TextStyle h2 = _createFont(titleFont, sizePx: 32, heightPx: 46);
   late final TextStyle h3 =

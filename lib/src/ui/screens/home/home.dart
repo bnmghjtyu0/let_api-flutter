@@ -11,6 +11,8 @@ import 'package:let_api_flutter/src/ui/screens/home/widgets/page_view_item.dart'
 import 'package:let_api_flutter/src/ui/screens/home/widgets/recommend_listview.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
+part './widgets/search_input.dart';
+
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -23,19 +25,54 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   //目前輪播位置
   var _currPageValue = 0.0;
 
+  ///搜尋文字
+  String _searchInputText = '';
+
+  ///搜尋結果
+  List<ProductModel> _searchResults = [];
+
+  ///產品資料
+  late List<ProductModel> productsData = [];
+
   PageController pageController = PageController(
       //輪播圖間距
       viewportFraction: 0.82);
 
   @override
   void initState() {
+    super.initState();
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!;
       });
     });
 
-    super.initState();
+    /// 取得產品 api
+    final Product? popularData = ref.read(productPopularProvider).product;
+    productsData = popularData?.products ?? [];
+    _searchResults = productsData;
+  }
+
+  void _handleSearchSubmitted(String query) {
+    _searchInputText = query;
+    _updateResults();
+  }
+
+  void _updateResults() {
+    if (_searchInputText.isEmpty) {
+      /// 取得產品 api
+      _searchResults = productsData;
+    } else {
+      // whole word search on title and keywords.
+      // this is a somewhat naive search, but is sufficient for demoing the UI.
+      final RegExp q =
+          RegExp('\\b${_searchInputText}s?\\b', caseSensitive: false);
+
+      _searchResults =
+          productsData.where((o) => o.name?.contains(q) ?? false).toList();
+    }
+
+    setState(() {});
   }
 
   /// 卸載資源
@@ -52,9 +89,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    /// 取得產品 api
-    final Product? popularData = ref.watch(productPopularProvider).product;
-
     return RefreshIndicator(
         onRefresh: _loadResource,
         child: CustomScrollView(slivers: [
@@ -108,27 +142,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               //SingleChildScrollView 可滾動
               Column(
                 children: [
+                  Container(
+                    child: _SearchInput(
+                        onSubmit: _handleSearchSubmitted, wonder: productsData),
+                  ),
                   //輪播區塊
-                  SizedBox(
-                      height: Dimensions(context).pageView(),
-                      child: PageView.builder(
-                          controller: pageController,
-                          itemCount: popularData!.products.isEmpty
-                              ? 1
-                              : popularData.products.length,
-                          itemBuilder: (BuildContext context, position) {
-                            return PageViewItem(
-                                index: position,
-                                currPageValue: _currPageValue,
-                                popularProduct: popularData.products[position]);
-                          })),
+                  _searchResults.isEmpty
+                      ? Container(child: Text('找不到資料'))
+                      : SizedBox(
+                          height: Dimensions(context).pageView(),
+                          child: PageView.builder(
+                              controller: pageController,
+                              itemCount: _searchResults.isEmpty
+                                  ? 1
+                                  : _searchResults.length,
+                              itemBuilder: (BuildContext context, position) {
+                                return PageViewItem(
+                                    index: position,
+                                    currPageValue: _currPageValue,
+                                    popularProduct: _searchResults[position]);
+                              })),
 
                   // 點點區塊
-                  Visibility(
-                      child: DotsIndicator(
-                          dotsCount: popularData.products.isEmpty
-                              ? 1
-                              : popularData.products.length,
+                  _searchResults.isEmpty
+                      ? Container()
+                      : DotsIndicator(
+                          dotsCount: _searchResults.length,
                           position: _currPageValue,
                           decorator: DotsDecorator(
                             size: const Size.square(9.0),
@@ -136,7 +175,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             activeColor: $styles.colors.mainColor,
                             activeShape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
-                          ))),
+                          )),
+
                   SizedBox(height: Dimensions(context).height(30)),
                   // Popular title
                   Container(

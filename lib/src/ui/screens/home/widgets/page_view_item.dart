@@ -107,7 +107,7 @@ class PageViewItem extends StatelessWidget {
                           left: Dimensions(context).width(15),
                           right: Dimensions(context).width(15)),
                       child: Column(children: [
-                        BigText(text: 'Taiwan'),
+                        BigText(text: popularProduct.name.toString()),
                         SizedBox(height: Dimensions(context).height(10)),
                         Row(
                           children: [
