@@ -12,3 +12,8 @@ scripts:
   build:android: flutter build appbundle
   build:splash: dart run flutter_native_splash:create
   lint: dart fix --apply
+  deepLink:ios: xcrun simctl openurl booted "appscheme://dwirandyh.medium.com/<路由>
+  deepLink:android: adb shell am start -a android.intent.action.VIEW \
+    -c android.intent.category.BROWSABLE \
+    -d "http://dwirandyh.medium.com/popularDetail/0?pageId=1" \
+    com.example.let_api_flutter
