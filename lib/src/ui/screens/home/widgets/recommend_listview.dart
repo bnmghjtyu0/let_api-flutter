@@ -23,10 +23,19 @@ class RecommendListView extends StatelessWidget {
       }
 
       return SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) =>
-              innerList.isEmpty ? null : innerList[index],
-          childCount: recommendProducts.length,
+        delegate: SliverChildListDelegate(
+          [
+            Wrap(
+              children: [
+                for (int i = 0; i < innerList.length; i++)
+                  Container(
+                    width: context.responsive(Dimensions(context).col12(),
+                        lg: Dimensions(context).col6()),
+                    child: innerList[i],
+                  )
+              ],
+            )
+          ],
         ),
       );
     });

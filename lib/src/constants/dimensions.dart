@@ -12,6 +12,21 @@ class Dimensions {
     return MediaQuery.of(context).size;
   }
 
+  double col3() {
+    double screenWidth = displaySize().width;
+    return screenWidth / 4;
+  }
+
+  double col6() {
+    double screenWidth = displaySize().width;
+    return screenWidth / 2;
+  }
+
+  double col12() {
+    double screenWidth = displaySize().width;
+    return screenWidth / 1;
+  }
+
   double height(double size) {
     double screenHeight = displaySize().height;
     double realSize = 844 / size;

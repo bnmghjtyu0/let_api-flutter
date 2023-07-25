@@ -1,6 +1,9 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
+import 'package:let_api_flutter/src/extensions/responsive.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
@@ -208,6 +211,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ],
           )),
           //推薦清單
+
           RecommendListView()
         ]));
   }
