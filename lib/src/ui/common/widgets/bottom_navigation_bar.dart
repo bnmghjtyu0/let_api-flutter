@@ -53,23 +53,29 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
           selectedItemColor: $styles.colors.mainColor,
           showSelectedLabels: true,
           showUnselectedLabels: true,
+          //相同寬度
+          type: BottomNavigationBarType.fixed,
           onTap: _goBranch,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
-              label: 'Home',
+              label: '探索',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: '搜尋',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.archive),
-              label: 'History',
+              label: '登入',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart),
-              label: 'Cart',
+              label: '歷史',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Me',
+              label: '我的',
             ),
           ],
         ));

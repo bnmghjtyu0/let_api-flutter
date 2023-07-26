@@ -13,7 +13,6 @@ import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
-part './widgets/search_input.dart';
 part './widgets/recommend_listview.dart';
 part './widgets/page_view_item.dart';
 
@@ -29,15 +28,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   //目前輪播位置
   var _currPageValue = 0.0;
 
-  ///搜尋文字
-  String _searchInputText = '';
-
-  ///搜尋結果
-  List<ProductModel> _searchResults = [];
-
-  ///產品資料
-  late List<ProductModel> productsData = [];
-
   PageController pageController = PageController(
       //輪播圖間距
       viewportFraction: 0.82);
@@ -50,33 +40,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         _currPageValue = pageController.page!;
       });
     });
-
-    /// 取得產品 api
-    final Product? popularData = ref.read(productPopularProvider).product;
-    productsData = popularData?.products ?? [];
-    _searchResults = productsData;
-  }
-
-  void _handleSearchSubmitted(String query) {
-    _searchInputText = query;
-    _updateResults();
-  }
-
-  void _updateResults() {
-    if (_searchInputText.isEmpty) {
-      /// 取得產品 api
-      _searchResults = productsData;
-    } else {
-      // whole word search on title and keywords.
-      // this is a somewhat naive search, but is sufficient for demoing the UI.
-      final RegExp q =
-          RegExp('\\b${_searchInputText}s?\\b', caseSensitive: false);
-
-      _searchResults =
-          productsData.where((o) => o.name?.contains(q) ?? false).toList();
-    }
-
-    setState(() {});
   }
 
   /// 卸載資源
@@ -93,6 +56,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<ProductModel> productsData =
+        ref.watch(productPopularProvider).product?.products ?? [];
     return RefreshIndicator(
         onRefresh: _loadResource,
         child: CustomScrollView(slivers: [
@@ -111,6 +76,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             backgroundColor: Colors.white,
             foregroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  color: Colors.white,
+                ),
                 expandedTitleScale: 1,
                 title: AppHeader(
                   isTransparent: true,
@@ -146,32 +114,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               //SingleChildScrollView 可滾動
               Column(
                 children: [
-                  Container(
-                    child: _SearchInput(
-                        onSubmit: _handleSearchSubmitted, wonder: productsData),
-                  ),
                   //輪播區塊
-                  _searchResults.isEmpty
+                  productsData.isEmpty
                       ? Container(child: Text('找不到資料'))
                       : SizedBox(
                           height: Dimensions(context).pageView(),
                           child: PageView.builder(
                               controller: pageController,
-                              itemCount: _searchResults.isEmpty
+                              itemCount: productsData.isEmpty
                                   ? 1
-                                  : _searchResults.length,
+                                  : productsData.length,
                               itemBuilder: (BuildContext context, position) {
                                 return PageViewItem(
                                     index: position,
                                     currPageValue: _currPageValue,
-                                    popularProduct: _searchResults[position]);
+                                    popularProduct: productsData[position]);
                               })),
 
                   // 點點區塊
-                  _searchResults.isEmpty
+                  productsData.isEmpty
                       ? Container()
                       : DotsIndicator(
-                          dotsCount: _searchResults.length,
+                          dotsCount: productsData.length,
                           position: _currPageValue,
                           decorator: DotsDecorator(
                             size: const Size.square(9.0),

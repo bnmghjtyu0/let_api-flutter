@@ -1,60 +1,69 @@
-part of '../home.dart';
+import 'package:go_router/go_router.dart';
+import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/router.dart';
+import 'package:let_api_flutter/src/constants/constants.dart';
+import 'package:let_api_flutter/src/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 
-///推薦列表
-class RecommendListView extends StatelessWidget {
-  const RecommendListView({Key? key}) : super(key: key);
+///搜尋功能－顯示結果
+class SearchView extends StatelessWidget {
+  String inputText;
+  OverlayEntry? overlay;
+  SearchView({Key? key, required this.inputText, this.overlay})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final innerList = <RecommendRow>[];
-
     return Consumer(builder: (context, ref, child) {
-      /** 取得推薦項目 api */
-      final Recommend? recommendData =
-          ref.read(productRecommendProvider).recommend;
+      final product = ref.read(productPopularProvider).product?.products ?? [];
+      final recommend =
+          ref.read(productRecommendProvider).recommend?.products ?? [];
 
-      List<RecommendModel> recommendProducts = recommendData?.products ?? [];
+      final List<dynamic> data = [...product, ...recommend];
+      data.retainWhere((data) =>
+          data.name.toLowerCase().startsWith(inputText.toLowerCase()));
 
-      for (int j = 0; j < recommendProducts.length; j++) {
-        innerList.add(RecommendRow(
-            data: recommendProducts[j],
-            index: j,
-            pageId: recommendProducts[j].id!));
-      }
+      data.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
-      return SliverList(
-        delegate: SliverChildListDelegate(
-          [
-            Wrap(
-              children: [
-                for (int i = 0; i < innerList.length; i++)
-                  SizedBox(
-                    width: context.responsive(Dimensions(context).col12(),
-                        lg: Dimensions(context).col6()),
-                    child: innerList[i],
-                  )
-              ],
-            )
-          ],
-        ),
-      );
+      return Stack(children: [
+        Container(
+            margin: EdgeInsets.only(top: $styles.insets.xxs),
+            width: double.infinity,
+            height: double.infinity,
+            child: Container(
+                padding: EdgeInsets.all($styles.insets.xs),
+                color: $styles.colors.white.withOpacity(0.98),
+                child: ListView(children: [
+                  for (int i = 0; i < data.length; i++)
+                    _Row(
+                        data: data[i],
+                        index: i,
+                        pageId: data[i]?.id ?? '',
+                        overlay: overlay)
+                ]))),
+      ]);
     });
   }
 }
 
-class RecommendRow extends StatelessWidget {
-  final RecommendModel data;
+class _Row extends StatelessWidget {
+  final dynamic data;
   final int index;
   final int pageId;
+  final OverlayEntry? overlay;
 
-  const RecommendRow(
-      {Key? key, required this.data, required this.index, required this.pageId})
-      : super(key: key);
+  const _Row(
+      {required this.data,
+      required this.index,
+      required this.pageId,
+      this.overlay});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: (() {
+          overlay?.remove();
           GoRouter.of(context).push(ScreenPaths.recommendDetail(index, pageId));
         }),
         child: Container(
