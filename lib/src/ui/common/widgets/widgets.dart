@@ -1,5 +1,4 @@
 export 'app_icon.dart';
-export 'base_dialog.dart';
 export 'big_text.dart';
 export 'bottom_navigation_bar.dart';
 export 'button.dart';
