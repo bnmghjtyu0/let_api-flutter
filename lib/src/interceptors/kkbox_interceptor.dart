@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/base_dialog.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/dialogs/base_dialog.dart';
 
 class KkboxInterceptor extends Interceptor {
   static dynamic context;
