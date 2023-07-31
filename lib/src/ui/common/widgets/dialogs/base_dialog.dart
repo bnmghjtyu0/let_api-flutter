@@ -9,7 +9,8 @@ class BaseAlertDialog extends StatelessWidget {
   final Function? noOnPressed;
 
   const BaseAlertDialog(
-      {super.key, required this.title,
+      {super.key,
+      required this.title,
       required this.content,
       required this.yes,
       this.no,
