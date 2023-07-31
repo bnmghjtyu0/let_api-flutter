@@ -60,22 +60,45 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 }
 
 class _Suggestion extends StatelessWidget {
-  List<String> suggestList = ['sweet', 'c'];
+  List<String> suggestList = [
+    '#夏日清爽計畫',
+    '台北',
+    '台南',
+    '宜蘭',
+    '台中',
+    '高雄',
+    '桃園',
+    'ig',
+    '新竹',
+    '直女'
+  ];
   Function(String value) myMethod;
   _Suggestion({Key? key, required this.myMethod}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Row(
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
       children: [
         for (int i = 0; i < suggestList.length; i++)
-          ElevatedButton(
+          SizedBox(
+            height: 30,
+            child: ElevatedButton(
               onPressed: () {
                 myMethod(suggestList[i]);
               },
-              child: Text(suggestList[i]))
+              style: ButtonStyle(
+                shadowColor: MaterialStateProperty.all(Colors.transparent),
+                foregroundColor:
+                    MaterialStateProperty.all(Color.fromRGBO(0, 0, 0, 1)),
+                backgroundColor: MaterialStateProperty.all(
+                    Color.fromRGBO(255, 255, 255, 0.947)),
+              ),
+              child: Text(suggestList[i]),
+            ),
+          )
       ],
-    ));
+    );
   }
 }

@@ -24,6 +24,9 @@ class AppStyle {
   /// 文字樣式
   late final _Text text = _Text(scale);
 
+  /// 按鈕樣式
+  late final _Button button = _Button(scale);
+
   /// 建構式
   AppStyle({Size? screenSize}) {
     if (screenSize == null) {
@@ -116,6 +119,19 @@ class _Text {
         letterSpacing:
             spacingPc != null ? sizePx * spacingPc * 0.01 : style.letterSpacing,
         fontWeight: weight);
+  }
+}
+
+class _Button {
+  _Button(this._scale);
+  final double _scale;
+
+  late final ButtonStyle button_sm = _createButton(ButtonStyle());
+
+  ButtonStyle _createButton(
+    ButtonStyle style,
+  ) {
+    return style.copyWith();
   }
 }
 
