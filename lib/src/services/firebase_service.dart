@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/services/platform.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/dialogs/notification_dialog.dart';
 
 /// firebase 服務
 class CommonFirebaseService {
@@ -63,6 +65,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingForegroundHandler(RemoteMessage message) async {
   if (message.notification != null) {
-    // BaseDialogAction.notification(message);
+    $dialogDispatch.showNotificationDialog(NotificationDialogData(
+        title: message.notification?.title,
+        content: message.notification?.body,
+        data: message.data));
   }
 }
