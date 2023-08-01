@@ -96,114 +96,123 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                                   .getCartHistoryList(),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<CartModel>> snapshot) {
-                                //購物車歷史紀錄列表
-                                List<CartModel> cartHistoryList =
-                                    snapshot.data!;
-                                return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      (() {
-                                        var time = cartHistoryList[i].time;
-                                        DateTime parseDate =
-                                            DateFormat("yyyy-MM-dd HH:mm:ss")
-                                                .parse(time!);
-                                        var inputDate = DateTime.parse(
-                                            parseDate.toString());
-                                        var outputFormat =
-                                            DateFormat("MM/dd/yyyy hh:mm a");
-                                        var outputDate =
-                                            outputFormat.format(inputDate);
-                                        return Text(outputDate);
-                                      }()),
-                                      SizedBox(
-                                          height:
-                                              Dimensions(context).height(10)),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Wrap(
-                                                direction: Axis.horizontal,
-                                                children: List.generate(
-                                                    itemsPreOrder[i], (index) {
-                                                  if (listCounter <
-                                                      cartHistoryList.length) {
-                                                    listCounter++;
-                                                  }
-                                                  //圖片最多放三張
-                                                  return index <= 2
-                                                      ? Container(
-                                                          height: 80,
-                                                          width: 80,
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  right: 10),
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius
-                                                                  .circular(Dimensions(
-                                                                          context)
-                                                                      .radius(
-                                                                          15 /
-                                                                              2)),
-                                                              image: DecorationImage(
-                                                                  image: NetworkImage(ApiConstants
-                                                                          .BASE_URL +
-                                                                      ApiConstants
-                                                                          .UPLOAD_URL +
-                                                                      cartHistoryList[listCounter -
-                                                                              1]
-                                                                          .img))),
-                                                        )
-                                                      : Container();
-                                                })),
-                                            SizedBox(
-                                              height: 80,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Text('Total'),
-                                                  Text(
-                                                    '${itemsPreOrder[i]} Items',
-                                                    style: TextStyle(
-                                                        color: $styles
-                                                            .colors.black),
-                                                  ),
-                                                  Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Dimensions(context)
-                                                                .height(10),
-                                                        vertical:
-                                                            Dimensions(context)
-                                                                .height(10 / 2),
-                                                      ),
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  Dimensions(context)
-                                                                      .radius(
-                                                                          15)),
-                                                          border: Border.all(
-                                                              width: 1,
-                                                              color: $styles
-                                                                  .colors
-                                                                  .mainColor)),
-                                                      child: Text('one more',
-                                                          style: TextStyle(
-                                                              color: $styles
-                                                                  .colors
-                                                                  .mainColor)))
-                                                ],
-                                              ),
-                                            )
-                                          ])
-                                    ]);
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  //購物車歷史紀錄列表
+                                  List<CartModel> cartHistoryList =
+                                      snapshot.data!;
+
+                                  return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        (() {
+                                          var time = cartHistoryList[i].time;
+                                          DateTime parseDate =
+                                              DateFormat("yyyy-MM-dd HH:mm:ss")
+                                                  .parse(time!);
+                                          var inputDate = DateTime.parse(
+                                              parseDate.toString());
+                                          var outputFormat =
+                                              DateFormat("MM/dd/yyyy hh:mm a");
+                                          var outputDate =
+                                              outputFormat.format(inputDate);
+                                          return Text(outputDate);
+                                        }()),
+                                        SizedBox(
+                                            height:
+                                                Dimensions(context).height(10)),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Wrap(
+                                                  direction: Axis.horizontal,
+                                                  children: List.generate(
+                                                      itemsPreOrder[i],
+                                                      (index) {
+                                                    if (listCounter <
+                                                        cartHistoryList
+                                                            .length) {
+                                                      listCounter++;
+                                                    }
+                                                    //圖片最多放三張
+                                                    return index <= 2
+                                                        ? Container(
+                                                            height: 80,
+                                                            width: 80,
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    right: 10),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius
+                                                                    .circular(Dimensions(
+                                                                            context)
+                                                                        .radius(
+                                                                            15 /
+                                                                                2)),
+                                                                image: DecorationImage(
+                                                                    image: NetworkImage(ApiConstants
+                                                                            .BASE_URL +
+                                                                        ApiConstants
+                                                                            .UPLOAD_URL +
+                                                                        cartHistoryList[listCounter -
+                                                                                1]
+                                                                            .img))),
+                                                          )
+                                                        : Container();
+                                                  })),
+                                              SizedBox(
+                                                height: 80,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text('Total'),
+                                                    Text(
+                                                      '${itemsPreOrder[i]} Items',
+                                                      style: TextStyle(
+                                                          color: $styles
+                                                              .colors.black),
+                                                    ),
+                                                    Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                          horizontal:
+                                                              Dimensions(
+                                                                      context)
+                                                                  .height(10),
+                                                          vertical: Dimensions(
+                                                                  context)
+                                                              .height(10 / 2),
+                                                        ),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    Dimensions(context)
+                                                                        .radius(
+                                                                            15)),
+                                                            border: Border.all(
+                                                                width: 1,
+                                                                color: $styles
+                                                                    .colors
+                                                                    .mainColor)),
+                                                        child: Text('one more',
+                                                            style: TextStyle(
+                                                                color: $styles
+                                                                    .colors
+                                                                    .mainColor)))
+                                                  ],
+                                                ),
+                                              )
+                                            ])
+                                      ]);
+                                } else {
+                                  return Container();
+                                }
                               }),
                         ))
                 ])))
