@@ -47,24 +47,22 @@ class CommonFirebaseService {
     // 背景推播
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
+}
 
-  ///背景推播 - 手機上方跳出訊息
-  @pragma('vm:entry-point')
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    // If you're going to use other Firebase services in the background, such as Firestore,
-    // make sure you call `initializeApp` before using other Firebase services.
-    await Firebase.initializeApp();
+///背景推播 - 手機上方跳出訊息
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
 
-    print("Handling a background message: ${message.messageId}");
-  }
+  print("Handling a background message: ${message.messageId}");
+}
 
-  ///前景推播 - 使用 dialog 出現訊息
-  @pragma('vm:entry-point')
-  Future<void> _firebaseMessagingForegroundHandler(
-      RemoteMessage message) async {
-    if (message.notification != null) {
-      // BaseDialogAction.notification(message);
-    }
+///前景推播 - 使用 dialog 出現訊息
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingForegroundHandler(RemoteMessage message) async {
+  if (message.notification != null) {
+    // BaseDialogAction.notification(message);
   }
 }
