@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:let_api_flutter/src/services/platform.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/dialogs/base_dialog_action.dart';
 
 /// firebase 服務
 class CommonFirebaseService {
@@ -65,7 +64,7 @@ class CommonFirebaseService {
   Future<void> _firebaseMessagingForegroundHandler(
       RemoteMessage message) async {
     if (message.notification != null) {
-      BaseDialogAction.notification(message);
+      // BaseDialogAction.notification(message);
     }
   }
 }

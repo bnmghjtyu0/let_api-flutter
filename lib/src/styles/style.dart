@@ -81,7 +81,7 @@ class _Text {
   late final TextStyle h3 =
       _createFont(titleFont, sizePx: 24, heightPx: 36, weight: FontWeight.w500);
   late final TextStyle h4 = _createFont(contentFont,
-      sizePx: 14, heightPx: 23, spacingPc: 5, weight: FontWeight.w600);
+      sizePx: 20, heightPx: 40, spacingPc: 5, weight: FontWeight.w600);
 
   late final TextStyle title1 =
       _createFont(titleFont, sizePx: 16, heightPx: 26, spacingPc: 5);

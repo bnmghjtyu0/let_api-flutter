@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/interceptors/kkbox_interceptor.dart';
 import 'package:let_api_flutter/src/riverpods/providers/appbar_provider.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/dialogs/base_dialog_action.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/dialogs/dispatch.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
 
 class MainLayout extends StatelessWidget {
@@ -14,8 +14,12 @@ class MainLayout extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
+    ///注入 context
     KkboxInterceptor.context = context;
-    BaseDialogAction.context = context;
+
+    ///注入 context
+    DialogHandler.context = context;
+
     return Consumer(builder: (context, ref, child) {
       final appBarState = ref.watch(appBarProvider);
 

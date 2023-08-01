@@ -10,4 +10,8 @@ class AppColors {
   final Color white = Colors.white;
   final Color black = Color.fromRGBO(30, 27, 24, 1);
   final Color red = Color.fromRGBO(255, 51, 51, 1);
+
+  final Color mlDarker = Color.fromRGBO(45, 78, 77, 1);
+  final Color mlNormal = Color.fromRGBO(129, 223, 220, 1);
+  final Color mlNormalHover = Color.fromRGBO(116, 201, 198, 1);
 }

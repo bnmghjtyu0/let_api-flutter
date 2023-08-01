@@ -22,29 +22,31 @@ class DioClient {
 
 ///kkbox api 服務
 class kkboxHttpService {
+  final Dio _dio = DioClient()._dio;
+
   //取得 api 回傳物件
   Future<SearchKKBOX> search() async {
-    final response = await DioClient().dio.get(
-          '/v1.1/search?q=五月天&type=track&territory=TW',
-        );
+    final response = await _dio.get(
+      '/v1.1/search?q=五月天&type=track&territory=TW',
+    );
 
     return SearchKKBOX.fromJson(response.data);
   }
 
   //取得排行榜分類
   Future<ChartsKKBOXResponse> charts() async {
-    final response = await DioClient().dio.get(
-          '/v1.1/charts?territory=TW',
-        );
+    final response = await _dio.get(
+      '/v1.1/charts?territory=TW',
+    );
 
     return ChartsKKBOXResponse.fromJson(response.data);
   }
 
   ///取得各分類的排行榜
   Future<ChartDetailResponse> chartDetail(String id) async {
-    final response = await DioClient().dio.get(
-          '/v1.1/charts/$id?territory=TW',
-        );
+    final response = await _dio.get(
+      '/v1.1/charts/$id?territory=TW',
+    );
 
     return ChartDetailResponse.fromJson(response.data);
   }

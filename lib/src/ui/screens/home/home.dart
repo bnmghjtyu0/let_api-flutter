@@ -35,6 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!;

@@ -3,10 +3,11 @@ import 'package:let_api_flutter/src/styles/style.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_scroll_behavior.dart';
 
 class AppScaffold extends StatelessWidget {
-  const AppScaffold({Key? key, required this.child}) : super(key: key);
   final Widget child;
   static AppStyle get style => _style;
   static final AppStyle _style = AppStyle();
+
+  const AppScaffold({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

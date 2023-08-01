@@ -3,19 +3,29 @@ import 'package:dio/dio.dart';
 
 // service helper for loading json file
 import 'package:let_api_flutter/src/constants/constants.dart';
+import 'package:let_api_flutter/src/interceptors/bsimeiyu_interceptor.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
 
+class DioClient {
+  final Dio _dio = Dio(BaseOptions(
+    /// api endpoint
+    baseUrl: ApiConstants.BASE_URL,
+    connectTimeout: Duration(seconds: 5),
+    receiveTimeout: Duration(seconds: 3),
+    responseType: ResponseType.json,
+  ));
+
+  DioClient() {
+    _dio.interceptors.add(BsimeiyuInterceptor());
+  }
+
+  Dio get dio => _dio;
+}
+
 /// BSL API 服務
 class BslmeiyuService {
-  late final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: ApiConstants.BASE_URL,
-      connectTimeout: Duration(seconds: 5),
-      receiveTimeout: Duration(seconds: 3),
-      responseType: ResponseType.json,
-    ),
-  );
+  final Dio _dio = DioClient()._dio;
 
   ///受歡迎的產品
   Future<Product> productPopular() async {

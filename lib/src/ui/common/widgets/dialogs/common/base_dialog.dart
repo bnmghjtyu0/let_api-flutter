@@ -1,36 +1,38 @@
-import 'package:flutter/material.dart';
+import 'package:let_api_flutter/common_libs.dart';
 
-class BaseAlertDialog extends StatelessWidget {
+class BaseDialog extends StatelessWidget {
   final String title;
   final String content;
-  final String yes;
+  final String? yes;
   final String? no;
-  final Function yesOnPressed;
+  final Function? yesOnPressed;
   final Function? noOnPressed;
 
-  const BaseAlertDialog(
+  const BaseDialog(
       {super.key,
       required this.title,
       required this.content,
-      required this.yes,
+      this.yes,
       this.no,
-      required this.yesOnPressed,
+      this.yesOnPressed,
       this.noOnPressed});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: $styles.colors.white,
       title: Text(title),
       content: Text(content),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       actions: <Widget>[
         FloatingActionButton(
-          // textColor: Colors.greenAccent,
           onPressed: () {
             Navigator.pop(context, 'Cancel');
-            yesOnPressed();
           },
-          child: Text(yes),
+          child: Text(
+            yes ?? '確定',
+            style: TextStyle(color: $styles.colors.white),
+          ),
         ),
         Visibility(
             visible: no != null && noOnPressed != null,

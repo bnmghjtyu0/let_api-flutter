@@ -8,6 +8,7 @@ import 'package:let_api_flutter/src/services/firebase_service.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/styles/material_basil_theme.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/dialogs/dispatch.dart';
 
 //專案起點
 void main() async {
@@ -56,4 +57,8 @@ void registerSingletons() {
 }
 
 // global
+///調用 styles
 AppStyle get $styles => AppScaffold.style;
+
+///調用 dialog
+DialogHandler get $dialogDispatch => DialogHandler();
