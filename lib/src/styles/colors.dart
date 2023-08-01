@@ -14,4 +14,6 @@ class AppColors {
   final Color mlDarker = Color.fromRGBO(45, 78, 77, 1);
   final Color mlNormal = Color.fromRGBO(129, 223, 220, 1);
   final Color mlNormalHover = Color.fromRGBO(116, 201, 198, 1);
+
+  final Color mlWarning = Color.fromRGBO(245, 151, 63, 1);
 }

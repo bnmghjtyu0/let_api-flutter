@@ -1,4 +1,3 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:let_api_flutter/common_libs.dart';
 
 class MlDialog extends StatelessWidget {
@@ -59,23 +58,7 @@ class MlDialog extends StatelessWidget {
                   children: [
                     Center(
                       child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-
-                            // 邊框
-                            side: BorderSide(color: $styles.colors.mlNormal),
-                            //文字顏色
-                            foregroundColor: $styles.colors.mlNormalHover,
-                            //內距
-                            padding: EdgeInsets.symmetric(horizontal: 32),
-                            //圓角
-                            shape: StadiumBorder(),
-                            // 文字樣式
-                            textStyle: GoogleFonts.playfairDisplay(
-                                textStyle: const TextStyle(
-                                    //文字粗細
-                                    fontWeight: FontWeight.w700,
-                                    //文字大小
-                                    fontSize: 16))),
+                        style: $styles.button.outlinePrimary,
                         child: Text('取消'),
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).pop();
@@ -87,39 +70,7 @@ class MlDialog extends StatelessWidget {
                     ),
                     Center(
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-
-                                // 邊框
-                                side:
-                                    BorderSide(color: $styles.colors.mlNormal),
-                                //文字顏色
-                                foregroundColor: Colors.white,
-                                //陰影
-                                shadowColor: Colors.transparent,
-                                //背景色
-                                backgroundColor: $styles.colors.mlNormal,
-                                //內距
-                                padding: EdgeInsets.symmetric(horizontal: 32),
-                                //圓角
-                                shape: StadiumBorder(),
-                                textStyle: GoogleFonts.playfairDisplay(
-                                    textStyle: const TextStyle(
-                                        //文字粗細
-                                        fontWeight: FontWeight.w700,
-                                        //文字大小
-                                        fontSize: 16)))
-                            .copyWith(
-                                //hover 背景顏色
-                                overlayColor:
-                                    MaterialStateProperty.resolveWith<Color?>(
-                                        (Set<MaterialState> states) {
-                          //hover 時的顏色
-                          if (states.contains(MaterialState.hovered)) {
-                            return null;
-                          } else {
-                            return $styles.colors.mlNormalHover;
-                          }
-                        })),
+                        style: $styles.button.elevatedPrimary,
                         child: Text('確認'),
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).pop();

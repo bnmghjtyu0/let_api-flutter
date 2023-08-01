@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'dart:ui';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:let_api_flutter/common_libs.dart';
 export 'colors.dart';
 
@@ -25,7 +26,7 @@ class AppStyle {
   late final _Text text = _Text(scale);
 
   /// 按鈕樣式
-  late final _Button button = _Button(scale);
+  late final _Button button = _Button();
 
   /// 建構式
   AppStyle({Size? screenSize}) {
@@ -123,15 +124,68 @@ class _Text {
 }
 
 class _Button {
-  _Button(this._scale);
-  final double _scale;
+  late final outlinePrimary =
+      _createOutlinedButton($styles.colors.mlNormal, Colors.white);
 
-  late final ButtonStyle button_sm = _createButton(ButtonStyle());
+  late final outlineWarning =
+      _createOutlinedButton($styles.colors.mlWarning, Colors.white);
 
-  ButtonStyle _createButton(
-    ButtonStyle style,
-  ) {
-    return style.copyWith();
+  late final elevatedPrimary =
+      _createElevatedButton(Colors.white, $styles.colors.mlNormal);
+
+  late final elevatedWarning =
+      _createElevatedButton(Colors.white, $styles.colors.mlWarning);
+
+  ButtonStyle _createElevatedButton(textColor, backgroundColor) {
+    return ElevatedButton.styleFrom(
+            // 邊框
+            side: BorderSide(color: backgroundColor),
+            //文字顏色
+            foregroundColor: textColor,
+            //陰影
+            shadowColor: Colors.transparent,
+            //背景色
+            backgroundColor: backgroundColor,
+            //內距
+            padding: EdgeInsets.symmetric(horizontal: 32),
+            //圓角
+            shape: StadiumBorder(),
+            textStyle: GoogleFonts.playfairDisplay(
+                textStyle: const TextStyle(
+                    //文字粗細
+                    fontWeight: FontWeight.w700,
+                    //文字大小
+                    fontSize: 16)))
+        .copyWith(
+            //hover 背景顏色
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+      //hover 時的背景顏色
+      if (states.contains(MaterialState.hovered)) {
+        return null;
+      } else {
+        return $styles.colors.mlNormalHover;
+      }
+    }));
+  }
+
+  ButtonStyle _createOutlinedButton(textColor, backgroundColor) {
+    return OutlinedButton.styleFrom(
+        // 邊框
+        side: BorderSide(color: textColor),
+        //文字顏色
+        foregroundColor: textColor,
+        //內距
+        padding: EdgeInsets.symmetric(horizontal: 32),
+        //圓角
+        shape: StadiumBorder(),
+        // 文字樣式
+        textStyle: GoogleFonts.playfairDisplay(
+            textStyle: const TextStyle(
+                //文字粗細
+                fontWeight: FontWeight.w700,
+                //文字大小
+                fontSize: 16)));
   }
 }
 
