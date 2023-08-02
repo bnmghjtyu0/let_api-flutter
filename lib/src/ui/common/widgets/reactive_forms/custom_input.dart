@@ -6,21 +6,23 @@ class CustomInput extends StatefulWidget {
   String formControlName;
   String? hintText;
   IconData? icon;
+  Widget? suffixIcon;
   final String? errorText;
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
 
-  CustomInput({
-    Key? key,
-    required this.formControlName,
-    this.hintText,
-    this.errorText,
-    this.icon,
-    this.onChanged,
-    this.validator,
-    this.inputFormatters,
-  }) : super(key: key);
+  CustomInput(
+      {Key? key,
+      required this.formControlName,
+      this.hintText,
+      this.errorText,
+      this.icon,
+      this.onChanged,
+      this.validator,
+      this.inputFormatters,
+      this.suffixIcon})
+      : super(key: key);
 
   @override
   State<CustomInput> createState() => _CustomInputState();
@@ -68,13 +70,18 @@ class _CustomInputState extends State<CustomInput> {
       inputFormatters: widget.inputFormatters,
       focusNode: focusNode,
       decoration: InputDecoration(
+        suffixIcon: widget.suffixIcon,
         errorText: widget.errorText,
-        contentPadding: EdgeInsets.only(left: 11, right: 3, top: 14, bottom: 14),
+        contentPadding:
+            EdgeInsets.only(left: 11, right: 3, top: 14, bottom: 14),
         hintText: widget.hintText ?? '',
-        prefixIcon: Icon(
-          widget.icon,
-        ),
-        prefixIconColor: focusNode.hasFocus ? $styles.colors.mainColor : Colors.black,
+        prefixIcon: widget.icon != null
+            ? Icon(
+                widget.icon,
+              )
+            : null,
+        prefixIconColor:
+            focusNode.hasFocus ? $styles.colors.mainColor : Colors.black,
         //預設樣式
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),

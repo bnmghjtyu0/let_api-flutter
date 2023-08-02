@@ -2,45 +2,67 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/constants/dimensions.dart';
 import 'package:let_api_flutter/router.dart';
+import 'package:let_api_flutter/src/constants/dimensions.dart';
 import 'package:let_api_flutter/src/services/validation/register_validation.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_logo.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/app_logo.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_datepicker/custom_datepicker.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_datepicker/custom_datepicker_validator.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_input.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_password.dart';
+import 'package:logger/logger.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 // 註冊頁面
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    //註冊頁表單
-    final FormGroup form = FormGroup({
-      'email': FormControl<String>(
-        value: '',
-        validators: [
-          Validators.delegate((control) => RegisterValidation.emailValidator(
-              control)) // delegates validation to a custom function
-        ],
-      ),
-      'password': FormControl<String>(
-        value: '',
-        validators: [
-          Validators.delegate(
-              (control) => RegisterValidation.passwordValidator(control))
-        ],
-      ),
-      'phone': FormControl<String>(
-        value: '',
-      ),
-      'name': FormControl<String>(
-        value: '',
-      ),
-    });
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
 
+class _RegisterScreenState extends State<RegisterScreen> {
+  //註冊頁表單
+  final FormGroup form = FormGroup({
+    'email': FormControl<String>(
+      value: '',
+      validators: [
+        Validators.delegate((control) => RegisterValidation.emailValidator(
+            control)) // delegates validation to a custom function
+      ],
+    ),
+    'password': FormControl<String>(
+      value: '',
+      validators: [
+        Validators.delegate(
+            (control) => RegisterValidation.passwordValidator(control))
+      ],
+    ),
+    'phone': FormControl<String>(
+      value: '',
+    ),
+    'name': FormControl<String>(
+      value: '',
+    ),
+    'birthday':
+        FormControl<String>(value: '', validators: [BirthdayValidator()]),
+  });
+
+  ///送出
+  submit() {
+    var log = Logger(
+      printer: PrettyPrinter(
+        methodCount: 0,
+      ),
+    );
+    log.d(form.errors);
+    form.markAllAsTouched();
+    if (form.valid) {}
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var signUpImages = ["icon_google.png"];
     return Scaffold(
         body: Column(
@@ -102,12 +124,24 @@ class RegisterScreen extends StatelessWidget {
                                 hintText: 'Name',
                                 icon: Icons.person),
                             SizedBox(height: 20),
+                            CustomDatepicker(
+                                formControl: form.controls['birthday'],
+                                hintText: '請輸入西元年月日(例如：1990/01/01)',
+
+                                ///迄日
+                                firstDate: DateTime(
+                                    DateTime.now().year - 100,
+                                    DateTime.now().month,
+                                    DateTime.now().day - 1),
+
+                                ///起日
+                                lastDate: DateTime(
+                                    DateTime.now().year - 18,
+                                    DateTime.now().month,
+                                    DateTime.now().day - 1)),
+                            SizedBox(height: 20),
                             ElevatedButton(
-                                onPressed: () {
-                                  form.markAllAsTouched();
-                                  if (form.valid) {}
-                                },
-                                child: Text('Submit')),
+                                onPressed: submit, child: Text('Submit')),
                             SizedBox(height: 20),
                             RichText(
                               text: TextSpan(

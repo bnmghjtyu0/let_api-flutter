@@ -81,12 +81,14 @@ class _CustomPasswordState extends State<CustomPassword> {
           },
         ),
         errorText: widget.errorText,
-        contentPadding: EdgeInsets.only(left: 11, right: 3, top: 14, bottom: 14),
+        contentPadding:
+            EdgeInsets.only(left: 11, right: 3, top: 14, bottom: 14),
         hintText: widget.hintText ?? '',
         prefixIcon: Icon(
           widget.icon,
         ),
-        prefixIconColor: focusNode.hasFocus ? $styles.colors.mainColor : Colors.black,
+        prefixIconColor:
+            focusNode.hasFocus ? $styles.colors.mainColor : Colors.black,
         //預設樣式
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
