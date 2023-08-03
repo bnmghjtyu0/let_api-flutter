@@ -63,6 +63,7 @@ dependencies:
   firebase_core: ^2.15.0
   firebase_messaging: ^14.6.5 #推播
   firebase_crashlytics: ^3.3.3 #app realtime crash reporter
+  logger: ^2.0.1
 
 dev_dependencies:
   flutter_test:

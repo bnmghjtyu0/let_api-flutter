@@ -1,11 +1,13 @@
 {
   "security.workspace.trust.enabled": false,
   "dart.lineLength": 80, //程式碼最大長度 120
+
   "[dart]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": true,
       //儲存自動加分號 ;
-      "quickfix.insertSemicolon": true
+      "quickfix.insertSemicolon": true,
+      "source.organizeImports": true
     },
     "editor.rulers": [80], //程式碼最大長度 120
     "editor.selectionHighlight": false,
