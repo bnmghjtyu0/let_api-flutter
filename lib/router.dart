@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
 import 'package:let_api_flutter/src/riverpods/providers/route_provider.dart';
+import 'package:let_api_flutter/src/services/navigation_service.dart';
 import 'package:let_api_flutter/src/ui/common/layout/main_layout.dart';
 import 'package:let_api_flutter/src/ui/screens/account/account_screen.dart';
-import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/cart_screen/cart_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/home/home.dart';
+import 'package:let_api_flutter/src/ui/screens/login/login_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/popular_detail/popular_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/recommend_detail/recommend_detail.dart';
-import 'package:let_api_flutter/src/ui/screens/login/login_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/register/register_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/search/search_screen.dart';
 
@@ -51,7 +53,7 @@ final _foodHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'food');
 final _musicHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'music');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
 
-final _rootNaviagorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
+final _rootNaviagorKey = GetIt.I<NavigationService>().navigatorKey;
 final goRouterProvider = Provider<GoRouter>((ref) {
   final notifier = ref.read(goRouterNotifierProvider);
 

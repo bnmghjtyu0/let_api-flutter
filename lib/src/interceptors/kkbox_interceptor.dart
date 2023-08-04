@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/dialogs/error_dialog.dart';
 
-class KkboxInterceptor extends Interceptor {
-  static dynamic context;
+class KkboxInterceptor {
+  final context = $context;
 
   @override
   void onRequest(

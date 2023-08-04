@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/dialogs/error_dialog.dart';
@@ -10,9 +9,8 @@ class DialogHandlerConfig {
 }
 
 ///調用 dialog 的方法
-class DialogHandler extends Interceptor {
-  /// 在 [MainLayout] 中注入 context
-  static dynamic context;
+class DialogHandler {
+  final context = $context;
 
   ///調用推播 dialog
   void showNotificationDialog(NotificationDialogData data,

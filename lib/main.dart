@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:let_api_flutter/common_libs.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get_it/get_it.dart';
+import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
-import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/services/firebase_service.dart';
+import 'package:let_api_flutter/src/services/navigation_service.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/styles/material_basil_theme.dart';
@@ -53,7 +55,8 @@ Future<void> bootstrap(ProviderContainer ref) async {
 
 /// Create singletons (logic and services) that can be shared across the app.
 void registerSingletons() {
-  // GetIt.I.registerSingleton<Dimensions>(() => Dimensions());
+  ///執行實例 NavigationService Class
+  GetIt.I.registerSingleton<NavigationService>(NavigationService());
 }
 
 // global
@@ -62,3 +65,6 @@ AppStyle get $styles => AppScaffold.style;
 
 ///調用 dialog
 DialogHandler get $dialogDispatch => DialogHandler();
+
+///取得 global context
+BuildContext get $context => GetIt.I<NavigationService>().getContext();
