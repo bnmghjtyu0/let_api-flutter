@@ -24,13 +24,18 @@ class AccountTabletScreen extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),
-                  margin: EdgeInsets.only(left: Dimensions(context).height(60), right: Dimensions(context).height(60)),
-                  width: Dimensions(context).avatarSm(),
-                  height: Dimensions(context).avatarSm(),
+                  margin: EdgeInsets.only(
+                      left: Dimensions.height(60),
+                      right: Dimensions.height(60)),
+                  width: Dimensions.avatarSm(),
+                  height: Dimensions.avatarSm(),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions(context).avatarSm() / 2),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.avatarSm() / 2),
                       color: Colors.blue,
-                      image: DecorationImage(fit: BoxFit.cover, image: AssetImage('assets/images/lake.jpg'))),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/lake.jpg'))),
                 ),
                 Expanded(
                   child: Wrap(
@@ -40,9 +45,12 @@ class AccountTabletScreen extends StatelessWidget {
                       for (var i = 0; i < users.length; i++)
                         Container(
                           width: MediaQuery.of(context).size.width / 2 - 100,
-                          margin: EdgeInsets.only(bottom: Dimensions(context).height(20)),
-                          padding: EdgeInsets.symmetric(horizontal: Dimensions(context).height(20)),
-                          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                          margin:
+                              EdgeInsets.only(bottom: Dimensions.height(20)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.height(20)),
+                          decoration:
+                              BoxDecoration(color: Colors.white, boxShadow: [
                             BoxShadow(
                               blurRadius: 1,
                               offset: const Offset(0, 2),
@@ -53,13 +61,15 @@ class AccountTabletScreen extends StatelessWidget {
                           child: Row(children: [
                             AppIcon(
                               icon: users[i]['icon'],
-                              iconSize: Dimensions(context).height(20),
+                              iconSize: Dimensions.height(20),
                               color: Colors.white,
                               backgroundColor: users[i]['iconBackground'],
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: Dimensions(context).width(20)),
-                              padding: EdgeInsets.symmetric(vertical: Dimensions(context).height(20)),
+                              margin:
+                                  EdgeInsets.only(left: Dimensions.width(20)),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: Dimensions.height(20)),
                               child: Text(users[i]['name']),
                             )
                           ]),

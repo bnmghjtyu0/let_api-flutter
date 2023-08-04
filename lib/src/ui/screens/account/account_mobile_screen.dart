@@ -19,20 +19,25 @@ class AccountMobileScreen extends StatelessWidget {
               backgroundColor: $styles.colors.mainColor,
             ),
             Container(
-              margin: EdgeInsets.only(top: Dimensions(context).height(20), bottom: Dimensions(context).height(20)),
-              width: Dimensions(context).avatarXs(),
-              height: Dimensions(context).avatarXs(),
+              margin: EdgeInsets.only(
+                  top: Dimensions.height(20), bottom: Dimensions.height(20)),
+              width: Dimensions.avatarXs(),
+              height: Dimensions.avatarXs(),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions(context).avatarXs() / 2),
+                  borderRadius:
+                      BorderRadius.circular(Dimensions.avatarXs() / 2),
                   color: Colors.blue,
-                  image: DecorationImage(fit: BoxFit.cover, image: AssetImage('assets/images/lake.jpg'))),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/images/lake.jpg'))),
             ),
             Column(
               children: [
                 for (var i = 0; i < users.length; i++)
                   Container(
-                    margin: EdgeInsets.only(bottom: Dimensions(context).height(20)),
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions(context).height(20)),
+                    margin: EdgeInsets.only(bottom: Dimensions.height(20)),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Dimensions.height(20)),
                     decoration: BoxDecoration(color: Colors.white, boxShadow: [
                       BoxShadow(
                         blurRadius: 1,
@@ -44,13 +49,14 @@ class AccountMobileScreen extends StatelessWidget {
                     child: Row(children: [
                       AppIcon(
                         icon: users[i]['icon'],
-                        iconSize: Dimensions(context).height(20),
+                        iconSize: Dimensions.height(20),
                         color: Colors.white,
                         backgroundColor: users[i]['iconBackground'],
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: Dimensions(context).width(20)),
-                        padding: EdgeInsets.symmetric(vertical: Dimensions(context).height(20)),
+                        margin: EdgeInsets.only(left: Dimensions.width(20)),
+                        padding: EdgeInsets.symmetric(
+                            vertical: Dimensions.height(20)),
                         child: Text(users[i]['name']),
                       )
                     ]),

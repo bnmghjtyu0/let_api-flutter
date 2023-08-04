@@ -14,24 +14,22 @@ class IconAndTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
+    return Flexible(
+      child: Row(children: [
         Icon(icon, color: iconColor),
         SizedBox(width: 5),
-        Container(
-          padding: EdgeInsets.only(right: 0),
-          child: Text(
-            text,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontFamily: 'Roboto',
-              color: Color(0xFF212121),
-              fontWeight: FontWeight.bold,
-            ),
+        Flexible(
+            child: Text(
+          text,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            overflow: TextOverflow.clip,
+            fontSize: 12,
+            color: Color(0xFF212121),
+            fontWeight: FontWeight.bold,
           ),
-        )
-      ],
+        ))
+      ]),
     );
   }
 }

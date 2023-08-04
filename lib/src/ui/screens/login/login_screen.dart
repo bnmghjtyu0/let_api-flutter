@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/router.dart';
+import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/services/validation/register_validation.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_logo.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
+import 'package:let_api_flutter/src/ui/common/widgets/app_logo.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_input.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_password.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -84,8 +84,7 @@ class LoginScreen extends StatelessWidget {
                                 hintText: '密碼',
                                 icon: Icons.password),
                             SizedBox(
-                              height: Dimensions(context).displaySize().height *
-                                  0.05,
+                              height: Dimensions().displaySize().height * 0.05,
                             ),
                             ElevatedButton(
                                 onPressed: () {

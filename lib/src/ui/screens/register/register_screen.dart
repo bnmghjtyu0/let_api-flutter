@@ -155,8 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       color: Colors.grey[500], fontSize: 20)),
                             ),
                             SizedBox(
-                              height: Dimensions(context).displaySize().height *
-                                  0.05,
+                              height: Dimensions().displaySize().height * 0.05,
                             ),
                             RichText(
                               text: TextSpan(

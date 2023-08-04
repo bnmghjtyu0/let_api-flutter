@@ -1,20 +1,20 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/extensions/responsive.dart';
 import 'package:let_api_flutter/src/models/products_model.dart';
-import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/models/recommend_model.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 
-part './widgets/recommend_listview.dart';
 part './widgets/page_view_item.dart';
+part './widgets/recommend_listview.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -51,6 +51,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _loadResource() async {
+    print('132');
     await ref.read(productPopularProvider.notifier).loadProductPopular();
     await ref.read(productRecommendProvider.notifier).loadProductPopular();
   }
@@ -119,7 +120,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   productsData.isEmpty
                       ? Container(child: Text('找不到資料'))
                       : SizedBox(
-                          height: Dimensions(context).pageView(),
+                          height: Dimensions.pageView(),
                           child: PageView.builder(
                               controller: pageController,
                               itemCount: productsData.isEmpty
@@ -146,24 +147,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 borderRadius: BorderRadius.circular(5.0)),
                           )),
 
-                  SizedBox(height: Dimensions(context).height(30)),
+                  SizedBox(height: Dimensions.height(30)),
                   // Popular title
                   Container(
                     margin: EdgeInsets.only(
-                        left: Dimensions(context).width(30),
-                        right: Dimensions(context).width(30)),
+                        left: Dimensions.width(30),
+                        right: Dimensions.width(30)),
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('Recommend', style: $styles.text.h3),
                           SizedBox(
-                            width: Dimensions(context).width(10),
+                            width: Dimensions.width(10),
                           ),
                           Container(
                               margin: EdgeInsets.only(bottom: 3),
                               child: Text('.')),
                           SizedBox(
-                            width: Dimensions(context).width(10),
+                            width: Dimensions.width(10),
                           ),
                           Container(
                               margin: EdgeInsets.only(bottom: 2),

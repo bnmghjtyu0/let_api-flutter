@@ -1,13 +1,13 @@
 import 'package:go_router/go_router.dart';
-import 'package:let_api_flutter/src/models/products_model.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
+import 'package:let_api_flutter/src/constants/constants.dart';
+import 'package:let_api_flutter/src/models/products_model.dart';
+import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/expandable_text.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/ui/screens/popular_detail/widgets/info_column.dart';
 
 class PopularDetail extends ConsumerStatefulWidget {
@@ -71,7 +71,7 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
               child: Container(
                 //double.maxFinite: 最大值
                 width: double.maxFinite,
-                height: Dimensions(context).popularFoodImgSize(),
+                height: Dimensions.popularFoodImgSize(),
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
@@ -81,9 +81,9 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
               )),
 
           Positioned(
-            top: Dimensions(context).height(40),
-            left: Dimensions(context).width(0),
-            right: Dimensions(context).width(0),
+            top: Dimensions.height(40),
+            left: Dimensions.width(0),
+            right: Dimensions.width(0),
             child: AppHeader(
               isTransparent: true,
               showBackBtn: true,
@@ -101,24 +101,22 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
               left: 0,
               right: 0,
               bottom: 0,
-              top: Dimensions(context).popularFoodImgSize() - 20,
+              top: Dimensions.popularFoodImgSize() - 20,
               child: Container(
                   padding: EdgeInsets.only(
-                      left: Dimensions(context).width(20),
-                      right: Dimensions(context).width(20),
-                      top: Dimensions(context).height(20)),
+                      left: Dimensions.width(20),
+                      right: Dimensions.width(20),
+                      top: Dimensions.height(20)),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                          topLeft:
-                              Radius.circular(Dimensions(context).radius(20)),
-                          topRight:
-                              Radius.circular(Dimensions(context).radius(20))),
+                          topLeft: Radius.circular(Dimensions.radius(20)),
+                          topRight: Radius.circular(Dimensions.radius(20))),
                       color: Colors.white),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InfoColumn(title: product.name!),
-                      SizedBox(height: Dimensions(context).height(20)),
+                      SizedBox(height: Dimensions.height(20)),
                       // Introduce
                       BigText(text: 'Introduce'),
                       // expandable text
@@ -130,29 +128,27 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                   ))),
         ]),
         bottomNavigationBar: Container(
-            height: Dimensions(context).bottomHeightBar(),
+            height: Dimensions.bottomHeightBar(),
             padding: EdgeInsets.only(
-                top: Dimensions(context).height(30),
-                bottom: Dimensions(context).height(30),
-                left: Dimensions(context).height(20),
-                right: Dimensions(context).height(20)),
+                top: Dimensions.height(30),
+                bottom: Dimensions.height(30),
+                left: Dimensions.height(20),
+                right: Dimensions.height(20)),
             decoration: BoxDecoration(
                 color: $styles.colors.bottomBackgroundColor,
                 borderRadius: BorderRadius.only(
-                    topLeft:
-                        Radius.circular(Dimensions(context).radius(20) * 2),
-                    topRight:
-                        Radius.circular(Dimensions(context).radius(20) * 2))),
+                    topLeft: Radius.circular(Dimensions.radius(20) * 2),
+                    topRight: Radius.circular(Dimensions.radius(20) * 2))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // 計數器
                 Container(
                     padding: EdgeInsets.only(
-                        top: Dimensions(context).height(20),
-                        bottom: Dimensions(context).height(20),
-                        left: Dimensions(context).width(20),
-                        right: Dimensions(context).width(20)),
+                        top: Dimensions.height(20),
+                        bottom: Dimensions.height(20),
+                        left: Dimensions.width(20),
+                        right: Dimensions.width(20)),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
@@ -165,9 +161,9 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                           child: Icon(Icons.remove,
                               color: $styles.colors.signColor),
                         ),
-                        SizedBox(width: Dimensions(context).width(10) / 2),
+                        SizedBox(width: Dimensions.width(10) / 2),
                         BigText(text: '$quantity '),
-                        SizedBox(width: Dimensions(context).width(10) / 2),
+                        SizedBox(width: Dimensions.width(10) / 2),
                         GestureDetector(
                           onTap: (() {
                             setQuantity(true);
@@ -181,14 +177,14 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 // 加入購物車
                 Container(
                   padding: EdgeInsets.only(
-                      top: Dimensions(context).height(20),
-                      bottom: Dimensions(context).height(20),
-                      left: Dimensions(context).width(20),
-                      right: Dimensions(context).width(20)),
+                      top: Dimensions.height(20),
+                      bottom: Dimensions.height(20),
+                      left: Dimensions.width(20),
+                      right: Dimensions.width(20)),
                   decoration: BoxDecoration(
                       color: $styles.colors.mainColor,
-                      borderRadius: BorderRadius.circular(
-                          Dimensions(context).radius(20))),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.radius(20))),
                   child: GestureDetector(
                     onTap: (() {
                       ref.read(cartProvider.notifier).add(product, inCartItems);

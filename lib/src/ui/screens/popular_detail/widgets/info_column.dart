@@ -13,7 +13,7 @@ class InfoColumn extends StatelessWidget {
     return Consumer(builder: (context, ref, child) {
       return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(title, style: $styles.text.fz26),
-        SizedBox(height: Dimensions(context).width(10)),
+        SizedBox(height: Dimensions.width(10)),
         Row(
           children: [
             Wrap(
@@ -21,15 +21,15 @@ class InfoColumn extends StatelessWidget {
                     5,
                     (index) =>
                         Icon(Icons.star, color: $styles.colors.mainColor))),
-            SizedBox(width: Dimensions(context).width(10)),
+            SizedBox(width: Dimensions.width(10)),
             SmallText(text: '4.5'),
-            SizedBox(width: Dimensions(context).width(10)),
+            SizedBox(width: Dimensions.width(10)),
             SmallText(text: '1287'),
-            SizedBox(width: Dimensions(context).width(10)),
+            SizedBox(width: Dimensions.width(10)),
             SmallText(text: 'comments')
           ],
         ),
-        SizedBox(height: Dimensions(context).width(10)),
+        SizedBox(height: Dimensions.width(10)),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

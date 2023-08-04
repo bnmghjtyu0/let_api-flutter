@@ -1,107 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:let_api_flutter/main.dart';
 
 /// 定義響應式佈局
 /// 如何使用？
-/// Dimensions(context).height(66)
+/// Dimensions(context)._height(66)
 /// 假設寬度為 150 realSize 等於 844(螢幕高度) / 150
 class Dimensions {
-  final BuildContext context;
-  Dimensions(this.context);
+  static final double _width = MediaQuery.of($context).size.width;
+  static final double _height = MediaQuery.of($context).size.height;
 
   Size displaySize() {
-    return MediaQuery.of(context).size;
+    return MediaQuery.of($context).size;
   }
 
-  double col3() {
-    double screenWidth = displaySize().width;
-    return screenWidth / 4;
-  }
+  static double col3() => _width / 4;
 
-  double col6() {
-    double screenWidth = displaySize().width;
-    return screenWidth / 2;
-  }
+  static double col6() => _width / 2;
 
-  double col12() {
-    double screenWidth = displaySize().width;
-    return screenWidth / 1;
-  }
+  static double col12() => _width / 1;
 
-  double height(double size) {
-    double screenHeight = displaySize().height;
+  static double radius(double size) {
     double realSize = 844 / size;
-    return screenHeight / realSize;
+    return _height / realSize;
   }
 
-  double width(int size) {
-    double screenWidth = displaySize().width;
+  static double height(double size) {
     double realSize = 844 / size;
-    return screenWidth / realSize;
+    return _height / realSize;
   }
 
-  double radius(double size) {
-    double screenHeight = displaySize().height;
+  static double width(int size) {
     double realSize = 844 / size;
-    return screenHeight / realSize;
+    return _width / realSize;
   }
 
-  double iconSize(int size) {
-    double screenHeight = displaySize().height;
+  static double iconSize(int size) {
     double realSize = 844 / size;
-    return screenHeight / realSize;
+    return _height / realSize;
   }
 
-  double bottomHeightBar() {
-    double screenHeight = displaySize().height;
-    return screenHeight / 7.03;
+  static double bottomHeightBar() {
+    return _height / 7.03;
   }
 
-  double popularFoodImgSize() {
-    double screenHeight = displaySize().height;
-    return screenHeight / 2.41;
+  static double popularFoodImgSize() {
+    return _height / 2.41;
   }
 
-  double pageView() {
-    double screenHeight = displaySize().height;
-    return screenHeight / 2.64;
+  static double pageView() {
+    return _height / 2.64;
   }
 
-  double pageViewContainer() {
-    double screenHeight = displaySize().height;
-    return screenHeight / 3.84;
+  static double pageViewContainer() {
+    return _height / 3.84;
   }
 
-  double pageViewTextContainer() {
-    double screenHeight = displaySize().height;
-    return screenHeight / 7.03;
+  static double pageViewTextContainer() {
+    return _height / 7.03;
   }
 
-  double listViewImageSize() {
-    double screenWidth = displaySize().width;
-    return screenWidth / 3.25;
+  static double listViewImageSize() {
+    return _width / 3.25;
   }
 
-  double listViewTextContentSize() {
-    double screenWidth = displaySize().width;
-    return screenWidth / 3.9;
+  static double listViewTextContentSize() {
+    return _width / 3.9;
   }
 
-  double splashImg() {
-    double screenHeight = displaySize().height;
-    return screenHeight / 3.37;
+  static double splashImg() {
+    return _height / 3.37;
   }
 
   ///account avatar 手機
-  double avatarXs() {
-    double screenHeight = displaySize().height;
+  static double avatarXs() {
     double realSize = 844 / 200;
-    return screenHeight / realSize;
+    return _height / realSize;
   }
 
   ///account avatar 平板
-  double avatarSm() {
-    double screenHeight = displaySize().width;
+  static double avatarSm() {
     double realSize = 844 / 100;
-    return screenHeight / realSize;
+    return _width / realSize;
   }
 }

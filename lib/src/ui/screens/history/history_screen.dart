@@ -79,9 +79,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
         Expanded(
             child: Container(
                 margin: EdgeInsets.only(
-                  top: Dimensions(context).height(20),
-                  left: Dimensions(context).width(20),
-                  right: Dimensions(context).width(20),
+                  top: Dimensions.height(20),
+                  left: Dimensions.width(20),
+                  right: Dimensions.width(20),
                 ),
                 child: ListView(children: [
                   for (int i = 0; i < itemsPreOrder.length; i++)
@@ -119,9 +119,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                                               outputFormat.format(inputDate);
                                           return Text(outputDate);
                                         }()),
-                                        SizedBox(
-                                            height:
-                                                Dimensions(context).height(10)),
+                                        SizedBox(height: Dimensions.height(10)),
                                         Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -146,11 +144,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                                                                     right: 10),
                                                             decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius
-                                                                    .circular(Dimensions(
-                                                                            context)
-                                                                        .radius(
-                                                                            15 /
-                                                                                2)),
+                                                                    .circular(Dimensions
+                                                                        .radius(15 /
+                                                                            2)),
                                                                 image: DecorationImage(
                                                                     image: NetworkImage(ApiConstants
                                                                             .BASE_URL +
@@ -182,17 +178,16 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                                                         padding: EdgeInsets
                                                             .symmetric(
                                                           horizontal:
-                                                              Dimensions(
-                                                                      context)
-                                                                  .height(10),
-                                                          vertical: Dimensions(
-                                                                  context)
-                                                              .height(10 / 2),
+                                                              Dimensions.height(
+                                                                  10),
+                                                          vertical:
+                                                              Dimensions.height(
+                                                                  10 / 2),
                                                         ),
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius.circular(
-                                                                    Dimensions(context)
+                                                                    Dimensions
                                                                         .radius(
                                                                             15)),
                                                             border: Border.all(

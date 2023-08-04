@@ -1,12 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/constants/constants.dart';
 import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
-import 'package:let_api_flutter/router.dart';
 
 //購物車頁面
 class CartScreen extends ConsumerStatefulWidget {
@@ -71,9 +71,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           body: Stack(
             children: [
               Positioned(
-                top: Dimensions(context).height(0),
-                left: Dimensions(context).width(0),
-                right: Dimensions(context).width(0),
+                top: Dimensions.height(0),
+                left: Dimensions.width(0),
+                right: Dimensions.width(0),
                 child: AppHeader(
                   showCloseBtn: true,
                   isTransparent: true,
@@ -84,16 +84,16 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               ),
               // 商品列表
               Positioned(
-                  top: Dimensions(context).height(20) * 5,
-                  left: Dimensions(context).width(20),
-                  right: Dimensions(context).width(20),
+                  top: Dimensions.height(20) * 5,
+                  left: Dimensions.width(20),
+                  right: Dimensions.width(20),
                   bottom: 0,
                   child: cartState.data.isNotEmpty
                       ? MediaQuery.removePadding(
                           context: context,
                           child: Container(
-                              margin: EdgeInsets.only(
-                                  top: Dimensions(context).height(15)),
+                              margin:
+                                  EdgeInsets.only(top: Dimensions.height(15)),
                               child: ListView.builder(
                                 itemCount: cartNotifier.getItems.length,
                                 itemBuilder: (_, index) {
@@ -104,8 +104,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                   return SizedBox(
                                       width: double.maxFinite,
-                                      height:
-                                          Dimensions(context).height(20) * 5,
+                                      height: Dimensions.height(20) * 5,
                                       child: Row(children: [
                                         //圖片
                                         GestureDetector(
@@ -138,32 +137,32 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                           },
                                           child: Container(
                                               margin: EdgeInsets.only(
-                                                  bottom: Dimensions(context)
-                                                      .height(10)),
-                                              width: Dimensions(context).height(20) *
-                                                  5,
-                                              height: Dimensions(context).height(20) *
-                                                  5,
+                                                  bottom:
+                                                      Dimensions.height(10)),
+                                              width: Dimensions.height(20) * 5,
+                                              height: Dimensions.height(20) * 5,
                                               decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                       fit: BoxFit.cover,
                                                       image: NetworkImage(
-                                                          ApiConstants.BASE_URL +
+                                                          ApiConstants
+                                                                  .BASE_URL +
                                                               ApiConstants
                                                                   .UPLOAD_URL +
                                                               item.img)),
                                                   borderRadius:
-                                                      BorderRadius.circular(Dimensions(context).radius(20)),
+                                                      BorderRadius.circular(
+                                                          Dimensions.radius(
+                                                              20)),
                                                   color: Colors.white)),
                                         ),
                                         SizedBox(
-                                          width: Dimensions(context).width(10),
+                                          width: Dimensions.width(10),
                                         ),
                                         Expanded(
                                             child: SizedBox(
-                                                height: Dimensions(context)
-                                                        .height(20) *
-                                                    5,
+                                                height:
+                                                    Dimensions.height(20) * 5,
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -188,22 +187,21 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                         // 計數器 + 0 -
                                                         Container(
                                                             padding: EdgeInsets.only(
-                                                                top: Dimensions(context)
+                                                                top: Dimensions
                                                                     .height(10),
-                                                                bottom: Dimensions(
-                                                                        context)
+                                                                bottom: Dimensions
                                                                     .height(10),
-                                                                left: Dimensions(
-                                                                        context)
+                                                                left: Dimensions
                                                                     .width(20),
-                                                                right: Dimensions(
-                                                                        context)
+                                                                right: Dimensions
                                                                     .width(20)),
                                                             decoration: BoxDecoration(
                                                                 color: Colors
                                                                     .white,
                                                                 borderRadius:
-                                                                    BorderRadius.circular(20)),
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
                                                             child: Row(
                                                               children: [
                                                                 GestureDetector(
@@ -221,8 +219,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                                           .signColor),
                                                                 ),
                                                                 SizedBox(
-                                                                    width: Dimensions(context)
-                                                                            .width(10) /
+                                                                    width: Dimensions.width(
+                                                                            10) /
                                                                         2),
                                                                 // 計數器的數字
                                                                 BigText(
@@ -233,8 +231,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                                         .quantity
                                                                         .toString()),
                                                                 SizedBox(
-                                                                    width: Dimensions(context)
-                                                                            .width(10) /
+                                                                    width: Dimensions.width(
+                                                                            10) /
                                                                         2),
                                                                 GestureDetector(
                                                                   onTap: (() {
@@ -263,55 +261,52 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           ),
           bottomNavigationBar: cartState.data.isNotEmpty
               ? Container(
-                  height: Dimensions(context).bottomHeightBar(),
+                  height: Dimensions.bottomHeightBar(),
                   padding: EdgeInsets.only(
-                      top: Dimensions(context).height(30),
-                      bottom: Dimensions(context).height(30),
-                      left: Dimensions(context).height(20),
-                      right: Dimensions(context).height(20)),
+                      top: Dimensions.height(30),
+                      bottom: Dimensions.height(30),
+                      left: Dimensions.height(20),
+                      right: Dimensions.height(20)),
                   decoration: BoxDecoration(
                       color: $styles.colors.bottomBackgroundColor,
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(
-                              Dimensions(context).radius(20) * 2),
-                          topRight: Radius.circular(
-                              Dimensions(context).radius(20) * 2))),
+                          topLeft: Radius.circular(Dimensions.radius(20) * 2),
+                          topRight:
+                              Radius.circular(Dimensions.radius(20) * 2))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // 計數器
                       Container(
                           padding: EdgeInsets.only(
-                              top: Dimensions(context).height(20),
-                              bottom: Dimensions(context).height(20),
-                              left: Dimensions(context).width(20),
-                              right: Dimensions(context).width(20)),
+                              top: Dimensions.height(20),
+                              bottom: Dimensions.height(20),
+                              left: Dimensions.width(20),
+                              right: Dimensions.width(20)),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20)),
                           child: Row(
                             children: [
-                              SizedBox(
-                                  width: Dimensions(context).width(10) / 2),
+                              SizedBox(width: Dimensions.width(10) / 2),
                               BigText(
                                   text:
                                       '\$ ${cartNotifier.totalAmount.toString()}'),
-                              SizedBox(
-                                  width: Dimensions(context).width(10) / 2),
+                              SizedBox(width: Dimensions.width(10) / 2),
                             ],
                           )),
 
                       // price + Add to cart
                       Container(
                         padding: EdgeInsets.only(
-                            top: Dimensions(context).height(20),
-                            bottom: Dimensions(context).height(20),
-                            left: Dimensions(context).width(20),
-                            right: Dimensions(context).width(20)),
+                            top: Dimensions.height(20),
+                            bottom: Dimensions.height(20),
+                            left: Dimensions.width(20),
+                            right: Dimensions.width(20)),
                         decoration: BoxDecoration(
                             color: $styles.colors.mainColor,
-                            borderRadius: BorderRadius.circular(
-                                Dimensions(context).radius(20))),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius(20))),
                         // 結帳: 點結帳後，清空購物車的商品，加入歷史購買紀錄
                         child: GestureDetector(
                           onTap: (() {

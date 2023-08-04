@@ -18,7 +18,7 @@ class PageViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
-      double height = Dimensions(context).pageViewContainer();
+      double height = Dimensions.pageViewContainer();
 
       //目前選擇的圖片
       if (index == currPageValue.floor()) {
@@ -59,11 +59,11 @@ class PageViewItem extends StatelessWidget {
                     .push(ScreenPaths.popularDetail(index, popularProduct.id!));
               }),
               child: Container(
-                  height: Dimensions(context).pageViewContainer(),
+                  height: Dimensions.pageViewContainer(),
                   margin: EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.circular(Dimensions(context).radius(30)),
+                          BorderRadius.circular(Dimensions.radius(30)),
                       color:
                           index.isEven ? $styles.colors.mainColor : Colors.blue,
                       image: DecorationImage(
@@ -77,14 +77,14 @@ class PageViewItem extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                  height: Dimensions(context).pageViewTextContainer(),
+                  height: Dimensions.pageViewTextContainer(),
                   margin: EdgeInsets.only(
-                      left: Dimensions(context).width(30),
-                      right: Dimensions(context).width(30),
-                      bottom: Dimensions(context).height(30)),
+                      left: Dimensions.width(30),
+                      right: Dimensions.width(30),
+                      bottom: Dimensions.height(30)),
                   decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.circular(Dimensions(context).radius(30)),
+                          BorderRadius.circular(Dimensions.radius(30)),
                       color: Colors.white,
                       boxShadow: const [
                         BoxShadow(
@@ -96,12 +96,12 @@ class PageViewItem extends StatelessWidget {
                       ]),
                   child: Container(
                       padding: EdgeInsets.only(
-                          top: Dimensions(context).height(10),
-                          left: Dimensions(context).width(15),
-                          right: Dimensions(context).width(15)),
+                          top: Dimensions.height(10),
+                          left: Dimensions.width(15),
+                          right: Dimensions.width(15)),
                       child: Column(children: [
                         BigText(text: popularProduct.name.toString()),
-                        SizedBox(height: Dimensions(context).height(10)),
+                        SizedBox(height: Dimensions.height(10)),
                         Row(
                           children: [
                             Wrap(
@@ -109,15 +109,15 @@ class PageViewItem extends StatelessWidget {
                                     5,
                                     (index) => Icon(Icons.star,
                                         color: $styles.colors.mainColor))),
-                            SizedBox(width: Dimensions(context).width(10)),
+                            SizedBox(width: Dimensions.width(10)),
                             SmallText(text: '4.5'),
-                            SizedBox(width: Dimensions(context).width(10)),
+                            SizedBox(width: Dimensions.width(10)),
                             SmallText(text: '1287'),
-                            SizedBox(width: Dimensions(context).width(10)),
+                            SizedBox(width: Dimensions.width(10)),
                             SmallText(text: 'comments')
                           ],
                         ),
-                        SizedBox(height: Dimensions(context).height(10)),
+                        SizedBox(height: Dimensions.height(10)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

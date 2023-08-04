@@ -68,14 +68,14 @@ class _Row extends StatelessWidget {
         }),
         child: Container(
           margin: EdgeInsets.only(
-              left: Dimensions(context).width(20),
-              right: Dimensions(context).width(20),
-              bottom: Dimensions(context).height(10)),
+              left: Dimensions.width(20),
+              right: Dimensions.width(20),
+              bottom: Dimensions.height(10)),
           child: Row(children: [
             //image section
             SizedBox(
-                width: Dimensions(context).listViewImageSize(),
-                height: Dimensions(context).listViewImageSize(),
+                width: Dimensions.listViewImageSize(),
+                height: Dimensions.listViewImageSize(),
                 child: Image.network(
                     ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + data.img!,
                     loadingBuilder: (context, child, loadingProgress) {
@@ -89,26 +89,24 @@ class _Row extends StatelessWidget {
             // text container
             Expanded(
               child: Container(
-                  height: Dimensions(context).listViewTextContentSize(),
+                  height: Dimensions.listViewTextContentSize(),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                          topRight:
-                              Radius.circular(Dimensions(context).radius(20)),
-                          bottomRight:
-                              Radius.circular(Dimensions(context).radius(20)))),
+                          topRight: Radius.circular(Dimensions.radius(20)),
+                          bottomRight: Radius.circular(Dimensions.radius(20)))),
                   child: Padding(
                       padding: EdgeInsets.only(
-                          left: Dimensions(context).width(10),
-                          right: Dimensions(context).width(10)),
+                          left: Dimensions.width(10),
+                          right: Dimensions.width(10)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           BigText(text: data.name!),
-                          SizedBox(height: Dimensions(context).height(10)),
+                          SizedBox(height: Dimensions.height(10)),
                           SmallText(text: 'With Taiwan characteristic'),
-                          SizedBox(height: Dimensions(context).height(10)),
+                          SizedBox(height: Dimensions.height(10)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

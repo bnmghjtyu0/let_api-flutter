@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:let_api_flutter/common_libs.dart';
@@ -43,9 +44,11 @@ void main() async {
 Future<void> bootstrap(ProviderContainer ref) async {
   debugPrint('bootstrap start...');
   //載入 firebase 服務
-  await Firebase.initializeApp();
-  await CommonFirebaseService().initCrash();
-  await CommonFirebaseService().initNotifications();
+  if (!kIsWeb) {
+    await Firebase.initializeApp();
+    await CommonFirebaseService().initCrash();
+    await CommonFirebaseService().initNotifications();
+  }
   //載入 api
   await ref.read(productPopularProvider.notifier).loadProductPopular();
   await ref.read(productRecommendProvider.notifier).loadProductPopular();
