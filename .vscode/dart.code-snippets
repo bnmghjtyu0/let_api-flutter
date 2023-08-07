@@ -1,6 +1,6 @@
 {
   "Stateless widget snippet": {
-    "prefix": "fstless",
+    "prefix": "stl",
     "body": [
       "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} extends StatelessWidget {",
       "const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}({ Key? key }) : super(key: key);",
@@ -14,7 +14,7 @@
     "description": "StatelessWidget snippet"
   },
   "Stateful widget snippet": {
-    "prefix": "fstful",
+    "prefix": "stf",
     "description": "Insert a StatefulWidget",
     "body": [
       "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} extends StatefulWidget {",
@@ -35,7 +35,7 @@
     ]
   },
   "Scaffold widget snippet": {
-    "prefix": "fscaff",
+    "prefix": "scaffold",
     "body": [
       "Scaffold(",
       "  appBar: AppBar(",
@@ -47,27 +47,17 @@
     "description": "Scaffold widget snippet"
   },
   "EdgeInsets widget snippet with named constructor `all`": {
-    "prefix": "fedgall",
+    "prefix": "edgeall",
     "body": ["EdgeInsets.all(${1:32.0})${0}"],
     "description": "EdgeInsets widget snippet with named constructor `all`"
   },
   "Text widget snippet": {
-    "prefix": "ftxt",
+    "prefix": "text",
     "body": ["${1:const} Text('${2:text}')${0}"],
     "description": "Text widget snippet"
   },
-  "Dart Public Instance variable snippet": {
-    "prefix": "dinvar",
-    "body": ["${1:dynamic} ${2:variableName}${0}"],
-    "description": "Instance variable snippet"
-  },
-  "Dart Private instance variable snippet": {
-    "prefix": "dprinvar",
-    "body": ["${1:dynamic} _${2:variableName};${0}"],
-    "description": "Dart Private instance variable snippet"
-  },
   "Flutter initState lifecycle method snippet": {
-    "prefix": "finitlf",
+    "prefix": "initState",
     "body": [
       "@override",
       "void initState() {",
@@ -77,86 +67,64 @@
     ],
     "description": "Flutter initState lifecycle method"
   },
-  "Dart private method snippet": {
-    "prefix": "dprmt",
-    "body": ["${1:void} _${2:methodName}(${3}) ${4}{", "  ${0}", "}"],
-    "description": "Dart private method snippet"
-  },
-  "Dart optional named parameters constructor snippet": {
-    "prefix": "dopnctor",
-    "body": ["${1:constructorName}({${2}});${0}"],
-    "description": "Dart optional named parameters constructor snippet"
-  },
   "Flutter Icon widget snippet": {
-    "prefix": "fic",
+    "prefix": "icon",
     "body": ["Icon(Icons.${1:clear})${0}"],
     "description": "Flutter Icon widget snippet"
   },
   "Flutter Container widget snippet": {
-    "prefix": "fcont",
-    "body": ["Container(", "  child: ${1:Widget}(${0}),", ")"],
+    "prefix": "container",
+    "body": ["Container(", "  child: $1,", ")"],
     "description": "Flutter Container widget snippet"
   },
   "Flutter Center widget snippet": {
-    "prefix": "fcent",
-    "body": ["Center(", "  child: ${1:Widget}(${0}),", ")"],
+    "prefix": "center",
+    "body": ["Center(", "  child: $1,", ")"],
+    "description": "Flutter Center widget snippet"
+  },
+  "Flutter Flex widget snippet": {
+    "prefix": "flex",
+    "body": ["Flexible(", "  child: $1,", ")"],
     "description": "Flutter Center widget snippet"
   },
   "Flutter Row widget snippet": {
-    "prefix": "frow",
+    "prefix": "row",
     "body": ["Row(", "  children: <Widget>[${0}],", ")"],
     "description": "Flutter Row widget snippet"
   },
   "Flutter Column widget snippet": {
-    "prefix": "fcol",
+    "prefix": "col",
     "body": ["Column(", "  children: <Widget>[${0}],", ")"],
     "description": "Flutter Column widget snippet"
   },
   "SizedBox widget snippet with width and height arguments": {
-    "prefix": "fszb",
+    "prefix": "sizedboxall",
     "body": ["SizedBox(width: ${1:0.0}, height: ${2:0.0})${0}"],
     "description": "SizedBox widget with width and height arguments"
   },
-  "SizedBox widget snippet with just width argument": {
-    "prefix": "fszbw",
-    "body": ["SizedBox(", "  width: ${1:0.0},${0}", ")"],
-    "description": "SizedBox widget snippet with just width argument"
-  },
-  "SizedBox widget snippet with just height argument": {
-    "prefix": "fszbh",
-    "body": ["SizedBox(", "  height: ${1:0.0},${0}", ")"],
-    "description": "SizedBox widget snippet with just height argument"
-  },
   "Expand widget snippet": {
-    "prefix": "fex",
+    "prefix": "expanded",
     "body": ["Expanded(", "  child: ${1:null},${0}", ")"],
     "description": "Expand widget snippet"
   },
   "EdgeInsets widget snippet with named constructor `only`": {
-    "prefix": "fedgonly",
+    "prefix": "edgeonly",
     "body": ["EdgeInsets.only(${1})${0}"],
     "description": "EdgeInsets widget snippet with named constructor `only`"
   },
-  "EdgeInsets widget snippet with symmetric contructor `symmetric`": {
-    "prefix": "fedgsym",
-    "body": [
-      "EdgeInsets.symmetric(vertical: ${1:8.0}, horizontal: ${2:8.0},)${0}"
-    ],
+  "EdgeInsets widget snippet with symmetric horizontal": {
+    "prefix": "edgesymhorizontal",
+    "body": ["EdgeInsets.symmetric( horizontal: ${2:8.0},)${0}"],
     "description": "EdgeInsets widget snippet with named constructor `symmetric`"
   },
-  "EdgeInsets widget snippet with symmetric contructor `symmetric` with only vertical parameter": {
-    "prefix": "fedgsymv",
-    "body": ["EdgeInsets.symmetric(vertical: ${1:8.0},)${0}"],
-    "description": "EdgeInsets widget snippet with named constructor `symmetric` with only vertical parameter"
-  },
-  "EdgeInsets widget snippet with symmetric contructor `symmetric` with only horizontal parameter": {
-    "prefix": "fedgsymh",
-    "body": ["EdgeInsets.symmetric(horizontal: ${1:8.0},)${0}"],
-    "description": "EdgeInsets widget snippet with named constructor `symmetric` with only horizontal parameter"
+  "EdgeInsets widget snippet with symmetric vertial": {
+    "prefix": "edgesymvertial",
+    "body": ["EdgeInsets.symmetric(vertical: ${1:8.0}"],
+    "description": "EdgeInsets widget snippet with named constructor `symmetric`"
   },
   "Dart `List` collection snippet": {
     "prefix": "dlist",
-    "body": ["List<${1:dynamic}> ${2:listName}${0}"],
+    "body": ["List<num> listName = [1, 2, 3];"],
     "description": "Dart `List` collection snippet"
   },
   "Dart `Map` collection snippet": {
@@ -170,87 +138,42 @@
     "description": "Dart `Set` collection snippet"
   },
   "Dart arrow function getter snippet": {
-    "prefix": "dgetarr",
+    "prefix": "dgetter",
     "body": ["${1:dynamic} get ${2:name} => ${3:returnValue};${0}"],
     "description": "Dart arrow function getter snippet"
   },
   "Dart `import as` snippet": {
-    "prefix": "dimpas",
+    "prefix": "importas",
     "body": ["import '${1:packageName}' as ${2:alias}${0};"],
     "description": "Dart `import as` snippet"
   },
   "Dart `import show` snippet": {
-    "prefix": "dimpshow",
+    "prefix": "importshow",
     "body": ["import '${1:packageName}' show ${2:member}${0};"],
     "description": "Dart `import show` snippet"
   },
   "Dart `import deffered as` snippet": {
-    "prefix": "dimplazy",
+    "prefix": "importlazy",
     "body": ["import '${1:packageName}' deferred as ${2:alias}${0};"],
     "description": "Dart `import deffered as` snippet"
   },
   "Dart `import hide` snippet": {
-    "prefix": "dimphide",
+    "prefix": "importhide",
     "body": ["import '${1:packageName}' hide ${2:excludedMember}${0};"],
     "description": "Dart `import hide` snippet"
   },
   "Dart `export hide` snippet": {
-    "prefix": "dexhide",
+    "prefix": "exporthide",
     "body": ["export '${1:file}' hide ${2:excludedMember}${0};"],
     "description": "Dart `export hide` snippet"
   },
   "Dart `export show` snippet": {
-    "prefix": "dexshow",
+    "prefix": "exportshow",
     "body": ["export '${1:file}' show ${2:member}${0};"],
     "description": "Dart `export show` snippet"
   },
-  "Dart public method snippet": {
-    "prefix": "dmt",
-    "body": ["${1:void} ${2:methodName}(${3}) ${4}{", "  ${0}", "}"],
-    "description": "Dart public method snippet"
-  },
-  "Dart `convert` lib import snippet": {
-    "prefix": "dconvert",
-    "body": ["import 'dart:convert'${0};"],
-    "description": "Dart `convert` lib import snippet"
-  },
-  "Dart `var` variable declaration snippet": {
-    "prefix": "dvar",
-    "body": ["${1:var} ${2:variableName}${0}"],
-    "description": "Dart `var` variable declaration snippet"
-  },
-  "Dart `final` variable declaration snippet": {
-    "prefix": "dfinal",
-    "body": ["final ${1:type} ${2:variableName} ${3:= }${0};"],
-    "description": "Dart `final` variable declaration snippet"
-  },
-  "Dart `const` variable declaration snippet": {
-    "prefix": "dconst",
-    "body": ["const ${1:type} ${2:variableName} ${3:= }${0};"],
-    "description": "Dart `const` variable declaration snippet"
-  },
-  "Dart public arrow function snippet": {
-    "prefix": "darr",
-    "body": ["${1:Object} ${2:methodName}(${3}) ${4}=> ${0};"],
-    "description": "Dart public arrow function snippet"
-  },
-  "Dart private arrow function snippet": {
-    "prefix": "dprarr",
-    "body": ["${1:Object} _${2:methodName}(${3}) ${4}=> ${0};"],
-    "description": "Dart private arrow function snippet"
-  },
-  "Add material's package import statement": {
-    "prefix": "fimpmat",
-    "body": ["import 'package:flutter/material.dart';"],
-    "description": "Add material's package import statement"
-  },
-  "Add meta package import statement": {
-    "prefix": "dimpmeta",
-    "body": ["import 'package:meta/meta.dart';"],
-    "description": "Add meta package import statement"
-  },
   "Flutter StreamBuilder widget snippet": {
-    "prefix": "fstream",
+    "prefix": "streambuilder",
     "body": [
       "StreamBuilder<${1:dynamic}>(        ",
       "  stream: ${2:yourStream},",
@@ -269,8 +192,9 @@
     ],
     "description": "Flutter StreamBuilder widget snippet"
   },
+
   "Flutter ElevatedButton snippet": {
-    "prefix": "felbtn",
+    "prefix": "btnelevated",
     "body": [
       "ElevatedButton(",
       "  child: const Text('${1:Button label}'),",
@@ -279,44 +203,133 @@
     ],
     "description": "Flutter ElevatedButton snippet"
   },
-  "Flutter bloc provider snippet": {
-    "prefix": "fblocprov",
+  "Flutter OutlinedButton snippet": {
+    "prefix": "btnoutlined",
     "body": [
-      "class ${1:Bloc}Provider extends InheritedWidget {",
-      "  final ${2:BlocTypeName} bloc = ${2:BlocTypeName}();",
-      "",
-      "  ${1:Bloc}Provider({Key key, Widget child})",
-      "      : super(key: key, child: child);",
-      "",
-      "  @override",
-      "  bool updateShouldNotify(InheritedWidget oldWidget) => true;",
-      "",
-      "  static ${2:BlocTypeName} of(BuildContext context) {",
-      "    return (context.inheritFromWidgetOfExactType(${1:Bloc}Provider)",
-      "            as ${1:Bloc}Provider)",
-      "        .bloc;",
-      "  }",
-      "}"
+      "OutlinedButton(",
+      "  child: const Text('${1:Button label}'),",
+      "  onPressed: () {},",
+      ")${0}"
     ],
-    "description": "Flutter bloc provider snippet"
+    "description": "Flutter ElevatedButton snippet"
   },
-  "Dart anonymous function": {
-    "prefix": "dan",
-    "body": ["(${1}) ${2}{${0}}"],
-    "description": "Dart anonymous function"
-  },
-  "Dart Class snippet": {
-    "prefix": "dcla",
-    "body": ["class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {", "${0}", "}"],
-    "description": "Dart Class snippet"
-  },
-  "Dart Class snippet with extends keyword": {
-    "prefix": "dclae",
+  "Flutter TextButton snippet": {
+    "prefix": "btntextbutton",
     "body": [
-      "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} extends ${2} {",
-      "  ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(${0}) : super();",
-      "}"
+      "TextButton(",
+      "  child: const Text('${1:Button label}'),",
+      "  onPressed: () {},",
+      ")${0}"
     ],
-    "description": "Dart Class snippet with extends keyword"
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "Flutter link snippet": {
+    "prefix": "btnlink",
+    "body": [
+      " RichText(",
+      " text: TextSpan(",
+      " recognizer: TapGestureRecognizer()",
+      " ..onTap = () {",
+      " launchUrl(Uri.parse(",
+      " 'https://www.google.com'));",
+      " // GoRouter.of(context)",
+      " //     .go(ScreenPaths.register());",
+      " },",
+      " text: 'google',",
+      " style: TextStyle(",
+      " fontWeight: FontWeight.normal,",
+      " fontSize: 18,",
+      " color: Colors.blue,",
+      " decoration: TextDecoration.underline))),"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "Flutter btn label snippet": {
+    "prefix": "btnlabel",
+    "body": [
+      "          SizedBox(",
+      "            height: 30,",
+      "            child: ElevatedButton(",
+      "              onPressed: () {",
+      "                myMethod(suggestList[i]);",
+      "              },",
+      "              style: ButtonStyle(",
+      "                shadowColor: MaterialStateProperty.all(Colors.transparent),",
+      "                foregroundColor:",
+      "                    MaterialStateProperty.all(Color.fromRGBO(0, 0, 0, 1)),",
+      "                backgroundColor: MaterialStateProperty.all(",
+      "                    Color.fromRGBO(255, 255, 255, 0.947)),",
+      "              ),",
+      "              child: Text('label'),",
+      "            ),",
+      "          )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "col-2 snippet": {
+    "prefix": "col-2",
+    "body": [
+      "SizedBox(",
+      " width: MediaQuery.of(context).size.width * 6 / 12,",
+      " child: Text('123'),",
+      ")"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "col-3 snippet": {
+    "prefix": "col-3",
+    "body": [
+      "SizedBox(",
+      " width: MediaQuery.of(context).size.width * 4 / 12,",
+      " child: Text('123'),",
+      ")"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "col-4 snippet": {
+    "prefix": "col-4",
+    "body": [
+      "SizedBox(",
+      " width: MediaQuery.of(context).size.width * 3 / 12,",
+      " child: Text('123'),",
+      ")"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "col-5 snippet": {
+    "prefix": "col-5",
+    "body": [
+      "SizedBox(",
+      " width: MediaQuery.of(context).size.width * 2 / 10,",
+      " child: Text('123'),",
+      ")"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "col-6 snippet": {
+    "prefix": "col-6",
+    "body": [
+      "SizedBox(",
+      " width: MediaQuery.of(context).size.width * 2 / 12,",
+      " child: Text('123'),",
+      ")"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "forloop snippet": {
+    "prefix": "forloop",
+    "body": ["for(int i=0;i< 6;i++) "],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "label snippet": {
+    "prefix": "label",
+    "body": [
+      "Chip(",
+      "  avatar: CircleAvatar(",
+      "      backgroundColor: Colors.blue, child: Text('M')),",
+      "  label: Text('Lafayette')",
+      ")"
+    ],
+    "description": "Flutter ElevatedButton snippet"
   }
 }
