@@ -26,6 +26,11 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
 
   /// Bottom Navigation Bar 切換頁面
   void _goBranch(int index) {
+    ///點擊首頁時，滑動到最上面，並刷新 API
+    if (index == 0) {
+      $refreshIndicatorService.homeKey.currentState?.show();
+      $scrollService.scrollToTop($scrollService.scrollController);
+    }
     widget.navigationShell.goBranch(
       index,
       initialLocation: index == widget.navigationShell.currentIndex,

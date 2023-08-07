@@ -10,6 +10,8 @@ import 'package:let_api_flutter/src/services/firebase_service.dart';
 import 'package:let_api_flutter/src/services/navigation_service.dart';
 import 'package:let_api_flutter/src/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/services/refresh_indicator_service.dart';
+import 'package:let_api_flutter/src/services/scroll_service.dart';
 import 'package:let_api_flutter/src/styles/material_basil_theme.dart';
 import 'package:let_api_flutter/src/ui/common/widgets/dialogs/dispatch.dart';
 
@@ -60,6 +62,8 @@ Future<void> bootstrap(ProviderContainer ref) async {
 void registerSingletons() {
   ///執行實例 NavigationService Class
   GetIt.I.registerSingleton<NavigationService>(NavigationService());
+  GetIt.I.registerSingleton<RefreshIndicatorService>(RefreshIndicatorService());
+  GetIt.I.registerSingleton<ScrollService>(ScrollService());
 }
 
 // global
@@ -71,3 +75,10 @@ DialogHandler get $dialogDispatch => DialogHandler();
 
 ///取得 global context
 BuildContext get $context => GetIt.I<NavigationService>().getContext();
+
+///取得下拉刷新元件服務
+RefreshIndicatorService get $refreshIndicatorService =>
+    GetIt.I<RefreshIndicatorService>();
+
+///取得 Scroll 服務
+ScrollService get $scrollService => GetIt.I<ScrollService>();
