@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/dimensions.dart';
-import 'package:let_api_flutter/src/services/validation/register_validation.dart';
+import 'package:let_api_flutter/src/core/services/validation/register_validation.dart';
 import 'package:let_api_flutter/src/widgets/app_header.dart';
 import 'package:let_api_flutter/src/widgets/app_logo.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker.dart';

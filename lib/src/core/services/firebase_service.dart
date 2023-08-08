@@ -3,7 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/services/platform.dart';
+import 'package:let_api_flutter/src/core/services/platform.dart';
 import 'package:let_api_flutter/src/widgets/dialogs/notification_dialog.dart';
 
 /// firebase 服務

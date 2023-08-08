@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/riverpods/providers/appbar_provider.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/appbar_provider.dart';
 import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 class MainLayout extends StatelessWidget {

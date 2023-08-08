@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
-import 'package:let_api_flutter/src/services/validation/register_validation.dart';
+import 'package:let_api_flutter/src/core/services/validation/register_validation.dart';
 import 'package:let_api_flutter/src/widgets/app_header.dart';
 import 'package:let_api_flutter/src/widgets/app_logo.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_input.dart';
