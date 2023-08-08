@@ -11,30 +11,41 @@
 
 ```sh
 ├─README.md
-├─analysis_options.yaml                                     # flutter lints
+├─analysis_options.yaml                         # flutter lints
 ├─let_api_flutter.iml
-├─pubspec.lock                                              # flutter 設定檔鎖版本
-├─pubspec.yaml                                              # flutter 設定檔
-├─slidy.yaml                                                # 管理 flutter 常用指令
+├─pubspec.lock                                  # flutter 設定檔鎖版本
+├─pubspec.yaml                                  # flutter 設定檔
+├─slidy.yaml                                    # 管理 flutter 常用指令
 ├─windows
 ├─web
-├─lib
-|  ├─main.dart                                              # 專案進入點
-|  ├─src
-|  |  ├─screens                                             # 頁面
-|  |  ├─routes                                              # 路由
-|  |  ├─core
-|  |  |  ├─widgets                                          # widget 元件
-|  |  |  ├─utils                                            # 共用方法
-|  |  |  ├─services                                         # api 服務
-|  |  |  |    ├─repository
-|  |  |  |    ├─api
-|  |  |  ├─models                                           # 型別
-|  |  |  ├─middlewares
-|  |  |  |      └premiun_guard.dart
-|  |  |  ├─controllers                                      # MVC 控制器
-|  |  |  ├─bindings                                         # binding
-|  |  |  |    └global_binding.dart
+lib
+├─common_libs.dart                              # 共用 export
+├─firebase_options.dart                         # firebase 設定檔
+├─main.dart                                     # 專案入口
+├─router.dart                                   # 路由
+├─src
+|  ├─widgets                                    # 共用元件
+|  ├─ui
+|  | ├─screens                                  # 頁面，依據路由名稱定義檔案名稱
+|  | ├─common                                   # 頁面共用
+|  | |   ├─layout                               # layout
+|  | |   |   ├─layout.dart
+|  | |   |   └main_layout.dart
+|  ├─styles                                     # 樣式
+|  ├─core
+|  |  ├─utils                                   # 公用小工具
+|  |  ├─services                                # API 服務
+|  |  ├─riverpods                               # 狀態管理工具
+|  |  |     ├─states                            # RiverPod 資料
+|  |  |     ├─providers                         # RiverPod 發送
+|  |  |     ├─notifiers                         # RiverPod 通知
+|  |  ├─models                                  # 型別
+|  |  ├─interceptors                            # API 攔截器
+|  |  ├─extensions                              # dart extensions
+|  |  ├─constants                               # 常數
+├─environments                                  # 環境設定 develop, release(sit), prod(uat), master
+|      ├─environment.json
+|      └environment.prod.json
 ├─ios                                                       # ios 開發資料夾
 ├─assets                                                    # 靜態資源
 |   ├─image
