@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 ///搜尋功能－顯示結果
 class SearchView extends StatelessWidget {

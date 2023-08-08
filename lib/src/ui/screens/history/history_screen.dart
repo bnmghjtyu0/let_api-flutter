@@ -1,9 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/models/cart_model.dart';
-import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/core/models/cart_model.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/cart_provider.dart';
+import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 // 觀看紀錄： https://youtu.be/GQJovou6zuE?t=15796
 // 購買歷史紀錄頁面

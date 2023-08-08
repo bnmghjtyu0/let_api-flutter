@@ -2,7 +2,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/ui/screens/search/widgets/search_overlay.dart';
 import 'package:let_api_flutter/src/ui/screens/search/widgets/search_view.dart';
-import 'package:let_api_flutter/src/utils/debouncer.dart';
+import 'package:let_api_flutter/src/core/utils/debouncer.dart';
 part 'widgets/search_input.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {

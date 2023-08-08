@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:let_api_flutter/src/constants/dimensions.dart';
 import 'package:let_api_flutter/router.dart';
-import 'package:let_api_flutter/src/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/core/constants/dimensions.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 
 ///進入 app 的動畫
 class SplashScreen extends ConsumerStatefulWidget {
@@ -54,7 +54,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 child: Center(
                   child: Image.asset(
                     "assets/image/lake.jpg",
-                    width: Dimensions(context).splashImg(),
+                    width: Dimensions.splashImg(),
                   ),
                 ))
           ],

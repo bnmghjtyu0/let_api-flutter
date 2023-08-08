@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/styles/style.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_scroll_behavior.dart';
+import 'package:let_api_flutter/src/widgets/app_scroll_behavior.dart';
 
 class AppScaffold extends StatelessWidget {
   final Widget child;

@@ -4,14 +4,15 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/extensions/responsive.dart';
-import 'package:let_api_flutter/src/models/products_model.dart';
-import 'package:let_api_flutter/src/models/recommend_model.dart';
-import 'package:let_api_flutter/src/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/core/extensions/responsive.dart';
+import 'package:let_api_flutter/src/core/models/products_model.dart';
+import 'package:let_api_flutter/src/core/models/recommend_model.dart';
+import 'package:let_api_flutter/src/core/models/router_model.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/widgets/app_header.dart';
+import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 part './widgets/page_view_item.dart';
 part './widgets/recommend_listview.dart';
@@ -90,8 +91,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       isTransparent: true,
                       showCartBtn: true,
                       onCartPressed: () {
-                        GoRouter.of(context).go(ScreenPaths.cartInfo(),
-                            extra: CartRouteExtraModel(routeMethod: "go"));
+                        GoRouter.of(context).go(ScreenPaths.cart(),
+                            extra: CartRouteExtraModel(
+                                routeMethod: RouteMethod.go));
                       },
                       trailing: (context) {
                         return Column(

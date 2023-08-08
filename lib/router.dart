@@ -3,11 +3,12 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
-import 'package:let_api_flutter/src/riverpods/providers/route_provider.dart';
-import 'package:let_api_flutter/src/services/navigation_service.dart';
+import 'package:let_api_flutter/src/core/models/router_model.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/route_provider.dart';
+import 'package:let_api_flutter/src/core/services/navigation_service.dart';
 import 'package:let_api_flutter/src/ui/common/layout/main_layout.dart';
 import 'package:let_api_flutter/src/ui/screens/account/account_screen.dart';
-import 'package:let_api_flutter/src/ui/screens/cart_screen/cart_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/cart/cart_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/home/home.dart';
 import 'package:let_api_flutter/src/ui/screens/login/login_screen.dart';
@@ -16,18 +17,10 @@ import 'package:let_api_flutter/src/ui/screens/recommend_detail/recommend_detail
 import 'package:let_api_flutter/src/ui/screens/register/register_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/search/search_screen.dart';
 
-class CartRouteExtraModel {
-  String? routeMethod;
-  CartRouteExtraModel({this.routeMethod});
-}
-
-class RouteNames {
-  static const String me = 'me';
-}
-
+///各個畫面的路徑連結
 class ScreenPaths {
   //首頁
-  static String home() => '/';
+  static String home() => '/home';
   //受歡迎商品
   static String popularDetail(int index, int pageId) =>
       '/popularDetail/$index?pageId=$pageId';
@@ -35,7 +28,7 @@ class ScreenPaths {
   static String recommendDetail(int index, int pageId) =>
       '/recommendDetail/$index?pageId=$pageId';
   //購物車
-  static String cartInfo() => '/cartInfo';
+  static String cart() => '/cart';
   //註冊
   static String register() => '/register';
   //登入
@@ -44,26 +37,23 @@ class ScreenPaths {
   static String history() => '/history';
   //搜尋
   static String search() => '/search';
+  //搜尋
+  static String account() => '/account';
 }
 
-// 提供 debug 用的 label
-final _productDetailNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'productDetail');
-final _foodHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'food');
-final _musicHomeNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'music');
-final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'share');
+final _rootNavigatorKey = GetIt.I<NavigationService>().navigatorKey;
+final _homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'food');
 
-final _rootNaviagorKey = GetIt.I<NavigationService>().navigatorKey;
 final goRouterProvider = Provider<GoRouter>((ref) {
   final notifier = ref.read(goRouterNotifierProvider);
 
   return GoRouter(
       debugLogDiagnostics: true,
-      initialLocation: '/',
+      initialLocation: '/home',
       refreshListenable: notifier,
       routes: <RouteBase>[
         ShellRoute(
-            navigatorKey: _rootNaviagorKey,
+            navigatorKey: _rootNavigatorKey,
             builder: (context, router, navigator) {
               return AppScaffold(child: navigator);
             },
@@ -81,21 +71,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 int index = int.parse(state.pathParameters['index']!);
                 int pageId = int.parse(state.queryParameters['pageId']!);
                 return PopularDetail(index: index, pageId: pageId);
-              }, transition: 'fadeIn', parentNavigatorKey: _rootNaviagorKey),
+              }, transition: 'fadeIn', parentNavigatorKey: _rootNavigatorKey),
 
               // 推薦的美食
               AppRoute('/recommendDetail/:index', (state) {
                 int pageId = int.parse(state.queryParameters['pageId']!);
                 int index = int.parse(state.pathParameters['index']!);
                 return RecommendDetailWidget(index: index, pageId: pageId);
-              }, parentNavigatorKey: _rootNaviagorKey),
+              }, parentNavigatorKey: _rootNavigatorKey),
 
               // 購物車
-              AppRoute('/cartInfo', (GoRouterState state) {
+              AppRoute('/cart', (GoRouterState state) {
                 CartRouteExtraModel extra = state.extra as CartRouteExtraModel;
 
                 return CartScreen(extra: extra);
-              }, transition: 'slideUp', parentNavigatorKey: _rootNaviagorKey),
+              }, transition: 'slideUp', parentNavigatorKey: _rootNavigatorKey),
 
               //bottomNavigationBar 的路由
               StatefulShellRoute.indexedStack(
@@ -106,9 +96,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   branches: [
                     //bottomNavigationBar 的路由 index=0 美食平台
                     StatefulShellBranch(
-                      navigatorKey: _foodHomeNavigatorAKey,
+                      navigatorKey: _homeNavigatorKey,
                       routes: [
-                        AppRoute('/', (state) => HomeScreen()),
+                        AppRoute('/home', (state) => HomeScreen()),
                       ],
                     ),
                     //bottomNavigationBar 的路由 index=1 搜尋頁面
@@ -119,7 +109,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     ),
                     //bottomNavigationBar 的路由 index=2 註冊
                     StatefulShellBranch(
-                      // navigatorKey: _musicHomeNavigatorAKey,
                       routes: [
                         AppRoute(
                           '/register',
@@ -129,7 +118,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     ),
                     //bottomNavigationBar 的路由 index=3 History
                     StatefulShellBranch(
-                      // navigatorKey: _musicHomeNavigatorAKey,
                       routes: [
                         AppRoute(
                           '/history',
@@ -140,14 +128,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
                     //bottomNavigationBar 的路由 index=4 Me
                     StatefulShellBranch(
-                      // navigatorKey: _musicHomeNavigatorAKey,
                       routes: [
-                        AppRoute('/me', (state) => AccountScreen()),
+                        AppRoute('/account', (state) => AccountScreen()),
                       ],
                     ),
 
                     // StatefulShellBranch(
-                    //   navigatorKey: _musicHomeNavigatorAKey,
                     //   routes: [
                     //     GoRoute(
                     //       name: RouteNames.musicHome,

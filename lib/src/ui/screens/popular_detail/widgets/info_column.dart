@@ -1,7 +1,7 @@
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/constants/dimensions.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/icon_and_text.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/small_text.dart';
+import 'package:let_api_flutter/src/core/constants/dimensions.dart';
+import 'package:let_api_flutter/src/widgets/icon_and_text.dart';
+import 'package:let_api_flutter/src/widgets/small_text.dart';
 
 /// 資訊面板元件
 class InfoColumn extends StatelessWidget {

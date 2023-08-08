@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
-import 'package:let_api_flutter/src/constants/dimensions.dart';
+import 'package:let_api_flutter/src/core/constants/dimensions.dart';
 import 'package:let_api_flutter/src/services/validation/register_validation.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_logo.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_datepicker/custom_datepicker.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_datepicker/custom_datepicker_validator.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_input.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/reactive_forms/custom_password.dart';
+import 'package:let_api_flutter/src/widgets/app_header.dart';
+import 'package:let_api_flutter/src/widgets/app_logo.dart';
+import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker.dart';
+import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker_validator.dart';
+import 'package:let_api_flutter/src/widgets/reactive_forms/custom_input.dart';
+import 'package:let_api_flutter/src/widgets/reactive_forms/custom_password.dart';
 import 'package:logger/logger.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -155,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       color: Colors.grey[500], fontSize: 20)),
                             ),
                             SizedBox(
-                              height: Dimensions().displaySize().height * 0.05,
+                              height: Dimensions.displaySize.height * 0.05,
                             ),
                             RichText(
                               text: TextSpan(

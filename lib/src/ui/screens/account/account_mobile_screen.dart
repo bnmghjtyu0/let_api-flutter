@@ -1,7 +1,7 @@
 import 'package:let_api_flutter/common_libs.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/widgets/app_header.dart';
+import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 class AccountMobileScreen extends StatelessWidget {
   AccountMobileScreen({Key? key, required this.users}) : super(key: key);

@@ -1,14 +1,15 @@
 import 'package:go_router/go_router.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
-import 'package:let_api_flutter/src/constants/constants.dart';
-import 'package:let_api_flutter/src/models/products_model.dart';
-import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
-import 'package:let_api_flutter/src/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/app_header.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/expandable_text.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/widgets.dart';
+import 'package:let_api_flutter/src/core/constants/constants.dart';
+import 'package:let_api_flutter/src/core/models/products_model.dart';
+import 'package:let_api_flutter/src/core/models/router_model.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/cart_provider.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
 import 'package:let_api_flutter/src/ui/screens/popular_detail/widgets/info_column.dart';
+import 'package:let_api_flutter/src/widgets/app_header.dart';
+import 'package:let_api_flutter/src/widgets/expandable_text.dart';
+import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 class PopularDetail extends ConsumerStatefulWidget {
   /// 索引
@@ -92,8 +93,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 GoRouter.of(context).go(ScreenPaths.home());
               },
               onCartPressed: () {
-                GoRouter.of(context).push(ScreenPaths.cartInfo(),
-                    extra: CartRouteExtraModel(routeMethod: "push"));
+                GoRouter.of(context).push(ScreenPaths.cart(),
+                    extra: CartRouteExtraModel(routeMethod: RouteMethod.push));
               },
             ),
           ),

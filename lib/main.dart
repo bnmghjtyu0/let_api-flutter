@@ -5,15 +5,15 @@ import 'package:get_it/get_it.dart';
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
-import 'package:let_api_flutter/src/riverpods/providers/cart_provider.dart';
-import 'package:let_api_flutter/src/services/firebase_service.dart';
-import 'package:let_api_flutter/src/services/navigation_service.dart';
-import 'package:let_api_flutter/src/services/product_popular_provider.dart';
-import 'package:let_api_flutter/src/services/product_recommend_provider.dart';
-import 'package:let_api_flutter/src/services/refresh_indicator_service.dart';
-import 'package:let_api_flutter/src/services/scroll_service.dart';
+import 'package:let_api_flutter/src/core/riverpods/providers/cart_provider.dart';
+import 'package:let_api_flutter/src/core/services/firebase_service.dart';
+import 'package:let_api_flutter/src/core/services/navigation_service.dart';
+import 'package:let_api_flutter/src/core/services/product_popular_provider.dart';
+import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
+import 'package:let_api_flutter/src/core/services/refresh_indicator_service.dart';
+import 'package:let_api_flutter/src/core/services/scroll_service.dart';
 import 'package:let_api_flutter/src/styles/material_basil_theme.dart';
-import 'package:let_api_flutter/src/ui/common/widgets/dialogs/dispatch.dart';
+import 'package:let_api_flutter/src/widgets/dialogs/dispatch.dart';
 
 //專案起點
 void main() async {
