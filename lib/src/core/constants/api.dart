@@ -1,11 +1,18 @@
 ///專案共用常數
 class ApiConstants {
-  static const String APP_NAME = 'DBFood';
-  static const int APP_VERSION = 1;
+  ///bslmeiyu api host
+  static const String BASE_URL = String.fromEnvironment('API_URL');
 
-  static const String BASE_URL = "http://mvs.bslmeiyu.com";
-  static const String POPULAR_PRODUCT_URI = "/api/v1/products/popular";
-  static const String RECOMMENDED_PRODUCT_URI = "/api/v1/products/recommended";
-  static const String TOKEN = "DBFood";
+  ///bslmeiyu api 連結
+  static const String API_URL = String.fromEnvironment('API_URL') +
+      String.fromEnvironment('API_ENDPOINT');
+
+  ///bslmeiyu popular api
+  static const String POPULAR_PRODUCT_URI = "/products/popular";
+
+  ///bslmeiyu recommended api
+  static const String RECOMMENDED_PRODUCT_URI = "/products/recommended";
+
+  ///bslmeiyu 圖片 api path
   static const String UPLOAD_URL = '/uploads/';
 }

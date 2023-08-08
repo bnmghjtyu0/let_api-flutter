@@ -1,20 +1,29 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  // 使用 IntelliSense 以得知可用的屬性。
+  // 暫留以檢視現有屬性的描述。
+  // 如需詳細資訊，請瀏覽: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "flutter_application (debug mode)",
+      "name": "let_api_flutter",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "debug"
+      "program": "lib/main.dart",
+      "args": ["--dart-define-from-file", "lib/environments/environment.json"],
+      "console": "debugConsole"
     },
     {
-      "name": "flutter_application (profile mode)",
+      "name": "let_api_flutter (profile mode)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile"
+      "flutterMode": "profile",
+      "args": ["--dart-define-from-file", "./lib/environments/environment.json"]
+    },
+    {
+      "name": "let_api_flutter (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
     }
   ]
 }

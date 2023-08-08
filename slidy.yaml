@@ -6,7 +6,7 @@ scripts:
   # Simple command (slidy run doctor)
   doctor: flutter doctor
   chrome: flutter run -d chrome --web-renderer html --web-browser-flag "--disable-web-security"
-  ios: flutter run
+  ios: flutter run --dart-define-from-file=./lib/environments/environment.json
   real:ios: flutter devices
   freezed: dart run build_runner build --delete-conflicting-outputs
   build:android: flutter build appbundle
