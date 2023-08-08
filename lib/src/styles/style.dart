@@ -1,7 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'dart:ui';
+
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/src/styles/svgs.dart';
+
 export 'colors.dart';
 
 ///樣式區 (文字大小、顏色、圓角、陰影)
@@ -27,6 +31,9 @@ class AppStyle {
 
   /// 按鈕樣式
   late final _Button button = _Button();
+
+  /// svg樣式
+  late final _Svg svg = _Svg();
 
   /// 建構式
   AppStyle({Size? screenSize}) {
@@ -83,6 +90,8 @@ class _Text {
       _createFont(titleFont, sizePx: 24, heightPx: 36, weight: FontWeight.w500);
   late final TextStyle h4 = _createFont(contentFont,
       sizePx: 20, heightPx: 40, spacingPc: 5, weight: FontWeight.w600);
+  late final TextStyle h5 = _createFont(contentFont,
+      sizePx: 18, heightPx: 30, spacingPc: 5, weight: FontWeight.w600);
 
   late final TextStyle title1 =
       _createFont(titleFont, sizePx: 16, heightPx: 26, spacingPc: 5);
@@ -120,6 +129,20 @@ class _Text {
         letterSpacing:
             spacingPc != null ? sizePx * spacingPc * 0.01 : style.letterSpacing,
         fontWeight: weight);
+  }
+}
+
+class _Svg {
+  late final search =
+      _createSvg(SvgNames.search, Color.fromRGBO(145, 145, 147, 1));
+  late final radio = _createSvg(SvgNames.radio, $styles.colors.mlDark);
+  late final apps = _createSvg(SvgNames.apps, $styles.colors.mlDark);
+  late final menu = _createSvg(SvgNames.menu, $styles.colors.mlDark);
+
+  SvgPicture _createSvg(assetsName, color) {
+    return SvgPicture.asset(assetsName,
+        colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+        semanticsLabel: 'Acme Logo');
   }
 }
 

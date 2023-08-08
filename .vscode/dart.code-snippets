@@ -42,7 +42,7 @@
       "    title: ${1:const} Text('${2:Title}'),",
       "  ),",
       "  body: ${3:Container()},",
-      ")${3:;}"
+      ");"
     ],
     "description": "Scaffold widget snippet"
   },
@@ -331,5 +331,241 @@
       ")"
     ],
     "description": "Flutter ElevatedButton snippet"
+  },
+  "borderall snippet": {
+    "prefix": "borderall",
+    "body": ["Border.all(color: Colors.black)"],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "borderonly snippet": {
+    "prefix": "borderonly",
+    "body": [
+      "Border(",
+      "            right: BorderSide(",
+      "              color: Colors.black,",
+      "              width: 3.0,",
+      "            ),",
+      "          )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "borderLeft snippet": {
+    "prefix": "borderleft",
+    "body": [
+      "Border(",
+      "            left: BorderSide(",
+      "              color: Colors.black,",
+      "              width: 3.0,",
+      "            ),",
+      "          )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "borderRight snippet": {
+    "prefix": "borderright",
+    "body": [
+      "Border(",
+      "            right: BorderSide(",
+      "              color: Colors.black,",
+      "              width: 3.0,",
+      "            ),",
+      "          )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "borderBottom snippet": {
+    "prefix": "borderbottom",
+    "body": [
+      "Border(",
+      "            bottom: BorderSide(",
+      "              color: Colors.black,",
+      "              width: 3.0,",
+      "            ),",
+      "          )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "borderTop snippet": {
+    "prefix": "bordertop",
+    "body": [
+      "Border(",
+      "            top: BorderSide(",
+      "              color: Colors.black,",
+      "              width: 3.0,",
+      "            ),",
+      "          )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+
+  "border radius all snippet": {
+    "prefix": "borderradiusall",
+    "body": ["BorderRadius.all(Radius.circular(10))"],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "width 100% all snippet": {
+    "prefix": "width100",
+    "body": ["double.infinity"],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "border radius top left snippet": {
+    "prefix": "borderradiustop",
+    "body": [
+      "BorderRadius.only(",
+      " topLeft: Radius.circular(10.0),",
+      " topRight: Radius.circular(10.0),",
+      ")"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "listtile style1 snippet": {
+    "prefix": "listtilestyle1",
+    "body": [
+      "ListTile(",
+      " leading: CircleAvatar(child: Text('B')),",
+      "            title: Text('Headline'),",
+      "            subtitle: Text(",
+      "                'Longer supporting text to demonstrate how the text wraps and how the leading and trailing widgets are centered vertically with the text.'),",
+      "            trailing: Icon(Icons.favorite_rounded),",
+      "          )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "scroll listview snippet": {
+    "prefix": "listviewscroll",
+    "body": [
+      "        Expanded(",
+      "          child: SizedBox(",
+      "              width: double.infinity,",
+      "              child: SingleChildScrollView(",
+      "                  physics: BouncingScrollPhysics(),",
+      "                  child: ListView(",
+      "                    primary: false,",
+      "                    shrinkWrap: true,",
+      "                    children: <Widget>[",
+      "                      for (int i = 0; i < 16; i++)",
+      "                        Column(",
+      "                          children: [",
+      "                            ListTile(",
+      "                              leading: CircleAvatar(child: Text('A')),",
+      "                              title: Text(i.toString()),",
+      "                              subtitle: Text('Supporting text'),",
+      "                              trailing: Icon(Icons.favorite_rounded),",
+      "                            ),",
+      "                            Divider(height: 0)",
+      "                          ],",
+      "                        )",
+      "                    ],",
+      "                  ))),",
+      "        )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "scroll listview picture snippet": {
+    "prefix": "listviewscrollpicture",
+    "body": [
+      "        Expanded(",
+      "          child: SizedBox(",
+      "              width: double.infinity,",
+      "              child: SingleChildScrollView(",
+      "                  physics: BouncingScrollPhysics(),",
+      "                  child: ListView(",
+      "                    primary: false,",
+      "                    shrinkWrap: true,",
+      "                    children: <Widget>[",
+      "                      for (int i = 0; i < 16; i++)",
+      "                        Column(",
+      "                          children: [",
+      "                            ListTile(",
+      "                              leading: Container(",
+      "                                width: 160 / 1.5,",
+      "                                height: 90 / 1.5,",
+      "                                color: Colors.grey.shade400,",
+      "                              ),",
+      "                              contentPadding: EdgeInsets.symmetric(",
+      "                                  vertical: 4.0, horizontal: 8.0),",
+      "                              title: Padding(",
+      "                                  padding: const EdgeInsets.only(bottom: 8.0),",
+      "                                  child: Text(",
+      "                                      style: TextStyle(",
+      "                                          overflow: TextOverflow.ellipsis),",
+      "                                      '野原廣志爽吃助餐  $i')),",
+      "                              subtitle: Row(children: [",
+      "                                SizedBox(",
+      "                                  height: 30,",
+      "                                  width: 30,",
+      "                                  child: CircleAvatar(",
+      "                                    backgroundColor: Colors.grey.shade200,",
+      "                                    foregroundImage: NetworkImage(",
+      "                                        \"https://cdn2.ettoday.net/images/3353/3353619.jpg\"),",
+      "                                    maxRadius: 15,",
+      "                                    minRadius: 15,",
+      "                                  ),",
+      "                                ),",
+      "                                SizedBox(",
+      "                                  width: 8,",
+      "                                ),",
+      "                                Flexible(",
+      "                                    child: Text(",
+      "                                  'Supporting text Supporting text Supporting text Supporting text Supporting text Supporting text',",
+      "                                  style: TextStyle(",
+      "                                      overflow: TextOverflow.ellipsis,",
+      "                                      color: $styles.colors.mlgrey200),",
+      "                                  maxLines: 2,",
+      "                                ))",
+      "                              ]),",
+      "                              onTap: () {",
+      "                                print('爽吃自助餐');",
+      "                              },",
+      "                            ),",
+      "                          ],",
+      "                        )",
+      "                    ],",
+      "                  ))),",
+      "        )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "hr snippet": {
+    "prefix": "hr",
+    "body": ["Divider(height: 0)"],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "circle avatar style1 snippet": {
+    "prefix": "circleavatarstyle1",
+    "body": [
+      "                                SizedBox(",
+      "                                  height: 30,",
+      "                                  width: 30,",
+      "                                  child: CircleAvatar(",
+      "                                    backgroundImage: NetworkImage(",
+      "                                        \"https://picsum.photos/500/300\"),",
+      "                                    foregroundImage: NetworkImage(",
+      "                                        \"https://cdn2.ettoday.net/images/3353/3353619.jpg\"),",
+      "                                    maxRadius: 15,",
+      "                                    minRadius: 15,",
+      "                                  ),",
+      "                                )"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "ellipsis snippet": {
+    "prefix": "ellipsis",
+    "body": ["TextOverflow.ellipsis"],
+    "description": "ellipsis snippet"
+  },
+  "ellipsis two lines snippet": {
+    "prefix": "ellipsis",
+    "body": [
+      "           Flexible(",
+      "                                    child: Text(",
+      "                                  'Supporting text Supporting text Supporting text Supporting text Supporting text Supporting text',",
+      "                                  style: TextStyle(",
+      "                                      overflow: TextOverflow.ellipsis,",
+      "                                      color: $styles.colors.mlgrey200),",
+      "                                  maxLines: 2,",
+      "                                ))"
+    ],
+    "description": "ellipsis snippet"
   }
 }

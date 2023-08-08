@@ -133,7 +133,7 @@ class AppHeader extends StatelessWidget {
                               textHeightBehavior: TextHeightBehavior(
                                   applyHeightToFirstAscent: false),
                               style: $styles.text.h4.copyWith(
-                                  color: $styles.colors.white,
+                                  color: $styles.colors.black,
                                   fontWeight: FontWeight.w500),
                             ),
                           if (subtitle != null)

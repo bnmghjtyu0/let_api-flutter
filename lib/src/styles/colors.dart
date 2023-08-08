@@ -11,9 +11,11 @@ class AppColors {
   final Color black = Color.fromRGBO(30, 27, 24, 1);
   final Color red = Color.fromRGBO(255, 51, 51, 1);
 
+  final Color mlDark = Color.fromRGBO(97, 167, 165, 1);
   final Color mlDarker = Color.fromRGBO(45, 78, 77, 1);
   final Color mlNormal = Color.fromRGBO(129, 223, 220, 1);
   final Color mlNormalHover = Color.fromRGBO(116, 201, 198, 1);
 
   final Color mlWarning = Color.fromRGBO(245, 151, 63, 1);
+  final Color mlgrey200 = Color.fromRGBO(170, 170, 170, 1);
 }

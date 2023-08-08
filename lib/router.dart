@@ -10,8 +10,8 @@ import 'package:let_api_flutter/src/ui/common/layout/main_layout.dart';
 import 'package:let_api_flutter/src/ui/screens/account/account_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/cart/cart_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
-import 'package:let_api_flutter/src/ui/screens/home/home.dart';
 import 'package:let_api_flutter/src/ui/screens/login/login_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/mlhome/mlhome.dart';
 import 'package:let_api_flutter/src/ui/screens/popular_detail/popular_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/recommend_detail/recommend_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/register/register_screen.dart';
@@ -49,7 +49,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
       debugLogDiagnostics: true,
-      initialLocation: '/home',
+      initialLocation: '/mlhome',
       refreshListenable: notifier,
       routes: <RouteBase>[
         ShellRoute(
@@ -95,10 +95,16 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   },
                   branches: [
                     //bottomNavigationBar 的路由 index=0 美食平台
+                    // StatefulShellBranch(
+                    //   navigatorKey: _homeNavigatorKey,
+                    //   routes: [
+                    //     AppRoute('/home', (state) => HomeScreen()),
+                    //   ],
+                    // ),
                     StatefulShellBranch(
                       navigatorKey: _homeNavigatorKey,
                       routes: [
-                        AppRoute('/home', (state) => HomeScreen()),
+                        AppRoute('/mlhome', (state) => Mlhome()),
                       ],
                     ),
                     //bottomNavigationBar 的路由 index=1 搜尋頁面
