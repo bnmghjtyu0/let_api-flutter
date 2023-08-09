@@ -61,12 +61,12 @@ class MaterialBasilTheme extends ThemeExtension<MaterialBasilTheme> {
         //文字字型
         colorScheme: colorScheme,
         scaffoldBackgroundColor: neutralColor,
-        appBarTheme: AppBarTheme(backgroundColor: neutralColor),
+        appBarTheme: AppBarTheme(backgroundColor: primaryColor),
 
         ///熱門搜尋的標籤
         chipTheme: ChipThemeData(
 
-            ///勾勾顏色
+            /// chip 勾勾顏色
             checkmarkColor: Colors.white,
             elevation: 0,
             side: BorderSide(color: Colors.transparent),
@@ -134,8 +134,12 @@ class MaterialBasilTheme extends ThemeExtension<MaterialBasilTheme> {
           errorStyle: TextStyle(fontSize: 16),
         ),
 
-        //  dialog 樣式
-        dialogTheme: DialogTheme(elevation: 0),
-        popupMenuTheme: PopupMenuThemeData(elevation: 4));
+        // tab 樣式
+        tabBarTheme: TabBarTheme(labelColor: Colors.white)
+
+        // dialog 樣式
+        // dialogTheme: DialogTheme(elevation: 0),
+        // popupMenuTheme: PopupMenuThemeData(elevation: 4)
+        );
   }
 }
