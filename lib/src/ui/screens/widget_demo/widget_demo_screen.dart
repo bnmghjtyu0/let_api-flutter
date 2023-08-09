@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:let_api_flutter/src/ui/screens/widget_demo/widgets/demo_custom_title.dart';
+import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker.dart';
+import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker_validator.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 enum SingingCharacter { Richard, Angel }
 
@@ -16,6 +19,7 @@ class WidgetDemoScreenState extends State<WidgetDemoScreen> {
     Tab(text: 'First'),
     Tab(text: 'Second'),
   ];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -49,12 +53,25 @@ class _tab1 extends StatefulWidget {
 
 class _tab1State extends State<_tab1> {
   List<bool> checked = [true, false];
+  //註冊頁表單
+  final FormGroup form = FormGroup({
+    'birthday':
+        FormControl<String>(value: '', validators: [BirthdayValidator()]),
+  });
 
   SingingCharacter? _character = SingingCharacter.Richard;
 
   radioHandler(SingingCharacter? value) {
     setState(() {
       _character = value;
+    });
+  }
+
+  checkHandler(bool? value, i) {
+    setState(() {
+      if (value != null) {
+        checked[i] = value;
+      }
     });
   }
 
@@ -87,16 +104,65 @@ class _tab1State extends State<_tab1> {
             ],
           ),
           DemoCustomTitle(title: 'Button'),
-          Row(
+          Column(
             children: [
-              ElevatedButton(
-                child: const Text('Button label'),
-                onPressed: () {},
+              Row(
+                children: [
+                  TextButton(
+                    child: const Text('Text Button'),
+                    onPressed: () {},
+                  ),
+                  TextButton(
+                    onPressed: null,
+                    child: const Text('Text Button disabled'),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: null,
-                child: const Text('disabled'),
+              Row(
+                children: [
+                  OutlinedButton(
+                    child: const Text('Outlined Button'),
+                    onPressed: () {},
+                  ),
+                  OutlinedButton(
+                    onPressed: null,
+                    child: const Text('Outlined Button disabled'),
+                  ),
+                ],
               ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    child: const Text('Elevated Button'),
+                    onPressed: () {},
+                  ),
+                  ElevatedButton(
+                    onPressed: null,
+                    child: const Text('disabled'),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.email),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ],
+          ),
+          DemoCustomTitle(
+            title: 'avatar 大頭貼',
+          ),
+          Row(
+            children: const [
+              CircleAvatar(
+                foregroundImage: NetworkImage(
+                    "https://cdn2.ettoday.net/images/3353/3353619.jpg"),
+                maxRadius: 30,
+                minRadius: 30,
+              )
             ],
           ),
           DemoCustomTitle(
@@ -106,25 +172,23 @@ class _tab1State extends State<_tab1> {
             children: [
               for (var i = 0; i < 2; i++)
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
-                        onChanged: (bool? value) {
-                          setState(() {
-                            if (value != null) {
-                              checked[i] = value;
-                            }
-                          });
-                        },
+                        onChanged: (value) => checkHandler(value, i),
                         tristate: i == 1,
                         value: checked[i],
                         checkColor: Colors.white,
                         shape:
                             RoundedRectangleBorder(), //RoundedRectangleBorder, CircleBorder
                         activeColor: Theme.of(context).primaryColor),
-                    Text('Checkbox ${i + 1}',
-                        style:
-                            TextStyle(color: Theme.of(context).primaryColor)),
+                    GestureDetector(
+                      child: Text('Checkbox ${i + 1}',
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor)),
+                      onTap: () {
+                        checkHandler(!checked[i], i);
+                      },
+                    )
                   ],
                 ),
               Checkbox(
@@ -147,13 +211,23 @@ class _tab1State extends State<_tab1> {
               groupValue: _character,
               onChanged: radioHandler,
             ),
-            Text('Richard'),
+            GestureDetector(
+              child: Text('Richard'),
+              onTap: () {
+                radioHandler(SingingCharacter.Richard);
+              },
+            ),
             Radio<SingingCharacter>(
               value: SingingCharacter.Angel,
               groupValue: _character,
               onChanged: radioHandler,
             ),
-            Text('Angel')
+            GestureDetector(
+              child: Text('Angel'),
+              onTap: () {
+                radioHandler(SingingCharacter.Angel);
+              },
+            ),
           ]),
           DemoCustomTitle(
             title: 'Text fields',
@@ -163,16 +237,16 @@ class _tab1State extends State<_tab1> {
               TextFormField(
                 initialValue: '',
                 decoration: InputDecoration(
-                  labelText: 'Label text',
+                  labelText: '帳號',
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
               TextFormField(
-                initialValue: '',
+                initialValue: '123',
                 decoration: InputDecoration(
-                  labelText: 'Label text',
+                  labelText: '密碼',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -187,29 +261,45 @@ class _tab1State extends State<_tab1> {
                   border: OutlineInputBorder(),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomDatepicker(
+                  formControl: form.controls['birthday'],
+                  hintText: '請輸入西元年月日(例如：1990/01/01)',
+
+                  ///迄日
+                  firstDate: DateTime(DateTime.now().year - 100,
+                      DateTime.now().month, DateTime.now().day - 1),
+
+                  ///起日
+                  lastDate: DateTime(DateTime.now().year - 18,
+                      DateTime.now().month, DateTime.now().day - 1))
             ],
           ),
-          DemoCustomTitle(title: 'Chip'),
+          DemoCustomTitle(title: 'Chip 熱門搜尋的標籤'),
           Row(
             children: [
               InputChip(
-                label: Text('Input Chip'),
-                onSelected: null,
+                label: Text('綜藝大熱門'),
+                onSelected: (bool value) {
+                  print(value);
+                },
               ),
               InputChip(
-                label: Text('Input Chip'),
+                label: Text('綜藝玩很大'),
                 onSelected: (bool value) {},
               ),
               InputChip(
-                label: Text('Input Chip'),
-                onSelected: (bool value) {},
-              ),
+                label: Text('峮峮'),
+                onDeleted: () {},
+              )
             ],
           ),
           Row(
             children: const [
               ChoiceChip(
-                label: Text('Choice Chip'),
+                label: Text('花花'),
                 selected: true,
               ),
               ChoiceChip(

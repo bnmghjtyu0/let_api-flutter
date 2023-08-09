@@ -45,17 +45,13 @@ class _BottomNavigationBarCustomState extends State<BottomNavigationBarCustom> {
   Widget build(BuildContext context) {
     return Theme(
         data: Theme.of(context).copyWith(
-            // 設定背景顏色
-            canvasColor: Colors.white,
-            // 設定背景顏色 if `Brightness` is light
-            primaryColor: Colors.red,
-            textTheme: Theme.of(context)
-                .textTheme
-                .copyWith(bodySmall: TextStyle(color: Colors.yellow))),
+          // 設定背景顏色
+          canvasColor: Colors.white,
+          // 設定背景顏色 if `Brightness` is light
+          primaryColor: Colors.red,
+        ),
         child: BottomNavigationBar(
           currentIndex: _selectedIndex,
-          unselectedItemColor: Colors.black45,
-          selectedItemColor: $styles.colors.mainColor,
           showSelectedLabels: true,
           showUnselectedLabels: true,
           //相同寬度

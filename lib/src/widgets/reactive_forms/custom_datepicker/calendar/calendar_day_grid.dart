@@ -68,6 +68,7 @@ class DayButton extends StatelessWidget {
       child: Text(
         '${dateTime.day}',
         style: TextStyle(
+            fontSize: 14,
             color: disabled
                 ? CalendarColor.disabledColor
                 : CalendarColor.enabledColor),

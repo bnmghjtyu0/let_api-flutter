@@ -64,6 +64,7 @@ class YearButton extends StatelessWidget {
       child: Text(
         year.toString(),
         style: TextStyle(
+            fontSize: 14,
             color: disabled!
                 ? CalendarColor.disabledColor
                 : CalendarColor.enabledColor),

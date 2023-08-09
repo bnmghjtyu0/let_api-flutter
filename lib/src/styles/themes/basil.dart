@@ -1,124 +1,138 @@
 import 'package:flutter/material.dart';
-import 'package:material_color_utilities/material_color_utilities.dart';
 
 //自定義 Material 主題
 @immutable
 class MaterialBasilTheme extends ThemeExtension<MaterialBasilTheme> {
-  const MaterialBasilTheme({
-    this.primaryColor = const Color(
-      0xFF356859,
-    ),
-    this.tertiaryColor = const Color(0xffff5722),
-    this.neutralColor = const Color(0xFFFFFFFF),
-  });
+  ///主要顏色
+  final Color primaryColor;
+  final Color primaryDeepColor;
 
-  final Color primaryColor, tertiaryColor, neutralColor;
+  ///中性色系 白色
+  final Color neutralColor;
+  final Color neutralColor10;
+  final Color neutralColor30;
 
-  //Theme Extensions
+  ///禁止使用的顏色
+  final Color disabledColor;
+  // 錯誤訊息的顏色
+  final Color errorColor;
+
+  final double buttonFontSize = 16;
+
+  const MaterialBasilTheme(
+      {
+      ///主要色系
+      this.primaryColor = const Color.fromRGBO(116, 201, 198, 1),
+      this.primaryDeepColor = const Color.fromRGBO(103, 178, 176, 1),
+      this.neutralColor10 = const Color.fromRGBO(245, 245, 245, 1),
+      this.neutralColor30 = const Color.fromRGBO(218, 218, 219, 1),
+      this.disabledColor = const Color.fromRGBO(218, 218, 219, 1),
+      this.errorColor = const Color.fromRGBO(255, 100, 100, 1),
+
+      ///底色
+      this.neutralColor = const Color.fromRGBO(255, 255, 255, 1)});
+
   @override
   ThemeExtension<MaterialBasilTheme> copyWith(
           {Color? primaryColor, Color? tertiaryColor, Color? neutralColor}) =>
       MaterialBasilTheme(
           primaryColor: primaryColor ?? this.primaryColor,
-          tertiaryColor: tertiaryColor ?? this.tertiaryColor,
           neutralColor: neutralColor ?? this.neutralColor);
 
   ///動畫 Theme Extensions
   @override
   MaterialBasilTheme lerp(
       covariant ThemeExtension<MaterialBasilTheme>? other, double t) {
-    if (other is! MaterialBasilTheme) return this;
-    return MaterialBasilTheme(
-        primaryColor: Color.lerp(primaryColor, other.primaryColor, t)!);
-  }
-
-//調色盤 Material Color Utilities
-  Scheme _scheme() {
-    final base = CorePalette.of(primaryColor.value);
-    final primary = base.primary;
-    final tertiary = CorePalette.of(tertiaryColor.value).primary;
-    final neutral = CorePalette.of(tertiaryColor.value).neutral;
-    return Scheme(
-        // --- 很單純的分隔線
-        primary: primary.get(40),
-        onPrimary: primary.get(40),
-        primaryContainer: primary.get(40),
-        onPrimaryContainer: primary.get(10),
-        secondary: base.secondary.get(40),
-        onSecondary: base.secondary.get(40),
-        secondaryContainer: base.secondary.get(40),
-        onSecondaryContainer: base.secondary.get(10),
-        tertiary: tertiary.get(40),
-        onTertiary: tertiary.get(40),
-        tertiaryContainer: tertiary.get(40),
-        onTertiaryContainer: tertiary.get(10),
-        // --- 很單純的分隔線
-        error: base.error.get(40),
-        onError: base.error.get(100),
-        errorContainer: base.error.get(90),
-        onErrorContainer: base.error.get(10),
-        background: neutral.get(40),
-        onBackground: neutral.get(10),
-        surface: neutral.get(99),
-        onSurface: neutral.get(10),
-        surfaceVariant: neutral.get(10),
-        onSurfaceVariant: neutral.get(10),
-        outline: base.neutralVariant.get(50),
-        outlineVariant: base.neutralVariant.get(80),
-        // --- 很單純的分隔線
-        shadow: neutral.get(0),
-        scrim: neutral.get(0),
-        inverseSurface: neutral.get(20),
-        inverseOnSurface: neutral.get(95),
-        inversePrimary: primary.get(80));
+    return MaterialBasilTheme();
   }
 
   ///Material3
   ThemeData toTheme() {
-    final colorScheme = _scheme().toColorSheme(Brightness.light);
+    ///調色盤
+    final colorScheme = const ColorScheme.light()
+        .copyWith(primary: primaryColor, error: errorColor);
+
+    ///判斷手機目前是否為淺色模式
     final isLight = colorScheme.brightness == Brightness.light;
+    print(isLight);
     return ThemeData(
-      fontFamily: 'NotoSansTC',
-      useMaterial3: true,
-      extensions: [this],
-      //textTheme: 文字字型
-      colorScheme: colorScheme,
-      //scaffoldBackgroundColor: 鷹架背景顏色
-      scaffoldBackgroundColor: isLight ? neutralColor : colorScheme.background,
-      //appBarTheme: appBar 顏色
-      appBarTheme: AppBarTheme(
-          backgroundColor: isLight ? neutralColor : colorScheme.surface),
-      chipTheme: ChipThemeData(
-          backgroundColor: isLight ? neutralColor : colorScheme.surface),
+        fontFamily: 'NotoSansTC',
+        useMaterial3: true,
+        extensions: [this],
+        //文字字型
+        colorScheme: colorScheme,
+        scaffoldBackgroundColor: neutralColor,
+        appBarTheme: AppBarTheme(backgroundColor: neutralColor),
 
-      ///tab 樣式
-      tabBarTheme: TabBarTheme(
-        indicatorColor: primaryColor,
-        labelColor: primaryColor,
-        dividerColor: Colors.transparent,
-      ),
-    ).copyWith(
-      brightness: colorScheme.brightness,
-    );
-  }
-}
+        ///熱門搜尋的標籤
+        chipTheme: ChipThemeData(
 
-///
-/// @param brightness - 可傳入主體顏色
-extension on Scheme {
-  ColorScheme toColorSheme(Brightness brightness) {
-    return ColorScheme(
-        //brightness: 切換主題色 light/dark
-        brightness: brightness,
-        primary: Color(primary),
-        onPrimary: Color(onPrimary),
-        secondary: Color(secondary),
-        onSecondary: Color(onSecondary),
-        error: Color(error),
-        onError: Color(onError),
-        background: Color(background),
-        onBackground: Color(onBackground),
-        surface: Color(surface),
-        onSurface: Color(onSurface));
+            ///勾勾顏色
+            checkmarkColor: Colors.white,
+            elevation: 0,
+            side: BorderSide(color: Colors.transparent),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            backgroundColor: neutralColor10,
+            selectedColor: primaryColor),
+
+        ///有底色的按鈕
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+          // 陰影
+          elevation: 0,
+          textStyle: TextStyle(fontSize: buttonFontSize),
+          backgroundColor: primaryColor,
+
+          ///按鈕文字顏色
+          foregroundColor: Colors.white,
+          // 圓角
+          // shape: RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.circular(6))
+        ).copyWith(overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+          //pressed
+          if (states.contains(MaterialState.pressed)) {
+            return primaryDeepColor;
+          } else {
+            return null;
+          }
+        }))),
+
+        ///外框按鈕
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+                  textStyle: TextStyle(fontSize: buttonFontSize))
+              .copyWith(
+            side: MaterialStateProperty.resolveWith<BorderSide>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return BorderSide(
+                    color: disabledColor,
+                    width: 2,
+                  );
+                }
+                return BorderSide(
+                  color: primaryColor,
+                  width: 2,
+                );
+                // Defer to the widget's default.
+              },
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+                textStyle: TextStyle(fontSize: buttonFontSize))),
+
+        // TextField 樣式
+        inputDecorationTheme: InputDecorationTheme(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          //預設樣式
+          // enabledBorder:
+          //     OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
+
+          errorStyle: TextStyle(fontSize: 16),
+        ));
   }
 }

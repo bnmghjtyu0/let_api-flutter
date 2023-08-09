@@ -116,7 +116,7 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     ///日期顏色
-    Color mainColor = CalendarColor.mainColor;
+    Color mainColor = Theme.of(context).primaryColor;
 
     ///星期
     List<String> weekList = ['日', '一', '二', '三', '四', '五', '六'];
@@ -177,7 +177,7 @@ class _CalendarState extends State<Calendar> {
                         IconButton(
                           icon: Icon(
                             Icons.chevron_left_rounded,
-                            color: CalendarColor.mainColor,
+                            color: mainColor,
                           ),
                           onPressed: _prev,
                         ),
@@ -186,7 +186,7 @@ class _CalendarState extends State<Calendar> {
                         IconButton(
                           icon: Icon(
                             Icons.chevron_right_rounded,
-                            color: CalendarColor.mainColor,
+                            color: mainColor,
                           ),
                           onPressed: _next,
                         ),
@@ -206,7 +206,8 @@ class _CalendarState extends State<Calendar> {
                           child: Text(
                             weekList[i],
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: mainColor),
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor),
                           ),
                         ),
                       Spacer(),

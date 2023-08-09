@@ -116,6 +116,7 @@ class MonthButton extends StatelessWidget {
       child: Text(
         _monthFormat.format(dateTime),
         style: TextStyle(
+            fontSize: 14,
             color: disabled!
                 ? CalendarColor.disabledColor
                 : CalendarColor.enabledColor),

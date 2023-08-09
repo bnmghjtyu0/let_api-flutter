@@ -16,7 +16,10 @@ class DemoCustomTitle extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .titleLarge
-                  ?.copyWith(fontWeight: FontWeight.bold)))
+                  ?.copyWith(fontWeight: FontWeight.bold))),
+      SizedBox(
+        height: 20,
+      ),
     ]);
   }
 }
