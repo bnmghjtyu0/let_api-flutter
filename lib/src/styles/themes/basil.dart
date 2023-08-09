@@ -19,18 +19,18 @@ class MaterialBasilTheme extends ThemeExtension<MaterialBasilTheme> {
 
   final double buttonFontSize = 16;
 
-  const MaterialBasilTheme(
-      {
-      ///主要色系
-      this.primaryColor = const Color.fromRGBO(116, 201, 198, 1),
-      this.primaryDeepColor = const Color.fromRGBO(103, 178, 176, 1),
-      this.neutralColor10 = const Color.fromRGBO(245, 245, 245, 1),
-      this.neutralColor30 = const Color.fromRGBO(218, 218, 219, 1),
-      this.disabledColor = const Color.fromRGBO(218, 218, 219, 1),
-      this.errorColor = const Color.fromRGBO(255, 100, 100, 1),
+  const MaterialBasilTheme({
+    ///主要色系
+    this.primaryColor = const Color.fromRGBO(116, 201, 198, 1),
 
-      ///底色
-      this.neutralColor = const Color.fromRGBO(255, 255, 255, 1)});
+    //其他顏色
+    this.primaryDeepColor = const Color.fromRGBO(103, 178, 176, 1),
+    this.neutralColor = const Color.fromRGBO(255, 255, 255, 1),
+    this.neutralColor10 = const Color.fromRGBO(245, 245, 245, 1),
+    this.neutralColor30 = const Color.fromRGBO(218, 218, 219, 1),
+    this.disabledColor = const Color.fromRGBO(218, 218, 219, 1),
+    this.errorColor = const Color.fromRGBO(255, 100, 100, 1),
+  });
 
   @override
   ThemeExtension<MaterialBasilTheme> copyWith(
@@ -49,12 +49,11 @@ class MaterialBasilTheme extends ThemeExtension<MaterialBasilTheme> {
   ///Material3
   ThemeData toTheme() {
     ///調色盤
-    final colorScheme = const ColorScheme.light()
-        .copyWith(primary: primaryColor, error: errorColor);
+    final colorScheme = const ColorScheme.light().copyWith(
+        primary: primaryColor, error: errorColor, surface: Colors.white);
 
     ///判斷手機目前是否為淺色模式
-    final isLight = colorScheme.brightness == Brightness.light;
-    print(isLight);
+    // final isLight = colorScheme.brightness == Brightness.light;
     return ThemeData(
         fontFamily: 'NotoSansTC',
         useMaterial3: true,
@@ -133,6 +132,10 @@ class MaterialBasilTheme extends ThemeExtension<MaterialBasilTheme> {
           //     OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
 
           errorStyle: TextStyle(fontSize: 16),
-        ));
+        ),
+
+        //  dialog 樣式
+        dialogTheme: DialogTheme(elevation: 0),
+        popupMenuTheme: PopupMenuThemeData(elevation: 4));
   }
 }

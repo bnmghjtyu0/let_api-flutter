@@ -6,6 +6,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 enum SingingCharacter { Richard, Angel }
 
+enum SampleItem { itemOne, itemTwo, itemThree }
+
 class WidgetDemoScreen extends StatefulWidget {
   const WidgetDemoScreen({Key? key}) : super(key: key);
 
@@ -19,6 +21,7 @@ class WidgetDemoScreenState extends State<WidgetDemoScreen> {
     Tab(text: 'First'),
     Tab(text: 'Second'),
   ];
+  SampleItem? selectedMenu;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +30,33 @@ class WidgetDemoScreenState extends State<WidgetDemoScreen> {
       child: Builder(builder: (BuildContext context) {
         return Scaffold(
           appBar: AppBar(
+            title: Row(children: [
+              Spacer(),
+              PopupMenuButton<SampleItem>(
+                initialValue: selectedMenu,
+                // Callback that sets the selected popup menu item.
+                onSelected: (SampleItem item) {
+                  setState(() {
+                    selectedMenu = item;
+                  });
+                },
+                itemBuilder: (BuildContext context) =>
+                    <PopupMenuEntry<SampleItem>>[
+                  const PopupMenuItem<SampleItem>(
+                    value: SampleItem.itemOne,
+                    child: Text('Item 1'),
+                  ),
+                  const PopupMenuItem<SampleItem>(
+                    value: SampleItem.itemTwo,
+                    child: Text('Item 2'),
+                  ),
+                  const PopupMenuItem<SampleItem>(
+                    value: SampleItem.itemThree,
+                    child: Text('Item 3'),
+                  ),
+                ],
+              ),
+            ]),
             bottom: TabBar(
               tabs: tabs,
             ),
@@ -321,6 +351,32 @@ class _tab1State extends State<_tab1> {
               ),
             ],
           ),
+          DemoCustomTitle(title: 'Alert Dialog'),
+          Row(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    showDialog<void>(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('Reset settings?'),
+                              content: Text(
+                                  'This will reset your device to its default factory settings.'),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('CANCEL'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('ACCEPT'),
+                                ),
+                              ],
+                            ));
+                  },
+                  child: Text('Alert Dialog'))
+            ],
+          )
         ]),
       ),
     );
