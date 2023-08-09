@@ -3,8 +3,8 @@ import 'package:material_color_utilities/material_color_utilities.dart';
 
 //自定義 Material 主題
 @immutable
-class BasilTheme extends ThemeExtension<BasilTheme> {
-  const BasilTheme({
+class MaterialBasilTheme extends ThemeExtension<MaterialBasilTheme> {
+  const MaterialBasilTheme({
     this.primaryColor = const Color(
       0xFF356859,
     ),
@@ -16,18 +16,19 @@ class BasilTheme extends ThemeExtension<BasilTheme> {
 
   //Theme Extensions
   @override
-  ThemeExtension<BasilTheme> copyWith(
+  ThemeExtension<MaterialBasilTheme> copyWith(
           {Color? primaryColor, Color? tertiaryColor, Color? neutralColor}) =>
-      BasilTheme(
+      MaterialBasilTheme(
           primaryColor: primaryColor ?? this.primaryColor,
           tertiaryColor: tertiaryColor ?? this.tertiaryColor,
           neutralColor: neutralColor ?? this.neutralColor);
 
   ///動畫 Theme Extensions
   @override
-  BasilTheme lerp(covariant ThemeExtension<BasilTheme>? other, double t) {
-    if (other is! BasilTheme) return this;
-    return BasilTheme(
+  MaterialBasilTheme lerp(
+      covariant ThemeExtension<MaterialBasilTheme>? other, double t) {
+    if (other is! MaterialBasilTheme) return this;
+    return MaterialBasilTheme(
         primaryColor: Color.lerp(primaryColor, other.primaryColor, t)!);
   }
 
@@ -72,11 +73,10 @@ class BasilTheme extends ThemeExtension<BasilTheme> {
         inversePrimary: primary.get(80));
   }
 
-  ///基本設定
-  ThemeData _base(ColorScheme colorScheme) {
-    ///字型 Google Fonts
+  ///Material3
+  ThemeData toTheme() {
+    final colorScheme = _scheme().toColorSheme(Brightness.light);
     final isLight = colorScheme.brightness == Brightness.light;
-
     return ThemeData(
       fontFamily: 'NotoSansTC',
       useMaterial3: true,
@@ -90,13 +90,16 @@ class BasilTheme extends ThemeExtension<BasilTheme> {
           backgroundColor: isLight ? neutralColor : colorScheme.surface),
       chipTheme: ChipThemeData(
           backgroundColor: isLight ? neutralColor : colorScheme.surface),
-    );
-  }
 
-  ///Material3
-  ThemeData toThemeData() {
-    final colorScheme = _scheme().toColorSheme(Brightness.light);
-    return _base(colorScheme).copyWith(brightness: colorScheme.brightness);
+      ///tab 樣式
+      tabBarTheme: TabBarTheme(
+        indicatorColor: primaryColor,
+        labelColor: primaryColor,
+        dividerColor: Colors.transparent,
+      ),
+    ).copyWith(
+      brightness: colorScheme.brightness,
+    );
   }
 }
 

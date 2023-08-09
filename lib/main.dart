@@ -12,7 +12,8 @@ import 'package:let_api_flutter/src/core/services/product_popular_provider.dart'
 import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/core/services/refresh_indicator_service.dart';
 import 'package:let_api_flutter/src/core/services/scroll_service.dart';
-import 'package:let_api_flutter/src/styles/material_basil_theme.dart';
+import 'package:let_api_flutter/src/styles/themes/basil.dart';
+import 'package:let_api_flutter/src/styles/themes/dark.dart';
 import 'package:let_api_flutter/src/widgets/dialogs/dispatch.dart';
 
 //專案起點
@@ -33,7 +34,10 @@ void main() async {
           final goRouter = ref.read(goRouterProvider);
           return MaterialApp.router(
               title: 'Flutter Demo',
-              theme: const BasilTheme().toThemeData(),
+              theme: const MaterialBasilTheme().toTheme(),
+              // theme: ThemeData.light(),
+              darkTheme: materialDarkTheme(darkScheme.primary),
+              themeMode: ThemeMode.light,
               routerConfig: goRouter);
         })),
   );
