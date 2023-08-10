@@ -61,6 +61,7 @@ class WidgetDemoScreenState extends State<WidgetDemoScreen> {
                     child: Text('Item 3'),
                   ),
                 ],
+                child: Icon(Icons.more_vert),
               ),
             ]),
             bottom: TabBar(
@@ -382,7 +383,67 @@ class _Tab1State extends State<_Tab1> {
                   },
                   child: Text('Alert Dialog'))
             ],
-          )
+          ),
+          DemoCustomTitle(title: 'Alert Dialog'),
+          ElevatedButton(
+            child: const Text('BottomSheet'),
+            onPressed: () {
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return Stack(
+                    children: [
+                      Positioned(
+                          top: 10,
+                          left: MediaQuery.of(context).size.width / 2 - 15,
+                          child: Container(
+                            width: 30,
+                            height: 2,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade600,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                          )),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text('語言',
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Text('請選擇你要使用的語言',
+                                style: Theme.of(context).textTheme.bodySmall),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Divider(
+                              height: 1,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ElevatedButton(
+                              child: const Text('儲存'),
+                              onPressed: () {
+                                // Navigator.pop(context)
+                              },
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                },
+              );
+            },
+          ),
         ]),
       ),
     );

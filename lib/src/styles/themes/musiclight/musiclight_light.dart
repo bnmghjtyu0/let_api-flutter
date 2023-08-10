@@ -6,9 +6,11 @@ import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/buttons/ele
 import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/buttons/outlined_button_theme.dart';
 import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/buttons/text_button_theme.dart';
 import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/chip_theme.dart';
+import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/color_scheme.dart';
 import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/dialog_theme.dart';
 import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/input_decoration_theme.dart';
 import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/popup_menu_theme.dart';
+import 'package:let_api_flutter/src/styles/themes/musiclight/widgets/text_theme.dart';
 
 //自定義 Material 主題
 @immutable
@@ -22,9 +24,6 @@ class MaterialMusicLightTheme extends ThemeExtension<MaterialMusicLightTheme> {
   static Color disabledColor = Color.fromRGBO(218, 218, 219, 1);
   static Color errorColor = Color.fromRGBO(255, 100, 100, 1);
 
-  ///尺寸
-  static double buttonFontSize = 16;
-
   ///建構式
   const MaterialMusicLightTheme();
 
@@ -33,20 +32,21 @@ class MaterialMusicLightTheme extends ThemeExtension<MaterialMusicLightTheme> {
     ///判斷手機目前是否為淺色模式
     // final isLight = colorScheme.brightness == Brightness.light;
     return ThemeData(
-        //設定字型
-        // fontFamily: 'NotoSansTC',
+
+        ///設定字型
+        fontFamily: 'NotoSansTC',
 
         //使用 Material 3 的樣式
         useMaterial3: true,
         extensions: [this],
-        // material 色票、調色盤
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: primaryColor,
-            primary: primaryColor,
 
-            ///每個元件內的 elevated 都會吃到這個顏色
-            surfaceTint: Colors.white),
-        // 鷹架
+        ///文字大小
+        textTheme: textTheme,
+
+        /// material 色票、調色盤
+        colorScheme: colorScheme,
+
+        /// 鷹架
         scaffoldBackgroundColor: neutralColor,
         appBarTheme: AppBarTheme(backgroundColor: primaryColor),
 
@@ -58,16 +58,16 @@ class MaterialMusicLightTheme extends ThemeExtension<MaterialMusicLightTheme> {
         outlinedButtonTheme: outlinedButtonTheme,
         textButtonTheme: textButtonTheme,
 
-        // TextField 樣式
+        /// TextField 樣式
         inputDecorationTheme: inputDecorationTheme,
 
-        // tab 樣式
+        /// tab 樣式
         tabBarTheme: TabBarTheme(labelColor: Colors.white),
 
-        // dialog 樣式
+        /// dialog 樣式
         dialogTheme: dialogTheme,
 
-        // menu 樣式
+        /// menu 樣式
         popupMenuTheme: popupMenuTheme);
   }
 

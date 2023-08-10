@@ -7,11 +7,9 @@ final primaryColor = MaterialMusicLightTheme.primaryColor;
 final primaryDeepColor = MaterialMusicLightTheme.primaryDeepColor;
 final disabledColor = MaterialMusicLightTheme.disabledColor;
 
-final inputDecorationTheme = InputDecorationTheme(
-  floatingLabelBehavior: FloatingLabelBehavior.always,
-  //預設樣式
-  // enabledBorder:
-  //     OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
+final colorScheme = ColorScheme.fromSeed(
+    seedColor: primaryColor,
+    primary: primaryColor,
 
-  errorStyle: TextStyle(fontSize: 16),
-);
+    ///每個元件內的 elevated 都會吃到這個顏色
+    surfaceTint: Colors.white);

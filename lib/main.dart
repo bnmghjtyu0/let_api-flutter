@@ -19,7 +19,7 @@ import 'package:let_api_flutter/src/core/services/product_popular_provider.dart'
 import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/core/services/refresh_indicator_service.dart';
 import 'package:let_api_flutter/src/core/services/scroll_service.dart';
-import 'package:let_api_flutter/src/styles/themes/musiclight/musiclight.dart';
+import 'package:let_api_flutter/src/styles/themes/musiclight/musiclight_light.dart';
 import 'package:let_api_flutter/src/widgets/dialogs/dispatch.dart';
 
 //專案起點
