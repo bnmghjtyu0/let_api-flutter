@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:go_router/go_router.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
@@ -19,7 +22,8 @@ class RecommendDetailWidget extends ConsumerStatefulWidget {
       : super(key: key);
 
   @override
-  _RecommendDetailWidgetState createState() => _RecommendDetailWidgetState();
+  ConsumerState<RecommendDetailWidget> createState() =>
+      _RecommendDetailWidgetState();
 }
 
 class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
@@ -66,8 +70,8 @@ class _RecommendDetailWidgetState extends ConsumerState<RecommendDetailWidget> {
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
                   background: Image.network(
-                      ApiConstants.BASE_URL +
-                          ApiConstants.UPLOAD_URL +
+                      ApiConstants.baseUrl +
+                          ApiConstants.uploadUrl +
                           product.img!,
                       width: double.maxFinite,
                       fit: BoxFit.cover)),

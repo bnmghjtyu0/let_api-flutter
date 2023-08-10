@@ -1,4 +1,3 @@
-export 'chartDetail.dart';
+export 'chart_detail.dart';
 export 'charts.dart';
-export 'common/common.dart';
 export 'search_kkbox_api.dart';

@@ -1,5 +1,8 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/core/models/recommend_model.dart';
 import 'package:let_api_flutter/src/core/services/api/bslmeiyu_api.dart';
 
@@ -23,10 +26,10 @@ final recommendApiData = FutureProvider<Recommend>((ref) {
 
 class ProductNotifier extends StateNotifier<ProductRecommendState> {
   ProductNotifier() : super(ProductRecommendState()) {
-    print('初始化 ProductRecommendNotifier');
+    debugPrint('初始化 ProductRecommendNotifier');
   }
 
-  loadProductPopular() async {
+  void loadProductPopular() async {
     state = state.copyWith(isLoading: true);
     final recommend = await BslmeiyuService().productRecommend();
     // Update state in provider

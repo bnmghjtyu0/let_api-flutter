@@ -1,6 +1,13 @@
+// Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/dimensions.dart';
@@ -11,15 +18,13 @@ import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/cus
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker_validator.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_input.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_password.dart';
-import 'package:logger/logger.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 // 註冊頁面
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
@@ -50,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   });
 
   ///送出
-  submit() {
+  void submit() {
     var log = Logger(
       printer: PrettyPrinter(
         methodCount: 0,

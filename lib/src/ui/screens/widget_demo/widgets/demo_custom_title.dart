@@ -1,8 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 class DemoCustomTitle extends StatelessWidget {
-  String title;
-  DemoCustomTitle({Key? key, required this.title}) : super(key: key);
+  final String title;
+  const DemoCustomTitle({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

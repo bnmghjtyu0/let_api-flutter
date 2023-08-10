@@ -1,8 +1,11 @@
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
 import 'package:let_api_flutter/src/core/models/kkbox/common/tracks.dart';
 
-part 'chartDetail.freezed.dart';
-part 'chartDetail.g.dart';
+part 'chart_detail.freezed.dart';
+part 'chart_detail.g.dart';
 
 @freezed
 class ChartDetailResponse with _$ChartDetailResponse {

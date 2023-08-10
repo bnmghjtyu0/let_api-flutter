@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:let_api_flutter/src/models/kkbox/common/tracks.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/common/tracks.dart';
 
 part 'charts.freezed.dart';
 part 'charts.g.dart';

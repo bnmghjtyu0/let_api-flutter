@@ -1,18 +1,18 @@
 ///專案共用常數
 class ApiConstants {
   ///bslmeiyu api host
-  static const String BASE_URL = String.fromEnvironment('API_URL');
+  static const String baseUrl = String.fromEnvironment('apiUrl');
 
   ///bslmeiyu api 連結
-  static const String API_URL = String.fromEnvironment('API_URL') +
-      String.fromEnvironment('API_ENDPOINT');
+  static const String apiUrl =
+      String.fromEnvironment('apiUrl') + String.fromEnvironment('API_ENDPOINT');
 
   ///bslmeiyu popular api
-  static const String POPULAR_PRODUCT_URI = "/products/popular";
+  static const String productsPopular = "/products/popular";
 
   ///bslmeiyu recommended api
-  static const String RECOMMENDED_PRODUCT_URI = "/products/recommended";
+  static const String productsRecommend = "/products/recommended";
 
   ///bslmeiyu 圖片 api path
-  static const String UPLOAD_URL = '/uploads/';
+  static const String uploadUrl = '/uploads/';
 }

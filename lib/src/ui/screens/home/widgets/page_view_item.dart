@@ -2,21 +2,20 @@ part of '../home.dart';
 
 ///輪播圖
 class PageViewItem extends StatelessWidget {
-  int index;
-  double currPageValue;
-  ProductModel popularProduct;
+  final int index;
+  final double currPageValue;
+  final ProductModel popularProduct;
+  final double scaleFactor = 0.8;
 
-  PageViewItem(
+  const PageViewItem(
       {super.key,
       required this.index,
       required this.currPageValue,
       required this.popularProduct});
 
-  double scaleFactor = 0.8;
-
-  Matrix4 matrix = Matrix4.identity();
   @override
   Widget build(BuildContext context) {
+    Matrix4 matrix = Matrix4.identity();
     return Consumer(builder: (context, ref, child) {
       double height = Dimensions.pageViewContainer();
 
@@ -68,8 +67,8 @@ class PageViewItem extends StatelessWidget {
                           index.isEven ? $styles.colors.mainColor : Colors.blue,
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(ApiConstants.BASE_URL +
-                              ApiConstants.UPLOAD_URL +
+                          image: NetworkImage(ApiConstants.baseUrl +
+                              ApiConstants.uploadUrl +
                               popularProduct.img!)))),
             ),
 

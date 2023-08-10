@@ -1,6 +1,7 @@
-// ignore_for_file: constant_identifier_names
-
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 
 //自定義的 icons
@@ -31,23 +32,23 @@ class AppLocalIcon extends StatelessWidget {
 
 enum EAppIcon {
   close,
-  close_large,
+  closeLarge,
   collection,
   download,
   expand,
-  fullscreen,
-  fullscreen_exit,
+  fullScreen,
+  fullScreenExit,
   info,
   menu,
-  next_large,
+  nextLarge,
   north,
   prev,
-  reset_location,
+  resetLocation,
   search,
-  share_android,
-  share_ios,
+  shardAndroid,
+  shareIos,
   timeline,
   wallpaper,
-  zoom_in,
-  zoom_out
+  zoomIn,
+  zoomOut
 }

@@ -1,6 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/core/services/api/kkbox-api.dart';
-import 'package:let_api_flutter/src/models/kkbox/chartDetail.dart';
+
+// Project imports:
+import 'package:let_api_flutter/src/core/models/kkbox/chart_detail.dart';
+import 'package:let_api_flutter/src/core/services/api/kkbox_api.dart';
 
 class HomeDetailPage extends StatefulWidget {
   //影片 ID
@@ -14,7 +17,7 @@ class HomeDetailPage extends StatefulWidget {
 
 class _MyHomeDetailPageState extends State<HomeDetailPage> {
   late Future<ChartDetailResponse> chartDetailData;
-  final kkboxAPI = kkboxHttpService();
+  final kkboxAPI = KkboxHttpService();
 
   //初始化載入
   @override
@@ -45,7 +48,7 @@ class _MyHomeDetailPageState extends State<HomeDetailPage> {
               )
             ]);
           } else if (snapshot.hasError) {
-            print('error');
+            debugPrint('error');
             return Container();
           }
           return const CircularProgressIndicator();

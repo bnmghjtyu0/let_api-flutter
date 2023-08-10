@@ -65,6 +65,9 @@ dependencies:
   firebase_crashlytics: ^3.3.3 #app realtime crash reporter
   logger: ^2.0.1
   flutter_svg: ^2.0.7
+  fixnum: ^1.1.0
+  dots_indicator: ^2.0.0
+  import_sorter: ^4.6.0
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +79,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  dots_indicator: ^2.0.0
   build_runner: ^2.4.5
   json_serializable: ^6.7.0
   commitlint_cli: ^0.4.1

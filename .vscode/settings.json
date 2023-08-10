@@ -28,7 +28,33 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   // cSpell 白名單
-  "cSpell.words": ["fenix"],
+  "cSpell.words": [
+    "fenix",
+    "datepicker",
+    "fixnum",
+    "bslmeiyu",
+    "bsimeiyu",
+    "kkbox",
+    "fromRGBO",
+    "riverpod",
+    "riverpods",
+    "vsync",
+    "autocorrect",
+    "toolbarOptions",
+    "debouncer",
+    "autovalidate",
+    "autofocus",
+    "mlhome",
+    "mlheader",
+    "mlgrey",
+    "listview",
+    "curr",
+    "firestore",
+    "Cupertino",
+    "commitlint",
+    "noto",
+    "ysabeau"
+  ],
 
   // fvm
   // -------------------------------

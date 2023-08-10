@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/widgets/widgets.dart';
 
@@ -6,7 +7,8 @@ class ExpandableTextWidget extends ConsumerStatefulWidget {
   const ExpandableTextWidget({Key? key, required this.text}) : super(key: key);
 
   @override
-  _ExpandableTextWidgetState createState() => _ExpandableTextWidgetState();
+  ConsumerState<ExpandableTextWidget> createState() =>
+      _ExpandableTextWidgetState();
 }
 
 class _ExpandableTextWidgetState extends ConsumerState<ExpandableTextWidget> {

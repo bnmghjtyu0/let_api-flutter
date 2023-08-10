@@ -1,5 +1,8 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
+import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/core/models/products_model.dart';
 import 'package:let_api_flutter/src/core/services/api/bslmeiyu_api.dart';
 
@@ -19,10 +22,10 @@ final productPopularProvider =
 
 class ProductNotifier extends StateNotifier<ProductState> {
   ProductNotifier() : super(ProductState()) {
-    print('初始化 ProductNotifier');
+    debugPrint('初始化 ProductNotifier');
   }
 
-  loadProductPopular() async {
+  void loadProductPopular() async {
     state = state.copyWith(isLoading: true);
     final product = await BslmeiyuService().productPopular();
 

@@ -1,7 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/app_scaffold.dart';
@@ -56,8 +61,8 @@ Future<void> bootstrap(ProviderContainer ref) async {
     await CommonFirebaseService().initNotifications();
   }
   //載入 api
-  await ref.read(productPopularProvider.notifier).loadProductPopular();
-  await ref.read(productRecommendProvider.notifier).loadProductPopular();
+  ref.read(productPopularProvider.notifier).loadProductPopular();
+  ref.read(productRecommendProvider.notifier).loadProductPopular();
   //取得購物車資料 localStorage
   ref.read(cartProvider.notifier).getCartData();
 }

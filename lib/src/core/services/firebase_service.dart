@@ -1,7 +1,12 @@
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/core/services/platform.dart';
 import 'package:let_api_flutter/src/widgets/dialogs/notification_dialog.dart';
@@ -13,7 +18,7 @@ class CommonFirebaseService {
 
   /// app crash reporter
   Future<void> initCrash() async {
-    print('firebase init');
+    debugPrint('firebase init');
 
     /// ----start ---- FirebaseCrashlytics 當有錯誤時，告訴 firebase   --------
     FlutterError.onError = (errorDetails) {
@@ -43,7 +48,7 @@ class CommonFirebaseService {
     ///ios 需要申請 APNs 憑證才能使用
     if (PlatformInfo.isIOS) return;
 
-    final fcmToken = await messaging.getToken();
+    // final fcmToken = await messaging.getToken();
     // 前景推播
     FirebaseMessaging.onMessage.listen(_firebaseMessagingForegroundHandler);
     // 背景推播
@@ -58,7 +63,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
 
-  print("Handling a background message: ${message.messageId}");
+  debugPrint("Handling a background message: ${message.messageId}");
 }
 
 ///前景推播 - 使用 dialog 出現訊息

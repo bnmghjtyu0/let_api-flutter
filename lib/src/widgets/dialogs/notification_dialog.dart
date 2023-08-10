@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:let_api_flutter/src/widgets/dialogs/common/ml_dialog.dart';
 
 ///推播資料
@@ -23,10 +26,10 @@ class NotificationDialogData {
 /// );
 class NotificationDialog extends StatelessWidget {
   ///推播資料
-  NotificationDialogData data;
+  final NotificationDialogData data;
 
   ///推播 dialog - 建構式
-  NotificationDialog({Key? key, required this.data}) : super(key: key);
+  const NotificationDialog({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

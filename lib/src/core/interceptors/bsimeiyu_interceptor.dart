@@ -1,4 +1,9 @@
+// ignore_for_file: lines_longer_than_80_chars
+
+// Package imports:
 import 'package:dio/dio.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/core/utils/logger_util.dart';
 import 'package:let_api_flutter/src/widgets/dialogs/error_dialog.dart';
@@ -14,7 +19,7 @@ class BsimeiyuInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    print(
+    debugPrint(
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
 
     $dialogDispatch.showErrorDialog(ErrorDialogData(

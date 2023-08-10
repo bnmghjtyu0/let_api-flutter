@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:go_router/go_router.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
@@ -8,9 +11,9 @@ import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 ///搜尋功能－顯示結果
 class SearchView extends StatelessWidget {
-  String inputText;
-  OverlayEntry? overlay;
-  SearchView({Key? key, required this.inputText, this.overlay})
+  final String inputText;
+  final OverlayEntry? overlay;
+  const SearchView({Key? key, required this.inputText, this.overlay})
       : super(key: key);
 
   @override
@@ -77,7 +80,7 @@ class _Row extends StatelessWidget {
                 width: Dimensions.listViewImageSize(),
                 height: Dimensions.listViewImageSize(),
                 child: Image.network(
-                    ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + data.img!,
+                    ApiConstants.baseUrl + ApiConstants.uploadUrl + data.img!,
                     loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
                   return CircularProgressIndicator(
@@ -112,7 +115,7 @@ class _Row extends StatelessWidget {
                             children: [
                               IconAndTextWidget(
                                   icon: Icons.circle_sharp,
-                                  text: data.price.toString() ?? '',
+                                  text: data.price.toString(),
                                   iconColor: $styles.colors.mainColor),
                               IconAndTextWidget(
                                   icon: Icons.location_on,

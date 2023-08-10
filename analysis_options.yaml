@@ -1,11 +1,21 @@
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  errors:
+    #檢查函式回傳的型別 - 找到問題後，顯示錯誤提示
+    always_declare_return_types: error
+    library_private_types_in_public_api: error
+
 linter:
     rules:
+        #檢查函式回傳的型別
         always_declare_return_types: true
         always_use_package_imports: true
         prefer_const_constructors: false
         prefer_single_quotes: false
         #true: 不能使用 forEach, false: 可以使用 forEach
         avoid_function_literals_in_foreach_calls: false
-        lines_longer_than_80_chars: true
+        lines_longer_than_80_chars: false
+        constant_identifier_names: true
+        file_names: true
+        library_private_types_in_public_api: true

@@ -1,15 +1,19 @@
+// Flutter imports:
 import 'package:flutter/scheduler.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
+import 'package:let_api_flutter/src/core/utils/debouncer.dart';
 import 'package:let_api_flutter/src/ui/screens/search/widgets/search_overlay.dart';
 import 'package:let_api_flutter/src/ui/screens/search/widgets/search_view.dart';
-import 'package:let_api_flutter/src/core/utils/debouncer.dart';
+
 part 'widgets/search_input.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
@@ -60,7 +64,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 }
 
 class _Suggestion extends StatelessWidget {
-  List<String> suggestList = [
+  final List<String> suggestList = [
     '#夏日清爽計畫',
     '台北',
     '台南',
@@ -72,7 +76,7 @@ class _Suggestion extends StatelessWidget {
     '新竹',
     '直女'
   ];
-  Function(String value) myMethod;
+  final Function(String value) myMethod;
   _Suggestion({Key? key, required this.myMethod}) : super(key: key);
 
   @override

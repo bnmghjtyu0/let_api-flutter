@@ -68,7 +68,7 @@ class RecommendRow extends StatelessWidget {
                 width: Dimensions.listViewImageSize(),
                 height: Dimensions.listViewImageSize(),
                 child: Image.network(
-                    ApiConstants.BASE_URL + ApiConstants.UPLOAD_URL + data.img!,
+                    ApiConstants.baseUrl + ApiConstants.uploadUrl + data.img!,
                     loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
                   return CircularProgressIndicator(
@@ -103,7 +103,7 @@ class RecommendRow extends StatelessWidget {
                             children: [
                               IconAndTextWidget(
                                   icon: Icons.circle_sharp,
-                                  text: data.price.toString() ?? '',
+                                  text: data.price.toString(),
                                   iconColor: $styles.colors.mainColor),
                               IconAndTextWidget(
                                   icon: Icons.location_on,

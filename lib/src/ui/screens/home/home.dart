@@ -1,7 +1,10 @@
 // ignore_for_file: unused_local_variable
 
+// Package imports:
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:go_router/go_router.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
@@ -21,7 +24,7 @@ class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
@@ -54,8 +57,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _loadResource() async {
-    await ref.read(productPopularProvider.notifier).loadProductPopular();
-    await ref.read(productRecommendProvider.notifier).loadProductPopular();
+    ref.read(productPopularProvider.notifier).loadProductPopular();
+    ref.read(productRecommendProvider.notifier).loadProductPopular();
   }
 
   @override
@@ -124,7 +127,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     children: [
                       //輪播區塊
                       productsData.isEmpty
-                          ? Container(child: Text('找不到資料'))
+                          ? Text('找不到資料')
                           : SizedBox(
                               height: Dimensions.pageView(),
                               child: PageView.builder(

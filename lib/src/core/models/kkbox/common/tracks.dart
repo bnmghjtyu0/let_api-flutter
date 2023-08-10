@@ -84,7 +84,7 @@ class Paging {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['offset'] = offset;
     data['limit'] = limit;
-    data['previous'] = previous;
+    data['previous'] = () {};
     data['next'] = next;
     return data;
   }

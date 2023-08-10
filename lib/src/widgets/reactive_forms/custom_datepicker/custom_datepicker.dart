@@ -1,8 +1,13 @@
+// Flutter imports:
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:intl/intl.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/calendar/calendar.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 /// ## Example:
 ///  see more [ReactiveDatePicker]
@@ -16,17 +21,18 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 // ReactiveFormField<T, DateTime>
 class CustomDatepicker extends StatelessWidget {
-  DateTime firstDate;
-  DateTime lastDate;
-  String? hintText;
-  bool? disabled;
-  List<TextInputFormatter>? inputFormatters;
-  AbstractControl<Object?>? formControl;
+  final DateTime firstDate;
+  final DateTime lastDate;
+  final String? hintText;
+  final bool? disabled;
+  final List<TextInputFormatter>? inputFormatters;
+  final AbstractControl<Object?>? formControl;
 
   CustomDatepicker(
       {super.key,
       this.hintText,
       this.formControl,
+      this.disabled,
       this.inputFormatters,
       required this.firstDate,
       required this.lastDate}) {

@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:go_router/go_router.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
@@ -22,7 +25,7 @@ class PopularDetail extends ConsumerStatefulWidget {
       : super(key: key);
 
   @override
-  _PopularDetailState createState() => _PopularDetailState();
+  ConsumerState<PopularDetail> createState() => _PopularDetailState();
 }
 
 class _PopularDetailState extends ConsumerState<PopularDetail> {
@@ -41,7 +44,6 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
     /** 取得產品 api */
     final Product? popularApiData = ref.watch(productPopularProvider).product;
     final cartNotifier = ref.read(cartProvider.notifier);
-    final cartData = ref.watch(cartProvider);
     final ProductModel product = popularApiData!.products[widget.index];
 
     void setQuantity(bool isIncrement) {
@@ -76,8 +78,8 @@ class _PopularDetailState extends ConsumerState<PopularDetail> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage((ApiConstants.BASE_URL +
-                            ApiConstants.UPLOAD_URL +
+                        image: NetworkImage((ApiConstants.baseUrl +
+                            ApiConstants.uploadUrl +
                             product.img!)))),
               )),
 

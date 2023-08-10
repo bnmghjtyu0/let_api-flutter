@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 
 class MlHeader extends StatelessWidget {
@@ -41,18 +42,14 @@ class MlHeader extends StatelessWidget {
           ),
           IconButton(
             icon: $styles.svg.radio,
-            onPressed: () {
-              print('123');
-            },
+            onPressed: () {},
           ),
           SizedBox(
             width: 10,
           ),
           InkWell(
             child: $styles.svg.apps,
-            onTap: () {
-              print('123');
-            },
+            onTap: () {},
           ),
           SizedBox(
             width: 20,

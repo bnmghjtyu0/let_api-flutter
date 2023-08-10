@@ -4,9 +4,9 @@ import 'package:let_api_flutter/src/widgets/app_header.dart';
 import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 class AccountTabletScreen extends StatelessWidget {
-  AccountTabletScreen({Key? key, required this.users}) : super(key: key);
+  const AccountTabletScreen({Key? key, required this.users}) : super(key: key);
 
-  List<dynamic> users;
+  final List<dynamic> users;
 
   @override
   Widget build(BuildContext context) {

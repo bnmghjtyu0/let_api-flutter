@@ -1,18 +1,23 @@
+// Flutter imports:
 import 'package:flutter/services.dart';
-import 'package:let_api_flutter/common_libs.dart';
+
+// Package imports:
 import 'package:reactive_forms/reactive_forms.dart';
 
+// Project imports:
+import 'package:let_api_flutter/common_libs.dart';
+
 class CustomInput extends StatefulWidget {
-  String formControlName;
-  String? hintText;
-  IconData? icon;
-  Widget? suffixIcon;
+  final String formControlName;
+  final String? hintText;
+  final IconData? icon;
+  final Widget? suffixIcon;
   final String? errorText;
   final Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
 
-  CustomInput(
+  const CustomInput(
       {Key? key,
       required this.formControlName,
       this.hintText,

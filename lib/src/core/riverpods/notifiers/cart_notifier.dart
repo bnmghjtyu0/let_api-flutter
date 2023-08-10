@@ -1,5 +1,7 @@
+// Dart imports:
 import 'dart:convert';
 
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/core/constants/shared_preference_constant.dart';
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
@@ -146,7 +148,7 @@ class CartNotifier extends StateNotifier<CartState> {
 
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
 
-    sharedPreference.setStringList(SharedPreferenceConstants.CART_LIST, cart);
+    sharedPreference.setStringList(SharedPreferenceConstants.cartList, cart);
   }
 
   //sharedPreferences 取得資料
@@ -155,9 +157,9 @@ class CartNotifier extends StateNotifier<CartState> {
 
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
     //如果 localStorage 有資料
-    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_LIST)) {
+    if (sharedPreference.containsKey(SharedPreferenceConstants.cartList)) {
       carts =
-          sharedPreference.getStringList(SharedPreferenceConstants.CART_LIST)!;
+          sharedPreference.getStringList(SharedPreferenceConstants.cartList)!;
     }
 
     List<CartModel> cartList = [];
@@ -192,14 +194,13 @@ class CartNotifier extends StateNotifier<CartState> {
   void addToCartHistory() async {
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
 
-    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_HISTORY)) {
+    if (sharedPreference.containsKey(SharedPreferenceConstants.cartHistory)) {
       cartHistory = sharedPreference
-          .getStringList(SharedPreferenceConstants.CART_HISTORY)!;
+          .getStringList(SharedPreferenceConstants.cartHistory)!;
     }
 
     //結帳後，設定結帳時間
     for (int i = 0; i < cart.length; i++) {
-      String tempData = cart[i];
       CartModel tempCart = CartModel.fromJson(jsonDecode(cart[i]));
 
       //設定結帳時間
@@ -219,21 +220,20 @@ class CartNotifier extends StateNotifier<CartState> {
     }
 
     sharedPreference.setStringList(
-        SharedPreferenceConstants.CART_HISTORY, cartHistory);
+        SharedPreferenceConstants.cartHistory, cartHistory);
   }
 
   Future<List<CartModel>> getCartHistoryList() async {
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
-    if (sharedPreference.containsKey(SharedPreferenceConstants.CART_HISTORY)) {
+    if (sharedPreference.containsKey(SharedPreferenceConstants.cartHistory)) {
       cartHistory = [];
       cartHistory = sharedPreference
-          .getStringList(SharedPreferenceConstants.CART_HISTORY)!;
+          .getStringList(SharedPreferenceConstants.cartHistory)!;
     }
     List<CartModel> cartListHistory = [];
     cartHistory.forEach((element) =>
         cartListHistory.add(CartModel.fromJson(jsonDecode(element))));
 
-    List<CartModel> cartHistoryReversed = List.from(cartListHistory.reversed);
     return cartListHistory;
   }
 
@@ -244,6 +244,6 @@ class CartNotifier extends StateNotifier<CartState> {
 
     //清空 local storage 的資料
     final sharedPreference = await ref.read(sharedPreferenceProvider.future);
-    sharedPreference.remove(SharedPreferenceConstants.CART_LIST);
+    sharedPreference.remove(SharedPreferenceConstants.cartList);
   }
 }

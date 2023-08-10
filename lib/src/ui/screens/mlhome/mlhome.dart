@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/ui/screens/mlhome/mlheader.dart';
 
@@ -87,7 +88,7 @@ class MlhomeState extends State<Mlhome> {
                                 ))
                               ]),
                               onTap: () {
-                                print('爽吃自助餐');
+                                debugPrint('爽吃自助餐');
                               },
                             ),
                           ],

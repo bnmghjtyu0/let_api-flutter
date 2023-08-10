@@ -1,9 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:reactive_forms/reactive_forms.dart';
+
+// Project imports:
 import 'package:let_api_flutter/src/ui/screens/widget_demo/widgets/demo_custom_title.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker_validator.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
+// ignore: constant_identifier_names
 enum SingingCharacter { Richard, Angel }
 
 enum SampleItem { itemOne, itemTwo, itemThree }
@@ -63,7 +69,7 @@ class WidgetDemoScreenState extends State<WidgetDemoScreen> {
           ),
           body: TabBarView(
             children: const [
-              _tab1(),
+              _Tab1(),
               Text('123'),
               Text('123'),
             ],
@@ -74,14 +80,14 @@ class WidgetDemoScreenState extends State<WidgetDemoScreen> {
   }
 }
 
-class _tab1 extends StatefulWidget {
-  const _tab1({Key? key}) : super(key: key);
+class _Tab1 extends StatefulWidget {
+  const _Tab1({Key? key}) : super(key: key);
 
   @override
-  State<_tab1> createState() => _tab1State();
+  State<_Tab1> createState() => _Tab1State();
 }
 
-class _tab1State extends State<_tab1> {
+class _Tab1State extends State<_Tab1> {
   List<bool> checked = [true, false];
   //註冊頁表單
   final FormGroup form = FormGroup({
@@ -91,13 +97,13 @@ class _tab1State extends State<_tab1> {
 
   SingingCharacter? _character = SingingCharacter.Richard;
 
-  radioHandler(SingingCharacter? value) {
+  void radioHandler(SingingCharacter? value) {
     setState(() {
       _character = value;
     });
   }
 
-  checkHandler(bool? value, i) {
+  void checkHandler(bool? value, i) {
     setState(() {
       if (value != null) {
         checked[i] = value;
@@ -313,7 +319,7 @@ class _tab1State extends State<_tab1> {
               InputChip(
                 label: Text('綜藝大熱門'),
                 onSelected: (bool value) {
-                  print(value);
+                  // print(value);
                 },
               ),
               InputChip(

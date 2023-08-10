@@ -1,8 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:let_api_flutter/src/core/services/api/kkbox-api.dart';
-import 'package:let_api_flutter/src/models/kkbox/charts.dart';
+
+// Project imports:
+import 'package:let_api_flutter/src/core/models/kkbox/charts.dart';
+import 'package:let_api_flutter/src/core/services/api/kkbox_api.dart';
 import 'package:let_api_flutter/src/ui/screens/music/detail.dart';
-import 'package:let_api_flutter/src/styles/colors.dart';
 
 class MusicHomeScreen extends StatefulWidget {
   //定義 props
@@ -16,7 +18,7 @@ class MusicHomeScreen extends StatefulWidget {
 
 class _MusicHomeScreenState extends State<MusicHomeScreen> {
   late Future<ChartsKKBOXResponse> searchKKBOXData;
-  final kkboxAPI = kkboxHttpService();
+  final kkboxAPI = KkboxHttpService();
 
   @override
   //初始化載入
@@ -29,7 +31,6 @@ class _MusicHomeScreenState extends State<MusicHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.mainColor,
         title: Text(widget.title),
       ),
       body: FutureBuilder<ChartsKKBOXResponse>(
@@ -50,21 +51,32 @@ class _MusicHomeScreenState extends State<MusicHomeScreen> {
                                 decoration: BoxDecoration(
                                   // 裝飾內裝元件
                                   color: Colors.white, // 背景
-                                  border: Border.all(width: 1, color: Colors.white), // 藍色邊框
+                                  border: Border.all(
+                                      width: 1, color: Colors.white), // 藍色邊框
                                 ),
                                 padding: const EdgeInsets.all(4), // 墊充
-                                child: Image.network(results[index].images?[0].url ?? '')),
+                                child: Image.network(
+                                    results[index].album!.images?[0].url ??
+                                        '')),
                             Flexible(
-                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: Text(style: TextStyle(color: Colors.black), results[index].title ?? '')),
-                            ]))
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                  Padding(
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: Text(
+                                          style: TextStyle(color: Colors.black),
+                                          results[index].name ?? '')),
+                                ]))
                           ]),
                           onTap: () {
                             final videoId = results[index].id;
                             Navigator.push(
-                                context, MaterialPageRoute(builder: (context) => HomeDetailPage(videoId: videoId)));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        HomeDetailPage(videoId: videoId)));
                             // Navigator.of(context).push(MaterialPageRoute(
                             //     builder: (context) =>
                             //         HomeDetailPage(videoId: videoId)));
@@ -74,7 +86,7 @@ class _MusicHomeScreenState extends State<MusicHomeScreen> {
               );
               // return PhotosList(photos: snapshot.data!.tracks!.data);
             } else if (snapshot.hasError) {
-              print('Error: ${snapshot.error}');
+              debugPrint('Error: ${snapshot.error}');
               return Container(); // 失敗回傳空資料
             }
             // 載入時轉圈圈

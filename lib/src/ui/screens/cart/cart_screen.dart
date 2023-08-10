@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:go_router/go_router.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
@@ -11,20 +14,20 @@ import 'package:let_api_flutter/src/widgets/widgets.dart';
 
 //購物車頁面
 class CartScreen extends ConsumerStatefulWidget {
-  //購物車頁面 - 建構式
-  CartScreen({Key? key, required this.extra}) : super(key: key);
-
   //路由方法： go or push
-  CartRouteExtraModel extra;
+  final CartRouteExtraModel extra;
+
+  //購物車頁面 - 建構式
+  const CartScreen({Key? key, required this.extra}) : super(key: key);
 
   @override
-  _CartScreenState createState() => _CartScreenState();
+  ConsumerState<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends ConsumerState<CartScreen> {
   int quantity = 0;
 
-  goBack() {
+  void goBack() {
     if (widget.extra.routeMethod == 'push') {
       GoRouter.of(context).pop();
     } else {
@@ -146,10 +149,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                   image: DecorationImage(
                                                       fit: BoxFit.cover,
                                                       image: NetworkImage(
-                                                          ApiConstants
-                                                                  .BASE_URL +
+                                                          ApiConstants.baseUrl +
                                                               ApiConstants
-                                                                  .UPLOAD_URL +
+                                                                  .uploadUrl +
                                                               item.img)),
                                                   borderRadius:
                                                       BorderRadius.circular(

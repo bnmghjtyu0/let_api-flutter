@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/widgets/dialogs/common/base_dialog.dart';
 
@@ -14,8 +15,8 @@ class ErrorDialogData {
 }
 
 class ErrorDialog extends StatelessWidget {
-  ErrorDialogData? data;
-  ErrorDialog({Key? key, this.data}) : super(key: key);
+  final ErrorDialogData? data;
+  const ErrorDialog({Key? key, this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

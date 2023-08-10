@@ -1,0 +1,16 @@
+# 關於 lefthook.yml 
+# lefthook 是一個 npm 套件，可以快速建立 husky 的 pre-commit
+# 1. 安裝套件: npm install -g lefthook
+# 2. 輸入 lefthook install，建立 .husky/pre-commit 檔案
+
+pre-commit:
+  piped: true
+  commands:
+    linter:
+      run: flutter analyze lib --no-fatal-warnings --no-fatal-infos
+    sort-imports:
+      glob: "*.dart"
+      run: flutter pub run import_sorter:main {staged_files} && git add {staged_files}
+    pretty:
+      glob: "*.dart"
+      run: dart format {staged_files} && git add {staged_files}

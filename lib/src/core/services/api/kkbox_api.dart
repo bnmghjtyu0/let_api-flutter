@@ -1,8 +1,11 @@
+// Package imports:
 import 'package:dio/dio.dart';
-import 'package:let_api_flutter/src/interceptors/kkbox_interceptor.dart';
-import 'package:let_api_flutter/src/models/kkbox/chartDetail.dart';
-import 'package:let_api_flutter/src/models/kkbox/charts.dart';
-import 'package:let_api_flutter/src/models/kkbox/search_kkbox_api.dart';
+
+// Project imports:
+import 'package:let_api_flutter/src/core/interceptors/kkbox_interceptor.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/chart_detail.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/charts.dart';
+import 'package:let_api_flutter/src/core/models/kkbox/search_kkbox_api.dart';
 
 class DioClient {
   final Dio _dio = Dio(BaseOptions(
@@ -21,7 +24,7 @@ class DioClient {
 }
 
 ///kkbox api 服務
-class kkboxHttpService {
+class KkboxHttpService {
   final Dio _dio = DioClient()._dio;
 
   //取得 api 回傳物件

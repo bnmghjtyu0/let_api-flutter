@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:intl/intl.dart';
+
+// Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/src/core/constants/constants.dart';
 import 'package:let_api_flutter/src/core/models/cart_model.dart';
@@ -11,7 +14,7 @@ class HistoryScreen extends ConsumerStatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
 
   @override
-  _HistoryScreenState createState() => _HistoryScreenState();
+  ConsumerState<HistoryScreen> createState() => _HistoryScreenState();
 }
 
 class _HistoryScreenState extends ConsumerState<HistoryScreen> {
@@ -149,9 +152,9 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                                                                             2)),
                                                                 image: DecorationImage(
                                                                     image: NetworkImage(ApiConstants
-                                                                            .BASE_URL +
+                                                                            .baseUrl +
                                                                         ApiConstants
-                                                                            .UPLOAD_URL +
+                                                                            .uploadUrl +
                                                                         cartHistoryList[listCounter -
                                                                                 1]
                                                                             .img))),
