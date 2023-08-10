@@ -30,21 +30,22 @@ class MaterialMusicLightTheme extends ThemeExtension<MaterialMusicLightTheme> {
 
   ///設定主題
   ThemeData init() {
-    ///調色盤
-    final colorScheme = const ColorScheme.light().copyWith(
-        primary: primaryColor, error: errorColor, surface: Colors.white);
-
     ///判斷手機目前是否為淺色模式
     // final isLight = colorScheme.brightness == Brightness.light;
     return ThemeData(
         //設定字型
-        fontFamily: 'NotoSansTC',
+        // fontFamily: 'NotoSansTC',
 
         //使用 Material 3 的樣式
         useMaterial3: true,
         extensions: [this],
-        // material 色票
-        colorScheme: colorScheme,
+        // material 色票、調色盤
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: primaryColor,
+            primary: primaryColor,
+
+            ///每個元件內的 elevated 都會吃到這個顏色
+            surfaceTint: Colors.white),
         // 鷹架
         scaffoldBackgroundColor: neutralColor,
         appBarTheme: AppBarTheme(backgroundColor: primaryColor),

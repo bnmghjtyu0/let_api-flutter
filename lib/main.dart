@@ -19,7 +19,6 @@ import 'package:let_api_flutter/src/core/services/product_popular_provider.dart'
 import 'package:let_api_flutter/src/core/services/product_recommend_provider.dart';
 import 'package:let_api_flutter/src/core/services/refresh_indicator_service.dart';
 import 'package:let_api_flutter/src/core/services/scroll_service.dart';
-import 'package:let_api_flutter/src/styles/themes/dark.dart';
 import 'package:let_api_flutter/src/styles/themes/musiclight/musiclight.dart';
 import 'package:let_api_flutter/src/widgets/dialogs/dispatch.dart';
 
@@ -43,7 +42,7 @@ void main() async {
               title: 'Flutter Demo',
               theme: const MaterialMusicLightTheme().init(),
               // theme: ThemeData.light(),
-              darkTheme: materialDarkTheme(darkScheme.primary),
+              // darkTheme: materialDarkTheme(darkScheme.primary),
               themeMode: ThemeMode.light,
               routerConfig: goRouter);
         })),
