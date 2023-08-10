@@ -311,7 +311,49 @@ class _Tab1State extends State<_Tab1> {
 
                   ///起日
                   lastDate: DateTime(DateTime.now().year - 18,
-                      DateTime.now().month, DateTime.now().day - 1))
+                      DateTime.now().month, DateTime.now().day - 1)),
+              SizedBox(
+                height: 20,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  icon: Icon(Icons.send),
+                  hintText: 'Hint Text',
+                  helperText: 'Helper Text',
+                  counterText: '0 characters',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 60,
+                decoration: BoxDecoration(
+                    border: Border.all(),
+                    // color: Colors.grey.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(4)),
+                child: Row(
+                  children: const [
+                    SizedBox(width: 20),
+                    Icon(Icons.search),
+                    Expanded(
+                      child: TextField(
+                        textAlignVertical: TextAlignVertical.top,
+                        decoration: InputDecoration(
+                          isCollapsed: true,
+                          isDense: true,
+                          focusedBorder:
+                              OutlineInputBorder(borderSide: BorderSide.none),
+                          enabledBorder:
+                              UnderlineInputBorder(borderSide: BorderSide.none),
+                          hintText: '搜尋商品名稱',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           DemoCustomTitle(title: 'Chip 熱門搜尋的標籤'),
