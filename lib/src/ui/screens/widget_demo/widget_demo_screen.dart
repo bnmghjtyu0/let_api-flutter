@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 // Project imports:
+import 'package:let_api_flutter/src/ui/screens/widget_demo/widgets/demo_custom_subtitle.dart';
 import 'package:let_api_flutter/src/ui/screens/widget_demo/widgets/demo_custom_title.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker.dart';
 import 'package:let_api_flutter/src/widgets/reactive_forms/custom_datepicker/custom_datepicker_validator.dart';
@@ -27,6 +28,7 @@ class WidgetDemoScreenState extends State<WidgetDemoScreen> {
     Tab(text: 'First'),
     Tab(text: 'Second'),
   ];
+
   SampleItem? selectedMenu;
 
   @override
@@ -88,8 +90,14 @@ class _Tab1 extends StatefulWidget {
   State<_Tab1> createState() => _Tab1State();
 }
 
+enum Language { chinese, english }
+
 class _Tab1State extends State<_Tab1> {
   List<bool> checked = [true, false];
+
+  Language? languageRadio = Language.english;
+  List<Language> languageRadioList = [Language.chinese, Language.english];
+
   //註冊頁表單
   final FormGroup form = FormGroup({
     'birthday':
@@ -101,6 +109,13 @@ class _Tab1State extends State<_Tab1> {
   void radioHandler(SingingCharacter? value) {
     setState(() {
       _character = value;
+    });
+  }
+
+  void languageRadioHandler(Language? value) {
+    print(value);
+    setState(() {
+      languageRadio = value;
     });
   }
 
@@ -116,378 +131,510 @@ class _Tab1State extends State<_Tab1> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        child: Column(children: [
-          DemoCustomTitle(
-            title: 'Text',
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
             children: [
-              Text('titleLarge', style: Theme.of(context).textTheme.titleLarge),
-              Text('titleMedium',
-                  style: Theme.of(context).textTheme.titleMedium),
-              Text('titleSmall', style: Theme.of(context).textTheme.titleSmall),
-              RichText(
-                  text: TextSpan(
-                      text: 'google',
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 18,
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline))),
-            ],
-          ),
-          DemoCustomTitle(title: 'Button'),
-          Column(
-            children: [
-              Row(
+              DemoCustomTitle(
+                title: 'Text',
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextButton(
-                    child: const Text('Text Button'),
-                    onPressed: () {},
-                  ),
-                  TextButton(
-                    onPressed: null,
-                    child: const Text('Text Button disabled'),
-                  ),
+                  Text('titleLarge',
+                      style: Theme.of(context).textTheme.titleLarge),
+                  Text('titleMedium',
+                      style: Theme.of(context).textTheme.titleMedium),
+                  Text('titleSmall',
+                      style: Theme.of(context).textTheme.titleSmall),
+                  RichText(
+                      text: TextSpan(
+                          text: 'google',
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 18,
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline))),
                 ],
               ),
-              Row(
+              DemoCustomTitle(title: 'Button'),
+              Column(
                 children: [
-                  OutlinedButton(
-                    child: const Text('Outlined Button'),
-                    onPressed: () {},
-                  ),
-                  OutlinedButton(
-                    onPressed: null,
-                    child: const Text('Outlined Button disabled'),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  ElevatedButton(
-                    child: const Text('Elevated Button'),
-                    onPressed: () {},
-                  ),
-                  ElevatedButton(
-                    onPressed: null,
-                    child: const Text('disabled'),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.email),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ],
-          ),
-          DemoCustomTitle(
-            title: 'avatar 大頭貼',
-          ),
-          Row(
-            children: const [
-              CircleAvatar(
-                foregroundImage: NetworkImage(
-                    "https://cdn2.ettoday.net/images/3353/3353619.jpg"),
-                maxRadius: 30,
-                minRadius: 30,
-              )
-            ],
-          ),
-          DemoCustomTitle(
-            title: 'Checkbox',
-          ),
-          Row(
-            children: [
-              for (var i = 0; i < 2; i++)
-                Row(
-                  children: [
-                    Checkbox(
-                        onChanged: (value) => checkHandler(value, i),
-                        tristate: i == 1,
-                        value: checked[i],
-                        checkColor: Colors.white,
-                        shape:
-                            RoundedRectangleBorder(), //RoundedRectangleBorder, CircleBorder
-                        activeColor: Theme.of(context).primaryColor),
-                    GestureDetector(
-                      child: Text('Checkbox ${i + 1}',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor)),
-                      onTap: () {
-                        checkHandler(!checked[i], i);
-                      },
-                    )
-                  ],
-                ),
-              Checkbox(
-                  onChanged: null,
-                  value: false,
-                  checkColor: Colors.white,
-                  shape:
-                      RoundedRectangleBorder(), //RoundedRectangleBorder, CircleBorder
-                  activeColor: Theme.of(context).primaryColor),
-              Text('disabled',
-                  style: TextStyle(color: Theme.of(context).primaryColor)),
-            ],
-          ),
-          DemoCustomTitle(
-            title: 'Radio',
-          ),
-          Row(children: <Widget>[
-            Radio<SingingCharacter>(
-              value: SingingCharacter.Richard,
-              groupValue: _character,
-              onChanged: radioHandler,
-            ),
-            GestureDetector(
-              child: Text('Richard'),
-              onTap: () {
-                radioHandler(SingingCharacter.Richard);
-              },
-            ),
-            Radio<SingingCharacter>(
-              value: SingingCharacter.Angel,
-              groupValue: _character,
-              onChanged: radioHandler,
-            ),
-            GestureDetector(
-              child: Text('Angel'),
-              onTap: () {
-                radioHandler(SingingCharacter.Angel);
-              },
-            ),
-          ]),
-          DemoCustomTitle(
-            title: 'Text fields',
-          ),
-          Column(
-            children: [
-              TextFormField(
-                initialValue: '',
-                decoration: InputDecoration(
-                  labelText: '帳號',
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                initialValue: '123',
-                decoration: InputDecoration(
-                  labelText: '密碼',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                enabled: false,
-                initialValue: '',
-                decoration: InputDecoration(
-                  labelText: 'input disabled',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomDatepicker(
-                  formControl: form.controls['birthday'],
-                  hintText: '請輸入西元年月日(例如：1990/01/01)',
-
-                  ///迄日
-                  firstDate: DateTime(DateTime.now().year - 100,
-                      DateTime.now().month, DateTime.now().day - 1),
-
-                  ///起日
-                  lastDate: DateTime(DateTime.now().year - 18,
-                      DateTime.now().month, DateTime.now().day - 1)),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.send),
-                  hintText: 'Hint Text',
-                  helperText: 'Helper Text',
-                  counterText: '0 characters',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    border: Border.all(),
-                    // color: Colors.grey.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(4)),
-                child: Row(
-                  children: const [
-                    SizedBox(width: 20),
-                    Icon(Icons.search),
-                    Expanded(
-                      child: TextField(
-                        textAlignVertical: TextAlignVertical.top,
-                        decoration: InputDecoration(
-                          isCollapsed: true,
-                          isDense: true,
-                          focusedBorder:
-                              OutlineInputBorder(borderSide: BorderSide.none),
-                          enabledBorder:
-                              UnderlineInputBorder(borderSide: BorderSide.none),
-                          hintText: '搜尋商品名稱',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          DemoCustomTitle(title: 'Chip 熱門搜尋的標籤'),
-          Row(
-            children: [
-              InputChip(
-                label: Text('綜藝大熱門'),
-                onSelected: (bool value) {
-                  // print(value);
-                },
-              ),
-              InputChip(
-                label: Text('綜藝玩很大'),
-                onSelected: (bool value) {},
-              ),
-              InputChip(
-                label: Text('峮峮'),
-                onDeleted: () {},
-              )
-            ],
-          ),
-          Row(
-            children: const [
-              ChoiceChip(
-                label: Text('花花'),
-                selected: true,
-              ),
-              ChoiceChip(
-                label: Text('Choice Chip'),
-                selected: false,
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              FilterChip(
-                label: Text('Filter Chip'),
-                selected: true,
-                onSelected: (bool value) {},
-              ),
-              FilterChip(
-                label: Text('Filter Chip'),
-                onSelected: (bool value) {},
-              ),
-            ],
-          ),
-          DemoCustomTitle(title: 'Alert Dialog'),
-          Row(
-            children: [
-              TextButton(
-                  onPressed: () {
-                    showDialog<void>(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('Reset settings?'),
-                              content: Text(
-                                  'This will reset your device to its default factory settings.'),
-                              actions: [
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('CANCEL'),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('ACCEPT'),
-                                ),
-                              ],
-                            ));
-                  },
-                  child: Text('Alert Dialog'))
-            ],
-          ),
-          DemoCustomTitle(title: 'Alert Dialog'),
-          ElevatedButton(
-            child: const Text('BottomSheet'),
-            onPressed: () {
-              showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return Stack(
+                  Row(
                     children: [
-                      Positioned(
-                          top: 10,
-                          left: MediaQuery.of(context).size.width / 2 - 15,
-                          child: Container(
-                            width: 30,
-                            height: 2,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade600,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                          )),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 200,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text('語言',
-                                style: Theme.of(context).textTheme.bodyLarge),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            Text('請選擇你要使用的語言',
-                                style: Theme.of(context).textTheme.bodySmall),
-                            SizedBox(
-                              height: 6,
-                            ),
-                            Divider(
-                              height: 1,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            ElevatedButton(
-                              child: const Text('儲存'),
-                              onPressed: () {
-                                // Navigator.pop(context)
-                              },
-                            ),
-                          ],
-                        ),
-                      )
+                      TextButton(
+                        child: const Text('Text Button'),
+                        onPressed: () {},
+                      ),
+                      TextButton(
+                        onPressed: null,
+                        child: const Text('Text Button disabled'),
+                      ),
                     ],
+                  ),
+                  Row(
+                    children: [
+                      OutlinedButton(
+                        child: const Text('Outlined Button'),
+                        onPressed: () {},
+                      ),
+                      OutlinedButton(
+                        onPressed: null,
+                        child: const Text('Outlined Button disabled'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        child: const Text('Elevated Button'),
+                        onPressed: () {},
+                      ),
+                      ElevatedButton(
+                        onPressed: null,
+                        child: const Text('disabled'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.email),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              DemoCustomTitle(
+                title: 'avatar 大頭貼',
+              ),
+              Row(
+                children: const [
+                  CircleAvatar(
+                    foregroundImage: NetworkImage(
+                        "https://cdn2.ettoday.net/images/3353/3353619.jpg"),
+                    maxRadius: 30,
+                    minRadius: 30,
+                  )
+                ],
+              ),
+              DemoCustomTitle(
+                title: 'Checkbox',
+              ),
+              Row(
+                children: [
+                  for (var i = 0; i < 2; i++)
+                    Row(
+                      children: [
+                        Checkbox(
+                            onChanged: (value) => checkHandler(value, i),
+                            tristate: i == 1,
+                            value: checked[i],
+                            checkColor: Colors.white,
+                            shape:
+                                RoundedRectangleBorder(), //RoundedRectangleBorder, CircleBorder
+                            activeColor: Theme.of(context).primaryColor),
+                        GestureDetector(
+                          child: Text('Checkbox ${i + 1}',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor)),
+                          onTap: () {
+                            checkHandler(!checked[i], i);
+                          },
+                        )
+                      ],
+                    ),
+                  Checkbox(
+                      onChanged: null,
+                      value: false,
+                      checkColor: Colors.white,
+                      shape:
+                          RoundedRectangleBorder(), //RoundedRectangleBorder, CircleBorder
+                      activeColor: Theme.of(context).primaryColor),
+                  Text('disabled',
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
+                ],
+              ),
+              DemoCustomTitle(
+                title: 'Radio',
+              ),
+              Row(children: <Widget>[
+                Radio<SingingCharacter>(
+                  value: SingingCharacter.Richard,
+                  groupValue: _character,
+                  onChanged: radioHandler,
+                ),
+                GestureDetector(
+                  child: Text('Richard'),
+                  onTap: () {
+                    radioHandler(SingingCharacter.Richard);
+                  },
+                ),
+                Radio<SingingCharacter>(
+                  value: SingingCharacter.Angel,
+                  groupValue: _character,
+                  onChanged: radioHandler,
+                ),
+                GestureDetector(
+                  child: Text('Angel'),
+                  onTap: () {
+                    radioHandler(SingingCharacter.Angel);
+                  },
+                ),
+              ]),
+              DemoCustomTitle(
+                title: 'Text fields',
+              ),
+              Column(
+                children: [
+                  DemoCustomSubTitle(title: 'underline'),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: '帳號',
+                    ),
+                  ),
+                  DemoCustomSubTitle(title: 'outlined'),
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        labelText: '密碼',
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.visibility_off)),
+                  ),
+                  DemoCustomSubTitle(title: 'disabled'),
+                  TextField(
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'input disabled',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  DemoCustomSubTitle(title: 'date picker'),
+                  CustomDatepicker(
+                      formControl: form.controls['birthday'],
+                      hintText: '請輸入西元年月日(例如：1990/01/01)',
+
+                      ///迄日
+                      firstDate: DateTime(DateTime.now().year - 100,
+                          DateTime.now().month, DateTime.now().day - 1),
+
+                      ///起日
+                      lastDate: DateTime(DateTime.now().year - 18,
+                          DateTime.now().month, DateTime.now().day - 1)),
+                  DemoCustomSubTitle(title: 'hint'),
+                  TextField(
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.send),
+                      hintText: 'Hint Text',
+                      helperText: 'Helper Text',
+                      counterText: '0 characters',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    textAlignVertical: TextAlignVertical.top,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      // isCollapsed: true,
+                      // isDense: true,
+                      border: OutlineInputBorder(),
+                      hintText: '搜尋商品名稱',
+                    ),
+                  ),
+                  DemoCustomSubTitle(title: '搜尋'),
+                  TextField(
+
+                      ///鍵盤類型
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        //背景色參數 filled、fillColor
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        prefixIcon: Icon(Icons.search),
+                        prefixStyle: TextStyle(color: Colors.red),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade100,
+                            )),
+                        //高度
+                        contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                        hintText: '搜尋商品名稱',
+                      )),
+                ],
+              ),
+              DemoCustomTitle(title: 'Chip 熱門搜尋的標籤'),
+              Row(
+                children: [
+                  InputChip(
+                    label: Text('綜藝大熱門'),
+                    onSelected: (bool value) {
+                      // print(value);
+                    },
+                  ),
+                  InputChip(
+                    label: Text('綜藝玩很大'),
+                    onSelected: (bool value) {},
+                  ),
+                  InputChip(
+                    label: Text('峮峮'),
+                    onDeleted: () {},
+                  )
+                ],
+              ),
+              Row(
+                children: const [
+                  ChoiceChip(
+                    label: Text('花花'),
+                    selected: true,
+                  ),
+                  ChoiceChip(
+                    label: Text('Choice Chip'),
+                    selected: false,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  FilterChip(
+                    label: Text('Filter Chip'),
+                    selected: true,
+                    onSelected: (bool value) {},
+                  ),
+                  FilterChip(
+                    label: Text('Filter Chip'),
+                    onSelected: (bool value) {},
+                  ),
+                ],
+              ),
+              DemoCustomTitle(title: 'Alert Dialog'),
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        showDialog<void>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Text('Reset settings?'),
+                                  content: Text(
+                                      'This will reset your device to its default factory settings.'),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text('CANCEL'),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text('ACCEPT'),
+                                    ),
+                                  ],
+                                ));
+                      },
+                      child: Text('Alert Dialog'))
+                ],
+              ),
+              DemoCustomTitle(title: 'Bottom Sheet'),
+              ElevatedButton(
+                child: const Text('BottomSheet'),
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    enableDrag: true,
+                    //點框框外是否可以關閉 modal
+                    isDismissible: true,
+                    isScrollControlled: true,
+                    constraints: BoxConstraints.tight(Size(
+                        MediaQuery.of(context).size.width,
+                        MediaQuery.of(context).size.height * .6)),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Stack(
+                        children: [
+                          Positioned(
+                              top: 10,
+                              left: MediaQuery.of(context).size.width / 2 - 15,
+                              child: Container(
+                                width: 30,
+                                height: 2,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.shade600,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text('語言',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(fontWeight: FontWeight.bold)),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text('請選擇你要使用的語言',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Divider(
+                                  height: 1,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                ConstrainedBox(
+                                  constraints: BoxConstraints(maxHeight: 400),
+                                  child: SingleChildScrollView(
+                                    child: Column(children: [
+                                      Column(
+                                        children: [
+                                          Image.network(
+                                            "https://cdn2.ettoday.net/images/3353/3353619.jpg",
+                                            width: 160,
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          for (int i = 0; i < 2; i++)
+                                            Column(
+                                              children: [
+                                                ListTile(
+                                                    onTap: () =>
+                                                        languageRadioHandler(
+                                                            languageRadioList[
+                                                                i]),
+                                                    title: Column(
+                                                      children: [
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                  languageRadioList[
+                                                                              i] ==
+                                                                          Language
+                                                                              .chinese
+                                                                      ? '中文'
+                                                                      : '英文',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: languageRadioList[i] ==
+                                                                            languageRadio
+                                                                        ? Theme.of(context)
+                                                                            .primaryColor
+                                                                        : Colors
+                                                                            .black,
+                                                                  )),
+                                                              if (languageRadioList[
+                                                                      i] ==
+                                                                  languageRadio)
+                                                                Icon(
+                                                                  Icons.check,
+                                                                  color: languageRadioList[
+                                                                              i] ==
+                                                                          languageRadio
+                                                                      ? Theme.of(
+                                                                              context)
+                                                                          .primaryColor
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                            ])
+                                                      ],
+                                                    )),
+                                                Divider(),
+                                              ],
+                                            ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 20,
+                                            ),
+                                            child: Text(
+                                              '有些服務在英文應用程序中不可用，要獲得完整服務，請將您的語言偏好設置為中文',
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade400),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      ElevatedButton(
+                                        child: const Text('儲存'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      )
+                                    ]),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    },
                   );
                 },
-              );
-            },
-          ),
-        ]),
-      ),
+              ),
+              DemoCustomTitle(title: 'ListRadio'),
+              Column(children: [
+                for (int i = 0; i < 2; i++)
+                  Column(
+                    children: [
+                      ListTile(
+                          onTap: () =>
+                              languageRadioHandler(languageRadioList[i]),
+                          title: Column(
+                            children: [
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        languageRadioList[i] == Language.chinese
+                                            ? '中文'
+                                            : '英文',
+                                        style: TextStyle(
+                                          color: languageRadioList[i] ==
+                                                  languageRadio
+                                              ? Theme.of(context).primaryColor
+                                              : Colors.black,
+                                        )),
+                                    if (languageRadioList[i] == languageRadio)
+                                      Icon(
+                                        Icons.check,
+                                        color: languageRadioList[i] ==
+                                                languageRadio
+                                            ? Theme.of(context).primaryColor
+                                            : Colors.black,
+                                      ),
+                                  ])
+                            ],
+                          )),
+                      Divider()
+                    ],
+                  )
+              ]),
+            ],
+          )),
     );
   }
 }
