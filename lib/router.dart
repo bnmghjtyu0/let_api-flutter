@@ -16,11 +16,11 @@ import 'package:let_api_flutter/src/ui/screens/account/account_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/cart/cart_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/history/history_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/login/login_screen.dart';
-import 'package:let_api_flutter/src/ui/screens/marine_demo/marine_map_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/popular_detail/popular_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/recommend_detail/recommend_detail.dart';
 import 'package:let_api_flutter/src/ui/screens/register/register_screen.dart';
 import 'package:let_api_flutter/src/ui/screens/search/search_screen.dart';
+import 'package:let_api_flutter/src/ui/screens/widget_demo/widget_demo_screen.dart';
 
 ///各個畫面的路徑連結
 class ScreenPaths {
@@ -103,7 +103,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     StatefulShellBranch(
                       navigatorKey: _homeNavigatorKey,
                       routes: [
-                        AppRoute('/home', (state) => MarineMap()),
+                        AppRoute('/home', (state) => WidgetDemoScreen()),
                       ],
                     ),
                     //bottomNavigationBar 的路由 index=1 搜尋頁面
