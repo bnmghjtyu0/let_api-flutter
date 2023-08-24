@@ -1,7 +1,11 @@
 {
-  "security.workspace.trust.enabled": false,
   "dart.lineLength": 80, //程式碼最大長度 120
-
+  // ui 引導線
+  "dart.previewFlutterUiGuides": true,
+  "dart.previewFlutterUiGuidesCustomTracking": true,
+  // "dart.flutterHotReloadOnSave": "allIfDirty",
+  // "dart.debugExternalPackageLibraries": false,
+  // "dart.debugSdkLibraries": false,
   "[dart]": {
     "editor.codeActionsOnSave": {
       "source.fixAll": true,
