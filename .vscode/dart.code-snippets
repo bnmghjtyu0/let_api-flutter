@@ -526,6 +526,92 @@
     ],
     "description": "Flutter ElevatedButton snippet"
   },
+  "sliver snippet": {
+    "prefix": "sliver",
+    "body": [
+      "CustomScrollView(",
+      "      slivers: [",
+      "        SliverAppBar(",
+      "          // 使用 SliverAppBar",
+      "          title: const Text(",
+      "            \"Here's a title.\",",
+      "            style: TextStyle(color: Colors.white),",
+      "          ),",
+      "          backgroundColor: Theme.of(context).colorScheme.primary,",
+      "          //pinned: (true: 固定不動, false: 浮動)",
+      "          pinned: false,",
+      "          //往下滑顯示 appBar (配合 pinned 使用)",
+      "          floating: true,",
+      "          //expandedHeight: 展開時的高度",
+      "          expandedHeight: 60.0,",
+      "        ),",
+      "         $1",
+      "      ],",
+      "    );"
+    ],
+    "description": "Flutter ElevatedButton snippet"
+  },
+  "sliver list": {
+    "prefix": "sliverlist",
+    "body": [
+      "SliverList(",
+      "                delegate: SliverChildListDelegate(",
+      "              [",
+      "                for (int i = 0; i < 16; i++)",
+      "                  Column(",
+      "                    children: [",
+      "                      ListTile(",
+      "                        leading: CircleAvatar(child: Text('A')),",
+      "                        title: Text(i.toString()),",
+      "                        subtitle: Text('Supporting text'),",
+      "                        trailing: Icon(Icons.favorite_rounded),",
+      "                      ),",
+      "                      Divider(height: 0)",
+      "                    ],",
+      "                  )",
+      "              ],",
+      "            ))"
+    ],
+    "description": "Flutter Sliver Grid snippet"
+  },
+  "sliver grid": {
+    "prefix": "slivergrid",
+    "body": [
+      "SliverGrid(",
+      "              // 每行 grid 數量",
+      "              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(",
+      "                  //水平間距",
+      "                  crossAxisSpacing: 20,",
+      "                  //垂直間距",
+      "                  mainAxisSpacing: 20,",
+      "                  //每行數量",
+      "                  crossAxisCount: 3,",
+      "                  //高度",
+      "                  mainAxisExtent: 60.0),",
+      "              delegate: SliverChildBuilderDelegate((context, index) {",
+      "                // 延遲載入",
+      "                return Container(",
+      "                    color: Color.fromARGB(",
+      "                        255, 50 * index, 50 * index, 50 * index));",
+      "              }, childCount: 4),",
+      "            )"
+    ],
+    "description": "Flutter Sliver Grid snippet"
+  },
+  "sliver padding": {
+    "prefix": "sliverpadding",
+    "body": [
+      "        SliverPadding(",
+      "            padding: EdgeInsets.only(",
+      "              top: 20,",
+      "              left: 20,",
+      "              right: 20,",
+      "              bottom: 20,",
+      "            ),",
+      "            sliver: $1 ),"
+    ],
+    "description": "Flutter Sliver Grid snippet"
+  },
   "hr snippet": {
     "prefix": "hr",
     "body": ["Divider(height: 0)"],
