@@ -47,42 +47,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD4AxLyHQHM5qSuMaIX_F8ATMX4rnoFAYU',
-    appId: '1:1025745275939:web:24465d098734de6751b596',
-    messagingSenderId: '1025745275939',
-    projectId: 'let-api-flutter',
-    authDomain: 'let-api-flutter.firebaseapp.com',
-    storageBucket: 'let-api-flutter.appspot.com',
-    measurementId: 'G-FDPZL8D0Q5',
+    apiKey: 'AIzaSyDSI2u293YCXkx_0Hs0Wq10LAq-D9DvujQ',
+    appId: '1:1031695953581:web:52107e7c43b38dee856024',
+    messagingSenderId: '1031695953581',
+    projectId: 'musiclight-3be05',
+    authDomain: 'musiclight-3be05.firebaseapp.com',
+    storageBucket: 'musiclight-3be05.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAg6-0UReB9E-C5bnLGAwDE7Ks75v--KbU',
-    appId: '1:1025745275939:android:5f961f825f907ace51b596',
-    messagingSenderId: '1025745275939',
-    projectId: 'let-api-flutter',
-    storageBucket: 'let-api-flutter.appspot.com',
+    apiKey: 'AIzaSyCJISzSBe63BCNDQFggt2kksIK56N20PwY',
+    appId: '1:1031695953581:android:8bc75006647c4904856024',
+    messagingSenderId: '1031695953581',
+    projectId: 'musiclight-3be05',
+    storageBucket: 'musiclight-3be05.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDrrzipodY7G9vw0Je6gsAFoHVsE1NtjFc',
-    appId: '1:1025745275939:ios:af5d16dd01bfb31f51b596',
-    messagingSenderId: '1025745275939',
-    projectId: 'let-api-flutter',
-    storageBucket: 'let-api-flutter.appspot.com',
-    iosClientId:
-        '1025745275939-6pf1of6itrk0k69s0pneu2a9jovral21.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBzh0QRfySx-1R14nZrt8MSZigDMB--VE8',
+    appId: '1:1031695953581:ios:9d816906357c1f4a856024',
+    messagingSenderId: '1031695953581',
+    projectId: 'musiclight-3be05',
+    storageBucket: 'musiclight-3be05.appspot.com',
     iosBundleId: 'com.example.letApiFlutter',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDrrzipodY7G9vw0Je6gsAFoHVsE1NtjFc',
-    appId: '1:1025745275939:ios:9737106ac85f7fce51b596',
-    messagingSenderId: '1025745275939',
-    projectId: 'let-api-flutter',
-    storageBucket: 'let-api-flutter.appspot.com',
-    iosClientId:
-        '1025745275939-aaulat3e2av7qmhaepe3ehc3mvgp086s.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBzh0QRfySx-1R14nZrt8MSZigDMB--VE8',
+    appId: '1:1031695953581:ios:84840c6c3a28e403856024',
+    messagingSenderId: '1031695953581',
+    projectId: 'musiclight-3be05',
+    storageBucket: 'musiclight-3be05.appspot.com',
     iosBundleId: 'com.example.letApiFlutter.RunnerTests',
   );
 }

@@ -17,3 +17,26 @@ scripts:
     -c android.intent.category.BROWSABLE \
     -d "http://dwirandyh.medium.com/popularDetail/0?pageId=1" \
     com.example.let_api_flutter
+  # Steped command (slidy run cleanup)
+  cleanup:
+    description: "cleanup project"
+    steps:
+      - name: "Clean"
+        run: flutter clean
+
+      - name: "GetPackages"
+        description: "Get packages"
+        run: flutter pub get
+
+      - name: "PodClean"
+        description: "Execute pod clean"
+        shell: bash # default: command. options (command|bash|sh|zsh|pwsh)
+        condition: "${System.operatingSystem} == macos"
+        working-directory: ios
+        run: |-
+          rm Podfile.lock
+          pod deintegrate
+          pod update
+          pod install
+
+      - run: echo ${Local.var.customMessage}

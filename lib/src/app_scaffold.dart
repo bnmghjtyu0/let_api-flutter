@@ -1,4 +1,8 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:let_api_flutter/src/core/utils/check_app_version.dart';
 import 'package:let_api_flutter/src/styles/style.dart';
 import 'package:let_api_flutter/src/widgets/app_scroll_behavior.dart';
 
@@ -15,6 +19,8 @@ class AppScaffold extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     // appLogic.handleAppSizeChanged();
     AppStyle(screenSize: size);
+
+    checkAppVersion();
 
     return ScrollConfiguration(
       behavior: AppScrollBehavior(),

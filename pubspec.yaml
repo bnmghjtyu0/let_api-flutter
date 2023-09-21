@@ -62,7 +62,10 @@ dependencies:
   #firebase
   firebase_core: ^2.15.0
   firebase_messaging: ^14.6.5 #推播
-  firebase_crashlytics: ^3.3.3 #app realtime crash reporter
+  firebase_crashlytics: ^3.3.3 #App 崩潰報告
+  firebase_remote_config: ^4.2.6
+  firebase_analytics: ^10.5.0
+  #其他
   logger: ^2.0.1
   flutter_svg: ^2.0.7
   fixnum: ^1.1.0
@@ -71,7 +74,11 @@ dependencies:
   flutter_map: ^5.0.0
   latlong2: ^0.9.0
   flutter_map_marker_popup: ^5.2.0
-  
+
+  #app 版本管理
+  package_info_plus: ^4.1.0
+  version: ^3.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
