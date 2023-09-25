@@ -3,7 +3,6 @@
 // Package imports:
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:go_router/go_router.dart';
-
 // Project imports:
 import 'package:let_api_flutter/common_libs.dart';
 import 'package:let_api_flutter/router.dart';
